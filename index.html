@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blue Seat Studios — Training That Sticks</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:      #096f9c;
+      --blue-dk:   #065578;
+      --blue-lt:   #d6edf7;
+      --orange:    #f97c53;
+      --orange-dk: #e05e35;
+      --cream:     #faf8f5;
+      --white:     #ffffff;
+      --navy:      #0a2233;
+      --text:      #1c2b36;
+      --muted:     #5a7282;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Quicksand', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 3rem;
+      background: rgba(9,111,156,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-logo img { height: 60px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta { background: var(--orange) !important; color: #fff !important; padding: 0.5rem 1.4rem; border-radius: 50px; font-weight: 700 !important; transition: background 0.2s, transform 0.15s !important; }
+    .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; height: 100vh; min-height: 600px;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; background: var(--navy);
+    }
+    .hero-video-wrap { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .vimeo-sizer {
+      position: absolute; top: 50%; left: 50%;
+      width: 100vw; height: 56.25vw; min-height: 100vh; min-width: 177.78vh;
+      transform: translate(-50%,-50%); pointer-events: none;
+    }
+    .vimeo-sizer iframe { position: absolute; top:0; left:0; width:100%; height:100%; border:0; }
+    .hero-frosted-bar {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 45%; z-index: 1;
+      background: linear-gradient(to top, rgba(255,255,255,0.25) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0) 100%);
+    }
+    .hero-content-bg {
+      position: absolute; bottom: 0; left: 0; right: 0; height: 55%; z-index: 2;
+      background: linear-gradient(to top, rgba(6,18,30,0.9) 0%, rgba(6,18,30,0.5) 50%, rgba(6,18,30,0) 100%);
+    }
+    .hero-content {
+      position: absolute; z-index: 3; bottom: 0; left: 0; right: 0;
+      padding: 2.8rem 4rem;
+      display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem;
+      animation: fadeUp 0.9s ease both;
+    }
+    @keyframes fadeUp { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+      color: rgba(255,255,255,0.8); margin-bottom: 0.55rem;
+    }
+    .hero h1 { font-size: clamp(2rem,3.2vw,3rem); font-weight: 700; line-height: 1.1; color: #fff; letter-spacing: -0.01em; margin-bottom: 0.55rem; }
+    .hero h1 em { font-style: normal; color: var(--orange); }
+    .hero-sub { font-size: 1rem; color: rgba(255,255,255,0.85); line-height: 1.55; font-weight: 500; }
+    .hero-text { flex: 1; min-width: 0; }
+    .hero-actions { display: flex; flex-direction: column; gap: 0.75rem; align-items: stretch; flex-shrink: 0; min-width: 210px; }
+
+    .btn-orange {
+      background: var(--orange); color: #fff; padding: 0.85rem 2rem; border-radius: 50px;
+      font-weight: 700; font-size: 1rem; font-family: 'Quicksand', sans-serif; text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 4px 20px rgba(249,124,83,0.4);
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem; text-align: center;
+    }
+    .btn-orange:hover { background: var(--orange-dk); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(249,124,83,0.45); }
+    .btn-ghost {
+      background: rgba(255,255,255,0.12); color: #fff; padding: 0.85rem 2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; font-family: 'Quicksand', sans-serif; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.4); transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; justify-content: center; text-align: center;
+    }
+    .btn-ghost:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+
+    .mute-btn {
+      position: absolute; top: 5.2rem; right: 1.5rem; z-index: 10;
+      background: rgba(0,0,0,0.4); border: 1.5px solid rgba(255,255,255,0.25); color: #fff;
+      border-radius: 50%; width: 36px; height: 36px; padding: 0;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: background 0.2s; backdrop-filter: blur(6px);
+    }
+    .mute-btn svg { width: 16px; height: 16px; flex-shrink: 0; }
+    .mute-btn:hover { background: rgba(9,111,156,0.7); }
+
+    /* ── SHARED ── */
+    .section-label { font-size: 0.88rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.7rem; }
+    .section-title { font-size: clamp(1.65rem,2.6vw,2.3rem); font-weight: 700; line-height: 1.2; color: var(--navy); margin-bottom: 1rem; }
+    .section-body { font-size: 1rem; color: var(--muted); line-height: 1.75; font-weight: 500; }
+
+    /* ── 2. SOCIAL PROOF ── */
+    .proof-wrap { background: var(--cream); padding: 4rem 3rem; border-bottom: 1px solid rgba(9,111,156,0.07); }
+    .proof-inner { max-width: 1100px; margin: 0 auto; }
+
+    /* ── STAT BAR ── */
+    .stat-bar { background: var(--blue); padding: 1.8rem 3rem; }
+    .stat-bar-inner { max-width: 1100px; margin: 0 auto; display: flex; gap: 0; align-items: center; justify-content: center; }
+    .stat-item { display: flex; flex-direction: column; align-items: center; padding: 0 3rem; }
+    .stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.2); flex-shrink: 0; }
+    .stat-num { font-size: 2rem; font-weight: 700; color: #fff; line-height: 1; }
+    .stat-desc { font-size: 0.84rem; color: rgba(255,255,255,0.7); font-weight: 500; margin-top: 0.25rem; }
+
+    /* ── 2. SOCIAL PROOF ── */
+    .proof-wrap { background: var(--white); padding: 3.5rem 3rem; border-bottom: 1px solid rgba(9,111,156,0.07); }
+    .proof-inner { max-width: 1100px; margin: 0 auto; }
+    .proof-divider-line { height: 1px; background: rgba(9,111,156,0.1); margin-bottom: 2rem; }
+    .logo-row { display: flex; gap: 2rem; align-items: center; justify-content: space-between; flex-wrap: wrap; }
+    .logo-row img {
+      height: 52px; width: auto; max-width: 160px; object-fit: contain;
+      opacity: 0.75; filter: grayscale(100%) contrast(1.8);
+    }
+
+    /* ── TICKER TAPE ── */
+    .ticker-wrap { background: var(--orange); overflow: hidden; padding: 0.75rem 0; white-space: nowrap; }
+    .ticker-track { display: inline-flex; animation: ticker 40s linear infinite; }
+    .ticker-item { font-size: 0.82rem; font-weight: 700; color: #fff; padding: 0 2.5rem; letter-spacing: 0.06em; text-transform: uppercase; flex-shrink: 0; }
+    @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials-wrap { background: var(--white); padding: 5rem 0; border-top: 1px solid rgba(9,111,156,0.07); overflow: hidden; }
+    .testimonials-inner { max-width: 1100px; margin: 0 auto; padding: 0 3rem; }
+    .testimonials-track-wrap { overflow: hidden; margin-top: 0; }
+    .testimonials-track { display: flex; gap: 1.5rem; transition: transform 0.7s cubic-bezier(0.4,0,0.2,1); }
+    .testimonial-card {
+      background: var(--white); border-radius: 20px; padding: 2.4rem 2.2rem 2rem;
+      border: 1.5px solid rgba(9,111,156,0.1); flex: 0 0 calc(33.333% - 1rem);
+      min-width: 0;
+    }
+    .testimonial-body {
+      font-size: 0.95rem; color: var(--text); line-height: 1.7; font-weight: 500;
+      font-style: italic; margin-bottom: 1.5rem;
+    }
+    .testimonial-footer { display: flex; align-items: center; gap: 0.75rem; border-top: 1px solid rgba(9,111,156,0.08); padding-top: 1rem; }
+    .testimonial-avatar {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--blue-lt);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+    }
+    .testimonial-avatar svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; stroke-width: 2; }
+    .testimonial-attr { font-size: 0.82rem; color: var(--muted); font-weight: 600; line-height: 1.4; }
+
+    /* ── 3. WHY BLUE SEAT ── */
+    .approach-wrap { padding: 3.5rem 3rem; background: var(--blue-lt); }
+    .approach-inner { max-width: 1100px; margin: 0 auto; }
+    .approach-header { margin-bottom: 2rem; max-width: 100%; }
+    .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+
+    .feature-card {
+      background: rgba(255,255,255,0.6); border-radius: 10px; padding: 0 0 1.2rem;
+      border: 1px solid rgba(9,111,156,0.1); overflow: hidden;
+    }
+
+    .feature-img {
+      width: 100%; height: 130px; overflow: hidden; display: block; margin-bottom: 1rem;
+    }
+    .feature-img img {
+      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    }
+
+    .feature-body { padding: 0 1.2rem; }
+    .feature-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0; }
+
+    /* ── 4. COURSES ── */
+    .topics-wrap { background: var(--blue); padding: 5rem 3rem; }
+    .topics-inner { max-width: 1100px; margin: 0 auto; }
+    .topics-wrap .section-label { color: rgba(255,255,255,0.55); }
+    .topics-wrap .section-title { color: #fff; max-width: 100%; margin-bottom: 2.5rem; }
+    .topics-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.85rem; }
+    .topic-pill {
+      background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.18);
+      border-radius: 10px; padding: 1rem 1.2rem;
+      font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.9);
+      font-family: 'Quicksand', sans-serif;
+      display: flex; align-items: center; gap: 0.65rem;
+      cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    }
+    .topic-pill:hover { background: var(--orange); border-color: var(--orange); color: #fff; transform: translateY(-2px); }
+    .t-icon { width: 18px; height: 18px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+    .t-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    /* ── 5. AUDIENCES ── */
+    .audiences-wrap { padding: 5rem 3rem; background: var(--cream); }
+    .audiences-inner { max-width: 1100px; margin: 0 auto; }
+    .audiences-header { margin-bottom: 2.5rem; }
+    .audiences-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+
+    .audience-card {
+      background: var(--white); border-radius: 16px; padding: 2.2rem;
+      border: 1.5px solid rgba(9,111,156,0.1);
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      text-decoration: none; display: block; cursor: pointer;
+    }
+    .audience-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(9,111,156,0.1); border-color: var(--blue); }
+    .audience-card h3 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 1.2rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--orange); display: inline-block; }
+    .audience-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; }
+    .audience-list li { font-size: 0.92rem; color: var(--text); font-weight: 500; padding-left: 1.2rem; position: relative; line-height: 1.5; }
+    .audience-list li::before { content: '→'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
+    .coming-soon { font-style: normal; font-size: 0.72rem; font-weight: 700; color: var(--orange); background: rgba(249,124,83,0.1); border-radius: 4px; padding: 0.1rem 0.45rem; margin-left: 0.4rem; white-space: nowrap; }
+    .audience-link { display: inline-block; margin-top: 1.4rem; font-size: 0.88rem; font-weight: 700; color: var(--blue); text-decoration: none; transition: color 0.2s; }
+    .audience-link:hover { color: var(--orange); }
+
+    /* ── HOW IT WORKS BANNER ── */
+    .how-banner { background: var(--orange); padding: 1rem 3rem; }
+    .how-banner-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .how-banner-title { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.85); }
+    .how-banner-divider { color: rgba(255,255,255,0.4); font-size: 1.1rem; }
+    .how-banner-steps { font-size: 0.95rem; font-weight: 700; color: #fff; }
+    .how-banner-desc { font-size: 0.88rem; color: rgba(255,255,255,0.88); font-weight: 500; }
+
+    /* ── 6. HOW IT WORKS ── */
+    .how-wrap { padding: 6rem 3rem; background: var(--white); }
+    .how-inner { max-width: 1100px; margin: 0 auto; }
+    .how-inner .section-title { margin-bottom: 3rem; font-size: clamp(2rem, 3vw, 2.8rem); }
+    .steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .step { background: var(--cream); padding: 3rem 2.5rem; text-align: center; display: flex; flex-direction: column; align-items: center; border-radius: 16px; border: 2px solid transparent; transition: border-color 0.2s, box-shadow 0.2s; text-decoration: none; cursor: pointer; color: inherit; }
+    .step:hover { border-color: var(--blue); box-shadow: 0 8px 28px rgba(9,111,156,0.1); }
+    .step-num { width: 56px; height: 56px; border-radius: 50%; background: var(--orange); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.2rem; box-shadow: 0 4px 16px rgba(249,124,83,0.35); }
+    .step h3 { font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-bottom: 0.65rem; }
+    .step p { font-size: 1rem; color: var(--muted); line-height: 1.65; font-weight: 500; flex: 1; }
+    .step-cta { margin-top: 1.6rem; font-size: 1rem; font-weight: 700; color: var(--blue); text-decoration: none; transition: color 0.2s; }
+    .step-cta:hover { color: var(--orange); }
+
+    /* ── 7. GET STARTED ── */
+    .cta-wrap { background: var(--navy); padding: 6rem 3rem; }
+    .cta-inner { max-width: 680px; }
+    .cta-wrap .section-label { color: var(--orange); }
+    .cta-wrap .section-title { color: #fff; max-width: 100%; margin-bottom: 0.75rem; }
+    .cta-wrap .section-body { color: rgba(255,255,255,0.62); max-width: 100%; margin-bottom: 2rem; }
+    .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-outline-white {
+      background: transparent; color: #fff; padding: 0.85rem 2.2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; font-family: 'Quicksand', sans-serif; text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.35); transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .btn-outline-white:hover { border-color: #fff; background: rgba(255,255,255,0.08); transform: translateY(-2px); }
+    .btn-outline-blue {
+      background: transparent; color: var(--blue); padding: 0.85rem 2.2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; font-family: 'Quicksand', sans-serif; text-decoration: none;
+      border: 2px solid var(--blue); transition: border-color 0.2s, background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; justify-content: center;
+    }
+    .btn-outline-blue:hover { background: var(--blue-lt); transform: translateY(-2px); }
+    .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer { background: #060f17; color: rgba(255,255,255,0.38); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; font-weight: 500; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo img { height: 30px; width: auto; opacity: 0.72; }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.72); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .testimonials-grid { grid-template-columns: 1fr; }
+      .whatis-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .approach-grid { grid-template-columns: 1fr; }
+      .audiences-grid { grid-template-columns: 1fr 1fr; }
+      .topics-grid { grid-template-columns: 1fr 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      nav { padding: 0.9rem 1.5rem; }
+      .nav-links li:not(:last-child) { display: none; }
+      .hero-content { flex-direction: column; align-items: flex-start; padding: 1.5rem; }
+      .hero-actions { flex-direction: row; min-width: 0; width: 100%; }
+      .proof-top { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      .approach-grid, .audiences-grid, .topics-grid { grid-template-columns: 1fr; }
+      .hero-actions { flex-direction: column; }
+      .proof-stats { flex-wrap: wrap; gap: 1.5rem; }
+      .proof-wrap, .approach-wrap, .topics-wrap, .audiences-wrap, .how-wrap, .cta-wrap { padding: 3.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">
+    <a href="/"><img src="blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="catalog.html?audience=workplace">Workplace</a></li>
+    <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
+    <li><a href="catalog.html?audience=k12">K–12</a></li>
+    <li><a href="catalog.html">Catalog</a></li>
+    <li><a href="about-us.html">About</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+    <li><a href="demo.html" class="nav-cta">Watch a Demo</a></li>
+  </ul>
+</nav>
+
+<!-- ══ 1. HERO ══ -->
+<section class="hero">
+  <div class="hero-video-wrap">
+    <div class="vimeo-sizer">
+      <iframe id="hero-video"
+        src="https://player.vimeo.com/video/1152648266?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1"
+        frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+        referrerpolicy="strict-origin-when-cross-origin" title="Demo Reel 2026">
+      </iframe>
+    </div>
+  </div>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://player.vimeo.com/api/player.js"></script>
+  <script>
+    var player = new Vimeo.Player(document.getElementById('hero-video'));
+    var isMuted = true;
+    function toggleMute() {
+      var iconMuted = document.getElementById('icon-muted');
+      var iconSound = document.getElementById('icon-sound');
+      var label = document.getElementById('mute-label');
+      if (isMuted) {
+        player.setMuted(false); player.setVolume(1);
+        iconMuted.style.display='none'; iconSound.style.display='block';
+        label.textContent='Mute'; isMuted=false;
+      } else {
+        player.setMuted(true);
+        iconMuted.style.display='block'; iconSound.style.display='none';
+        label.textContent='Unmute'; isMuted=true;
+      }
+    }
+  </script>
+
+  <div class="hero-frosted-bar"></div>
+  <div class="hero-content-bg"></div>
+
+  <button class="mute-btn" onclick="toggleMute()" title="Toggle sound">
+    <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>
+    </svg>
+    <svg id="icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+    </svg>
+  </button>
+
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        150M+ views · Creators of Tea Consent
+      </div>
+      <h1>Training That <em>Sticks.</em></h1>
+      <p class="hero-sub">Content people remember when it matters.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="demo.html" class="btn-orange">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        Watch a Demo
+      </a>
+      <a href="request-a-quote.html" class="btn-ghost">Get Pricing</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TICKER TAPE ══ -->
+<div class="ticker-wrap">
+  <div class="ticker-track">
+    <span class="ticker-item">★ Short, memorable animated courses</span>
+    <span class="ticker-item">★ Built for safer, stronger cultures</span>
+    <span class="ticker-item">★ Covers compliance requirements</span>
+    <span class="ticker-item">★ Easy to launch and manage</span>
+    <span class="ticker-item">★ Short, memorable animated courses</span>
+    <span class="ticker-item">★ Built for safer, stronger cultures</span>
+    <span class="ticker-item">★ Covers compliance requirements</span>
+    <span class="ticker-item">★ Easy to launch and manage</span>
+  </div>
+</div>
+
+<!-- ══ STAT BAR ══ -->
+<div class="stat-bar">
+  <div class="stat-bar-inner">
+    <div class="stat-item">
+      <div class="stat-num">150M+</div>
+      <div class="stat-desc">views on Tea Consent</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">90+</div>
+      <div class="stat-desc">minutes of content</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">10+</div>
+      <div class="stat-desc">years of impact</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat-item">
+      <div class="stat-num">Fortune 500</div>
+      <div class="stat-desc">to local schools</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 2. SOCIAL PROOF ══ -->
+<div class="proof-wrap">
+  <div class="proof-inner">
+    <div class="section-label" style="margin-bottom:1.2rem;">Trusted by organizations worldwide</div>
+    <div class="logo-row">
+      <img src="cps-logo-2022_blue.jpg" alt="Chicago Public Schools" />
+      <img src="IOC_Logo.svg" alt="International Olympic Committee" />
+      <img src="jhu.png" alt="Johns Hopkins University" />
+      <img src="Flag-United-Nations-Logo.jpg" alt="United Nations" />
+      <img src="nhl.png" alt="NHL" />
+      <img src="snapchat.png" alt="Snapchat" />
+    </div>
+  </div>
+</div>
+
+<!-- ══ 3. WHY BLUE SEAT ══ -->
+<div class="approach-wrap">
+  <div class="approach-inner">
+    <div class="approach-header">
+      <div class="section-label">Blue Seat Studios</div>
+      <h2 class="section-title">Workplace, University and K-12 Courses</h2>
+      <p class="section-body">We make training genuinely engaging. With humor, craft, and a down-to-earth tone that makes even the toughest topics approachable.</p>
+    </div>
+    <div class="approach-grid">
+      <div class="feature-card">
+        <span class="feature-img"><img src="img_popcorn.png" alt="Award-Winning Animation" /></span>
+        <div class="feature-body"><h3>Award-Winning Animation</h3></div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-img"><img src="img_bystander.png" alt="Humor That Disarms" /></span>
+        <div class="feature-body"><h3>Humor That Disarms</h3></div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-img"><img src="img_person_to_person.png" alt="Compliant and Culture-Building" /></span>
+        <div class="feature-body"><h3>Compliant &amp; Culture-Building</h3></div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-img"><img src="img_megaphone.png" alt="Scales to Any Org" /></span>
+        <div class="feature-body"><h3>Scales to Any Org</h3></div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-img"><img src="img_ice_cream.png" alt="Customizable" /></span>
+        <div class="feature-body"><h3>Customizable</h3></div>
+      </div>
+      <div class="feature-card">
+        <span class="feature-img"><img src="img_fist_bump.png" alt="Ready to Deploy" /></span>
+        <div class="feature-body"><h3>Ready to Deploy</h3></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 5. AUDIENCES ══ -->
+<div class="audiences-wrap">
+  <div class="audiences-inner">
+    <div class="audiences-header">
+      <div class="section-label">Training Pathways</div>
+      <h2 class="section-title">Our Catalog</h2>
+    </div>
+    <div class="audiences-grid">
+      <a href="catalog.html?audience=workplace" class="audience-card">
+        <h3>Workplace</h3>
+        <ul class="audience-list">
+          <li>Sexual Harassment Prevention</li>
+          <li>Cybersecurity</li>
+          <li>Threat Assessment</li>
+          <li>HR Basics <em class="coming-soon">Launching July 2026</em></li>
+          <li>Emotional Regulation <em class="coming-soon">Launching July 2026</em></li>
+        </ul>
+        <span class="audience-link">View Workplace Courses →</span>
+      </a>
+      <a href="catalog.html?audience=highered" class="audience-card">
+        <h3>College</h3>
+        <ul class="audience-list">
+          <li>Consent &amp; Title IX</li>
+          <li>Threat Assessment</li>
+          <li>Cybersecurity</li>
+          <li>Active Bystander</li>
+          <li>Alcohol Awareness <em class="coming-soon">Launching July 2026</em></li>
+          <li>Emotional Regulation <em class="coming-soon">Launching July 2026</em></li>
+        </ul>
+        <span class="audience-link">View College Courses →</span>
+      </a>
+      <a href="catalog.html?audience=k12" class="audience-card">
+        <h3>K–12</h3>
+        <ul class="audience-list">
+          <li>Bias &amp; Fairness</li>
+          <li>Consent &amp; Bodily Autonomy</li>
+          <li>Active Bystander</li>
+          <li>Emotional Regulation <em class="coming-soon">Launching July 2026</em></li>
+        </ul>
+        <span class="audience-link">View K–12 Courses →</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ HOW IT WORKS BANNER ══ -->
+<div class="how-banner">
+  <div class="how-banner-inner">
+    <span class="how-banner-title">How It Works</span>
+    <span class="how-banner-divider">·</span>
+    <span class="how-banner-steps"><strong>Choose</strong> → <strong>Customize</strong> → <strong>Launch</strong></span>
+    <span class="how-banner-divider">·</span>
+    <span class="how-banner-desc">Pick your courses or full access, tailor as needed, and deploy on your LMS or ours.</span>
+  </div>
+</div>
+
+<!-- ══ 6. HOW IT WORKS ══ -->
+<div class="how-wrap">
+  <div class="how-inner">
+    <h2 class="section-title">Get Started</h2>
+    <div class="steps">
+      <a href="demo.html" class="step">
+        <div class="step-num"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h3>Watch a Demo</h3>
+        <p>See the tone, humor, and quality for yourself. Request a free demo and explore our full course catalog.</p>
+        <span class="step-cta">Watch Now →</span>
+      </a>
+      <a href="request-a-quote.html" class="step">
+        <div class="step-num"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h3>Get Pricing</h3>
+        <p>Flexible pricing for any org size — full catalog access or individual courses. We'll find what fits.</p>
+        <span class="step-cta">Get a Quote →</span>
+      </a>
+      <a href="https://calendly.com/rachelbrian" target="_blank" class="step">
+        <div class="step-num"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h3>Book a Call</h3>
+        <p>Prefer to talk it through? Schedule a quick call with our team — no pressure, no lengthy sales process.</p>
+        <span class="step-cta">Schedule Now →</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TESTIMONIALS HEADER BAR ══ -->
+<div style="background: var(--blue); padding: 1rem 3rem;">
+  <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
+    <span style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.9);">What People Are Saying...</span>
+  </div>
+</div>
+
+<!-- ══ TESTIMONIALS ══ -->
+<div class="testimonials-wrap">
+  <div class="testimonials-inner">
+    <div class="testimonials-track-wrap">
+      <div class="testimonials-track" id="testimonialsTrack">
+
+        <div class="testimonial-card">
+          <p class="testimonial-body">Our employees actually talked about this training at lunch. That has never happened before. The humor makes it land in a way that our previous vendor simply couldn't.</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="testimonial-attr">Chief People Officer<br>Regional Healthcare System</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-body">We've used Blue Seat Studios content for Title IX compliance for three years running. Students engage with it, and our staff trust it. It's the gold standard for what we do.</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="testimonial-attr">Title IX Coordinator<br>Large Public University</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-body">The K–6 consent content is thoughtful, age-appropriate, and exactly what our counselors needed. Parents have responded positively too — that's not easy to achieve.</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="testimonial-attr">Elementary School Principal<br>Urban School District</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-body">Rarely have I seen content that so efficiently captures the need for participation. It is always great to connect with people who share a passion for these issues.</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="testimonial-attr">Humanitarian Aid Consultant<br>International Organization</div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <p class="testimonial-body">Blue Seat content doesn't talk down to people. It treats them like adults and trusts them to do the right thing. That's exactly the tone our organization needed.</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <div class="testimonial-attr">Director of People Operations<br>National Nonprofit</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var track = document.getElementById('testimonialsTrack');
+  var cards = track.querySelectorAll('.testimonial-card');
+  var total = cards.length;
+  var current = 0;
+
+  function getCardWidth() {
+    return cards[0].offsetWidth + 24; // card width + gap (1.5rem = 24px)
+  }
+
+  function advance() {
+    current = (current + 1) % total;
+    track.style.transform = 'translateX(-' + (current * getCardWidth()) + 'px)';
+
+    // When we've scrolled past card index 1 (showing 2,3,4), loop back smoothly
+    if (current === total - 2) {
+      setTimeout(function() {
+        track.style.transition = 'none';
+        current = 0;
+        track.style.transform = 'translateX(0)';
+        setTimeout(function() {
+          track.style.transition = 'transform 0.7s cubic-bezier(0.4,0,0.2,1)';
+        }, 50);
+      }, 750);
+    }
+  }
+
+  setInterval(advance, 6000);
+})();
+</script>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">
+    <img src="blue_seat_logo_final.png" alt="Blue Seat Studios" />
+  </div>
+  <ul class="footer-links">
+    <li><a href="catalog.html?audience=workplace">Workplace</a></li>
+    <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
+    <li><a href="catalog.html?audience=k12">K–12</a></li>
+    <li><a href="#">Privacy<
