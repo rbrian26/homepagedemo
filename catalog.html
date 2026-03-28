@@ -750,11 +750,11 @@
   </div>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="#" class="active">Catalog</a></li>
-      <li><a href="#">Workplace</a></li>
-      <li><a href="#">Higher Ed</a></li>
-      <li><a href="#">K–12</a></li>
-      <li><a href="#">About</a></li>
+      <li><a href="catalog.html" class="active">Catalog</a></li>
+      <li><a href="catalog.html?audience=workplace">Workplace</a></li>
+      <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
+      <li><a href="catalog.html?audience=k12">K–12</a></li>
+      <li><a href="about-us.html">About</a></li>
       <li><a href="https://courses.blueseatstudios.com" class="nav-cta">Get a Demo</a></li>
     </ul>
   </div>
@@ -853,11 +853,11 @@
     <img src="blue_seat_logo_final.png" alt="Blue Seat Studios" />
   </div>
   <ul class="footer-links">
-    <li><a href="#">Workplace</a></li>
-    <li><a href="#">Higher Ed</a></li>
-    <li><a href="#">K–12</a></li>
+    <li><a href="catalog.html?audience=workplace">Workplace</a></li>
+    <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
+    <li><a href="catalog.html?audience=k12">K–12</a></li>
     <li><a href="#">Privacy</a></li>
-    <li><a href="https://www.blueseatstudios.com/contact">Contact</a></li>
+    <li><a href="contact.html">Contact</a></li>
   </ul>
   <div>© 2025 Blue Seat Studios. All rights reserved.</div>
 </footer>
@@ -1277,6 +1277,22 @@ window.addEventListener('scroll', () => {
 });
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const audience = params.get('audience');
+  if (audience && ['workplace','highered','k12'].includes(audience)) {
+    currentAudience = audience;
+    document.querySelectorAll('.filter-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.audience === audience);
+    });
+    // Scroll past hero to the filter bar after render
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        document.getElementById('catalog-body').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 200);
+    });
+  }
+})();
 renderTopicChips();
 renderShelves();
 </script>
