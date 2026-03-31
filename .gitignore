@@ -1,11 +1,6 @@
-# Cloudflare
+# wrangler files
 .wrangler
 .dev.vars*
 !.dev.vars.example
 .env*
 !.env.example
-
-# Mac & project files
-node_modules/
-.DS_Store
-*.xlsx
