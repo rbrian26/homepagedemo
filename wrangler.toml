@@ -1,5 +1,2 @@
 name = "blueseatstudios"
 pages_build_output_dir = "."
-
-[build]
-command = "node build.js"
