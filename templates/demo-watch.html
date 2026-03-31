@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>__HERO_TITLE__ — Demo Videos | Blue Seat Studios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:      #096f9c;
+      --blue-dk:   #065578;
+      --blue-lt:   #d6edf7;
+      --orange:    #f97c53;
+      --orange-dk: #e05e35;
+      --bg:        #f5f9fc;
+      --text:      #1c2b36;
+      --muted:     #5a7282;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 72px;
+      background: rgba(9, 111, 156, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo img { height: 56px; width: auto; display: block; }
+    .nav-right { display: flex; align-items: center; gap: 1.5rem; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+    .nav-cta {
+      background: var(--orange);
+      color: #fff !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
+
+    @media (max-width: 768px) {
+      .nav-links li:not(:last-child) { display: none; }
+      nav { padding: 0 1.5rem; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--blue);
+      padding: 36px 3rem 32px;
+    }
+    .hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      animation: fadeUp 0.5s ease both;
+    }
+    .eyebrow {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 10px;
+    }
+    .hero h1 {
+      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.02em;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .hero p {
+      color: rgba(255,255,255,0.72);
+      font-size: 0.95rem;
+      font-weight: 500;
+      line-height: 1.65;
+    }
+    .hero-bullets { display: flex; flex-direction: column; gap: 10px; }
+    .hero-bullet {
+      display: flex; align-items: flex-start; gap: 10px;
+      color: rgba(255,255,255,0.85);
+      font-size: 0.9rem; font-weight: 600; line-height: 1.4;
+    }
+    .hero-bullet-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--orange); flex-shrink: 0; margin-top: 5px;
+    }
+    @media (max-width: 768px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 24px; }
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 52px 3rem;
+    }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .section-header h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .section-header span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* ── VIDEO GRID ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+
+    .video-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #daeaf3;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      animation: fadeUp 0.5s ease both;
+    }
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(9,111,156,0.12);
+    }
+    .video-card:nth-child(1) { animation-delay: 0.05s; }
+    .video-card:nth-child(2) { animation-delay: 0.10s; }
+    .video-card:nth-child(3) { animation-delay: 0.15s; }
+    .video-card:nth-child(4) { animation-delay: 0.20s; }
+
+    .thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--blue-lt);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #d6edf7 0%, #b8d9ec 100%);
+    }
+    .thumb img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(6, 85, 120, 0.25);
+      transition: background 0.2s ease;
+    }
+    .video-card:hover .thumb-overlay {
+      background: rgba(6, 85, 120, 0.45);
+    }
+    .play-btn {
+      position: relative;
+      width: 56px; height: 56px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(9,111,156,0.3);
+      transition: transform 0.2s ease;
+      z-index: 2;
+    }
+    .video-card:hover .play-btn { transform: scale(1.12); }
+    .play-btn svg {
+      width: 20px; height: 20px;
+      fill: var(--blue);
+      margin-left: 3px;
+    }
+    .module-tag {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--orange);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      z-index: 2;
+    }
+    .card-body { padding: 18px 20px 20px; }
+    .card-body h3 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+    .card-body p {
+      font-size: 0.84rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      background: rgba(6, 30, 44, 0.92);
+      backdrop-filter: blur(8px);
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      animation: fadeIn 0.2s ease;
+    }
+    .lightbox.active { display: flex; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .lightbox-inner {
+      width: 100%;
+      max-width: 900px;
+      animation: scaleUp 0.25s ease both;
+    }
+
+    @keyframes scaleUp {
+      from { opacity: 0; transform: scale(0.96); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .lightbox-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      gap: 16px;
+    }
+    .lightbox-title {
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+    .lightbox-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--orange);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+    .lightbox-close {
+      background: rgba(255,255,255,0.12);
+      border: none;
+      color: white;
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: background 0.2s;
+      line-height: 1;
+    }
+    .lightbox-close:hover { background: rgba(255,255,255,0.22); }
+
+    .video-wrapper {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .lightbox-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 16px;
+    }
+    .lightbox-nav button {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 8px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .lightbox-nav button:hover { background: rgba(255,255,255,0.2); }
+    .lightbox-nav button:disabled { opacity: 0.3; cursor: default; }
+    .lightbox-counter {
+      color: rgba(255,255,255,0.5);
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(120deg, var(--blue) 0%, var(--blue-dk) 100%);
+      border-radius: 16px;
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 220px; height: 220px;
+      background: var(--orange);
+      opacity: 0.15;
+      border-radius: 50%;
+    }
+    .cta-text h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .cta-text p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .cta-btn {
+      background: var(--orange);
+      color: white;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .cta-btn:hover { background: var(--orange-dk); transform: translateY(-1px); }
+    .cta-btn-outline {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+    }
+    .cta-btn-outline:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5); transform: translateY(-1px); }
+
+    /* ── CATALOG SECTION ── */
+    .catalog-section {
+      background: white;
+      border: 1px solid #daeaf3;
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-top: 32px;
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .catalog-left h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .catalog-left p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .catalog-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .catalog-tags span {
+      background: var(--blue-lt);
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+    }
+    .catalog-tags span.current { background: var(--orange); color: white; }
+
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+    .action-btn-primary { background: var(--orange); color: white; }
+    .action-btn-primary:hover { background: var(--orange-dk); transform: translateY(-1px); }
+
+    @media (max-width: 700px) {
+      .catalog-section { flex-direction: column; align-items: flex-start; }
+      .cta-banner { flex-direction: column; text-align: center; padding: 32px 24px; }
+    }
+    @media (max-width: 640px) {
+      .hero { padding: 40px 1.5rem 32px; }
+      main { padding: 36px 1.5rem; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <a href="/"><img src="blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+  </div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#">Full Catalog</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="https://www.blueseatstudios.com/contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="eyebrow">Demo Library</div>
+      <h1>__HERO_TITLE__</h1>
+      <p>__HERO_DESC__</p>
+    </div>
+    <div class="hero-bullets">
+<!-- __HERO_BULLETS__ -->
+    </div>
+  </div>
+</div>
+<main>
+
+  <div class="section-header">
+    <h2>Sample Videos</h2>
+    <span>5 clips — click any to watch</span>
+  </div>
+
+  <div class="video-grid">
+<!-- __VIDEO_CARDS__ -->
+  </div>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="cta-text">
+      <h3>Ready to bring this to your organization?</h3>
+      <p>License this course or the full Blue Seat catalog — volume pricing and custom branding available.</p>
+    </div>
+    <div class="cta-buttons">
+      <a href="request-a-quote.html" class="cta-btn">Get a Quote →</a>
+      <a href="catalog6.html" class="cta-btn cta-btn-outline">Explore Full Catalog →</a>
+    </div>
+  </div>
+
+  <!-- CATALOG SECTION -->
+  <div class="catalog-section">
+    <div class="catalog-left">
+      <h3>Many organizations license the full Blue Seat catalog</h3>
+      <p>Give your teams access to our complete library — covering the topics that matter most in today's workplace.</p>
+      <div class="catalog-tags">
+        <span class="current">__HERO_TITLE__</span>
+        <span>Cybersecurity</span>
+        <span>Threat Assessment</span>
+        <span>Workplace Respect</span>
+        <span>Mental Health</span>
+      </div>
+    </div>
+    <a href="catalog6.html" class="action-btn action-btn-primary" style="flex-shrink:0;">Explore Full Catalog →</a>
+  </div>
+
+</main>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="handleLightboxClick(event)">
+  <div class="lightbox-inner">
+    <div class="lightbox-header">
+      <div>
+        <div class="lightbox-tag" id="lb-tag"></div>
+        <div class="lightbox-title" id="lb-title"></div>
+      </div>
+      <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+    </div>
+    <div class="video-wrapper">
+      <iframe id="lb-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="lightbox-nav">
+      <button id="btn-prev" onclick="navigate(-1)">← Previous</button>
+      <span class="lightbox-counter" id="lb-counter"></span>
+      <button id="btn-next" onclick="navigate(1)">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const videos = /* __VIDEOS_JSON__ */;
+
+  // Load thumbnails via Vimeo oEmbed
+  videos.forEach((v, i) => {
+    fetch('https://vimeo.com/api/oembed.json?url=https://vimeo.com/' + v.vimeoId + '%2F' + v.hash + '&width=640')
+      .then(r => r.json())
+      .then(data => {
+        if (data.thumbnail_url) {
+          const thumb = document.getElementById('thumb-' + i);
+          const img = document.createElement('img');
+          img.src = data.thumbnail_url;
+          img.alt = v.title;
+          thumb.insertBefore(img, thumb.firstChild);
+        }
+      })
+      .catch(() => {});
+  });
+
+  // Add nth-child animation for 5th card
+  document.querySelectorAll('.video-card')[4] && (document.querySelectorAll('.video-card')[4].style.animationDelay = '0.25s');
+
+  let current = 0;
+
+  function openLightbox(index) {
+    current = index;
+    renderLightbox();
+    document.getElementById('lightbox').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    document.getElementById('lightbox').classList.remove('active');
+    document.getElementById('lb-iframe').src = '';
+    document.body.style.overflow = '';
+  }
+
+  function navigate(dir) {
+    current = Math.max(0, Math.min(videos.length - 1, current + dir));
+    renderLightbox();
+  }
+
+  function renderLightbox() {
+    const v = videos[current];
+    document.getElementById('lb-tag').textContent = v.tag;
+    document.getElementById('lb-title').textContent = v.title;
+    document.getElementById('lb-counter').textContent = (current + 1) + ' of ' + videos.length;
+    document.getElementById('btn-prev').disabled = current === 0;
+    document.getElementById('btn-next').disabled = current === videos.length - 1;
+    document.getElementById('lb-iframe').src =
+      'https://player.vimeo.com/video/' + v.vimeoId + '?h=' + v.hash + '&autoplay=1&title=0&byline=0&portrait=0';
+  }
+
+  function handleLightboxClick(e) {
+    if (e.target === document.getElementById('lightbox')) closeLightbox();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    const lb = document.getElementById('lightbox');
+    if (!lb.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
+</script>
+
+</body>
+</html>
