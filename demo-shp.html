@@ -493,9 +493,9 @@
   </div>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="#">Full Catalog</a></li>
-      <li><a href="#">About</a></li>
-      <li><a href="https://www.blueseatstudios.com/contact" class="nav-cta">Contact Us</a></li>
+      <li><a href="/catalog.html">Full Catalog</a></li>
+      <li><a href="/about-us.html">About</a></li>
+      <li><a href="/contact.html" class="nav-cta">Contact Us</a></li>
     </ul>
   </div>
 </nav>
@@ -556,7 +556,7 @@
       </div>
       <div class="card-body">
         <h3>Stan — Unwelcome Questions</h3>
-        <p>Stan means well but keeps crossing lines. A candid, funny look at what "unwelcome" actually means at work.</p>
+        <p>Stan means well but keeps crossing lines. A candid, funny look at what unwelcome actually means at work.</p>
       </div>
     </div>
 
@@ -567,7 +567,7 @@
         <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
       </div>
       <div class="card-body">
-        <h3>Reporting &amp; Retaliation Protection</h3>
+        <h3>Reporting & Retaliation Protection</h3>
         <p>It's okay to report. You're protected. And if you're a manager, reporting isn't optional.</p>
       </div>
     </div>
@@ -583,7 +583,6 @@
         <p>What quid pro quo harassment looks like — and why it's always a misuse of power.</p>
       </div>
     </div>
-
   </div>
 
   <!-- CTA BANNER -->
@@ -593,8 +592,8 @@
       <p>License this course or the full Blue Seat catalog — volume pricing and custom branding available.</p>
     </div>
     <div class="cta-buttons">
-      <a href="request-a-quote.html" class="cta-btn">Get a Quote →</a>
-      <a href="catalog6.html" class="cta-btn cta-btn-outline">Explore Full Catalog →</a>
+      <a href="/request-a-quote.html" class="cta-btn">Get a Quote →</a>
+      <a href="/catalog.html" class="cta-btn cta-btn-outline">Explore Full Catalog →</a>
     </div>
   </div>
 
@@ -611,7 +610,8 @@
         <span>Mental Health</span>
       </div>
     </div>
-    <a href="catalog6.html" class="action-btn action-btn-primary" style="flex-shrink:0;">Explore Full Catalog →</a>
+    <a href="/demo-library.html" class="action-btn" style="flex-shrink:0;">← Back to Demo Library</a>
+    <a href="/catalog.html" class="action-btn action-btn-primary" style="flex-shrink:0;">Explore Full Catalog →</a>
   </div>
 
 </main>
@@ -639,12 +639,37 @@
 
 <script>
   const videos = [
-    { tag: 'Intro', title: 'Welcome: Your Right to a Respectful Workplace', vimeoId: '1117099851', hash: 'e8a752b2e2' },
-    { tag: 'Concepts', title: 'Person to Person Harassment', vimeoId: '1111430690', hash: 'aadb3a79ee' },
-    { tag: 'Meet Stan', title: 'Stan — Unwelcome Questions', vimeoId: '1121597092', hash: '2466e595b5' },
-    { tag: 'Reporting', title: 'Reporting & Retaliation Protection', vimeoId: '1117104257', hash: '92e053e17b' },
-    { tag: 'Concepts', title: 'Quid Pro Quo', vimeoId: '1117122564', hash: '4094bffc04' }
-  ];
+    {
+        "tag": "Intro",
+        "title": "Welcome: Your Right to a Respectful Workplace",
+        "vimeoId": "1117099851",
+        "hash": "e8a752b2e2"
+    },
+    {
+        "tag": "Concepts",
+        "title": "Person to Person Harassment",
+        "vimeoId": "1111430690",
+        "hash": "aadb3a79ee"
+    },
+    {
+        "tag": "Meet Stan",
+        "title": "Stan — Unwelcome Questions",
+        "vimeoId": "1121597092",
+        "hash": "2466e595b5"
+    },
+    {
+        "tag": "Reporting",
+        "title": "Reporting & Retaliation Protection",
+        "vimeoId": "1117104257",
+        "hash": "92e053e17b"
+    },
+    {
+        "tag": "Concepts",
+        "title": "Quid Pro Quo",
+        "vimeoId": "1117122564",
+        "hash": "4094bffc04"
+    }
+];
 
   // Load thumbnails via Vimeo oEmbed
   videos.forEach((v, i) => {
