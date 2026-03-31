@@ -45,7 +45,7 @@ function buildCatalog(courses) {
 }
 
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
-function buildCoursePage(detail, catalogById) {
+function buildCoursePage(detail) {
   const bullets = detail.coversBullets.split('|').map(b => b.trim()).filter(Boolean)
     .map(b => `      <li>${b}</li>`).join('\n');
 
@@ -64,41 +64,6 @@ function buildCoursePage(detail, catalogById) {
       </div>`;
   }
 
-  const clipsHTML = [1, 2, 3].map(i => {
-    const vimeoId = detail[`clip${i}_vimeoId`];
-    const label   = detail[`clip${i}_label`] || `Clip ${i}`;
-    if (!vimeoId) return '';
-    return `
-      <div class="clip-card">
-        <div class="clip-video">
-          <iframe src="https://player.vimeo.com/video/${vimeoId}?color=f97c53&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        </div>
-        <div class="clip-label">${label}</div>
-      </div>`;
-  }).join('\n');
-
-  const gradients = [
-    'linear-gradient(135deg,#096f9c,#0a2233)',
-    'linear-gradient(135deg,#f97c53,#096f9c)',
-    'linear-gradient(135deg,#065578,#f97c53)',
-  ];
-  const relatedHTML = [detail.related1_id, detail.related2_id, detail.related3_id]
-    .map((id, i) => {
-      if (!id) return '';
-      const course = catalogById[id.trim()];
-      if (!course) { console.warn(`  ⚠️  Related course not found: ${id}`); return ''; }
-      return `
-      <a href="${course.href}" class="related-card">
-        <div class="related-bg" style="background: ${gradients[i]};"></div>
-        <div class="related-gradient"></div>
-        <div class="related-play"></div>
-        <div class="related-info">
-          <div class="related-topic">${course.topic || ''}</div>
-          <div class="related-title">${course.title}</div>
-        </div>
-      </a>`;
-    }).join('\n');
-
   const output = readTemplate('course-page.html')
     .replace(/__PAGE_TITLE__/g,     detail.pageTitle)
     .replace(/__HERO_TITLE__/g,     detail.heroTitle)
@@ -110,9 +75,7 @@ function buildCoursePage(detail, catalogById) {
     .replace(/__LMS__/g,            detail.lms)
     .replace(/__COMPLIANCE__/g,     detail.compliance)
     .replace('<!-- __COVERS_BULLETS__ -->', bullets)
-    .replace('<!-- __LESSONS__ -->',        lessonsHTML)
-    .replace('<!-- __SAMPLE_CLIPS__ -->',   clipsHTML)
-    .replace('<!-- __RELATED_COURSES__ -->', relatedHTML);
+    .replace('<!-- __LESSONS__ -->',        lessonsHTML);
   write(path.join(__dirname, `course-${detail.id}.html`), output);
 }
 
@@ -167,34 +130,20 @@ function buildDemoPages(demoPages, demoVideos) {
   });
 }
 
-// ── DEMO LIBRARY ───────────────────────────────────────────────────────────────
-function buildDemoLibrary(catalog, demoPages, settings) {
-  const password = (settings && settings.demoPassword) || 'blueseat2025';
-
-  // Build a map of courseId → demo page href
-  const demoHrefs = {};
-  demoPages.forEach(p => {
-    if (p.courseId) demoHrefs[p.courseId] = `demo-${p.courseId}.html`;
-  });
-
-  // Build audience groups same as catalog builder
+// ── PREORDER PAGE ──────────────────────────────────────────────────────────────
+function buildPreorder(courses) {
   const groups = { workplace: [], highered: [], k12: [] };
-  catalog.filter(c => c.active !== 'false').forEach(c => {
+  courses.filter(c => c.active !== 'false').forEach(c => {
     c.audience.split(',').map(a => a.trim()).forEach(aud => {
       if (groups[aud]) groups[aud].push({
-        id: c.id, title: c.title, thumb: c.thumb,
-        comingSoon: c.comingSoon === 'true', comingSoonDate: c.comingSoonDate || '',
-        desc: c.desc,
+        id: c.id, title: c.title, thumb: c.thumb, href: c.href,
+        comingSoon: c.comingSoon === 'true', comingSoonDate: c.comingSoonDate || '', desc: c.desc,
       });
     });
   });
-
-  const output = readTemplate('demo-library.html')
-    .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`)
-    .replace('/* __DEMO_HREFS__ */',   `const DEMO_HREFS = ${JSON.stringify(demoHrefs, null, 2)};`)
-    .replace("'/* __DEMO_PASSWORD__ */'", JSON.stringify(password));
-
-  write(path.join(__dirname, 'demo-library.html'), output);
+  const output = readTemplate('preorder.html')
+    .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`);
+  write(path.join(__dirname, 'preorder.html'), output);
 }
 
 // ── MAIN ───────────────────────────────────────────────────────────────────────
@@ -204,20 +153,17 @@ const catalog    = readCSV(path.join(__dirname, 'data', 'catalog.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
 const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
 const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
-const settings   = readCSV(path.join(__dirname, 'data', 'settings.csv'))[0] || {};
 
 console.log('Building catalog...');
 if (catalog.length) buildCatalog(catalog);
 
+console.log('\nBuilding preorder page...');
+if (catalog.length) buildPreorder(catalog);
+
 console.log('\nBuilding course pages...');
-const catalogById = {};
-catalog.forEach(c => { catalogById[c.id] = c; });
-details.forEach(d => buildCoursePage(d, catalogById));
+details.forEach(d => buildCoursePage(d));
 
 console.log('\nBuilding demo pages...');
 if (demoPages.length) buildDemoPages(demoPages, demoVideos);
-
-console.log('\nBuilding demo library...');
-if (catalog.length) buildDemoLibrary(catalog, demoPages, settings);
 
 console.log('\n✅ Done.\n');
