@@ -498,6 +498,22 @@
       white-space: nowrap;
     }
 
+    /* ── FOR STAFF BADGE ── */
+    .staff-badge {
+      position: absolute;
+      bottom: 2.6rem; left: 0.75rem;
+      z-index: 4;
+      background: var(--blue-dk);
+      color: #fff;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.25);
+    }
+
     /* ── LIGHTBOX ── */
     .lightbox-overlay {
       position: fixed;
@@ -915,7 +931,7 @@
 <!-- NAV -->
 <nav id="main-nav">
   <div class="nav-logo">
-    <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+    <a href="/"><img src="assets/images/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
   </div>
   <div class="nav-right">
     <ul class="nav-links">
@@ -1018,10 +1034,8 @@
     <div class="lightbox-body">
       <div class="lightbox-title" id="lightbox-title"></div>
       <div class="lightbox-desc" id="lightbox-desc"></div>
-      <div class="lightbox-actions">
-        <a id="lb-course" href="#" class="lb-btn lb-btn-primary">Go to Course</a>
-        <a href="demo.html" class="lb-btn lb-btn-secondary">See Demo</a>
-        <a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>
+      <div class="lightbox-actions" id="lightbox-actions">
+        <!-- populated by openLightbox() -->
       </div>
     </div>
   </div>
@@ -1030,7 +1044,7 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">
-    <img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" />
+    <img src="assets/images/blue_seat_logo_final.png" alt="Blue Seat Studios" />
   </div>
   <ul class="footer-links">
     <li><a href="catalog.html?audience=workplace">Workplace</a></li>
@@ -1052,58 +1066,164 @@ const COURSES = {
       "title": "Sexual Harassment Prevention",
       "thumb": "img_shp.png",
       "href": "/course-shp.html",
-      "comingSoon": false,
+      "status": "available",
       "comingSoonDate": "",
-      "desc": "Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with."
+      "desc": "Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with.",
+      "isStaff": false
     },
     {
       "id": "threat",
       "title": "Threat Assessment",
       "thumb": "img_megaphone.png",
       "href": "/course-threat.html",
-      "comingSoon": false,
+      "status": "available",
       "comingSoonDate": "",
-      "desc": "Equips your team to recognize early warning signs and act before situations escalate."
+      "desc": "Equips your team to recognize early warning signs and act before situations escalate.",
+      "isStaff": false
     },
     {
-      "id": "hrfund",
+      "id": "cs",
+      "title": "Cybersecurity",
+      "thumb": "img_cybersecurity.gif",
+      "href": "/coming-soon-cs.html",
+      "status": "coming-soon",
+      "comingSoonDate": "May 2026",
+      "desc": "Practical security awareness training that actually changes behavior — not just checks a compliance box.",
+      "isStaff": false
+    },
+    {
+      "id": "hr",
       "title": "HR Fundamentals",
-      "thumb": "img_hrfund.png",
-      "href": "/preorder",
-      "comingSoon": true,
-      "comingSoonDate": "July 2026",
-      "desc": "Management 101 — goal-setting, direct feedback, and tough conversations that put everyone on the same page."
+      "thumb": "img_fist_bump.png",
+      "href": "/coming-soon-hr.html",
+      "status": "coming-soon",
+      "comingSoonDate": "August 2026",
+      "desc": "Management essentials — goal-setting, direct feedback, and the tough conversations that put everyone on the same page.",
+      "isStaff": false
     }
   ],
   "highered": [
     {
+      "id": "shp",
+      "title": "Sexual Harassment Prevention",
+      "thumb": "img_shp.png",
+      "href": "/course-shp.html",
+      "status": "available",
+      "comingSoonDate": "",
+      "desc": "Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with.",
+      "isStaff": true
+    },
+    {
       "id": "threat",
       "title": "Threat Assessment",
       "thumb": "img_megaphone.png",
       "href": "/course-threat.html",
-      "comingSoon": false,
+      "status": "available",
       "comingSoonDate": "",
-      "desc": "Equips your team to recognize early warning signs and act before situations escalate."
+      "desc": "Equips your team to recognize early warning signs and act before situations escalate.",
+      "isStaff": false
     },
     {
-      "id": "alcohol",
+      "id": "cs",
+      "title": "Cybersecurity",
+      "thumb": "img_cybersecurity.gif",
+      "href": "/coming-soon-cs.html",
+      "status": "coming-soon",
+      "comingSoonDate": "May 2026",
+      "desc": "Practical security awareness training that actually changes behavior — not just checks a compliance box.",
+      "isStaff": false
+    },
+    {
+      "id": "by",
+      "title": "Bystander Intervention",
+      "thumb": "img_bystander.png",
+      "href": "/coming-soon-by.html",
+      "status": "coming-soon",
+      "comingSoonDate": "May 2026",
+      "desc": "Gives students and staff the skills and confidence to step in when something isn't right.",
+      "isStaff": false
+    },
+    {
+      "id": "aa",
       "title": "Alcohol Awareness",
       "thumb": "img_bystander.png",
-      "href": "/preorder",
-      "comingSoon": true,
+      "href": "/coming-soon-aa.html",
+      "status": "coming-soon",
+      "comingSoonDate": "June 2026",
+      "desc": "Honest non-preachy alcohol education that meets students where they are. Focuses on real decision-making and risk reduction.",
+      "isStaff": false
+    },
+    {
+      "id": "mh",
+      "title": "Mental Health Awareness",
+      "thumb": "img_fist_bump.png",
+      "href": "/coming-soon-mh.html",
+      "status": "coming-soon",
       "comingSoonDate": "July 2026",
-      "desc": "Honest non-preachy alcohol education that meets students where they are."
+      "desc": "Equips your campus community to recognize signs of struggle early and build environments where asking for help is normal.",
+      "isStaff": false
+    },
+    {
+      "id": "hr",
+      "title": "HR Fundamentals",
+      "thumb": "img_fist_bump.png",
+      "href": "/coming-soon-hr.html",
+      "status": "coming-soon",
+      "comingSoonDate": "August 2026",
+      "desc": "Management essentials — goal-setting, direct feedback, and the tough conversations that put everyone on the same page.",
+      "isStaff": true
     }
   ],
   "k12": [
     {
+      "id": "shp",
+      "title": "Sexual Harassment Prevention",
+      "thumb": "img_shp.png",
+      "href": "/course-shp.html",
+      "status": "available",
+      "comingSoonDate": "",
+      "desc": "Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with.",
+      "isStaff": true
+    },
+    {
       "id": "threat",
       "title": "Threat Assessment",
       "thumb": "img_megaphone.png",
       "href": "/course-threat.html",
-      "comingSoon": false,
+      "status": "available",
       "comingSoonDate": "",
-      "desc": "Equips your team to recognize early warning signs and act before situations escalate."
+      "desc": "Equips your team to recognize early warning signs and act before situations escalate.",
+      "isStaff": false
+    },
+    {
+      "id": "by",
+      "title": "Bystander Intervention",
+      "thumb": "img_bystander.png",
+      "href": "/coming-soon-by.html",
+      "status": "coming-soon",
+      "comingSoonDate": "May 2026",
+      "desc": "Gives students and staff the skills and confidence to step in when something isn't right.",
+      "isStaff": false
+    },
+    {
+      "id": "mh",
+      "title": "Mental Health Awareness",
+      "thumb": "img_fist_bump.png",
+      "href": "/coming-soon-mh.html",
+      "status": "coming-soon",
+      "comingSoonDate": "July 2026",
+      "desc": "Equips your campus community to recognize signs of struggle early and build environments where asking for help is normal.",
+      "isStaff": false
+    },
+    {
+      "id": "hr",
+      "title": "HR Fundamentals",
+      "thumb": "img_fist_bump.png",
+      "href": "/coming-soon-hr.html",
+      "status": "coming-soon",
+      "comingSoonDate": "August 2026",
+      "desc": "Management essentials — goal-setting, direct feedback, and the tough conversations that put everyone on the same page.",
+      "isStaff": true
     }
   ]
 };
@@ -1119,21 +1239,28 @@ let currentAudience = 'all';
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
 function cardHTML(course) {
-  const topBar = course.comingSoon
+  const isComingSoon = course.status === 'coming-soon';
+
+  const topBar = isComingSoon
     ? `<div class="coming-soon-bar">
         <span>Coming ${course.comingSoonDate}</span>
-        <span>Preorder Now →</span>
+        <span>Coming Soon →</span>
        </div>`
     : '';
 
-  const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-href="${course.href}" data-coming-soon="${course.comingSoon}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
+  const staffBadge = course.isStaff
+    ? `<div class="staff-badge">For Staff</div>`
+    : '';
+
+  const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-href="${course.href}" data-status="${course.status}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
 
   return `
-    <a class="course-card${course.comingSoon ? ' coming-soon' : ''}" href="#" onclick="openLightbox(this); return false;" ${dataAttrs}>
+    <a class="course-card${isComingSoon ? ' coming-soon' : ''}" href="#" onclick="openLightbox(this); return false;" ${dataAttrs}>
       <img class="card-thumb" src="${course.thumb}" alt="${course.title}"
         onerror="this.style.opacity='0'" />
       ${topBar}
       <div class="card-gradient"></div>
+      ${staffBadge}
       <div class="card-info"><div class="card-title">${course.title}</div></div>
     </a>
   `;
@@ -1220,24 +1347,27 @@ function toggleMute() {
 
 // ── LIGHTBOX ──────────────────────────────────────────────────────────────────
 function openLightbox(card) {
-  const title = card.dataset.title;
-  const thumb = card.dataset.thumb;
-  const href  = card.dataset.href;
-  const desc  = card.dataset.desc;
-  const comingSoon = card.dataset.comingSoon === 'true';
+  const title     = card.dataset.title;
+  const thumb     = card.dataset.thumb;
+  const href      = card.dataset.href;
+  const desc      = card.dataset.desc;
+  const isComingSoon = card.dataset.status === 'coming-soon';
 
   document.getElementById('lightbox-img').src = thumb;
   document.getElementById('lightbox-img').alt = title;
   document.getElementById('lightbox-title').textContent = title;
   document.getElementById('lightbox-desc').textContent = desc;
 
-  const courseBtn = document.getElementById('lb-course');
-  if (comingSoon) {
-    courseBtn.textContent = 'Preorder Now';
-    courseBtn.href = '/preorder';
+  const actions = document.getElementById('lightbox-actions');
+  if (isComingSoon) {
+    actions.innerHTML = `
+      <a href="${href}" class="lb-btn lb-btn-primary">Preorder</a>
+      <a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>`;
   } else {
-    courseBtn.textContent = 'Go to Course';
-    courseBtn.href = href;
+    actions.innerHTML = `
+      <a href="${href}" class="lb-btn lb-btn-primary">Go to Course</a>
+      <a href="demo.html" class="lb-btn lb-btn-secondary">See Demo</a>
+      <a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>`;
   }
 
   document.getElementById('lightbox-overlay').classList.add('open');

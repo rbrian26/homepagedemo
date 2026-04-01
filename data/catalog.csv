@@ -1,5 +1,8 @@
-id,title,audience,thumb,href,comingSoon,comingSoonDate,desc,active
-shp,Sexual Harassment Prevention,workplace,img_shp.png,/course-shp.html,false,,Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with.,true
-threat,Threat Assessment,"workplace,highered,k12",img_megaphone.png,/course-threat.html,false,,Equips your team to recognize early warning signs and act before situations escalate.,true
-alcohol,Alcohol Awareness,highered,img_bystander.png,/preorder,true,July 2026,Honest non-preachy alcohol education that meets students where they are.,true
-hrfund,HR Fundamentals,workplace,img_hrfund.png,/preorder,true,July 2026,"Management 101 — goal-setting, direct feedback, and tough conversations that put everyone on the same page.",true
+id,title,audience,thumb,href,status,comingSoonDate,comingSoonPageHref,sneakPeekVimeoId,sneakPeekHash,staffAudiences,desc,coversBullets,active
+shp,Sexual Harassment Prevention,"workplace,highered,k12",img_shp.png,/course-shp.html,available,,,,,highered|k12,Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with.,,true
+threat,Threat Assessment,"workplace,highered,k12",img_megaphone.png,/course-threat.html,available,,,,,,Equips your team to recognize early warning signs and act before situations escalate.,,true
+cs,Cybersecurity,"workplace,highered",img_cybersecurity.gif,/coming-soon-cs.html,coming-soon,May 2026,/coming-soon-cs.html,,,,"Practical security awareness training that actually changes behavior — not just checks a compliance box.",,true
+by,Bystander Intervention,"highered,k12",img_bystander.png,/coming-soon-by.html,coming-soon,May 2026,/coming-soon-by.html,,,,"Gives students and staff the skills and confidence to step in when something isn't right.",,true
+aa,Alcohol Awareness,highered,img_bystander.png,/coming-soon-aa.html,coming-soon,June 2026,/coming-soon-aa.html,,,,"Honest non-preachy alcohol education that meets students where they are. Focuses on real decision-making and risk reduction.",,true
+mh,Mental Health Awareness,"highered,k12",img_fist_bump.png,/coming-soon-mh.html,coming-soon,July 2026,/coming-soon-mh.html,,,,"Equips your campus community to recognize signs of struggle early and build environments where asking for help is normal.",,true
+hr,HR Fundamentals,"workplace,highered,k12",img_fist_bump.png,/coming-soon-hr.html,coming-soon,August 2026,/coming-soon-hr.html,,,highered|k12,"Management essentials — goal-setting, direct feedback, and the tough conversations that put everyone on the same page.",,true
