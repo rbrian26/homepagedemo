@@ -24,9 +24,28 @@ function write(filePath, content) {
 function copyStaticAssets() {
   const SKIP = new Set(['dist','node_modules','templates','data','build.js','package.json','package-lock.json','wrangler.jsonc','wrangler.toml','.wranglerignore','.gitignore']);
   const EXTS = new Set(['.png','.jpg','.jpeg','.gif','.svg','.ico','.webp','.html','.css']);
-  const files = fs.readdirSync(__dirname).filter(f => !f.startsWith('.') && !SKIP.has(f) && EXTS.has(path.extname(f).toLowerCase()));
   fs.mkdirSync(DIST, { recursive: true });
+
+  // Copy root-level files
+  const files = fs.readdirSync(__dirname).filter(f => !f.startsWith('.') && !SKIP.has(f) && EXTS.has(path.extname(f).toLowerCase()));
   files.forEach(f => { fs.copyFileSync(path.join(__dirname, f), path.join(DIST, f)); });
+
+  // Copy assets/ folder recursively
+  function copyDir(src, dest) {
+    fs.mkdirSync(dest, { recursive: true });
+    fs.readdirSync(src).forEach(f => {
+      const srcPath = path.join(src, f);
+      const destPath = path.join(dest, f);
+      if (fs.statSync(srcPath).isDirectory()) copyDir(srcPath, destPath);
+      else fs.copyFileSync(srcPath, destPath);
+    });
+  }
+  const assetsDir = path.join(__dirname, 'assets');
+  if (fs.existsSync(assetsDir)) {
+    copyDir(assetsDir, path.join(DIST, 'assets'));
+    console.log('  ✓ Copied assets/ to dist/assets/');
+  }
+
   console.log(`  ✓ Copied ${files.length} static files to dist/`);
 }
 
@@ -36,7 +55,7 @@ function buildCatalog(courses) {
   courses.filter(c => c.active !== 'false').forEach(c => {
     c.audience.split(',').map(a => a.trim()).forEach(aud => {
       if (groups[aud]) groups[aud].push({
-        id: c.id, title: c.title, thumb: c.thumb, href: c.href,
+        id: c.id, title: c.title, thumb: `assets/images/${c.thumb}`, href: c.href,
         comingSoon: c.comingSoon === 'true', comingSoonDate: c.comingSoonDate || '', desc: c.desc,
       });
     });
@@ -141,7 +160,7 @@ function buildPreorder(courses) {
       return `
     <a class="course-card" href="coming-soon-${c.id}.html" data-audiences="${audiences.join(',')}">
       <div class="card-thumb">
-        <img src="${c.thumb}" alt="${c.title}" onerror="this.style.display='none'">
+        <img src="assets/images/${c.thumb}" alt="${c.title}" onerror="this.style.display='none'">
         <div class="card-thumb-fallback">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
         </div>
