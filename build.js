@@ -15,6 +15,8 @@ const fs   = require('fs');
 const path = require('path');
 const Papa = require('papaparse');
 
+const DIST = path.join(__dirname, 'dist');
+
 function readCSV(filePath) {
   if (!fs.existsSync(filePath)) { console.warn('  ⚠️  Missing:', filePath); return []; }
   return Papa.parse(fs.readFileSync(filePath, 'utf8'), { header: true, skipEmptyLines: true }).data;
@@ -54,7 +56,7 @@ function buildCatalog(courses) {
 
   const output = readTemplate('catalog.html')
     .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`);
-  write(path.join(__dirname, 'catalog.html'), output);
+  write(path.join(DIST, 'catalog.html'), output);
 }
 
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
@@ -89,7 +91,7 @@ function buildCoursePage(detail) {
     .replace(/__COMPLIANCE__/g,     detail.compliance)
     .replace('<!-- __COVERS_BULLETS__ -->', bullets)
     .replace('<!-- __LESSONS__ -->',        lessonsHTML);
-  write(path.join(__dirname, `course-${detail.id}.html`), output);
+  write(path.join(DIST, `course-${detail.id}.html`), output);
 }
 
 // ── COMING SOON PAGES ──────────────────────────────────────────────────────────
@@ -158,7 +160,7 @@ function buildComingSoonPages(courses) {
       .replace('id="s-lessons"',                `id="s-lessons"${lessonsSectionStyle}`)
       .replace('<!-- __LESSONS__ -->',          lessonsHTML);
 
-    write(path.join(__dirname, `coming-soon-${c.id}.html`), output);
+    write(path.join(DIST, `coming-soon-${c.id}.html`), output);
   });
 }
 
@@ -222,7 +224,7 @@ function buildReleaseCalendar(courses) {
 
   const output = readTemplate('preorder.html')
     .replace('<!-- __RELEASE_CARDS__ -->', cardsHTML);
-  write(path.join(__dirname, 'preorder.html'), output);
+  write(path.join(DIST, 'preorder.html'), output);
 }
 
 // ── DEMO PAGES ─────────────────────────────────────────────────────────────────
@@ -272,7 +274,7 @@ function buildDemoPages(demoPages, demoVideos) {
       .replace('/* __VIDEOS_JSON__ */',         videosJSON)
       .replace(/\d+ clips? — click any to watch/, `${clipCount} clip${clipCount !== 1 ? 's' : ''} — click any to watch`);
 
-    write(path.join(__dirname, `demo-${page.courseId}.html`), output);
+    write(path.join(DIST, `demo-${page.courseId}.html`), output);
   });
 }
 
