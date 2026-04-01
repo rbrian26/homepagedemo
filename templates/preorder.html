@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>What's Coming — Blue Seat Studios</title>
+  <title>Coming Soon — Blue Seat Studios</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,6 +15,7 @@
       --orange:    #f97c53;
       --orange-dk: #e05e35;
       --navy:      #0a2233;
+      --cream:     #faf8f5;
       --bg:        #f5f9fc;
       --surface:   #ffffff;
       --surface2:  #eaf4fa;
@@ -24,254 +25,408 @@
     }
 
     html { scroll-behavior: smooth; }
-    body { font-family: 'Quicksand', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; padding-top: 72px; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      padding-top: 72px;
+    }
 
     /* ── NAV ── */
     nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 3rem; height: 72px;
-      background: rgba(9,111,156,0.95); backdrop-filter: blur(14px);
-      border-bottom: 1px solid rgba(255,255,255,0.1); transition: background 0.3s;
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 72px;
+      background: rgba(9, 111, 156, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.3s;
     }
-    nav.scrolled { background: rgba(9,111,156,0.98); }
+    nav.scrolled { background: rgba(9, 111, 156, 0.98); }
     .nav-logo img { height: 56px; width: auto; display: block; }
-    .nav-links { display: flex; gap: 1.6rem; list-style: none; align-items: center; }
-    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: color 0.2s; }
     .nav-links a:hover { color: #fff; }
-    .nav-cta { background: var(--orange) !important; color: #fff !important; padding: 0.5rem 1.4rem; border-radius: 50px; font-weight: 700 !important; transition: background 0.2s, transform 0.15s !important; }
+    .nav-cta {
+      background: var(--orange) !important;
+      color: #fff !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
     .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
 
     /* ── HERO ── */
     .hero {
-      background: var(--navy); position: relative; overflow: hidden;
-      padding: 5rem 3rem 4.5rem; text-align: center;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+      padding: 5rem 3rem 4.5rem;
+      text-align: center;
     }
     .hero::before {
-      content: ''; position: absolute; inset: 0;
+      content: '';
+      position: absolute;
+      inset: 0;
       background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(9,111,156,0.45) 0%, transparent 70%);
       pointer-events: none;
     }
     .hero::after {
-      content: ''; position: absolute; inset: 0;
+      content: '';
+      position: absolute;
+      inset: 0;
       background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
-      background-size: 28px 28px; pointer-events: none;
-    }
-    .hero-inner { position: relative; z-index: 1; max-width: 680px; margin: 0 auto; animation: fadeUp 0.7s ease both; }
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
-
-    .hero-badge {
-      display: inline-flex; align-items: center; gap: 0.45rem;
-      background: rgba(249,124,83,0.15); color: var(--orange);
-      border: 1px solid rgba(249,124,83,0.35);
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase;
-      padding: 0.3rem 0.9rem; border-radius: 50px; margin-bottom: 1.4rem;
-    }
-    .hero-badge::before {
-      content: ''; width: 6px; height: 6px; background: var(--orange); border-radius: 50%;
-      animation: pulse 2s ease-in-out infinite;
-    }
-    @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(0.7); } }
-
-    .hero h1 { font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 700; color: #fff; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 1rem; }
-    .hero h1 span { color: var(--orange); }
-    .hero-desc { font-size: 1.05rem; color: rgba(255,255,255,0.65); font-weight: 500; line-height: 1.7; max-width: 500px; margin: 0 auto 2rem; }
-
-    .hero-filters { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; }
-    .filter-pill {
-      padding: 0.45rem 1.1rem; border-radius: 50px;
-      font-size: 0.78rem; font-weight: 700; letter-spacing: 0.05em;
-      cursor: pointer; transition: background 0.2s, color 0.2s, border-color 0.2s;
-      border: 1.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.6);
-      background: transparent; font-family: 'Quicksand', sans-serif;
-    }
-    .filter-pill:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
-    .filter-pill.active { background: var(--orange); border-color: var(--orange); color: #fff; }
-
-    /* ── ROADMAP BODY ── */
-    .roadmap { max-width: 1060px; margin: 0 auto; padding: 4rem 3rem 2rem; }
-
-    .launch-group { margin-bottom: 3.5rem; }
-
-    .launch-group-header {
-      display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;
-    }
-    .launch-month-badge {
-      background: var(--navy); color: #fff;
-      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-      padding: 0.35rem 1rem; border-radius: 50px;
-      white-space: nowrap;
-    }
-    .launch-group-line { flex: 1; height: 1px; background: rgba(9,111,156,0.12); }
-
-    .course-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1.25rem;
-    }
-
-    .course-card {
-      background: var(--surface); border-radius: 14px; overflow: hidden;
-      border: 1px solid rgba(9,111,156,0.1);
-      box-shadow: 0 2px 12px rgba(10,34,51,0.05);
-      text-decoration: none; display: block; color: inherit;
-      opacity: 0; transform: translateY(14px);
-      transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s, border-color 0.2s;
-    }
-    .course-card.visible { opacity: 1; transform: translateY(0); }
-    .course-card:hover { box-shadow: 0 8px 28px rgba(10,34,51,0.11); border-color: rgba(9,111,156,0.22); transform: translateY(-3px); }
-
-    .card-thumb {
-      width: 100%; aspect-ratio: 16/9; background: var(--surface2);
-      position: relative; overflow: hidden;
-    }
-    .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .card-thumb-fallback {
-      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-    }
-    .card-thumb-fallback svg { width: 40px; height: 40px; opacity: 0.12; }
-
-    .coming-soon-ribbon {
-      position: absolute; top: 14px; right: -28px;
-      background: var(--orange); color: #fff;
-      font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
-      padding: 0.28rem 2.2rem; transform: rotate(35deg);
-      box-shadow: 0 2px 8px rgba(249,124,83,0.35);
-    }
-
-    .card-body { padding: 1.3rem 1.4rem 1.5rem; }
-
-    .card-audience-tags { display: flex; gap: 0.4rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
-    .audience-tag {
-      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase;
-      padding: 0.2rem 0.6rem; border-radius: 50px;
-      background: var(--surface2); color: var(--blue);
-      border: 1px solid rgba(9,111,156,0.15);
-    }
-
-    .card-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.45rem; line-height: 1.3; }
-    .card-desc { font-size: 0.85rem; color: var(--muted); font-weight: 500; line-height: 1.6; margin-bottom: 1.1rem; }
-
-    .card-actions { display: flex; gap: 0.55rem; flex-wrap: wrap; align-items: center; }
-
-    .btn-card-primary {
-      font-family: 'Quicksand', sans-serif; font-size: 0.82rem; font-weight: 700;
-      background: var(--orange); color: #fff;
-      padding: 0.55rem 1.2rem; border-radius: 6px; text-decoration: none;
-      transition: background 0.2s, transform 0.15s; border: none; cursor: pointer;
-      display: inline-flex; align-items: center; gap: 0.4rem;
-    }
-    .btn-card-primary:hover { background: var(--orange-dk); transform: translateY(-1px); }
-
-    .btn-card-ghost {
-      font-family: 'Quicksand', sans-serif; font-size: 0.82rem; font-weight: 700;
-      background: transparent; color: var(--blue);
-      padding: 0.55rem 1rem; border-radius: 6px;
-      border: 1.5px solid rgba(9,111,156,0.22); cursor: pointer;
-      transition: background 0.2s, border-color 0.2s; text-decoration: none;
-      display: inline-flex; align-items: center; gap: 0.4rem;
-    }
-    .btn-card-ghost:hover { background: var(--blue-lt); border-color: var(--blue); }
-    .btn-card-ghost svg { width: 12px; height: 12px; }
-
-    /* ── FULL ACCESS CALLOUT ── */
-    .full-access-bar {
-      max-width: 1060px; margin: 1rem auto 0; padding: 0 3rem 2rem;
-    }
-    .full-access-card {
-      background: var(--navy); border-radius: 18px; overflow: hidden; position: relative;
-      padding: 3rem 3.5rem; display: flex; align-items: center; justify-content: space-between;
-      gap: 2rem; flex-wrap: wrap;
-      opacity: 0; transform: translateY(16px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
-    }
-    .full-access-card.visible { opacity: 1; transform: translateY(0); }
-    .full-access-card::before {
-      content: ''; position: absolute; inset: 0;
-      background: radial-gradient(ellipse 70% 80% at 0% 50%, rgba(9,111,156,0.5) 0%, transparent 65%);
+      background-size: 28px 28px;
       pointer-events: none;
     }
-    .full-access-card::after {
-      content: ''; position: absolute; inset: 0;
-      background-image: radial-gradient(circle, rgba(255,255,255,0.04) 1px, transparent 1px);
-      background-size: 24px 24px; pointer-events: none;
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      margin: 0 auto;
+      animation: fadeUp 0.7s ease both;
     }
-    .full-access-text { position: relative; z-index: 1; }
-    .full-access-eyebrow {
-      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase;
-      color: var(--orange); margin-bottom: 0.6rem;
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
-    .full-access-text h2 { font-size: 1.7rem; font-weight: 700; color: #fff; line-height: 1.15; margin-bottom: 0.6rem; letter-spacing: -0.02em; }
-    .full-access-text h2 span { color: var(--orange); }
-    .full-access-text p { font-size: 0.95rem; color: rgba(255,255,255,0.6); font-weight: 500; line-height: 1.65; max-width: 440px; }
-    .full-access-actions { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 0.7rem; align-items: flex-start; flex-shrink: 0; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: rgba(249,124,83,0.15);
+      color: var(--orange);
+      border: 1px solid rgba(249,124,83,0.35);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 50px;
+      margin-bottom: 1.4rem;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 4.5vw, 3rem);
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+    .hero h1 span { color: var(--orange); }
+    .hero-desc {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.65);
+      font-weight: 500;
+      line-height: 1.7;
+      max-width: 520px;
+      margin: 0 auto;
+    }
 
-    .btn-full-access {
-      background: var(--orange); color: #fff;
-      padding: 0.85rem 2rem; border-radius: 8px;
-      font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 0.95rem;
-      text-decoration: none; white-space: nowrap;
+    /* ── COURSES SECTION ── */
+    .courses-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 4rem 3rem 2rem;
+    }
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(9,111,156,0.15);
+    }
+    .course-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .course-card {
+      background: var(--surface);
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(9,111,156,0.1);
+      box-shadow: 0 2px 12px rgba(10,34,51,0.06);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+    }
+    .course-card.visible { opacity: 1; transform: translateY(0); }
+    .course-card:hover { box-shadow: 0 6px 24px rgba(10,34,51,0.12); transform: translateY(-3px); }
+    .card-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
+    .coming-soon-ribbon {
+      position: absolute;
+      top: 14px; right: -28px;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.3rem 2.2rem;
+      transform: rotate(35deg);
+      box-shadow: 0 2px 8px rgba(249,124,83,0.4);
+    }
+    .card-body { padding: 1.4rem 1.5rem 1.6rem; }
+    .card-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.65rem;
+    }
+    .card-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.55rem;
+      line-height: 1.3;
+    }
+    .card-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.65;
+      margin-bottom: 1.2rem;
+    }
+    .card-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+    .card-btn {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.6rem 1.4rem;
+      border-radius: 6px;
+      text-decoration: none;
       transition: background 0.2s, transform 0.15s;
-      display: inline-flex; align-items: center; gap: 0.5rem;
+      cursor: pointer;
+      border: none;
     }
-    .btn-full-access:hover { background: var(--orange-dk); transform: translateY(-2px); }
-    .btn-full-access svg { width: 16px; height: 16px; }
-
-    .full-access-note { font-size: 0.75rem; color: rgba(255,255,255,0.35); font-weight: 600; }
-
-    /* ── NOTIFY FORM ── */
-    .notify-section {
-      max-width: 680px; margin: 0 auto; padding: 3rem 3rem 5rem;
+    .card-btn:hover { background: var(--orange-dk); transform: translateY(-1px); }
+    .card-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: transparent;
+      color: var(--blue);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      border: 1.5px solid rgba(9,111,156,0.25);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
     }
-    .notify-card {
-      background: var(--surface); border-radius: 16px;
+    .card-btn-ghost:hover { background: var(--blue-lt); border-color: var(--blue); transform: translateY(-1px); }
+    .card-btn-ghost svg { width: 13px; height: 13px; }
+
+    /* ── SNEAK PEEK MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(10,34,51,0.82);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--navy);
+      border-radius: 14px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 720px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      animation: modalIn 0.25s ease both;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.96) translateY(12px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .modal-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .modal-title::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      padding: 0.3rem;
+      border-radius: 4px;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+    }
+    .modal-close:hover { color: #fff; }
+    .modal-close svg { width: 20px; height: 20px; }
+    .modal-video {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      background: #000;
+    }
+    .modal-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ── HUBSPOT FORM ── */
+    .form-section {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2rem 3rem 5rem;
+    }
+    .form-card {
+      background: var(--surface);
+      border-radius: 16px;
       border: 1px solid rgba(9,111,156,0.12);
-      box-shadow: 0 4px 24px rgba(10,34,51,0.08); overflow: hidden;
-      opacity: 0; transform: translateY(16px);
+      box-shadow: 0 4px 24px rgba(10,34,51,0.08);
+      overflow: hidden;
+      opacity: 0;
+      transform: translateY(16px);
       transition: opacity 0.55s ease, transform 0.55s ease;
     }
-    .notify-card.visible { opacity: 1; transform: translateY(0); }
-    .notify-card-header {
-      background: var(--navy); padding: 2rem 2.5rem 1.8rem; text-align: center; position: relative; overflow: hidden;
+    .form-card.visible { opacity: 1; transform: translateY(0); }
+    .form-card-header {
+      background: var(--navy);
+      padding: 2rem 2.5rem 1.8rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
     }
-    .notify-card-header::before {
-      content: ''; position: absolute; inset: 0;
+    .form-card-header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
       background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(9,111,156,0.5) 0%, transparent 70%);
     }
-    .notify-card-header > * { position: relative; z-index: 1; }
-    .notify-eyebrow { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.13em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
-    .notify-card-header h2 { font-size: 1.5rem; font-weight: 700; color: #fff; line-height: 1.2; margin-bottom: 0.5rem; }
-    .notify-card-header p { font-size: 0.9rem; color: rgba(255,255,255,0.6); font-weight: 500; line-height: 1.6; }
-
-    .notify-audience-select { display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap; margin-top: 1.2rem; }
-    .audience-select-btn {
-      font-family: 'Quicksand', sans-serif; font-size: 0.75rem; font-weight: 700;
-      padding: 0.35rem 0.95rem; border-radius: 50px;
-      border: 1.5px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.55);
-      background: transparent; cursor: pointer; transition: all 0.2s;
+    .form-card-header > * { position: relative; z-index: 1; }
+    .form-eyebrow {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
     }
-    .audience-select-btn:hover { border-color: rgba(255,255,255,0.5); color: #fff; }
-    .audience-select-btn.active { background: rgba(249,124,83,0.2); border-color: var(--orange); color: var(--orange); }
-
-    .notify-card-body { padding: 2.5rem; }
+    .form-card-header h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      line-height: 1.2;
+      margin-bottom: 0.5rem;
+    }
+    .form-card-header p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    .form-card-body { padding: 2.5rem; }
     .hs-form-placeholder {
-      border: 2px dashed rgba(9,111,156,0.2); border-radius: 10px;
-      padding: 3rem 2rem; text-align: center; background: var(--bg);
+      border: 2px dashed rgba(9,111,156,0.2);
+      border-radius: 10px;
+      padding: 3rem 2rem;
+      text-align: center;
+      background: var(--bg);
     }
-    .hs-placeholder-icon { width: 44px; height: 44px; margin: 0 auto 1rem; color: rgba(9,111,156,0.22); }
-    .hs-placeholder-title { font-size: 0.92rem; font-weight: 700; color: var(--muted); margin-bottom: 0.35rem; }
-    .hs-placeholder-sub { font-size: 0.8rem; color: rgba(90,114,130,0.7); font-weight: 500; line-height: 1.6; }
+    .hs-placeholder-icon { width: 48px; height: 48px; margin: 0 auto 1rem; color: rgba(9,111,156,0.25); }
+    .hs-placeholder-title { font-size: 0.95rem; font-weight: 700; color: var(--muted); margin-bottom: 0.4rem; }
+    .hs-placeholder-sub { font-size: 0.82rem; color: rgba(90,114,130,0.7); font-weight: 500; line-height: 1.6; }
     .hs-placeholder-code {
-      margin-top: 1.2rem; background: rgba(9,111,156,0.06);
-      border: 1px solid rgba(9,111,156,0.12); border-radius: 6px;
-      padding: 0.75rem 1rem; font-family: monospace; font-size: 0.76rem;
-      color: var(--blue-dk); text-align: left; line-height: 1.7;
+      margin-top: 1.2rem;
+      background: rgba(9,111,156,0.06);
+      border: 1px solid rgba(9,111,156,0.12);
+      border-radius: 6px;
+      padding: 0.75rem 1rem;
+      font-family: monospace;
+      font-size: 0.78rem;
+      color: var(--blue-dk);
+      text-align: left;
+      line-height: 1.7;
     }
 
     /* ── FOOTER ── */
     footer {
-      background: var(--navy); display: flex; align-items: center;
-      justify-content: space-between; padding: 2rem 3rem; flex-wrap: wrap; gap: 1rem;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2rem 3rem;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
     .footer-logo img { height: 40px; opacity: 0.85; }
     .footer-links { display: flex; gap: 2rem; list-style: none; }
@@ -284,22 +439,22 @@
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
       .hero { padding: 4rem 1.5rem 3.5rem; }
-      .roadmap { padding: 3rem 1.5rem 1.5rem; }
-      .full-access-bar { padding: 0 1.5rem 2rem; }
-      .full-access-card { padding: 2rem 1.5rem; }
-      .full-access-text h2 { font-size: 1.35rem; }
-      .notify-section { padding: 2rem 1.5rem 4rem; }
-      .notify-card-body { padding: 1.5rem; }
+      .courses-section { padding: 3rem 1.5rem 1.5rem; }
+      .form-section { padding: 1.5rem 1.5rem 4rem; }
+      .form-card-body { padding: 1.5rem; }
       footer { flex-direction: column; text-align: center; padding: 1.5rem; }
       .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
     }
   </style>
+  <script src="https://js.hsforms.net/forms/embed/44723819.js" defer></script>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="main-nav">
-  <div class="nav-logo"><a href="/"><img src="blue_seat_logo_final.png" alt="Blue Seat Studios" /></a></div>
+  <div class="nav-logo">
+    <a href="/"><img src="blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+  </div>
   <ul class="nav-links">
     <li><a href="catalog.html?audience=workplace">Workplace</a></li>
     <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
@@ -314,73 +469,149 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-inner">
-    <div class="hero-badge">On Deck</div>
-    <h1>More courses<br><span>coming soon.</span></h1>
-    <p class="hero-desc">Here's what we're building next. Filter by audience to see what's relevant for your organization.</p>
-    <div class="hero-filters">
-      <button class="filter-pill active" data-filter="all" onclick="filterCourses('all', this)">All</button>
-      <button class="filter-pill" data-filter="workplace" onclick="filterCourses('workplace', this)">Workplace</button>
-      <button class="filter-pill" data-filter="highered" onclick="filterCourses('highered', this)">Higher Ed</button>
-      <button class="filter-pill" data-filter="k12" onclick="filterCourses('k12', this)">K–12</button>
-    </div>
+    <div class="hero-badge">Coming Soon</div>
+    <h1>New courses<br><span>in the works.</span></h1>
+    <p class="hero-desc">We're building more training your team will actually want to finish. Get early access and be the first to know when they drop.</p>
   </div>
 </section>
 
-<!-- ROADMAP GRID -->
-<div class="roadmap" id="roadmap">
-  <!-- __ROADMAP_GROUPS__ -->
-</div>
-
-<!-- FULL ACCESS CALLOUT -->
-<div class="full-access-bar">
-  <div class="full-access-card" id="full-access-card">
-    <div class="full-access-text">
-      <div class="full-access-eyebrow">Full Access</div>
-      <h2>Get everything,<br><span>including what's next.</span></h2>
-      <p>A Full Access license covers your entire organization — every course we've published, plus everything coming down the pike. One license, no surprises.</p>
-    </div>
-    <div class="full-access-actions">
-      <a href="full_access.html" class="btn-full-access">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-        Explore Full Access
-      </a>
-      <div class="full-access-note">Current catalog + everything in development</div>
-    </div>
-  </div>
-</div>
-
-<!-- NOTIFY FORM -->
-<div class="notify-section">
-  <div class="notify-card" id="notify-card">
-    <div class="notify-card-header">
-      <div class="notify-eyebrow">Stay in the Loop</div>
-      <h2>Know first when new courses drop.</h2>
-      <p>Tell us what you're interested in and we'll reach out as courses become available — sometimes before public launch.</p>
-      <div class="notify-audience-select">
-        <button class="audience-select-btn active">All Audiences</button>
-        <button class="audience-select-btn">Workplace</button>
-        <button class="audience-select-btn">Higher Ed</button>
-        <button class="audience-select-btn">K–12</button>
+<!-- COURSE CARDS -->
+<div class="courses-section">
+  <div class="section-label">Courses in Development</div>
+  <div class="course-cards" id="course-cards">
+    
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_two_people.png" alt="Mental Health Support" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          June 2026
+        </div>
+        <div class="card-title">Mental Health Support</div>
+        <div class="card-desc">Equips managers and employees to recognize signs of struggle early and build a workplace where asking for help is normal — not brave.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
+        </div>
       </div>
     </div>
-    <div class="notify-card-body">
-      <!-- HUBSPOT FORM — replace placeholder below with your embed code -->
-      <div class="hs-form-placeholder">
-        <svg class="hs-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
-        <div class="hs-placeholder-title">HubSpot form goes here</div>
-        <div class="hs-placeholder-sub">Replace this block with your HubSpot embed code.</div>
-        <div class="hs-placeholder-code">
-          &lt;script src="//js.hsforms.net/forms/embed/v2.js"&gt;&lt;/script&gt;<br>
-          &lt;script&gt;hbspt.forms.create({ portalId: "YOUR_ID", formId: "YOUR_FORM_ID" });&lt;/script&gt;
+
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_two_people.png" alt="Mental Health Support" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          June 2026
+        </div>
+        <div class="card-title">Mental Health Support</div>
+        <div class="card-desc">Equips your campus community to have the conversations that matter most. Reduces stigma and gives students, faculty, and staff practical tools to support one another.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_two_people.png" alt="Mental Health Support" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          June 2026
+        </div>
+        <div class="card-title">Mental Health Support</div>
+        <div class="card-desc">Helps students and educators recognize signs of struggle early and build a school environment where asking for help is normal — not brave.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_bystander.png" alt="Alcohol Awareness" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          July 2026
+        </div>
+        <div class="card-title">Alcohol Awareness</div>
+        <div class="card-desc">Honest non-preachy alcohol education that meets students where they are. Focuses on real decision-making, risk reduction, and knowing when and how to step in for a friend.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_hrfund.png" alt="HR Fundamentals" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          July 2026
+        </div>
+        <div class="card-title">HR Fundamentals</div>
+        <div class="card-desc">Management 101 — goal-setting, direct feedback, and tough conversations that put everyone on the same page.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
         </div>
       </div>
     </div>
   </div>
 </div>
 
+<!-- HUBSPOT FORM -->
+<div class="form-section">
+  <div class="form-card" id="form-card">
+    <div class="form-card-header">
+      <div class="form-eyebrow">Get Early Access</div>
+      <h2>Be first in line.</h2>
+      <p>Tell us which courses you're interested in and we'll reach out as soon as they're ready — sometimes before they're publicly available.</p>
+    </div>
+    <div class="form-card-body">
+      <!-- __HUBSPOT_FORM__ -->
+      <div class="hs-form-frame" data-region="na1" data-form-id="1c50f1fc-20a3-4788-bbec-0e71462b0c62" data-portal-id="44723819"></div>
+    </div>
+  </div>
+</div>
+
+<!-- SNEAK PEEK MODAL -->
+<div class="modal-overlay" id="sneak-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Sneak Peek</div>
+      <button class="modal-close" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-video">
+      <iframe id="modal-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><img src="blue_seat_logo_final.png" alt="Blue Seat Studios" /></div>
+  <div class="footer-logo">
+    <img src="blue_seat_logo_final.png" alt="Blue Seat Studios" />
+  </div>
   <ul class="footer-links">
     <li><a href="catalog.html?audience=workplace">Workplace</a></li>
     <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
@@ -391,54 +622,42 @@
 </footer>
 
 <script>
-  /* __COURSES_DATA__ */
-
-  const AUDIENCE_LABELS = { workplace: 'Workplace', highered: 'Higher Ed', k12: 'K–12' };
-
   window.addEventListener('scroll', () => {
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
   });
 
-  // Audience select buttons (visual only — HubSpot handles actual filtering)
-  document.querySelectorAll('.audience-select-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.audience-select-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-    });
-  });
-
-  function filterCourses(filter, btn) {
-    document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.course-card').forEach(card => {
-      const audiences = card.dataset.audiences || '';
-      const show = filter === 'all' || audiences.includes(filter);
-      card.style.display = show ? 'block' : 'none';
-    });
-    // Hide empty groups
-    document.querySelectorAll('.launch-group').forEach(group => {
-      const visible = [...group.querySelectorAll('.course-card')].some(c => c.style.display !== 'none');
-      group.style.display = visible ? 'block' : 'none';
-    });
+  function openSneakPeek(title, vimeoId, hash) {
+    const src = hash
+      ? `https://player.vimeo.com/video/${vimeoId}?h=${hash}&autoplay=1`
+      : `https://player.vimeo.com/video/${vimeoId}?autoplay=1`;
+    document.getElementById('modal-title').textContent = 'Sneak Peek — ' + title;
+    document.getElementById('modal-iframe').src = src;
+    document.getElementById('sneak-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
   }
 
+  function closeModal() {
+    document.getElementById('sneak-modal').classList.remove('open');
+    document.getElementById('modal-iframe').src = '';
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
   document.addEventListener('DOMContentLoaded', () => {
-    // Animate cards
+    // Animate cards in
     requestAnimationFrame(() => {
       document.querySelectorAll('.course-card').forEach((card, i) => {
-        card.style.transitionDelay = `${i * 0.08}s`;
+        card.style.transitionDelay = `${i * 0.1}s`;
         card.classList.add('visible');
       });
     });
 
-    // Animate full access + notify cards on scroll
+    // Animate form card
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.1 });
-    ['full-access-card', 'notify-card'].forEach(id => {
-      const el = document.getElementById(id);
-      if (el) observer.observe(el);
-    });
+    document.querySelectorAll('.form-card').forEach(el => observer.observe(el));
   });
 </script>
 </body>
