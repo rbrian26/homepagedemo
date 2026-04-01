@@ -72,7 +72,6 @@
       padding: 5rem 3rem 4.5rem;
       text-align: center;
     }
-
     .hero::before {
       content: '';
       position: absolute;
@@ -80,8 +79,6 @@
       background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(9,111,156,0.45) 0%, transparent 70%);
       pointer-events: none;
     }
-
-    /* Subtle dot grid */
     .hero::after {
       content: '';
       position: absolute;
@@ -90,7 +87,6 @@
       background-size: 28px 28px;
       pointer-events: none;
     }
-
     .hero-inner {
       position: relative;
       z-index: 1;
@@ -98,12 +94,10 @@
       margin: 0 auto;
       animation: fadeUp 0.7s ease both;
     }
-
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(22px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-
     .hero-badge {
       display: inline-flex;
       align-items: center;
@@ -119,7 +113,6 @@
       border-radius: 50px;
       margin-bottom: 1.4rem;
     }
-
     .hero-badge::before {
       content: '';
       width: 6px; height: 6px;
@@ -127,12 +120,10 @@
       border-radius: 50%;
       animation: pulse 2s ease-in-out infinite;
     }
-
     @keyframes pulse {
       0%, 100% { opacity: 1; transform: scale(1); }
       50% { opacity: 0.4; transform: scale(0.7); }
     }
-
     .hero h1 {
       font-size: clamp(2rem, 4.5vw, 3rem);
       font-weight: 700;
@@ -141,9 +132,7 @@
       letter-spacing: -0.02em;
       margin-bottom: 1rem;
     }
-
     .hero h1 span { color: var(--orange); }
-
     .hero-desc {
       font-size: 1.05rem;
       color: rgba(255,255,255,0.65);
@@ -153,13 +142,12 @@
       margin: 0 auto;
     }
 
-    /* ── COMING SOON COURSES ── */
+    /* ── COURSES SECTION ── */
     .courses-section {
       max-width: 960px;
       margin: 0 auto;
       padding: 4rem 3rem 2rem;
     }
-
     .section-label {
       font-size: 0.72rem;
       font-weight: 700;
@@ -171,21 +159,18 @@
       align-items: center;
       gap: 0.6rem;
     }
-
     .section-label::after {
       content: '';
       flex: 1;
       height: 1px;
       background: rgba(9,111,156,0.15);
     }
-
     .course-cards {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 1.5rem;
       margin-bottom: 1.5rem;
     }
-
     .course-card {
       background: var(--surface);
       border-radius: 12px;
@@ -196,10 +181,8 @@
       transform: translateY(16px);
       transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
     }
-
     .course-card.visible { opacity: 1; transform: translateY(0); }
     .course-card:hover { box-shadow: 0 6px 24px rgba(10,34,51,0.12); transform: translateY(-3px); }
-
     .card-thumb {
       width: 100%;
       aspect-ratio: 16/9;
@@ -210,19 +193,7 @@
       position: relative;
       overflow: hidden;
     }
-
-    .card-thumb img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-    }
-
-    .card-thumb-fallback {
-      width: 56px;
-      height: 56px;
-      opacity: 0.18;
-    }
-
+    .card-thumb img { width: 100%; height: 100%; object-fit: cover; }
     .coming-soon-ribbon {
       position: absolute;
       top: 14px; right: -28px;
@@ -236,9 +207,7 @@
       transform: rotate(35deg);
       box-shadow: 0 2px 8px rgba(249,124,83,0.4);
     }
-
     .card-body { padding: 1.4rem 1.5rem 1.6rem; }
-
     .card-date {
       display: inline-flex;
       align-items: center;
@@ -250,7 +219,6 @@
       color: var(--orange);
       margin-bottom: 0.65rem;
     }
-
     .card-title {
       font-size: 1.1rem;
       font-weight: 700;
@@ -258,7 +226,6 @@
       margin-bottom: 0.55rem;
       line-height: 1.3;
     }
-
     .card-desc {
       font-size: 0.88rem;
       color: var(--muted);
@@ -266,7 +233,7 @@
       line-height: 1.65;
       margin-bottom: 1.2rem;
     }
-
+    .card-actions { display: flex; gap: 0.6rem; flex-wrap: wrap; }
     .card-btn {
       display: inline-block;
       background: var(--orange);
@@ -282,14 +249,105 @@
       border: none;
     }
     .card-btn:hover { background: var(--orange-dk); transform: translateY(-1px); }
+    .card-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: transparent;
+      color: var(--blue);
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      border: 1.5px solid rgba(9,111,156,0.25);
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    }
+    .card-btn-ghost:hover { background: var(--blue-lt); border-color: var(--blue); transform: translateY(-1px); }
+    .card-btn-ghost svg { width: 13px; height: 13px; }
 
-    /* ── HUBSPOT FORM SECTION ── */
+    /* ── SNEAK PEEK MODAL ── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(10,34,51,0.82);
+      backdrop-filter: blur(6px);
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--navy);
+      border-radius: 14px;
+      overflow: hidden;
+      width: 100%;
+      max-width: 720px;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.5);
+      animation: modalIn 0.25s ease both;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: scale(0.96) translateY(12px); }
+      to   { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 1.5rem;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .modal-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.85);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .modal-title::before {
+      content: '';
+      width: 7px; height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: pulse 2s ease-in-out infinite;
+    }
+    .modal-close {
+      background: none;
+      border: none;
+      color: rgba(255,255,255,0.45);
+      cursor: pointer;
+      padding: 0.3rem;
+      border-radius: 4px;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+    }
+    .modal-close:hover { color: #fff; }
+    .modal-close svg { width: 20px; height: 20px; }
+    .modal-video {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      background: #000;
+    }
+    .modal-video iframe {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* ── HUBSPOT FORM ── */
     .form-section {
       max-width: 680px;
       margin: 0 auto;
       padding: 2rem 3rem 5rem;
     }
-
     .form-card {
       background: var(--surface);
       border-radius: 16px;
@@ -300,9 +358,7 @@
       transform: translateY(16px);
       transition: opacity 0.55s ease, transform 0.55s ease;
     }
-
     .form-card.visible { opacity: 1; transform: translateY(0); }
-
     .form-card-header {
       background: var(--navy);
       padding: 2rem 2.5rem 1.8rem;
@@ -310,16 +366,13 @@
       position: relative;
       overflow: hidden;
     }
-
     .form-card-header::before {
       content: '';
       position: absolute;
       inset: 0;
       background: radial-gradient(ellipse 100% 80% at 50% 0%, rgba(9,111,156,0.5) 0%, transparent 70%);
     }
-
     .form-card-header > * { position: relative; z-index: 1; }
-
     .form-eyebrow {
       font-size: 0.68rem;
       font-weight: 700;
@@ -328,7 +381,6 @@
       color: var(--orange);
       margin-bottom: 0.6rem;
     }
-
     .form-card-header h2 {
       font-size: 1.5rem;
       font-weight: 700;
@@ -336,19 +388,13 @@
       line-height: 1.2;
       margin-bottom: 0.5rem;
     }
-
     .form-card-header p {
       font-size: 0.9rem;
       color: rgba(255,255,255,0.6);
       font-weight: 500;
       line-height: 1.6;
     }
-
-    .form-card-body {
-      padding: 2.5rem;
-    }
-
-    /* HubSpot form placeholder */
+    .form-card-body { padding: 2.5rem; }
     .hs-form-placeholder {
       border: 2px dashed rgba(9,111,156,0.2);
       border-radius: 10px;
@@ -356,27 +402,9 @@
       text-align: center;
       background: var(--bg);
     }
-
-    .hs-placeholder-icon {
-      width: 48px; height: 48px;
-      margin: 0 auto 1rem;
-      color: rgba(9,111,156,0.25);
-    }
-
-    .hs-placeholder-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
-    }
-
-    .hs-placeholder-sub {
-      font-size: 0.82rem;
-      color: rgba(90,114,130,0.7);
-      font-weight: 500;
-      line-height: 1.6;
-    }
-
+    .hs-placeholder-icon { width: 48px; height: 48px; margin: 0 auto 1rem; color: rgba(9,111,156,0.25); }
+    .hs-placeholder-title { font-size: 0.95rem; font-weight: 700; color: var(--muted); margin-bottom: 0.4rem; }
+    .hs-placeholder-sub { font-size: 0.82rem; color: rgba(90,114,130,0.7); font-weight: 500; line-height: 1.6; }
     .hs-placeholder-code {
       margin-top: 1.2rem;
       background: rgba(9,111,156,0.06);
@@ -400,29 +428,11 @@
       flex-wrap: wrap;
       gap: 1rem;
     }
-
     .footer-logo img { height: 40px; opacity: 0.85; }
-
-    .footer-links {
-      display: flex;
-      gap: 2rem;
-      list-style: none;
-    }
-
-    .footer-links a {
-      color: rgba(255,255,255,0.45);
-      text-decoration: none;
-      font-size: 0.82rem;
-      font-weight: 600;
-      transition: color 0.2s;
-    }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 0.82rem; font-weight: 600; transition: color 0.2s; }
     .footer-links a:hover { color: rgba(255,255,255,0.85); }
-
-    footer > div:last-child {
-      font-size: 0.78rem;
-      color: rgba(255,255,255,0.3);
-      font-weight: 500;
-    }
+    footer > div:last-child { font-size: 0.78rem; color: rgba(255,255,255,0.3); font-weight: 500; }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
@@ -464,11 +474,105 @@
   </div>
 </section>
 
-<!-- COMING SOON COURSE CARDS -->
+<!-- COURSE CARDS -->
 <div class="courses-section">
   <div class="section-label">Courses in Development</div>
   <div class="course-cards" id="course-cards">
-    <!-- Injected by JS from COURSES data -->
+    
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_two_people.png" alt="Mental Health Support" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          June 2026
+        </div>
+        <div class="card-title">Mental Health Support</div>
+        <div class="card-desc">Equips managers and employees to recognize signs of struggle early and build a workplace where asking for help is normal — not brave.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_two_people.png" alt="Mental Health Support" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          June 2026
+        </div>
+        <div class="card-title">Mental Health Support</div>
+        <div class="card-desc">Equips your campus community to have the conversations that matter most. Reduces stigma and gives students, faculty, and staff practical tools to support one another.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_two_people.png" alt="Mental Health Support" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          June 2026
+        </div>
+        <div class="card-title">Mental Health Support</div>
+        <div class="card-desc">Helps students and educators recognize signs of struggle early and build a school environment where asking for help is normal — not brave.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_bystander.png" alt="Alcohol Awareness" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          July 2026
+        </div>
+        <div class="card-title">Alcohol Awareness</div>
+        <div class="card-desc">Honest non-preachy alcohol education that meets students where they are. Focuses on real decision-making, risk reduction, and knowing when and how to step in for a friend.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
+        </div>
+      </div>
+    </div>
+
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="img_hrfund.png" alt="HR Fundamentals" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          July 2026
+        </div>
+        <div class="card-title">HR Fundamentals</div>
+        <div class="card-desc">Management 101 — goal-setting, direct feedback, and tough conversations that put everyone on the same page.</div>
+        <div class="card-actions">
+          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">Get Early Access</a>
+          
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -481,22 +585,7 @@
       <p>Tell us which courses you're interested in and we'll reach out as soon as they're ready — sometimes before they're publicly available.</p>
     </div>
     <div class="form-card-body">
-
-      <!-- ─────────────────────────────────────────────────────────────────
-           HUBSPOT FORM — Replace the placeholder div below with your
-           HubSpot embed code. It looks like this:
-
-           <script charset="utf-8" type="text/javascript"
-             src="//js.hsforms.net/forms/embed/v2.js"></script>
-           <script>
-             hbspt.forms.create({
-               region: "na1",
-               portalId: "YOUR_PORTAL_ID",
-               formId: "YOUR_FORM_ID"
-             });
-           </script>
-      ────────────────────────────────────────────────────────────────── -->
-
+      <!-- __HUBSPOT_FORM__ -->
       <div class="hs-form-placeholder">
         <svg class="hs-placeholder-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <rect x="3" y="3" width="18" height="18" rx="2"/>
@@ -514,7 +603,21 @@
           &lt;/script&gt;
         </div>
       </div>
+    </div>
+  </div>
+</div>
 
+<!-- SNEAK PEEK MODAL -->
+<div class="modal-overlay" id="sneak-modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">Sneak Peek</div>
+      <button class="modal-close" onclick="closeModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-video">
+      <iframe id="modal-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
     </div>
   </div>
 </div>
@@ -534,122 +637,29 @@
 </footer>
 
 <script>
-  const COURSES = {
-  "workplace": [
-    {
-      "id": "shp",
-      "title": "Sexual Harassment Prevention",
-      "thumb": "img_shp.png",
-      "href": "/course-shp.html",
-      "comingSoon": false,
-      "comingSoonDate": "",
-      "desc": "Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with."
-    },
-    {
-      "id": "threat",
-      "title": "Threat Assessment",
-      "thumb": "img_megaphone.png",
-      "href": "/course-threat.html",
-      "comingSoon": false,
-      "comingSoonDate": "",
-      "desc": "Equips your team to recognize early warning signs and act before situations escalate."
-    },
-    {
-      "id": "hrfund",
-      "title": "HR Fundamentals",
-      "thumb": "img_hrfund.png",
-      "href": "/preorder",
-      "comingSoon": true,
-      "comingSoonDate": "July 2026",
-      "desc": "Management 101 — goal-setting, direct feedback, and tough conversations that put everyone on the same page."
-    }
-  ],
-  "highered": [
-    {
-      "id": "threat",
-      "title": "Threat Assessment",
-      "thumb": "img_megaphone.png",
-      "href": "/course-threat.html",
-      "comingSoon": false,
-      "comingSoonDate": "",
-      "desc": "Equips your team to recognize early warning signs and act before situations escalate."
-    },
-    {
-      "id": "alcohol",
-      "title": "Alcohol Awareness",
-      "thumb": "img_bystander.png",
-      "href": "/preorder",
-      "comingSoon": true,
-      "comingSoonDate": "July 2026",
-      "desc": "Honest non-preachy alcohol education that meets students where they are."
-    }
-  ],
-  "k12": [
-    {
-      "id": "threat",
-      "title": "Threat Assessment",
-      "thumb": "img_megaphone.png",
-      "href": "/course-threat.html",
-      "comingSoon": false,
-      "comingSoonDate": "",
-      "desc": "Equips your team to recognize early warning signs and act before situations escalate."
-    }
-  ]
-};
-
-  // Scroll behavior
   window.addEventListener('scroll', () => {
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
   });
 
-  // Build coming-soon cards from catalog data
-  function buildCards() {
-    const container = document.getElementById('course-cards');
-    if (!container || typeof COURSES === 'undefined') return;
+  function openSneakPeek(title, vimeoId, hash) {
+    const src = hash
+      ? `https://player.vimeo.com/video/${vimeoId}?h=${hash}&autoplay=1`
+      : `https://player.vimeo.com/video/${vimeoId}?autoplay=1`;
+    document.getElementById('modal-title').textContent = 'Sneak Peek — ' + title;
+    document.getElementById('modal-iframe').src = src;
+    document.getElementById('sneak-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
 
-    // Flatten all audiences, dedupe by course id
-    const seen = new Set();
-    const comingSoon = [];
-    Object.values(COURSES).forEach(group => {
-      group.forEach(course => {
-        if (course.comingSoon && !seen.has(course.id)) {
-          seen.add(course.id);
-          comingSoon.push(course);
-        }
-      });
-    });
+  function closeModal() {
+    document.getElementById('sneak-modal').classList.remove('open');
+    document.getElementById('modal-iframe').src = '';
+    document.body.style.overflow = '';
+  }
 
-    if (!comingSoon.length) {
-      container.innerHTML = '<p style="color:var(--muted);font-size:0.9rem;">No courses currently in development. Check back soon!</p>';
-      return;
-    }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-    container.innerHTML = comingSoon.map(course => `
-      <div class="course-card">
-        <div class="card-thumb">
-          <img src="${course.thumb}" alt="${course.title}"
-               onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-          <div class="card-thumb-fallback" style="display:none;width:100%;height:100%;align-items:center;justify-content:center;">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" style="width:48px;height:48px;opacity:0.15;">
-              <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
-            </svg>
-          </div>
-          <div class="coming-soon-ribbon">Coming Soon</div>
-        </div>
-        <div class="card-body">
-          ${course.comingSoonDate ? `<div class="card-date">
-            <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-            ${course.comingSoonDate}
-          </div>` : ''}
-          <div class="card-title">${course.title}</div>
-          <div class="card-desc">${course.desc}</div>
-          <a href="#form-card" class="card-btn" onclick="document.getElementById('form-card').scrollIntoView({behavior:'smooth'});return false;">
-            Get Early Access
-          </a>
-        </div>
-      </div>
-    `).join('');
-
+  document.addEventListener('DOMContentLoaded', () => {
     // Animate cards in
     requestAnimationFrame(() => {
       document.querySelectorAll('.course-card').forEach((card, i) => {
@@ -657,19 +667,12 @@
         card.classList.add('visible');
       });
     });
-  }
 
-  // Intersection observer for form card
-  function observeElements() {
+    // Animate form card
     const observer = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.1 });
     document.querySelectorAll('.form-card').forEach(el => observer.observe(el));
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    buildCards();
-    observeElements();
   });
 </script>
 </body>
