@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blue Seat Studios — Course Catalog</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:      #096f9c;
+      --blue-dk:   #065578;
+      --blue-lt:   #d6edf7;
+      --orange:    #f97c53;
+      --orange-dk: #e05e35;
+      --navy:      #0a2233;
+      --cream:     #faf8f5;
+      --bg:        #f5f9fc;
+      --surface:   #ffffff;
+      --surface2:  #eaf4fa;
+      --text:      #1c2b36;
+      --muted:     #5a7282;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 72px;
+      background: rgba(9, 111, 156, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.3s;
+    }
+
+    nav.scrolled {
+      background: rgba(9, 111, 156, 0.98);
+    }
+
+    .nav-logo img { height: 56px; width: auto; display: block; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+
+    .nav-cta {
+      background: var(--orange);
+      color: #fff !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+
+    .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 80vh;
+      min-height: 520px;
+      max-height: 760px;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    .hero-video-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .vimeo-sizer {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 100vw;
+      height: 56.25vw;
+      min-height: 100%;
+      min-width: 177.78vh;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .vimeo-sizer iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    .hero-gradient { display: none; }
+
+    .hero-gradient-top { display: none; }
+
+    .hero-bottom-gradient {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 38%;
+      z-index: 1;
+      background: linear-gradient(
+        to top,
+        rgba(9,111,156,0.92) 0%,
+        rgba(9,111,156,0.55) 45%,
+        transparent 100%
+      );
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: absolute;
+      z-index: 2;
+      bottom: 2.2rem;
+      left: 4rem;
+      right: 4rem;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 2rem;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--orange);
+      color: #fff;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.8rem;
+      border-radius: 50px;
+      margin-bottom: 1rem;
+    }
+
+    .hero-left { flex: 1; }
+
+    .hero h1 {
+      font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 0.3rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span { color: var(--orange); }
+
+    .hero-sub {
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.82);
+      line-height: 1.5;
+      font-weight: 500;
+      max-width: 420px;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-shrink: 0;
+      align-items: center;
+    }
+
+    .btn-orange {
+      background: var(--orange);
+      color: #fff;
+      padding: 0.75rem 1.8rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      font-family: 'Quicksand', sans-serif;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-orange:hover { background: var(--orange-dk); transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: rgba(255,255,255,0.12);
+      color: #fff;
+      padding: 0.75rem 1.8rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      font-family: 'Quicksand', sans-serif;
+      text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.25);
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+    .mute-btn {
+      position: absolute;
+      top: 80px;
+      right: 3rem;
+      z-index: 3;
+      background: var(--orange);
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 10px rgba(249,124,83,0.35);
+    }
+
+    .mute-btn:hover { background: var(--orange-dk); transform: scale(1.08); }
+    .mute-btn svg { width: 16px; height: 16px; }
+
+    .hero-preview-label {
+      position: absolute;
+      top: 5.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      background: rgba(9,111,156,0.75);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .hero-preview-label.visible { opacity: 1; }
+
+    /* ── FILTER BAR ── */
+    .filter-bar {
+      position: sticky;
+      top: 72px;
+      z-index: 100;
+      background: rgba(255,255,255,0.97);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(9,111,156,0.12);
+      padding: 0 3rem;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 0;
+      list-style: none;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .filter-tabs::-webkit-scrollbar { display: none; }
+
+    .filter-tab {
+      padding: 1.1rem 1.6rem;
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--muted);
+      cursor: pointer;
+      border-bottom: 2.5px solid transparent;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+      font-family: 'Quicksand', sans-serif;
+      background: none;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      letter-spacing: 0.02em;
+    }
+
+    .filter-tab:hover { color: var(--text); }
+    .filter-tab.active { color: var(--navy); border-bottom-color: var(--orange); }
+
+    /* ── CATALOG BODY ── */
+    .catalog-body {
+      padding: 2.5rem 0 6rem;
+      background: var(--bg);
+    }
+
+    /* ── AUDIENCE SECTION ── */
+    .audience-section {
+      margin-bottom: 3.5rem;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .audience-section.visible { opacity: 1; transform: translateY(0); }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title::before {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 1.2em;
+      background: var(--orange);
+      border-radius: 2px;
+    }
+
+    /* ── SCROLL ROW WRAPPER ── */
+    .scroll-row-wrap {
+      position: relative;
+    }
+
+    .card-track {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scrollbar-width: none;
+      padding: 0.5rem 3rem 1rem;
+      -webkit-overflow-scrolling: touch;
+      position: relative;
+    }
+
+    .card-track::-webkit-scrollbar { display: none; }
+
+    /* Cards must stay below scroll buttons */
+    .course-card:hover {
+      transform: scale(1.04) translateY(-4px);
+      box-shadow: 0 16px 48px rgba(9,111,156,0.22), 0 0 0 2px var(--orange);
+      z-index: 5;
+    }
+
+    /* ── SCROLL BUTTONS ── */
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 20;
+      width: 44px; height: 44px;
+      background: var(--orange);
+      border: none;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 16px rgba(249,124,83,0.35);
+      transition: background 0.2s, transform 0.2s;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .scroll-row-wrap:hover .scroll-btn { opacity: 1; pointer-events: all; }
+    .scroll-btn:hover { background: var(--orange-dk); transform: translateY(-50%) scale(1.08); }
+    .scroll-btn.prev { left: 0.6rem; }
+    .scroll-btn.next { right: 0.6rem; }
+
+    .scroll-btn svg {
+      width: 18px; height: 18px;
+      stroke: white;
+      stroke-width: 2.5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    /* ── COURSE CARD ── */
+    .course-card {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      cursor: pointer;
+      flex: 0 0 280px;
+      aspect-ratio: 16/9;
+      box-shadow: 0 4px 18px rgba(9,111,156,0.1);
+      transition: transform 0.3s cubic-bezier(0.34,1.4,0.64,1), box-shadow 0.3s;
+      text-decoration: none;
+      display: block;
+    }
+
+    .card-thumb {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+      background: linear-gradient(135deg, var(--blue-dk), var(--navy));
+    }
+
+    .course-card:hover .card-thumb { transform: scale(1.04); }
+
+    .card-gradient {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 55%;
+      background: linear-gradient(
+        to top,
+        var(--blue) 0%,
+        rgba(9,111,156,0.85) 40%,
+        transparent 100%
+      );
+      pointer-events: none;
+    }
+
+    .card-info {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      padding: 0.9rem 1rem;
+    }
+
+    .card-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.3);
+    }
+
+    /* ── COMING SOON CARD ── */
+    .coming-soon-bar {
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      z-index: 3;
+      background: var(--orange);
+      padding: 0.28rem 0.9rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+    }
+
+    .coming-soon-bar span {
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    /* ── LIGHTBOX ── */
+    .lightbox-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 400;
+      background: rgba(0,0,0,0.82);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .lightbox-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .lightbox {
+      background: #0f1c25;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 420px;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      transform: scale(0.94) translateY(16px);
+      transition: transform 0.3s cubic-bezier(0.34,1.3,0.64,1);
+      position: relative;
+    }
+
+    .lightbox-overlay.open .lightbox {
+      transform: scale(1) translateY(0);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 0.75rem; right: 0.75rem;
+      z-index: 10;
+      width: 32px; height: 32px;
+      background: rgba(0,0,0,0.5);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-close:hover { background: var(--orange); }
+
+    .lightbox-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+    }
+
+    .lightbox-body {
+      padding: 1.4rem 1.6rem 1.8rem;
+    }
+
+    .lightbox-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.6rem;
+      line-height: 1.2;
+    }
+
+    .lightbox-desc {
+      font-size: 0.85rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.6;
+      font-weight: 500;
+      margin-bottom: 1.2rem;
+    }
+
+    .lightbox-actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .lb-btn {
+      display: block;
+      width: 100%;
+      padding: 0.75rem 1.2rem;
+      border-radius: 8px;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.9rem;
+      text-align: center;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+
+    .lb-btn:hover { transform: translateY(-1px); }
+
+    .lb-btn-primary {
+      background: var(--orange);
+      color: #fff;
+    }
+
+    .lb-btn-primary:hover { background: var(--orange-dk); }
+
+    .lb-btn-secondary {
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.15);
+    }
+
+    .lb-btn-secondary:hover { background: rgba(255,255,255,0.14); }
+
+    /* ── FEATURED VIDEO SECTION ── */
+    .featured-section {
+      background: var(--navy);
+      padding: 4rem 3rem;
+      margin-top: 1rem;
+    }
+
+    .featured-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      gap: 3.5rem;
+      align-items: center;
+    }
+
+    .featured-video-wrap {
+      flex: 0 0 58%;
+      border-radius: 14px;
+      overflow: hidden;
+      aspect-ratio: 16/9;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
+    }
+
+    .featured-video-wrap iframe {
+      width: 100%; height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .featured-text {
+      flex: 1;
+    }
+
+    .featured-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.75rem;
+    }
+
+    .featured-text h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .featured-text p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.7;
+      font-weight: 500;
+      margin-bottom: 1.8rem;
+    }
+
+    /* ── MODAL ── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0,0,0,0.75);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--white);
+      border-radius: 16px;
+      width: 100%;
+      max-width: 780px;
+      max-height: 90vh;
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--blue-lt) transparent;
+      transform: scale(0.94) translateY(20px);
+      transition: transform 0.35s cubic-bezier(0.34,1.3,0.64,1);
+      position: relative;
+      border: 1px solid rgba(9,111,156,0.12);
+      box-shadow: 0 32px 80px rgba(9,111,156,0.2);
+    }
+
+    .modal-overlay.open .modal { transform: scale(1) translateY(0); }
+
+    .modal-video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #000;
+      border-radius: 16px 16px 0 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .modal-video iframe {
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    .modal-video-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--navy), var(--blue-dk));
+      font-size: 1rem;
+      color: rgba(255,255,255,0.4);
+      font-weight: 600;
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      z-index: 10;
+      width: 36px; height: 36px;
+      background: rgba(0,0,0,0.55);
+      border: none;
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+      font-family: 'Quicksand', sans-serif;
+    }
+
+    .modal-close:hover { background: rgba(249,124,83,0.85); }
+
+    .modal-body {
+      padding: 1.8rem 2rem 2rem;
+    }
+
+    .modal-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      margin-bottom: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-audience-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: rgba(249,124,83,0.12);
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+      border: 1px solid rgba(249,124,83,0.25);
+    }
+
+    .modal-topic-tag {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      background: var(--surface2);
+      padding: 0.25rem 0.7rem;
+      border-radius: 50px;
+    }
+
+    .modal h2 {
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+    }
+
+    .modal-desc {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 500;
+      margin-bottom: 1.6rem;
+    }
+
+    .modal-meta {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 1.8rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .meta-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-value {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .modal-actions .btn-ghost {
+      background: transparent;
+      color: var(--blue);
+      border-color: rgba(9,111,156,0.35);
+    }
+
+    .modal-actions .btn-ghost:hover {
+      background: var(--blue-lt);
+      border-color: var(--blue);
+    }
+
+    /* ── EMPTY STATE ── */
+    .empty-state {
+      text-align: center;
+      padding: 5rem 2rem;
+      color: var(--muted);
+    }
+
+    .empty-state svg { opacity: 0.25; margin-bottom: 1rem; stroke: var(--blue); }
+    .empty-state h3 { font-size: 1.2rem; color: var(--navy); margin-bottom: 0.5rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.45);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 500;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-logo img { height: 32px; width: auto; opacity: 0.75; }
+
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--blue-lt); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 1.5rem; }
+      .filter-bar { padding: 0 1.5rem; top: 72px; }
+      .catalog-body { padding: 2rem 1.5rem 6rem; }
+      .hero-content { left: 2rem; bottom: 2rem; }
+      .mute-btn { right: 1.5rem; top: 80px; }
+      .nav-links li:not(:last-child) { display: none; }
+    }
+
+    @media (max-width: 600px) {
+      .card-track { grid-template-columns: repeat(2, 1fr); }
+      .modal { max-height: 95vh; }
+      .modal-body { padding: 1.2rem 1.2rem 1.5rem; }
+      .modal h2 { font-size: 1.3rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+  </div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="catalog.html" class="active">Catalog</a></li>
+      <li><a href="catalog.html?audience=workplace">Workplace</a></li>
+      <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
+      <li><a href="catalog.html?audience=k12">K–12</a></li>
+      <li><a href="about-us.html">About</a></li>
+      <li><a href="demo.html" class="nav-cta">Demo</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-video-wrap">
+    <div class="vimeo-sizer">
+      <iframe
+        id="hero-video"
+        src="https://player.vimeo.com/video/1152648266?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        title="Blue Seat Studios Demo Reel">
+      </iframe>
+    </div>
+  </div>
+  <div class="hero-gradient"></div>
+  <div class="hero-gradient-top"></div>
+  <div class="hero-bottom-gradient"></div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <h1>Explore the <span>Blue Seat</span> Catalog.</h1>
+      <p class="hero-sub">Award-winning animated courses for workplace, higher ed, and K–12 — training that sticks.</p>
+    </div>
+    <div class="hero-actions">
+      <a href="demo.html" class="btn-orange">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+        Watch a Demo
+      </a>
+      <a href="request-a-quote.html" class="btn-ghost">Get Pricing</a>
+    </div>
+  </div>
+
+  <div class="hero-preview-label" id="hero-preview-label"></div>
+
+  <button class="mute-btn" id="mute-btn" onclick="toggleMute()" title="Toggle audio">
+    <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+    <svg id="icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    </svg>
+  </button>
+</section>
+
+<!-- FILTER BAR -->
+<div class="filter-bar">
+  <ul class="filter-tabs" id="audience-tabs">
+    <li class="filter-tab active" data-audience="all">All</li>
+    <li class="filter-tab" data-audience="workplace">Workplace</li>
+    <li class="filter-tab" data-audience="highered">Higher Education</li>
+    <li class="filter-tab" data-audience="k12">K–12</li>
+  </ul>
+</div>
+
+<!-- CATALOG BODY -->
+<div class="catalog-body" id="catalog-body">
+  <div id="shelves-container"></div>
+</div>
+
+<!-- FEATURED VIDEO -->
+<section class="featured-section">
+  <div class="featured-inner">
+    <div class="featured-video-wrap">
+      <iframe
+        src="https://player.vimeo.com/video/226487718?badge=0&autopause=0&color=f97c53"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="featured-text">
+      <div class="featured-eyebrow">★ Featured · 150M+ Views</div>
+      <h2>Tea Consent</h2>
+      <p>The video that started it all. Our award-winning animated short uses a simple tea metaphor to make consent undeniably clear — and actually enjoyable to watch. Used in schools, workplaces, and universities worldwide.</p>
+      <a href="/tea-consent" class="btn-orange">Learn More</a>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightboxDirect()">✕</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    <div class="lightbox-body">
+      <div class="lightbox-title" id="lightbox-title"></div>
+      <div class="lightbox-desc" id="lightbox-desc"></div>
+      <div class="lightbox-actions">
+        <a id="lb-course" href="#" class="lb-btn lb-btn-primary">Go to Course</a>
+        <a href="demo.html" class="lb-btn lb-btn-secondary">See Demo</a>
+        <a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" />
+  </div>
+  <ul class="footer-links">
+    <li><a href="catalog.html?audience=workplace">Workplace</a></li>
+    <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
+    <li><a href="catalog.html?audience=k12">K–12</a></li>
+    <li><a href="#">Privacy</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div>© 2025 Blue Seat Studios. All rights reserved.</div>
+</footer>
+
+<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+const COURSES = {
+  "workplace": [
+    {
+      "id": "shp",
+      "title": "Sexual Harassment Prevention",
+      "thumb": "img_shp.png",
+      "href": "/course-shp.html",
+      "comingSoon": false,
+      "comingSoonDate": "",
+      "desc": "Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with."
+    },
+    {
+      "id": "threat",
+      "title": "Threat Assessment",
+      "thumb": "img_megaphone.png",
+      "href": "/course-threat.html",
+      "comingSoon": false,
+      "comingSoonDate": "",
+      "desc": "Equips your team to recognize early warning signs and act before situations escalate."
+    },
+    {
+      "id": "hrfund",
+      "title": "HR Fundamentals",
+      "thumb": "img_hrfund.png",
+      "href": "/preorder",
+      "comingSoon": true,
+      "comingSoonDate": "July 2026",
+      "desc": "Management 101 — goal-setting, direct feedback, and tough conversations that put everyone on the same page."
+    }
+  ],
+  "highered": [
+    {
+      "id": "threat",
+      "title": "Threat Assessment",
+      "thumb": "img_megaphone.png",
+      "href": "/course-threat.html",
+      "comingSoon": false,
+      "comingSoonDate": "",
+      "desc": "Equips your team to recognize early warning signs and act before situations escalate."
+    },
+    {
+      "id": "alcohol",
+      "title": "Alcohol Awareness",
+      "thumb": "img_bystander.png",
+      "href": "/preorder",
+      "comingSoon": true,
+      "comingSoonDate": "July 2026",
+      "desc": "Honest non-preachy alcohol education that meets students where they are."
+    }
+  ],
+  "k12": [
+    {
+      "id": "threat",
+      "title": "Threat Assessment",
+      "thumb": "img_megaphone.png",
+      "href": "/course-threat.html",
+      "comingSoon": false,
+      "comingSoonDate": "",
+      "desc": "Equips your team to recognize early warning signs and act before situations escalate."
+    }
+  ]
+};
+
+const AUDIENCE_LABELS = {
+  workplace: 'Workplace',
+  highered: 'Higher Education',
+  k12: 'K–12'
+};
+
+// ── STATE ──────────────────────────────────────────────────────────────────────
+let currentAudience = 'all';
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function cardHTML(course) {
+  const topBar = course.comingSoon
+    ? `<div class="coming-soon-bar">
+        <span>Coming ${course.comingSoonDate}</span>
+        <span>Preorder Now →</span>
+       </div>`
+    : '';
+
+  const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-href="${course.href}" data-coming-soon="${course.comingSoon}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
+
+  return `
+    <a class="course-card${course.comingSoon ? ' coming-soon' : ''}" href="#" onclick="openLightbox(this); return false;" ${dataAttrs}>
+      <img class="card-thumb" src="${course.thumb}" alt="${course.title}"
+        onerror="this.style.opacity='0'" />
+      ${topBar}
+      <div class="card-gradient"></div>
+      <div class="card-info"><div class="card-title">${course.title}</div></div>
+    </a>
+  `;
+}
+
+function rowHTML(audienceKey, courses) {
+  const rowId = `track-${audienceKey}`;
+  return `
+    <div class="audience-section">
+      <div class="section-header">
+        <div class="section-title">${AUDIENCE_LABELS[audienceKey]}</div>
+      </div>
+      <div class="scroll-row-wrap">
+        <button class="scroll-btn prev" onclick="scrollRow('${rowId}', -1)" aria-label="Scroll left">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="card-track" id="${rowId}">
+          ${courses.map(c => cardHTML(c)).join('')}
+        </div>
+        <button class="scroll-btn next" onclick="scrollRow('${rowId}', 1)" aria-label="Scroll right">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function renderShelves() {
+  const container = document.getElementById('shelves-container');
+  const audiences = currentAudience === 'all'
+    ? ['workplace', 'highered', 'k12']
+    : [currentAudience];
+
+  let html = audiences.map(a => rowHTML(a, COURSES[a])).join('');
+  container.innerHTML = html;
+
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.audience-section').forEach((el, i) => {
+      setTimeout(() => el.classList.add('visible'), i * 100);
+    });
+  });
+}
+
+// ── SCROLL ROWS ───────────────────────────────────────────────────────────────
+function scrollRow(trackId, direction) {
+  const track = document.getElementById(trackId);
+  if (!track) return;
+  track.scrollBy({ left: direction * 320, behavior: 'smooth' });
+}
+
+// ── AUDIENCE TABS ──────────────────────────────────────────────────────────────
+document.getElementById('audience-tabs').addEventListener('click', e => {
+  const tab = e.target.closest('.filter-tab');
+  if (!tab) return;
+  document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  currentAudience = tab.dataset.audience;
+  renderShelves();
+});
+
+// ── NAV SCROLL ────────────────────────────────────────────────────────────────
+window.addEventListener('scroll', () => {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
+});
+
+// ── MUTE ──────────────────────────────────────────────────────────────────────
+var heroPlayer;
+var isMuted = true;
+
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    heroPlayer = new Vimeo.Player(document.getElementById('hero-video'));
+  } catch(e) {}
+});
+
+function toggleMute() {
+  if (!heroPlayer) return;
+  isMuted = !isMuted;
+  heroPlayer.setMuted(isMuted);
+  if (!isMuted) heroPlayer.setVolume(1);
+  document.getElementById('icon-muted').style.display = isMuted ? 'block' : 'none';
+  document.getElementById('icon-sound').style.display = isMuted ? 'none' : 'block';
+}
+
+// ── LIGHTBOX ──────────────────────────────────────────────────────────────────
+function openLightbox(card) {
+  const title = card.dataset.title;
+  const thumb = card.dataset.thumb;
+  const href  = card.dataset.href;
+  const desc  = card.dataset.desc;
+  const comingSoon = card.dataset.comingSoon === 'true';
+
+  document.getElementById('lightbox-img').src = thumb;
+  document.getElementById('lightbox-img').alt = title;
+  document.getElementById('lightbox-title').textContent = title;
+  document.getElementById('lightbox-desc').textContent = desc;
+
+  const courseBtn = document.getElementById('lb-course');
+  if (comingSoon) {
+    courseBtn.textContent = 'Preorder Now';
+    courseBtn.href = '/preorder';
+  } else {
+    courseBtn.textContent = 'Go to Course';
+    courseBtn.href = href;
+  }
+
+  document.getElementById('lightbox-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+  if (e.target === document.getElementById('lightbox-overlay')) closeLightboxDirect();
+}
+
+function closeLightboxDirect() {
+  document.getElementById('lightbox-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightboxDirect(); });
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+(function() {
+  const params = new URLSearchParams(window.location.search);
+  const audience = params.get('audience');
+  if (audience && ['workplace','highered','k12'].includes(audience)) {
+    currentAudience = audience;
+    document.querySelectorAll('.filter-tab').forEach(t => {
+      t.classList.toggle('active', t.dataset.audience === audience);
+    });
+  }
+  renderShelves();
+})();
+</script>
+</body>
+</html>

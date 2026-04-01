@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sexual Harassment Prevention — Blue Seat Studios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <script src="https://player.vimeo.com/api/player.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:      #096f9c;
+      --blue-dk:   #065578;
+      --blue-lt:   #d6edf7;
+      --orange:    #f97c53;
+      --orange-dk: #e05e35;
+      --navy:      #0a2233;
+      --cream:     #faf8f5;
+      --bg:        #f5f9fc;
+      --surface:   #ffffff;
+      --surface2:  #eaf4fa;
+      --text:      #1c2b36;
+      --muted:     #5a7282;
+      --white:     #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      padding-top: 72px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 72px;
+      background: rgba(9, 111, 156, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      transition: background 0.3s;
+    }
+
+    nav.scrolled { background: rgba(9, 111, 156, 0.98); }
+
+    .nav-logo img { height: 56px; width: auto; display: block; }
+
+    .nav-links { display: flex; gap: 1.6rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.88rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta {
+      background: var(--orange) !important;
+      color: #fff !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
+
+    /* ── BREADCRUMB ── */
+    .breadcrumb {
+      background: var(--white);
+      border-bottom: 1px solid rgba(9,111,156,0.08);
+      padding: 0.65rem 4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+    }
+
+    .breadcrumb a {
+      color: var(--blue);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb a:hover { color: var(--orange); }
+
+    .breadcrumb-sep {
+      color: var(--muted);
+      opacity: 0.45;
+      font-size: 0.7rem;
+    }
+
+    .breadcrumb-current {
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 260px;
+    }
+
+    /* ── HERO (split layout) ── */
+    .hero {
+      background: #fff;
+      border-bottom: 1px solid rgba(9,111,156,0.1);
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 4rem 3rem 3.5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .hero-left {
+      animation: fadeUp 0.7s ease both;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--blue-lt);
+      color: var(--blue-dk);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.85rem;
+      border-radius: 50px;
+      margin-bottom: 1.1rem;
+      border: 1px solid rgba(9,111,156,0.18);
+    }
+
+    .hero h1 {
+      font-size: clamp(1.9rem, 3.2vw, 2.75rem);
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--navy);
+      margin-bottom: 0.8rem;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span { color: var(--blue); }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.65;
+      margin-bottom: 0.9rem;
+      max-width: 440px;
+    }
+
+    .hero-audience {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hero-audience-dot {
+      width: 4px; height: 4px;
+      background: var(--orange);
+      border-radius: 50%;
+    }
+
+    .hero-bullets {
+      list-style: none;
+      margin-bottom: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.55rem;
+    }
+
+    .hero-bullets li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.9rem;
+      color: var(--text);
+      font-weight: 500;
+      line-height: 1.45;
+    }
+
+    .hero-bullets li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 7px; height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      margin-top: 0.42em;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-orange {
+      background: var(--orange);
+      color: #fff;
+      padding: 0.75rem 1.8rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      font-family: 'Quicksand', sans-serif;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-orange:hover { background: var(--orange-dk); transform: translateY(-2px); }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--blue);
+      padding: 0.75rem 1.8rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      font-family: 'Quicksand', sans-serif;
+      text-decoration: none;
+      border: 1.5px solid rgba(9,111,156,0.3);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    .btn-ghost:hover { background: var(--blue-lt); border-color: var(--blue); transform: translateY(-2px); }
+
+    /* Hero video right */
+    .hero-right {
+      animation: fadeUp 0.7s 0.12s ease both;
+    }
+
+    .hero-video-card {
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 12px 48px rgba(9,111,156,0.14), 0 2px 8px rgba(9,111,156,0.08);
+      border: 1px solid rgba(9,111,156,0.1);
+      background: var(--navy);
+      position: relative;
+    }
+
+    .hero-video-card .clip-video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      position: relative;
+    }
+
+    .hero-video-card iframe {
+      width: 100%; height: 100%;
+      display: block;
+      border: 0;
+    }
+
+    /* ── META STRIP ── */
+    .meta-strip {
+      background: var(--white);
+      border-bottom: 1px solid rgba(9,111,156,0.1);
+      padding: 1.2rem 4rem;
+      display: flex;
+      gap: 3rem;
+      flex-wrap: wrap;
+    }
+
+    .meta-strip-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .meta-strip-label {
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .meta-strip-value {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--navy);
+    }
+
+    /* ── SECTIONS ── */
+    .page-content {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 3rem 6rem;
+    }
+
+    .section {
+      padding: 3.5rem 0;
+      border-bottom: 1px solid rgba(9,111,156,0.08);
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+
+    .section.visible { opacity: 1; transform: translateY(0); }
+    .section:last-child { border-bottom: none; }
+
+    .section-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .section-eyebrow-dot {
+      width: 10px; height: 10px;
+      background: var(--orange);
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+
+    .section-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--navy);
+      letter-spacing: -0.01em;
+    }
+
+    /* ── TOPICS GRID ── */
+    .topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .topic-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      background: var(--surface);
+      border: 1px solid rgba(9,111,156,0.1);
+      border-radius: 10px;
+      padding: 1rem 1.1rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .topic-item:hover {
+      border-color: rgba(9,111,156,0.25);
+      box-shadow: 0 4px 16px rgba(9,111,156,0.08);
+    }
+
+    .topic-icon {
+      width: 28px; height: 28px;
+      background: var(--blue-lt);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .topic-icon svg { width: 14px; height: 14px; stroke: var(--blue); }
+
+    /* ── COVERS LIST ── */
+    .covers-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 0.6rem;
+      margin-top: 0.5rem;
+    }
+
+    .covers-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.5;
+      padding: 0.75rem 1rem;
+      background: var(--surface);
+      border: 1px solid rgba(9,111,156,0.09);
+      border-radius: 8px;
+    }
+
+    .covers-list li::before {
+      content: '';
+      flex-shrink: 0;
+      width: 7px; height: 7px;
+      background: var(--orange);
+      border-radius: 50%;
+      margin-top: 0.42em;
+    }
+
+    /* ── PROMO BAR ── */
+    .promo-bar {
+      background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dk) 100%);
+      border-radius: 14px;
+      padding: 2rem 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin: 2.5rem 0 0;
+    }
+
+    .promo-bar-text {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.4;
+      max-width: 500px;
+    }
+
+    .promo-bar-text span {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.78);
+      margin-top: 0.25rem;
+    }
+
+    .btn-white {
+      background: #fff;
+      color: var(--orange-dk);
+      padding: 0.7rem 1.6rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      font-family: 'Quicksand', sans-serif;
+      text-decoration: none;
+      white-space: nowrap;
+      flex-shrink: 0;
+      transition: transform 0.15s, box-shadow 0.15s;
+      display: inline-block;
+    }
+    .btn-white:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.15); }
+
+    /* ── CLIPS GRID ── */
+    .clips-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .clip-card {
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--navy);
+      border: 1px solid rgba(9,111,156,0.12);
+      box-shadow: 0 4px 16px rgba(9,111,156,0.1);
+    }
+
+    .clip-video {
+      width: 100%;
+      aspect-ratio: 16/9;
+      position: relative;
+    }
+
+    .clip-video iframe {
+      width: 100%; height: 100%;
+      display: block;
+      border: 0;
+    }
+
+    .clip-label {
+      padding: 0.75rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.6);
+      letter-spacing: 0.06em;
+    }
+
+    /* ── LICENSING CARDS ── */
+    .licensing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .license-card {
+      background: var(--surface);
+      border: 1px solid rgba(9,111,156,0.12);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: box-shadow 0.2s, border-color 0.2s;
+    }
+
+    .license-card:hover {
+      box-shadow: 0 8px 28px rgba(9,111,156,0.1);
+      border-color: rgba(9,111,156,0.22);
+    }
+
+    .license-card-icon {
+      width: 40px; height: 40px;
+      background: var(--surface2);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1rem;
+    }
+
+    .license-card-icon svg { width: 20px; height: 20px; stroke: var(--blue); }
+
+    .license-card h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+    }
+
+    .license-card p {
+      font-size: 0.84rem;
+      color: var(--muted);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+
+    /* ── RELATED COURSES ── */
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .related-card {
+      position: relative;
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--navy);
+      aspect-ratio: 16/9;
+      border: 1px solid rgba(9,111,156,0.12);
+      box-shadow: 0 2px 10px rgba(9,111,156,0.08);
+      text-decoration: none;
+      display: block;
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+    }
+
+    .related-card:hover {
+      transform: scale(1.04) translateY(-3px);
+      box-shadow: 0 16px 40px rgba(9,111,156,0.18), 0 0 0 2px rgba(249,124,83,0.45);
+    }
+
+    .related-bg {
+      position: absolute;
+      inset: 0;
+    }
+
+    .related-gradient {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(10,34,51,0.92) 0%, rgba(10,34,51,0.2) 60%, transparent 100%);
+    }
+
+    .related-info {
+      position: absolute;
+      bottom: 0;
+      left: 0; right: 0;
+      padding: 1rem;
+    }
+
+    .related-topic {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 0.2rem;
+    }
+
+    .related-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.3;
+    }
+
+    .related-play {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 40px; height: 40px;
+      background: var(--orange);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+
+    .related-card:hover .related-play {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.08);
+    }
+
+    .related-play::after {
+      content: '';
+      border-left: 13px solid #fff;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      margin-left: 3px;
+    }
+
+    .btn-ghost-dark {
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      padding: 0.75rem 1.8rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      font-family: 'Quicksand', sans-serif;
+      text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.7);
+      transition: background 0.2s, border-color 0.2s, transform 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+    }
+    .btn-ghost-dark:hover { background: rgba(255,255,255,0.28); border-color: #fff; transform: translateY(-2px); }
+
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue-dk) 100%);
+      border-radius: 16px;
+      padding: 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 4rem;
+    }
+
+    .cta-strip h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.01em;
+    }
+
+    .cta-strip p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.6);
+      font-weight: 500;
+      max-width: 400px;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: 0.8rem;
+      flex-shrink: 0;
+      flex-wrap: wrap;
+    }
+
+    /* ── ACCORDION ── */
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .accordion-item {
+      background: var(--surface);
+      border: 1px solid rgba(9,111,156,0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .accordion-item.open {
+      border-color: rgba(9,111,156,0.22);
+      box-shadow: 0 4px 18px rgba(9,111,156,0.08);
+    }
+
+    .accordion-item.optional {
+      border-color: rgba(249,124,83,0.2);
+    }
+    .accordion-item.optional.open {
+      border-color: rgba(249,124,83,0.4);
+      box-shadow: 0 4px 18px rgba(249,124,83,0.08);
+    }
+
+    .accordion-trigger {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: 'Quicksand', sans-serif;
+      transition: background 0.15s;
+    }
+
+    .accordion-trigger:hover { background: rgba(9,111,156,0.03); }
+    .accordion-item.optional .accordion-trigger:hover { background: rgba(249,124,83,0.03); }
+
+    .accordion-num {
+      flex-shrink: 0;
+      width: 28px; height: 28px;
+      background: var(--surface2);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--blue);
+    }
+
+    .accordion-item.open .accordion-num {
+      background: var(--blue);
+      color: #fff;
+    }
+
+    .accordion-item.optional .accordion-num {
+      background: rgba(249,124,83,0.12);
+      color: var(--orange);
+    }
+
+    .accordion-item.optional.open .accordion-num {
+      background: var(--orange);
+      color: #fff;
+    }
+
+    .accordion-header-text {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+    }
+
+    .accordion-title {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .optional-badge {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--orange);
+      background: rgba(249,124,83,0.12);
+      padding: 0.2rem 0.55rem;
+      border-radius: 50px;
+      border: 1px solid rgba(249,124,83,0.25);
+    }
+
+    .accordion-chevron {
+      flex-shrink: 0;
+      width: 20px; height: 20px;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--muted);
+      transition: transform 0.25s ease;
+    }
+
+    .accordion-item.open .accordion-chevron { transform: rotate(180deg); }
+
+    .accordion-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+    }
+
+    .accordion-body-inner {
+      padding: 0 1.2rem 1.1rem 3.4rem;
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      font-weight: 500;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      color: rgba(255,255,255,0.45);
+      padding: 2rem 3rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      font-weight: 500;
+      flex-wrap: wrap;
+      gap: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .footer-logo img { height: 32px; width: auto; opacity: 0.75; }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+    /* ── SCROLLBAR ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--blue-lt); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--blue); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 1.5rem; }
+      .nav-links li:not(:last-child) { display: none; }
+      .breadcrumb { padding: 0.65rem 1.5rem; }
+      .page-content { padding: 0 1.5rem 6rem; }
+      .meta-strip { padding: 1.2rem 1.5rem; }
+      .hero-inner { grid-template-columns: 1fr; gap: 2rem; padding: 2.5rem 1.5rem 2rem; }
+      .hero-right { order: -1; }
+      .promo-bar { flex-direction: column; text-align: center; }
+      .clips-grid, .licensing-grid, .related-grid { grid-template-columns: 1fr 1fr; }
+      .cta-strip { flex-direction: column; text-align: center; }
+      .cta-actions { justify-content: center; }
+    }
+
+    @media (max-width: 600px) {
+      .clips-grid, .related-grid { grid-template-columns: 1fr; }
+      .licensing-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <div class="nav-logo">
+    <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="catalog.html?audience=workplace">Workplace</a></li>
+    <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
+    <li><a href="catalog.html?audience=k12">K–12</a></li>
+    <li><a href="catalog.html">Catalog</a></li>
+    <li><a href="about-us.html">About</a></li>
+    <li><a href="contact.html">Contact Us</a></li>
+    <li><a href="demo.html" class="nav-cta">Watch a Demo</a></li>
+  </ul>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="/">Home</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="/catalog">Courses</a>
+  <span class="breadcrumb-sep">›</span>
+  <a href="/catalog?audience=workplace">Workplace</a>
+  <span class="breadcrumb-sep">›</span>
+  <span class="breadcrumb-current">Sexual Harassment Prevention</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-badge">
+        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        Workplace · Full Course
+      </div>
+      <h1>Sexual Harassment <span>Prevention</span></h1>
+      <p class="hero-desc">Animated, scenario-based training that meets compliance requirements and actually sticks. Built for real workplaces — not checkboxes.</p>
+      <div class="hero-audience">
+        For All Employees &amp; Managers
+        <span class="hero-audience-dot"></span>
+        25 min
+      </div>
+      <ul class="hero-bullets">
+        <li>Meets CA SB 1343, NY, and multi-state compliance requirements</li>
+        <li>Scenario-based learning covering recognition, reporting, and response</li>
+        <li>Separate manager track with supervisor-specific obligations</li>
+        <li>SCORM-compatible — drops into any LMS</li>
+      </ul>
+      <div class="hero-actions">
+        <a href="/demo.html" class="btn-orange">Watch a Demo</a>
+        <a href="/request-a-quote.html" class="btn-ghost">Get Pricing</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-video-card">
+        <div class="clip-video">
+          <iframe
+            src="https://player.vimeo.com/video/1152648266?color=f97c53&title=0&byline=0&portrait=0"
+            frameborder="0"
+            allow="fullscreen; picture-in-picture"
+            allowfullscreen
+            title="Sexual Harassment Prevention — Preview">
+          </iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- META STRIP -->
+<div class="meta-strip">
+  <div class="meta-strip-item">
+    <span class="meta-strip-label">Duration</span>
+    <span class="meta-strip-value">25 minutes</span>
+  </div>
+  <div class="meta-strip-item">
+    <span class="meta-strip-label">Format</span>
+    <span class="meta-strip-value">Animated Full Course</span>
+  </div>
+  <div class="meta-strip-item">
+    <span class="meta-strip-label">Audience</span>
+    <span class="meta-strip-value">All Employees + Manager Track</span>
+  </div>
+  <div class="meta-strip-item">
+    <span class="meta-strip-label">LMS</span>
+    <span class="meta-strip-value">SCORM Compatible</span>
+  </div>
+  <div class="meta-strip-item">
+    <span class="meta-strip-label">Compliance</span>
+    <span class="meta-strip-value">CA SB 1343 · NY · Multi-State</span>
+  </div>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="page-content">
+
+  <!-- What This Course Covers -->
+  <div class="section" id="s-covers">
+    <div class="section-eyebrow">
+      <div class="section-eyebrow-dot"></div>
+      <h2 class="section-title">What This Course Covers</h2>
+    </div>
+    <ul class="covers-list">
+      <li>Defining sexual harassment — quid pro quo and hostile work environment</li>
+      <li>Recognizing harassment in person, in writing, and online</li>
+      <li>Bystander responsibility and how to safely intervene</li>
+      <li>How to report — internal channels, HR, and external agencies</li>
+      <li>Manager obligations, investigations, and anti-retaliation protections</li>
+      <li>State-specific requirements: California, New York, and more</li>
+    </ul>
+  </div>
+
+  <!-- Full Access Promo Bar -->
+  <div class="promo-bar">
+    <div class="promo-bar-text">
+      Need multiple courses for your workplace?
+      <span>Get full access to the Blue Seat Studios catalog — every course, every update, one license.</span>
+    </div>
+    <a href="full_access.html" class="btn-white">Explore Full Access</a>
+  </div>
+
+  <!-- Course Lessons -->
+  <div class="section" id="s-lessons">
+    <div class="section-eyebrow">
+      <div class="section-eyebrow-dot"></div>
+      <h2 class="section-title">Course Lessons</h2>
+    </div>
+    <div class="accordion">
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">1</div>
+          <div class="accordion-header-text"><span class="accordion-title">Introduction</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">Every employee is entitled to a harassment-free, respectful workplace. This opening lesson sets the tone — what the course covers, why it matters, and what a healthy work environment actually looks like.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">2</div>
+          <div class="accordion-header-text"><span class="accordion-title">Person to Person Harassment</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">What does person-to-person sexual harassment actually look like? This lesson covers the key principle that intent does not equal impact — the effect of behavior on someone else is what matters, regardless of what you meant.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">3</div>
+          <div class="accordion-header-text"><span class="accordion-title">Quid Pro Quo</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">A direct and fun way to learn about quid pro quo in workplace settings — what it looks like, why it's never okay, and how to recognize it when it happens.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">4</div>
+          <div class="accordion-header-text"><span class="accordion-title">Reporting &amp; Retaliation Protections</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">Reporting harassment is not just okay — it's protected. This lesson covers how and where to report, anti-retaliation law, and why managers have a mandatory obligation to act on reports they receive, even informally.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">5</div>
+          <div class="accordion-header-text"><span class="accordion-title">Stan 1 — Inappropriate Comments &amp; Touching</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">Meet Stan. He means well but keeps things unprofessional — unsolicited backrubs, comments about a colleague's appearance, remarks about what's "sexy." This scenario shows clearly where the line is and why keeping it professional matters.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">6</div>
+          <div class="accordion-header-text"><span class="accordion-title">The Musical</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">An upbeat Music Man-style musical number that drives home the core message: don't harass, don't make anyone feel inferior based on gender, sexual orientation, or transgender status. Memorable, fun, and genuinely hard to forget.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">7</div>
+          <div class="accordion-header-text"><span class="accordion-title">Stan 2 — NSFW Content at Work</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">Stan is slowly figuring out that not-safe-for-work content really doesn't belong at work — on screens, in chats, or shared casually. This segment covers digital behavior and why context matters even for "just a joke."</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">8</div>
+          <div class="accordion-header-text"><span class="accordion-title">Hostile Work Environment — Introduction</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">What actually makes a workplace hostile in a legal sense? This lesson lays out the foundational definition — conduct that is severe or pervasive enough to create an abusive work environment — before a series of real-world scenarios brings it to life.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">9</div>
+          <div class="accordion-header-text"><span class="accordion-title">Scenario 1 — Setting a Boundary</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">A coworker asks another out. The answer is no — and it's respected. This scenario models what healthy boundary-setting looks like and shows that asking someone out at work isn't inherently harassment, as long as the answer is accepted gracefully.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">10</div>
+          <div class="accordion-header-text"><span class="accordion-title">Scenario 2 — Power Dynamics</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">A female manager pressures a staff member to go out with her. This scenario deliberately flips gender expectations to reinforce that power dynamics — not gender — are what make this harassment. Anyone in authority can cross the line.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">11</div>
+          <div class="accordion-header-text"><span class="accordion-title">Scenario 3 — Explicit Content</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">A single incident of explicit content in the workplace. This scenario explores the legal concept that even one occurrence can constitute harassment if it's severe enough — and why "it only happened once" isn't always a defense.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">12</div>
+          <div class="accordion-header-text"><span class="accordion-title">Scenario 4 — Vendor Comments</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">A vendor makes repeated low-level comments to an intern — nothing explosive, but relentless. This scenario tackles pervasive harassment: how a pattern of minor incidents can add up to a hostile environment, even when each incident seems small on its own.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">13</div>
+          <div class="accordion-header-text"><span class="accordion-title">Scenario 5 — Awkward Compliment</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">Not everything awkward is harassment. This scenario shows an uncomfortable compliment that is neither severe nor pervasive — just clumsy. Helping employees calibrate what actually crosses the line is as important as showing what does.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">14</div>
+          <div class="accordion-header-text"><span class="accordion-title">Hostile Work Environment — Recap</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">After the scenarios, this lesson consolidates the two-part test: conduct must be both severe or pervasive, and meet both a subjective standard (the person experiencing it found it hostile) and an objective standard (a reasonable person would too).</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">15</div>
+          <div class="accordion-header-text"><span class="accordion-title">Stan 3 — Intrusive Questions</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">Stan is curious — which is fine. But his questions about a coworker's background and identity cross into territory that feels othering and unprofessional. This segment covers cultural sensitivity: curiosity is human, but there's a line. Employees also learn they can set reasonable limits on what they share.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">16</div>
+          <div class="accordion-header-text"><span class="accordion-title">Being an Active Bystander</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">Everyone has a role in making the workplace better. This lesson covers the four bystander strategies — Direct, Delay, Distract, and Delegate — and gives employees practical, low-risk ways to respond when they see something that doesn't seem right.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">17</div>
+          <div class="accordion-header-text"><span class="accordion-title">Stan the Man</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">Stan's confident — and that's actually great. This final Stan segment draws the distinction between self-assurance and unwelcome flirting or pursuit. Confidence is an asset. Ignoring signals that your attention isn't wanted is not.</div></div>
+      </div>
+
+      <div class="accordion-item optional">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">18</div>
+          <div class="accordion-header-text">
+            <span class="accordion-title">California — FEHA &amp; State-Specific Law</span>
+            <span class="optional-badge">Optional</span>
+          </div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">A dedicated module covering California's Fair Employment and Housing Act (FEHA), SB 1343 training requirements, and state-specific protections that go beyond federal law. Recommended for any organization with California employees.</div></div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">19</div>
+          <div class="accordion-header-text"><span class="accordion-title">Closing — You Did It!</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">Course complete. Stan improved — and so did you. This closing reinforces the key takeaways, reminds employees where to go if they need support or want to report something, and sends everyone off feeling equipped, not lectured.</div></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Sample Clips -->
+  <div class="section" id="s-clips">
+    <div class="section-eyebrow">
+      <div class="section-eyebrow-dot"></div>
+      <h2 class="section-title">Sample Clips</h2>
+    </div>
+    <div class="clips-grid">
+      <div class="clip-card">
+        <div class="clip-video">
+          <iframe src="https://player.vimeo.com/video/1152648266?color=f97c53&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="clip-label">Clip 1 · What Is Harassment?</div>
+      </div>
+      <div class="clip-card">
+        <div class="clip-video">
+          <iframe src="https://player.vimeo.com/video/1152648266?color=f97c53&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="clip-label">Clip 2 · How to Report</div>
+      </div>
+      <div class="clip-card">
+        <div class="clip-video">
+          <iframe src="https://player.vimeo.com/video/1152648266?color=f97c53&title=0&byline=0&portrait=0" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <div class="clip-label">Clip 3 · Manager Obligations</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How Licensing Works -->
+  <div class="section" id="s-licensing">
+    <div class="section-eyebrow">
+      <div class="section-eyebrow-dot"></div>
+      <h2 class="section-title">How Licensing Works</h2>
+    </div>
+    <div class="licensing-grid">
+      <div class="license-card">
+        <div class="license-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Annual Licensing</h3>
+        <p>A single yearly fee covers unlimited use across your organization — no per-seat costs or surprise renewals.</p>
+      </div>
+      <div class="license-card">
+        <div class="license-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Organization-Wide Access</h3>
+        <p>Deploy to every employee, department, and location — no limits on how many people complete the course.</p>
+      </div>
+      <div class="license-card">
+        <div class="license-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>LMS Compatible</h3>
+        <p>Can be deployed on your internal LMS or hosted directly by us — whichever works best for your organization.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related Courses -->
+  <div class="section" id="s-related">
+    <div class="section-eyebrow">
+      <div class="section-eyebrow-dot"></div>
+      <h2 class="section-title">Related Courses</h2>
+    </div>
+    <div class="related-grid">
+      <a href="/courses/bystander-training" class="related-card">
+        <div class="related-bg" style="background: linear-gradient(135deg,#096f9c,#0a2233);"></div>
+        <div class="related-gradient"></div>
+        <div class="related-play"></div>
+        <div class="related-info">
+          <div class="related-topic">Bystander Intervention</div>
+          <div class="related-title">Bystander Training</div>
+        </div>
+      </a>
+      <a href="/courses/hr-fundamentals" class="related-card">
+        <div class="related-bg" style="background: linear-gradient(135deg,#f97c53,#096f9c);"></div>
+        <div class="related-gradient"></div>
+        <div class="related-play"></div>
+        <div class="related-info">
+          <div class="related-topic">HR Fundamentals</div>
+          <div class="related-title">HR Fundamentals</div>
+        </div>
+      </a>
+      <a href="/courses/threat-assessment" class="related-card">
+        <div class="related-bg" style="background: linear-gradient(135deg,#065578,#f97c53);"></div>
+        <div class="related-gradient"></div>
+        <div class="related-play"></div>
+        <div class="related-info">
+          <div class="related-topic">Workplace Safety</div>
+          <div class="related-title">Threat Assessment</div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- CTA Strip -->
+  <div class="cta-strip">
+    <div>
+      <h2>Ready to license this course?</h2>
+      <p>Get instant demo access or talk to us about pricing for your organization.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="demo.html" class="btn-orange">Watch a Demo</a>
+      <a href="request-a-quote.html" class="btn-ghost-dark">Request a Quote</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" />
+  </div>
+  <ul class="footer-links">
+    <li><a href="#">Workplace</a></li>
+    <li><a href="#">Higher Ed</a></li>
+    <li><a href="#">K–12</a></li>
+    <li><a href="#">Privacy</a></li>
+    <li><a href="https://www.blueseatstudios.com/contact">Contact</a></li>
+  </ul>
+  <div>© 2025 Blue Seat Studios. All rights reserved.</div>
+</footer>
+
+<script>
+  function toggleAccordion(trigger) {
+    const item = trigger.closest('.accordion-item');
+    const body = item.querySelector('.accordion-body');
+    const isOpen = item.classList.contains('open');
+
+    // Close all open items
+    document.querySelectorAll('.accordion-item.open').forEach(openItem => {
+      openItem.classList.remove('open');
+      openItem.querySelector('.accordion-body').style.maxHeight = '0';
+    });
+
+    // Open clicked item if it was closed
+    if (!isOpen) {
+      item.classList.add('open');
+      body.style.maxHeight = body.scrollHeight + 'px';
+    }
+  }
+
+  // ── NAV SCROLL ──
+  window.addEventListener('scroll', () => {
+    document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
+  });
+
+  // ── SCROLL REVEAL ──
+  document.addEventListener('DOMContentLoaded', () => {
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(s => observer.observe(s));
+  });
+</script>
+</body>
+</html>

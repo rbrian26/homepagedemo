@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sexual Harassment Prevention — Demo Library | Blue Seat Studios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:      #096f9c;
+      --blue-dk:   #065578;
+      --blue-lt:   #d6edf7;
+      --orange:    #f97c53;
+      --orange-dk: #e05e35;
+      --bg:        #f5f9fc;
+      --text:      #1c2b36;
+      --muted:     #5a7282;
+    }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 72px;
+      background: rgba(9, 111, 156, 0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .nav-logo img { height: 56px; width: auto; display: block; }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: #fff; }
+
+    .nav-cta {
+      background: var(--orange);
+      color: #fff !important;
+      padding: 0.5rem 1.4rem;
+      border-radius: 50px;
+      font-weight: 700 !important;
+      transition: background 0.2s, transform 0.15s !important;
+    }
+    .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
+
+    .unlocked-badge {
+      background: rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.9);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.2);
+      cursor: default;
+      user-select: none;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links li:not(:last-child) { display: none; }
+      nav { padding: 0 1.5rem; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--blue);
+      padding: 52px 3rem 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 440px; height: 440px;
+      background: var(--orange);
+      opacity: 0.08;
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 30%;
+      width: 280px; height: 280px;
+      background: white;
+      opacity: 0.04;
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 800px;
+      animation: fadeUp 0.5s ease both;
+    }
+
+    .eyebrow {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 12px;
+    }
+
+    .hero h1 {
+      font-size: clamp(1.7rem, 3vw, 2.5rem);
+      font-weight: 700;
+      color: white;
+      letter-spacing: -0.02em;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+
+    .hero p {
+      color: rgba(255,255,255,0.72);
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.65;
+      max-width: 580px;
+    }
+
+    .hero-meta {
+      display: flex;
+      gap: 24px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.88rem;
+      font-weight: 600;
+    }
+    .meta-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--orange);
+      flex-shrink: 0;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 52px 3rem;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      margin-bottom: 28px;
+    }
+    .section-header h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.01em;
+    }
+    .section-header span {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--muted);
+    }
+
+    /* ── VIDEO GRID ── */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 24px;
+      margin-bottom: 56px;
+    }
+
+    .video-card {
+      background: white;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid #daeaf3;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      cursor: pointer;
+      animation: fadeUp 0.5s ease both;
+    }
+    .video-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(9,111,156,0.12);
+    }
+
+    .video-card:nth-child(1) { animation-delay: 0.05s; }
+    .video-card:nth-child(2) { animation-delay: 0.10s; }
+    .video-card:nth-child(3) { animation-delay: 0.15s; }
+    .video-card:nth-child(4) { animation-delay: 0.20s; }
+    .video-card:nth-child(5) { animation-delay: 0.25s; }
+    .video-card:nth-child(6) { animation-delay: 0.30s; }
+
+    .thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: var(--blue-lt);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .thumb::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #d6edf7 0%, #b8d9ec 100%);
+    }
+
+    /* ✏️ When you add real thumbnails, replace .thumb::before with:
+       .thumb img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; } */
+
+    .play-btn {
+      position: relative;
+      width: 48px; height: 48px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 16px rgba(9,111,156,0.2);
+      transition: transform 0.2s ease;
+    }
+    .video-card:hover .play-btn { transform: scale(1.1); }
+    .play-btn svg {
+      width: 18px; height: 18px;
+      fill: var(--blue);
+      margin-left: 3px;
+    }
+
+    .duration {
+      position: absolute;
+      bottom: 10px; right: 10px;
+      background: rgba(9,111,156,0.85);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 5px;
+      letter-spacing: 0.03em;
+    }
+    .module-tag {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: var(--orange);
+      color: white;
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 5px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .card-body { padding: 18px 20px 20px; }
+    .card-body h3 {
+      font-size: 0.97rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+    .card-body p {
+      font-size: 0.84rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background: linear-gradient(120deg, var(--blue) 0%, var(--blue-dk) 100%);
+      border-radius: 16px;
+      padding: 40px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      overflow: hidden;
+      position: relative;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      right: -60px; top: -60px;
+      width: 220px; height: 220px;
+      background: var(--orange);
+      opacity: 0.15;
+      border-radius: 50%;
+    }
+    .cta-text h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 6px;
+      letter-spacing: -0.01em;
+    }
+    .cta-text p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+      font-weight: 500;
+    }
+    .cta-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .cta-btn {
+      background: var(--orange);
+      color: white;
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 14px 28px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      white-space: nowrap;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      position: relative;
+    }
+    .cta-btn:hover { background: var(--orange-dk); transform: translateY(-1px); }
+    .cta-btn-outline {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      color: white;
+    }
+    .cta-btn-outline:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.5); transform: translateY(-1px); }
+
+    /* ── ACTION BUTTONS ── */
+    .action-row {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 48px;
+      flex-wrap: wrap;
+    }
+    .action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 13px 24px;
+      border-radius: 10px;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+    .action-btn-primary {
+      background: var(--orange);
+      color: white;
+    }
+    .action-btn-primary:hover { background: var(--orange-dk); transform: translateY(-1px); }
+    .action-btn-secondary {
+      background: white;
+      color: var(--blue);
+      border: 2px solid var(--blue);
+    }
+    .action-btn-secondary:hover { background: var(--blue-lt); transform: translateY(-1px); }
+
+    /* ── CATALOG SECTION ── */
+    .catalog-section {
+      background: white;
+      border: 1px solid #daeaf3;
+      border-radius: 16px;
+      padding: 36px 40px;
+      margin-top: 32px;
+      margin-bottom: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+    }
+    .catalog-left { flex: 1; }
+    .catalog-left h3 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .catalog-left p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 500;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .catalog-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .catalog-tags span {
+      background: var(--blue-lt);
+      color: var(--blue);
+      font-size: 0.8rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+    }
+    .catalog-tags span.current {
+      background: var(--orange);
+      color: white;
+    }
+
+    @media (max-width: 700px) {
+      .catalog-section { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 640px) {
+      .hero { padding: 40px 1.5rem 32px; }
+      main { padding: 36px 1.5rem; }
+      .cta-banner { flex-direction: column; text-align: center; padding: 32px 24px; }
+      .action-row { flex-direction: column; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(18px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">
+    <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+  </div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#">Full Catalog</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="https://www.blueseatstudios.com/contact" class="nav-cta">Contact Us</a></li>
+    </ul>
+    <span class="unlocked-badge">✓ Demo Unlocked</span>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="eyebrow">Demo Library</div>
+    <h1>Sexual Harassment Prevention</h1>
+    <p>Preview real lessons from our course before you commit. These clips give you a genuine feel for our style, tone, and approach to this critical workplace topic.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><div class="meta-dot"></div>Scenario-based learning</div>
+      <div class="meta-item"><div class="meta-dot"></div>Manager & employee tracks</div>
+      <div class="meta-item"><div class="meta-dot"></div>EEOC & Title IX aligned</div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <div class="section-header">
+    <h2>Preview Highlights</h2>
+    <span>8 previews from a full 19-lesson course</span>
+  </div>
+
+  <div class="video-grid">
+
+    <div class="video-card">
+      <div class="thumb">
+        <div class="module-tag">Intro</div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="duration">✏️ 0:00</div>
+      </div>
+      <div class="card-body">
+        <h3>Welcome: Your Right to a Respectful Workplace</h3>
+        <p>Every employee is entitled to a harassment-free environment. Here's what that means and why it matters.</p>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="thumb">
+        <div class="module-tag">Concepts</div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="duration">✏️ 0:00</div>
+      </div>
+      <div class="card-body">
+        <h3>Person to Person Harassment</h3>
+        <p>What counts as harassment between coworkers — and why intent doesn't equal impact.</p>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="thumb">
+        <div class="module-tag">Meet Stan</div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="duration">✏️ 0:00</div>
+      </div>
+      <div class="card-body">
+        <h3>Stan 1 — Inappropriate Comments</h3>
+        <p>Stan means well but crosses lines with backrubs and comments on appearance. A candid look at keeping it professional.</p>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="thumb">
+        <div class="module-tag">Musical</div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="duration">✏️ 0:00</div>
+      </div>
+      <div class="card-body">
+        <h3>The Musical Number</h3>
+        <p>A Music Man–style number about respect, inclusion, and not making anyone feel inferior based on gender or identity.</p>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="thumb">
+        <div class="module-tag">Scenarios</div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="duration">✏️ 0:00</div>
+      </div>
+      <div class="card-body">
+        <h3>Scenario — Power Dynamics</h3>
+        <p>A female boss pressures a staff member to go out. A clear look at how power imbalances create harassment regardless of gender.</p>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="thumb">
+        <div class="module-tag">Reporting</div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="duration">✏️ 0:00</div>
+      </div>
+      <div class="card-body">
+        <h3>Reporting & Retaliation Protection</h3>
+        <p>It's ok to report. You are protected. If you're a manager, reporting isn't optional.</p>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="thumb">
+        <div class="module-tag">Bystander</div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="duration">✏️ 0:00</div>
+      </div>
+      <div class="card-body">
+        <h3>Active Bystander</h3>
+        <p>Four ways to make your workplace better: Direct, Delay, Distract, Delegate.</p>
+      </div>
+    </div>
+
+    <div class="video-card">
+      <div class="thumb">
+        <div class="module-tag">Concepts</div>
+        <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
+        <div class="duration">✏️ 0:00</div>
+      </div>
+      <div class="card-body">
+        <h3>Quid Pro Quo</h3>
+        <p>What quid pro quo harassment looks like — and why it's always a misuse of power.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA BANNER -->
+  <div class="cta-banner">
+    <div class="cta-text">
+      <h3>Ready to bring this to your organization?</h3>
+      <p>License this course or the full Blue Seat catalog — volume pricing and custom branding available.</p>
+    </div>
+    <div class="cta-buttons">
+      <a href="/pricing" class="cta-btn cta-btn-outline">View Pricing →</a>
+      <a href="https://www.blueseatstudios.com/contact" class="cta-btn">Request a Quote →</a>
+    </div>
+  </div>
+
+  <!-- CATALOG LICENSING -->
+  <div class="catalog-section">
+    <div class="catalog-left">
+      <h3>Many organizations license the full Blue Seat catalog</h3>
+      <p>Give your teams access to our complete library — covering the topics that matter most in today's workplace.</p>
+      <div class="catalog-tags">
+        <span class="current">Sexual Harassment Prevention</span>
+        <span>Cybersecurity</span>
+        <span>Threat Assessment</span>
+        <span>Workplace Respect</span>
+        <span>Mental Health</span>
+      </div>
+    </div>
+    <a href="/catalog" class="action-btn action-btn-primary" style="flex-shrink:0;">Explore Full Catalog Licensing →</a>
+  </div>
+
+</main>
+
+</body>
+</html>
