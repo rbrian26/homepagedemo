@@ -1,10 +1,4 @@
-CATALOG,,,,,,,,,,
 id,title,audience,thumb,thumbGif,href,comingSoon,comingSoonDate,desc,active,staffAudiences
-e.g. shp,Display title,"workplace| highered| k12
-(pipe-separated)",img_shp.png,img_blah.gif,"/course-shp.html
-or /preorder",true / false,"e.g. July 2026
-(leave blank if active)",Short catalog card description (1–2 sentences),true / false,"workplace|highered|k12
-(pipe-separated, leave blank if not staff-specific)"
 shp,Sexual Harassment Prevention,workplace|highered|k12,img_shp.png,img_shp.gif,/course-shp.html,FALSE,,"Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",true,k12|highered
 ta,Threat Assessment,workplace|highered|k12,img_ta.png,img_ta.gif,/course-ta.html,FALSE,,"Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",true,
 al,Alcohol Awareness,highered,img_al.png,img_al.gif,/course-al.html,TRUE,July 2026,"Honest, non-preachy education that helps people understand their patterns and make more intentional choices. Grounded in self-reflection, awareness, and aligning decisions with what matters most.",true,
@@ -16,6 +10,6 @@ co-he,Consent,highered,img_co-he.png,img_co-he.gif,/course-co-he.html,FALSE,,"Cl
 t9-he,Title IX,highered,img_t9.png,img_t9.gif,/course-t9.html,TRUE,,"Explains how Title IX works on campus, including rights, reporting options, and what happens after a report is made. Gives students a clear understanding of the process so they can navigate it with more confidence.",true,
 by-he,Bystander Intervention,highered,img_by-he.png,img_by-he.gif,/course-by-he.html,FALSE,,"Helps students recognize when something isn’t right, step in safely, and know when to involve others. Focuses on practical, realistic ways to support others and contribute to a safer campus community",true,
 by-k12,Bystander Intervention,k12,img_by-k12.png,img_by-k12.gif,/course-by-k12.html,FALSE,,"Helps students recognize when something isn’t right and take simple, age-appropriate action. Builds confidence to speak up, support others, and be part of a safer, more respectful community.",true,
-sg,Safeguarding,k12|highered|workplace,img_sg.png,,/course-sg.html,TRUE,June 2026,Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.,TRUE,highered|k12
+sg,Safeguarding,k12|highered|workplace,img_sg.png,img_sg.gif,/course-sg.html,TRUE,June 2026,Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.,TRUE,highered|k12
 cy,Cybersecurity,k12|highered|workplace,img_cy.png,img_cy.gif,/course-cy.html,TRUE,May 2026,"Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",TRUE,
 bf-k12,Bias and Fairness,k12,img_bf-k12.png,img_bf.gif,/course-bf-k12.html,FALSE,,"Ferdinand Ferret is on the case—joined by his practical, no-nonsense partner Dr. Bear. This three-part series helps students understand bias and fairness, question snap judgments, and think a little more carefully about they see others.",TRUE,
