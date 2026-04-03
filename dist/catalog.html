@@ -1435,7 +1435,7 @@ function openLightbox(card) {
   const desc      = card.dataset.desc;
   const isComingSoon = card.dataset.status === 'coming-soon';
 
-  document.getElementById('lightbox-img').src = thumbGif || thumb;
+  document.getElementById('lightbox-img').src = thumbGif ? 'assets/images/courses/' + thumbGif : 'assets/images/courses/' + thumb;
   document.getElementById('lightbox-img').alt = title;
   document.getElementById('lightbox-title').textContent = title;
   document.getElementById('lightbox-desc').textContent = desc;
