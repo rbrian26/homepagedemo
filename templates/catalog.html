@@ -1088,12 +1088,10 @@ function cardHTML(course) {
   const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-thumb-gif="${course.thumbGif || ''}" data-href="${course.href}" data-status="${course.status}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
 
   const hoverAttrs = course.thumbGif
-    ? `onmouseenter="this.querySelector('.card-thumb').src='${course.thumbGif}'" onmouseleave="this.querySelector('.card-thumb').src='${course.thumb}'"` : '';
-
+    ? `onmouseenter="this.querySelector('.card-thumb').src='assets/images/courses/${course.thumbGif}'" onmouseleave="this.querySelector('.card-thumb').src='assets/images/courses/${course.thumb}'"` : '';
   return `
     <a class="course-card${isComingSoon ? ' coming-soon' : ''}" href="#" onclick="openLightbox(this); return false;" ${dataAttrs} ${hoverAttrs}>
-      <img class="card-thumb" src="${course.thumb}" alt="${course.title}"
-        onerror="this.style.opacity='0'" />
+      <img class="card-thumb" src="assets/images/courses/${course.thumb}" alt="${course.title}"/>
       ${topBar}
       <div class="card-gradient"></div>
       ${staffBadge}
