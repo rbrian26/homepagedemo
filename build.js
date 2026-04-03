@@ -45,7 +45,7 @@ function buildCatalog(courses, orderData) {
 
   courses.filter(c => c.active !== 'false').forEach(c => {
     const staffAudiences = (c.staffAudiences || '').split('|').map(a => a.trim()).filter(Boolean);
-    const isComingSoon   = c.status === 'coming-soon';
+    const isComingSoon = c.comingSoon === 'TRUE';
 
     c.audience.split('|').map(a => a.trim()).forEach(aud => {
       if (!groups[aud]) return;
