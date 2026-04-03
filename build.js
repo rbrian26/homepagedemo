@@ -17,6 +17,15 @@ const Papa = require('papaparse');
 
 const DIST = path.join(__dirname, 'dist');
 
+function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return;
+  fs.mkdirSync(dest, { recursive: true });
+  fs.readdirSync(src).forEach(file => {
+    const s = path.join(src, file), d = path.join(dest, file);
+    fs.statSync(s).isDirectory() ? copyDir(s, d) : fs.copyFileSync(s, d);
+  });
+}
+
 function readCSV(filePath) {
   if (!fs.existsSync(filePath)) { console.warn('  ⚠️  Missing:', filePath); return []; }
   return Papa.parse(fs.readFileSync(filePath, 'utf8'), { header: true, skipEmptyLines: true }).data;
@@ -300,5 +309,8 @@ details.forEach(d => buildCoursePage(d));
 
 console.log('\nBuilding demo pages...');
 if (demoPages.length) buildDemoPages(demoPages, demoVideos);
+
+console.log('Copying assets...');
+copyDir(path.join(__dirname, 'assets'), path.join(DIST, 'assets'));
 
 console.log('\n✅ Done.\n');
