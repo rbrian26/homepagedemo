@@ -40,7 +40,7 @@ function write(filePath, content) {
 }
 
 // ── CATALOG ────────────────────────────────────────────────────────────────────
-function buildCatalog(courses) {
+function buildCatalog(courses, orderData) {
   const groups = { workplace: [], highered: [], k12: [] };
 
   courses.filter(c => c.active !== 'false').forEach(c => {
@@ -63,6 +63,22 @@ function buildCatalog(courses) {
       });
     });
   });
+
+const orderMap = {};
+orderData.forEach(row => {
+  orderMap[row.audience] = (row.order || '').split('|').map(id => id.trim());
+});
+Object.keys(groups).forEach(aud => {
+  const ordered = orderMap[aud] || [];
+  groups[aud].sort((a, b) => {
+    const ai = ordered.indexOf(a.id);
+    const bi = ordered.indexOf(b.id);
+    if (ai === -1 && bi === -1) return 0;
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  });
+});
 
   const output = readTemplate('catalog.html')
     .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`);
@@ -292,12 +308,13 @@ function buildDemoPages(demoPages, demoVideos) {
 console.log('\n🔨 Blue Seat Studios — Build\n');
 
 const catalog    = readCSV(path.join(__dirname, 'data', 'catalog.csv'));
+const catalogOrder = readCSV(path.join(__dirname, 'data', 'catalog-order.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
 const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
 const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
 
 console.log('Building catalog...');
-if (catalog.length) buildCatalog(catalog);
+if (catalog.length) buildCatalog(catalog, catalogOrder);
 
 console.log('\nBuilding coming-soon course pages...');
 if (catalog.length) buildComingSoonPages(catalog);
