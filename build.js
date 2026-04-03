@@ -53,6 +53,7 @@ function buildCatalog(courses) {
         id:                c.id,
         title:             c.title,
         thumb:             c.thumb,
+	thumbGif:          c.thumbGif || '',
         // Always use comingSoonPageHref for coming-soon, href for available
         href:              isComingSoon ? (c.comingSoonPageHref || c.href) : c.href,
         status:            c.status,
