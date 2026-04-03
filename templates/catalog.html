@@ -1085,10 +1085,13 @@ function cardHTML(course) {
     ? `<div class="staff-badge">For Staff</div>`
     : '';
 
-  const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-href="${course.href}" data-status="${course.status}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
+  const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-thumb-gif="${course.thumbGif || ''}" data-href="${course.href}" data-status="${course.status}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
+
+  const hoverAttrs = course.thumbGif
+    ? `onmouseenter="this.querySelector('.card-thumb').src='${course.thumbGif}'" onmouseleave="this.querySelector('.card-thumb').src='${course.thumb}'"` : '';
 
   return `
-    <a class="course-card${isComingSoon ? ' coming-soon' : ''}" href="#" onclick="openLightbox(this); return false;" ${dataAttrs}>
+    <a class="course-card${isComingSoon ? ' coming-soon' : ''}" href="#" onclick="openLightbox(this); return false;" ${dataAttrs} ${hoverAttrs}>
       <img class="card-thumb" src="${course.thumb}" alt="${course.title}"
         onerror="this.style.opacity='0'" />
       ${topBar}
@@ -1182,11 +1185,12 @@ function toggleMute() {
 function openLightbox(card) {
   const title     = card.dataset.title;
   const thumb     = card.dataset.thumb;
+  const thumbGif  = card.dataset.thumbGif;
   const href      = card.dataset.href;
   const desc      = card.dataset.desc;
   const isComingSoon = card.dataset.status === 'coming-soon';
 
-  document.getElementById('lightbox-img').src = thumb;
+  document.getElementById('lightbox-img').src = thumbGif || thumb;
   document.getElementById('lightbox-img').alt = title;
   document.getElementById('lightbox-title').textContent = title;
   document.getElementById('lightbox-desc').textContent = desc;
