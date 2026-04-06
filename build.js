@@ -86,7 +86,7 @@ Object.keys(groups).forEach(aud => {
 }
 
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
-function buildCoursePage(detail, catalog) {
+function buildCoursePage(detail, catalog, relatedMap) {
   const bullets = (detail.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean)
     .map(b => `      <li>${b}</li>`).join('\n');
 
@@ -107,30 +107,37 @@ function buildCoursePage(detail, catalog) {
 
   const videoCountLabel = detail.videoCount ? `${detail.videoCount} short videos` : '';
 
-  // Auto related: same audience, exclude self, live only, max 3
-  // Find this course in catalog to get its audience field
-  const myCatalogEntry = (catalog || []).find(c => c.id === detail.id) || {};
-  const myAudiences = (myCatalogEntry.audience || '').split('|').map(a => a.trim()).filter(Boolean);
-  const related = (catalog || [])
-    .filter(c => c.id !== detail.id && c.active !== 'false' && c.status === 'live')
-    .filter(c => {
-      const theirAuds = (c.audience || '').split('|').map(a => a.trim());
-      return myAudiences.some(a => theirAuds.includes(a));
-    })
-    .slice(0, 3);
-  const relatedHTML = related.length ? related.map((c, i) => `
-      <a href="${c.href}" class="related-card"
-         ${c.thumbGif ? `onmouseenter="this.querySelector('.related-bg img').src='${c.thumbGif}'" onmouseleave="this.querySelector('.related-bg img').src='${c.thumb}'"` : ''}>
-        <div class="related-bg">
-          <img src="/assets/images/courses/${c.thumb}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;display:block;">
-        </div>
-        <div class="related-gradient"></div>
-        <div class="related-play"></div>
-        <div class="related-info">
-          <div class="related-topic">${c.title}</div>
-          <div class="related-title">${c.title}</div>
-        </div>
-      </a>`).join('\n') : '';
+  // Related courses — looked up from related-courses.csv
+  const catalogById = {};
+  (catalog || []).forEach(c => { catalogById[c.id] = c; });
+  const relatedRow = (relatedMap || {})[detail.id] || {};
+  const relatedSlots = [
+    { id: relatedRow.related1_id, eyebrow: relatedRow.related1_eyebrow },
+    { id: relatedRow.related2_id, eyebrow: relatedRow.related2_eyebrow },
+    { id: relatedRow.related3_id, eyebrow: relatedRow.related3_eyebrow },
+  ].filter(r => r.id && r.id.trim());
+  const relatedHTML = relatedSlots.map(r => {
+    const c = catalogById[r.id.trim()];
+    if (!c) return '';
+    const eyebrow = (r.eyebrow || '').trim() || c.title;
+    return [
+      '      <a href="' + c.href + '" class="related-card"',
+      c.thumbGif
+        ? '         onmouseenter="this.querySelector(\'.related-bg img\').src=\'/assets/images/courses/' + c.thumbGif + '\'"'
+          + ' onmouseleave="this.querySelector(\'.related-bg img\').src=\'/assets/images/courses/' + c.thumb + '\'">'
+        : '>',
+      '        <div class="related-bg">',
+      '          <img src="/assets/images/courses/' + c.thumb + '" alt="' + c.title + '" style="width:100%;height:100%;object-fit:cover;display:block;">',
+      '        </div>',
+      '        <div class="related-gradient"></div>',
+      '        <div class="related-play"></div>',
+      '        <div class="related-info">',
+      '          <div class="related-topic">' + eyebrow + '</div>',
+      '          <div class="related-title">' + c.title + '</div>',
+      '        </div>',
+      '      </a>',
+    ].join('\n');
+  }).join('\n');
 
   const output = readTemplate('course-page.html')
     .replace(/__PAGE_TITLE__/g,      detail.pageTitle)
@@ -342,6 +349,9 @@ const catalogOrder = readCSV(path.join(__dirname, 'data', 'catalog-order.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
 const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
 const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
+const relatedCSV = readCSV(path.join(__dirname, 'data', 'related-courses.csv'));
+const relatedMap = {};
+relatedCSV.forEach(r => { if (r.courseId) relatedMap[r.courseId] = r; });
 
 console.log('Building catalog...');
 if (catalog.length) buildCatalog(catalog, catalogOrder);
@@ -350,7 +360,7 @@ console.log('\nBuilding release calendar...');
 if (catalog.length) buildReleaseCalendar(catalog);
 
 console.log('\nBuilding course pages...');
-details.filter(d => d.status === 'live').forEach(d => buildCoursePage(d, catalog));
+details.filter(d => d.status === 'live').forEach(d => buildCoursePage(d, catalog, relatedMap));
 
 console.log('\nBuilding coming-soon course pages...');
 const comingSoonDetails = details.filter(d => d.status === 'coming-soon');
