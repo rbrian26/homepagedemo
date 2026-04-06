@@ -277,6 +277,18 @@
       border: 0;
     }
 
+    .mute-btn {
+      position: absolute; bottom: 12px; right: 12px; z-index: 10;
+      background: var(--orange); border: none; color: #fff;
+      border-radius: 50px; height: 32px; padding: 0 0.9rem;
+      display: flex; align-items: center; justify-content: center; gap: 0.4rem;
+      cursor: pointer; transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 3px 12px rgba(249,124,83,0.45);
+      font-family: 'Quicksand', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.04em;
+    }
+    .mute-btn svg { width: 13px; height: 13px; flex-shrink: 0; }
+    .mute-btn:hover { background: var(--orange-dk); transform: translateY(-1px); }
+
     /* ── META STRIP ── */
     .meta-strip {
       background: var(--white);
@@ -871,12 +883,24 @@
       <div class="hero-video-card">
         <div class="clip-video">
           <iframe
-            src="https://player.vimeo.com/video/__VIMEO_ID__?color=f97c53&title=0&byline=0&portrait=0"
+            id="hero-player"
+            src="https://player.vimeo.com/video/__VIMEO_ID__?color=f97c53&title=0&byline=0&portrait=0&autoplay=1&muted=1&loop=1&autopause=0"
             frameborder="0"
-            allow="fullscreen; picture-in-picture"
+            allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
-            title="Sexual Harassment Prevention — Preview">
+            title="Course Preview">
           </iframe>
+          <button class="mute-btn" onclick="toggleMute()" title="Toggle sound">
+            <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <line x1="22" y1="9" x2="16" y2="15"/><line x1="16" y1="9" x2="22" y2="15"/>
+            </svg>
+            <svg id="icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+              <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+              <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+            </svg>
+            <span id="mute-label">Unmute</span>
+          </button>
         </div>
       </div>
     </div>
@@ -1048,6 +1072,24 @@
 
     sections.forEach(s => observer.observe(s));
   });
+</script>
+<script>
+  var heroPlayer = new Vimeo.Player(document.getElementById('hero-player'));
+  var isMuted = true;
+  function toggleMute() {
+    var iconMuted = document.getElementById('icon-muted');
+    var iconSound = document.getElementById('icon-sound');
+    var label = document.getElementById('mute-label');
+    if (isMuted) {
+      heroPlayer.setMuted(false); heroPlayer.setVolume(1);
+      iconMuted.style.display='none'; iconSound.style.display='block';
+      label.textContent='Mute'; isMuted=false;
+    } else {
+      heroPlayer.setMuted(true); heroPlayer.setVolume(0);
+      iconMuted.style.display='block'; iconSound.style.display='none';
+      label.textContent='Unmute'; isMuted=true;
+    }
+  }
 </script>
 </body>
 </html>
