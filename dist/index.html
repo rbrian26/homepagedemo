@@ -163,65 +163,105 @@
     .testimonial-avatar svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; stroke-width: 2; }
     .testimonial-attr { font-size: 0.82rem; color: var(--muted); font-weight: 600; line-height: 1.4; }
 
+    /* ── NAV HAMBURGER ── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 0.25rem;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav-mobile-menu {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(9,111,156,0.98);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a {
+      color: #fff; text-decoration: none; font-size: 1.4rem;
+      font-weight: 700; transition: color 0.2s;
+    }
+    .nav-mobile-menu a:hover { color: var(--orange); }
+    .nav-mobile-close {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      background: none; border: none; color: #fff;
+      font-size: 2rem; cursor: pointer; line-height: 1;
+    }
+
     /* ── 3. WHY BLUE SEAT ── */
     .approach-wrap { padding: 3.5rem 3rem; background: var(--blue-lt); }
     .approach-inner { max-width: 1100px; margin: 0 auto; }
-    .approach-header { margin-bottom: 2rem; max-width: 100%; }
-    .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.75rem; }
+    .approach-header { margin-bottom: 2.5rem; max-width: 100%; }
+    .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
 
-    .feature-card {
-      background: rgba(255,255,255,0.6); border-radius: 10px; padding: 0 0 1.2rem;
-      border: 1px solid rgba(9,111,156,0.1); overflow: hidden;
+    /* Audience course card */
+    .aud-card {
+      background: var(--white); border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(9,111,156,0.1);
+      box-shadow: 0 4px 16px rgba(9,111,156,0.07);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .aud-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(9,111,156,0.13); }
+
+    .aud-card-img {
+      width: 100%; aspect-ratio: 16/9; overflow: hidden; display: block;
+    }
+    .aud-card-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform 0.4s ease;
+    }
+    .aud-card:hover .aud-card-img img { transform: scale(1.04); }
+
+    .aud-card-body { padding: 1.2rem 1.4rem 1.4rem; }
+
+    .aud-card-title {
+      font-size: 1.1rem; font-weight: 700; color: var(--navy);
+      margin-bottom: 1rem; padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--orange); display: inline-block;
     }
 
-    .feature-img {
-      width: 100%; height: 130px; overflow: hidden; display: block; margin-bottom: 1rem;
-    }
-    .feature-img img {
-      width: 100%; height: 100%; object-fit: cover; object-position: center top;
+    .aud-course-list {
+      display: flex; flex-direction: column; gap: 0.4rem;
+      margin-bottom: 1.2rem;
     }
 
-    .feature-body { padding: 0 1.2rem; }
-    .feature-card h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); margin-bottom: 0; }
-
-    /* ── 4. COURSES ── */
-    .topics-wrap { background: var(--blue); padding: 5rem 3rem; }
-    .topics-inner { max-width: 1100px; margin: 0 auto; }
-    .topics-wrap .section-label { color: rgba(255,255,255,0.55); }
-    .topics-wrap .section-title { color: #fff; max-width: 100%; margin-bottom: 2.5rem; }
-    .topics-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 0.85rem; }
-    .topic-pill {
-      background: rgba(255,255,255,0.1); border: 1.5px solid rgba(255,255,255,0.18);
-      border-radius: 10px; padding: 1rem 1.2rem;
-      font-size: 0.9rem; font-weight: 600; color: rgba(255,255,255,0.9);
-      font-family: 'Quicksand', sans-serif;
-      display: flex; align-items: center; gap: 0.65rem;
-      cursor: pointer; transition: background 0.2s, border-color 0.2s, transform 0.2s;
+    .aud-course-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      background: var(--blue-lt); color: var(--blue-dk);
+      font-size: 0.82rem; font-weight: 600;
+      padding: 0.3rem 0.75rem; border-radius: 50px;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+      width: fit-content;
     }
-    .topic-pill:hover { background: var(--orange); border-color: var(--orange); color: #fff; transform: translateY(-2px); }
-    .t-icon { width: 18px; height: 18px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-    .t-icon svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-
-    /* ── 5. AUDIENCES ── */
-    .audiences-wrap { padding: 5rem 3rem; background: var(--cream); }
-    .audiences-inner { max-width: 1100px; margin: 0 auto; }
-    .audiences-header { margin-bottom: 2.5rem; }
-    .audiences-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
-
-    .audience-card {
-      background: var(--white); border-radius: 16px; padding: 2.2rem;
-      border: 1.5px solid rgba(9,111,156,0.1);
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
-      text-decoration: none; display: block; cursor: pointer;
+    .aud-course-link:hover { background: var(--orange); color: #fff; }
+    .aud-course-link.coming { opacity: 0.6; font-style: italic; }
+    .aud-course-link.coming::after {
+      content: 'Soon'; font-size: 0.65rem; font-weight: 700;
+      background: var(--orange); color: #fff;
+      padding: 0.1rem 0.4rem; border-radius: 50px; margin-left: 0.2rem;
     }
-    .audience-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(9,111,156,0.1); border-color: var(--blue); }
-    .audience-card h3 { font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 1.2rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--orange); display: inline-block; }
-    .audience-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.55rem; }
-    .audience-list li { font-size: 0.92rem; color: var(--text); font-weight: 500; padding-left: 1.2rem; position: relative; line-height: 1.5; }
-    .audience-list li::before { content: '→'; position: absolute; left: 0; color: var(--orange); font-weight: 700; }
+
+    .aud-view-all {
+      display: inline-flex; align-items: center; gap: 0.3rem;
+      font-size: 0.85rem; font-weight: 700; color: var(--blue);
+      text-decoration: none; margin-top: 0.5rem;
+      transition: color 0.2s;
+    }
+    .aud-view-all:hover { color: var(--orange); }
+
+    /* ── 5. AUDIENCES (removed, keeping CSS for safety) ── */
+    .audiences-wrap { display: none; }
+
     .coming-soon { font-style: normal; font-size: 0.72rem; font-weight: 700; color: var(--orange); background: rgba(249,124,83,0.1); border-radius: 4px; padding: 0.1rem 0.45rem; margin-left: 0.4rem; white-space: nowrap; }
-    .audience-link { display: inline-block; margin-top: 1.4rem; font-size: 0.88rem; font-weight: 700; color: var(--blue); text-decoration: none; transition: color 0.2s; }
-    .audience-link:hover { color: var(--orange); }
 
     /* ── HOW IT WORKS BANNER ── */
     .how-banner { background: var(--orange); padding: 1rem 3rem; }
@@ -278,21 +318,58 @@
     @media (max-width: 960px) {
       .testimonials-grid { grid-template-columns: 1fr; }
       .whatis-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .approach-grid { grid-template-columns: 1fr; }
+      .approach-grid { grid-template-columns: 1fr; gap: 1.25rem; }
       .audiences-grid { grid-template-columns: 1fr 1fr; }
       .topics-grid { grid-template-columns: 1fr 1fr; }
-      .steps { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr 1fr; gap: 1rem; }
       nav { padding: 0.9rem 1.5rem; }
-      .nav-links li:not(:last-child) { display: none; }
-      .hero-content { flex-direction: column; align-items: flex-start; padding: 1.5rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .hero-content { flex-direction: column; align-items: flex-start; padding: 1.5rem 1.5rem 2rem; }
       .hero-actions { flex-direction: row; min-width: 0; width: 100%; }
       .proof-top { flex-direction: column; align-items: flex-start; }
+      /* Stat bar */
+      .stat-bar { padding: 1.5rem 1.5rem; }
+      .stat-bar-inner { flex-wrap: wrap; gap: 1rem; justify-content: center; }
+      .stat-item { padding: 0.5rem 1.5rem; }
+      .stat-divider { display: none; }
+      /* Logo bar — white background */
+      .proof-wrap { background: var(--white); }
+      /* Testimonials — hide on mobile */
+      .testimonials-wrap, .testimonials-wrap + div { display: none; }
+      /* How banner */
+      .how-banner-inner { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
+      .how-banner-divider { display: none; }
+      /* Logo row */
+      .logo-row { gap: 1.5rem; justify-content: center; }
+      .logo-row img { height: 40px; }
     }
+
     @media (max-width: 600px) {
-      .approach-grid, .audiences-grid, .topics-grid { grid-template-columns: 1fr; }
+      .approach-grid, .audiences-grid, .topics-grid, .steps { grid-template-columns: 1fr; }
+      /* Hero */
+      .hero h1 { font-size: 1.9rem; }
+      .hero-sub { font-size: 0.9rem; }
       .hero-actions { flex-direction: column; }
-      .proof-stats { flex-wrap: wrap; gap: 1.5rem; }
-      .proof-wrap, .approach-wrap, .topics-wrap, .audiences-wrap, .how-wrap, .cta-wrap { padding: 3.5rem 1.5rem; }
+      .hero-actions .btn-orange,
+      .hero-actions .btn-ghost { width: 100%; justify-content: center; }
+      /* Sections */
+      .proof-wrap, .approach-wrap, .topics-wrap, .audiences-wrap, .how-wrap, .cta-wrap { padding: 3rem 1.25rem; }
+      .testimonials-header-bar { display: none; }
+      .stat-bar { padding: 1.25rem 1.25rem; }
+      .stat-num { font-size: 1.6rem; }
+      /* Testimonials */
+      .testimonials-wrap { padding: 3rem 0; }
+      .testimonial-card { padding: 1.6rem 1.4rem 1.4rem; }
+      /* How banner */
+      .how-banner { padding: 1rem 1.25rem; }
+      /* Footer */
+      footer { padding: 2rem 1.25rem; flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+      .footer-links { flex-wrap: wrap; gap: 1rem; }
+      /* CTA buttons */
+      .cta-buttons { flex-direction: column; }
+      .cta-buttons .btn-orange,
+      .cta-buttons .btn-outline-white { width: 100%; justify-content: center; }
     }
   </style>
 </head>
@@ -312,7 +389,22 @@
     <li><a href="contact.html">Contact Us</a></li>
     <li><a href="demo.html" class="nav-cta">Watch a Demo</a></li>
   </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('nav-mobile-menu').classList.add('open')" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="nav-mobile-menu">
+  <button class="nav-mobile-close" onclick="document.getElementById('nav-mobile-menu').classList.remove('open')" aria-label="Close menu">✕</button>
+  <a href="catalog.html">Full Catalog</a>
+  <a href="catalog.html?audience=workplace">Workplace</a>
+  <a href="catalog.html?audience=highered">Higher Ed</a>
+  <a href="catalog.html?audience=k12">K–12</a>
+  <a href="about-us.html">About</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="demo.html" style="color: var(--orange);">Watch a Demo →</a>
+</div>
 
 <!-- ══ 1. HERO ══ -->
 <section class="hero">
@@ -438,82 +530,81 @@
   <div class="approach-inner">
     <div class="approach-header">
       <div class="section-label">Blue Seat Studios</div>
-      <h2 class="section-title">Workplace, University and K-12 Courses</h2>
+      <h2 class="section-title">Workplace, Higher Ed and K-12 Courses</h2>
       <p class="section-body">We make training genuinely engaging. With humor, craft, and a down-to-earth tone that makes even the toughest topics approachable.</p>
     </div>
     <div class="approach-grid">
-      <div class="feature-card">
-        <span class="feature-img"><img src="/assets/images/ui/img_popcorn.png" alt="Award-Winning Animation" /></span>
-        <div class="feature-body"><h3>Award-Winning Animation</h3></div>
+
+      <!-- WORKPLACE -->
+      <div class="aud-card">
+        <a class="aud-card-img" href="catalog.html?audience=workplace"
+          onmouseenter="this.querySelector('img').src='/assets/images/ui/img_wp.gif'"
+          onmouseleave="this.querySelector('img').src='/assets/images/ui/img_wp.png'">
+          <img src="/assets/images/ui/img_wp.png" alt="Workplace Courses" />
+        </a>
+        <div class="aud-card-body">
+          <div class="aud-card-title">Workplace</div>
+          <div class="aud-course-list">
+            <a href="/course-shp.html" class="aud-course-link">Sexual Harassment Prevention</a>
+            <a href="/course-ta.html" class="aud-course-link">Threat Assessment</a>
+            <a href="/course-cy.html" class="aud-course-link coming">Cybersecurity</a>
+            <a href="/course-hr.html" class="aud-course-link coming">HR Fundamentals</a>
+            <a href="/course-sg.html" class="aud-course-link coming">Safeguarding</a>
+          </div>
+          <a href="catalog.html?audience=workplace" class="aud-view-all">View all Workplace courses →</a>
+        </div>
       </div>
-      <div class="feature-card">
-        <span class="feature-img"><img src="/assets/images/courses/img_bystander.png" alt="Humor That Disarms" /></span>
-        <div class="feature-body"><h3>Humor That Disarms</h3></div>
+
+      <!-- HIGHER ED -->
+      <div class="aud-card">
+        <a class="aud-card-img" href="catalog.html?audience=highered"
+          onmouseenter="this.querySelector('img').src='/assets/images/ui/img_he.gif'"
+          onmouseleave="this.querySelector('img').src='/assets/images/ui/img_he.png'">
+          <img src="/assets/images/ui/img_he.png" alt="Higher Ed Courses" />
+        </a>
+        <div class="aud-card-body">
+          <div class="aud-card-title">Higher Ed</div>
+          <div class="aud-course-list">
+            <a href="/course-shp.html" class="aud-course-link">Sexual Harassment Prevention</a>
+            <a href="/course-co-he.html" class="aud-course-link">Consent</a>
+            <a href="/course-t9.html" class="aud-course-link coming">Title IX</a>
+            <a href="/course-by-he.html" class="aud-course-link">Bystander Intervention</a>
+            <a href="/course-ta.html" class="aud-course-link">Threat Assessment</a>
+            <a href="/course-al.html" class="aud-course-link coming">Alcohol Awareness</a>
+            <a href="/course-mh-he.html" class="aud-course-link coming">Mental Health Support</a>
+            <a href="/course-cy.html" class="aud-course-link coming">Cybersecurity</a>
+          </div>
+          <a href="catalog.html?audience=highered" class="aud-view-all">View all Higher Ed courses →</a>
+        </div>
       </div>
-      <div class="feature-card">
-        <span class="feature-img"><img src="/assets/images/ui/img_person_to_person.png" alt="Compliant and Culture-Building" /></span>
-        <div class="feature-body"><h3>Compliant &amp; Culture-Building</h3></div>
+
+      <!-- K-12 -->
+      <div class="aud-card">
+        <a class="aud-card-img" href="catalog.html?audience=k12"
+          onmouseenter="this.querySelector('img').src='/assets/images/ui/img_k12.gif'"
+          onmouseleave="this.querySelector('img').src='/assets/images/ui/img_k12.png'">
+          <img src="/assets/images/ui/img_k12.png" alt="K-12 Courses" />
+        </a>
+        <div class="aud-card-body">
+          <div class="aud-card-title">K–12</div>
+          <div class="aud-course-list">
+            <a href="/course-co-k12.html" class="aud-course-link">Consent</a>
+            <a href="/course-by-k12.html" class="aud-course-link">Be a Bystander</a>
+            <a href="/course-bf-k12.html" class="aud-course-link">Bias and Fairness</a>
+            <a href="/course-shp.html" class="aud-course-link">Sexual Harassment Prevention</a>
+            <a href="/course-mh-k12.html" class="aud-course-link coming">Mental Health Basics</a>
+            <a href="/course-cy.html" class="aud-course-link coming">Cybersecurity</a>
+            <a href="/course-sg.html" class="aud-course-link coming">Safeguarding</a>
+          </div>
+          <a href="catalog.html?audience=k12" class="aud-view-all">View all K–12 courses →</a>
+        </div>
       </div>
-      <div class="feature-card">
-        <span class="feature-img"><img src="/assets/images/ui/img_megaphone.png" alt="Scales to Any Org" /></span>
-        <div class="feature-body"><h3>Scales to Any Org</h3></div>
-      </div>
-      <div class="feature-card">
-        <span class="feature-img"><img src="/assets/images/ui/img_ice_cream.png" alt="Customizable" /></span>
-        <div class="feature-body"><h3>Customizable</h3></div>
-      </div>
-      <div class="feature-card">
-        <span class="feature-img"><img src="/assets/images/courses/img_fist_bump.png" alt="Ready to Deploy" /></span>
-        <div class="feature-body"><h3>Ready to Deploy</h3></div>
-      </div>
+
     </div>
   </div>
 </div>
 
-<!-- ══ 5. AUDIENCES ══ -->
-<div class="audiences-wrap">
-  <div class="audiences-inner">
-    <div class="audiences-header">
-      <div class="section-label">Training Pathways</div>
-      <h2 class="section-title">Our Catalog</h2>
-    </div>
-    <div class="audiences-grid">
-      <a href="catalog.html?audience=workplace" class="audience-card">
-        <h3>Workplace</h3>
-        <ul class="audience-list">
-          <li>Sexual Harassment Prevention</li>
-          <li>Cybersecurity</li>
-          <li>Threat Assessment</li>
-          <li>HR Basics <em class="coming-soon">Launching July 2026</em></li>
-          <li>Emotional Regulation <em class="coming-soon">Launching July 2026</em></li>
-        </ul>
-        <span class="audience-link">View Workplace Courses →</span>
-      </a>
-      <a href="catalog.html?audience=highered" class="audience-card">
-        <h3>College</h3>
-        <ul class="audience-list">
-          <li>Consent &amp; Title IX</li>
-          <li>Threat Assessment</li>
-          <li>Cybersecurity</li>
-          <li>Active Bystander</li>
-          <li>Alcohol Awareness <em class="coming-soon">Launching July 2026</em></li>
-          <li>Emotional Regulation <em class="coming-soon">Launching July 2026</em></li>
-        </ul>
-        <span class="audience-link">View College Courses →</span>
-      </a>
-      <a href="catalog.html?audience=k12" class="audience-card">
-        <h3>K–12</h3>
-        <ul class="audience-list">
-          <li>Bias &amp; Fairness</li>
-          <li>Consent &amp; Bodily Autonomy</li>
-          <li>Active Bystander</li>
-          <li>Emotional Regulation <em class="coming-soon">Launching July 2026</em></li>
-        </ul>
-        <span class="audience-link">View K–12 Courses →</span>
-      </a>
-    </div>
-  </div>
-</div>
+<!-- ══ 5. AUDIENCES (removed) ══ -->
 
 <!-- ══ HOW IT WORKS BANNER ══ -->
 <div class="how-banner">
@@ -554,7 +645,7 @@
 </div>
 
 <!-- ══ TESTIMONIALS HEADER BAR ══ -->
-<div style="background: var(--blue); padding: 1rem 3rem;">
+<div class="testimonials-header-bar" style="background: var(--blue); padding: 1rem 3rem;">
   <div style="max-width: 1100px; margin: 0 auto; text-align: center;">
     <span style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.9);">What People Are Saying...</span>
   </div>
@@ -617,33 +708,65 @@
   var original = Array.from(track.querySelectorAll('.testimonial-card'));
   var total = original.length;
 
-  // Clone first 3 cards and append — so the loop slides into them naturally
+  // Clone first 3 cards for seamless loop (desktop only)
   original.slice(0, 3).forEach(function(card) {
     track.appendChild(card.cloneNode(true));
   });
 
   var current = 0;
+  var timer = null;
+
+  function isMobile() {
+    return window.innerWidth <= 960;
+  }
 
   function getCardWidth() {
-    return original[0].offsetWidth + 24;
+    var style = window.getComputedStyle(track);
+    var gap = parseFloat(style.gap) || 0;
+    return original[0].offsetWidth + gap;
+  }
+
+  function goTo(index, animate) {
+    if (isMobile()) {
+      track.style.transition = 'none';
+      track.style.transform = '';
+      return;
+    }
+    track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.4,0,0.2,1)' : 'none';
+    track.style.transform = 'translateX(-' + (index * getCardWidth()) + 'px)';
   }
 
   function advance() {
+    if (isMobile()) return;
     current++;
-    track.style.transition = 'transform 0.7s cubic-bezier(0.4,0,0.2,1)';
-    track.style.transform = 'translateX(-' + (current * getCardWidth()) + 'px)';
-
-    // Once we've scrolled into the cloned cards, silently reset to real position
+    goTo(current, true);
     if (current >= total) {
       setTimeout(function() {
-        track.style.transition = 'none';
         current = 0;
-        track.style.transform = 'translateX(0)';
+        goTo(0, false);
       }, 750);
     }
   }
 
-  setInterval(advance, 6000);
+  function reset() {
+    current = 0;
+    goTo(0, false);
+  }
+
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(advance, 6000);
+  }
+
+  window.addEventListener('resize', function() {
+    reset();
+    if (isMobile()) {
+      track.style.transform = '';
+      track.scrollLeft = 0;
+    }
+  });
+
+  startTimer();
 })();
 </script>
 
