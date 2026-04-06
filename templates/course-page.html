@@ -277,26 +277,6 @@
       border: 0;
     }
 
-    #mute-toggle {
-      position: absolute;
-      bottom: 12px;
-      right: 12px;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(0,0,0,0.55);
-      border: none;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
-      transition: background 0.2s;
-      z-index: 10;
-    }
-    #mute-toggle:hover { background: rgba(0,0,0,0.8); }
-    #mute-toggle svg { width: 16px; height: 16px; stroke: #fff; }
-
     /* ── META STRIP ── */
     .meta-strip {
       background: var(--white);
@@ -891,17 +871,12 @@
       <div class="hero-video-card">
         <div class="clip-video">
           <iframe
-            id="hero-player"
-            src="https://player.vimeo.com/video/__VIMEO_ID__?color=f97c53&title=0&byline=0&portrait=0&autoplay=1&muted=1&loop=1&autopause=0"
+            src="https://player.vimeo.com/video/__VIMEO_ID__?color=f97c53&title=0&byline=0&portrait=0"
             frameborder="0"
-            allow="autoplay; fullscreen; picture-in-picture"
+            allow="fullscreen; picture-in-picture"
             allowfullscreen
-            title="Course Preview">
+            title="Sexual Harassment Prevention — Preview">
           </iframe>
-          <button id="mute-toggle" onclick="toggleMute()" aria-label="Unmute video">
-            <svg id="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-            <svg id="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-          </button>
         </div>
       </div>
     </div>
@@ -1002,33 +977,7 @@
       <h2 class="section-title">Related Courses</h2>
     </div>
     <div class="related-grid">
-      <a href="/courses/bystander-training" class="related-card">
-        <div class="related-bg" style="background: linear-gradient(135deg,#096f9c,#0a2233);"></div>
-        <div class="related-gradient"></div>
-        <div class="related-play"></div>
-        <div class="related-info">
-          <div class="related-topic">Bystander Intervention</div>
-          <div class="related-title">Bystander Training</div>
-        </div>
-      </a>
-      <a href="/courses/hr-fundamentals" class="related-card">
-        <div class="related-bg" style="background: linear-gradient(135deg,#f97c53,#096f9c);"></div>
-        <div class="related-gradient"></div>
-        <div class="related-play"></div>
-        <div class="related-info">
-          <div class="related-topic">HR Fundamentals</div>
-          <div class="related-title">HR Fundamentals</div>
-        </div>
-      </a>
-      <a href="/courses/threat-assessment" class="related-card">
-        <div class="related-bg" style="background: linear-gradient(135deg,#065578,#f97c53);"></div>
-        <div class="related-gradient"></div>
-        <div class="related-play"></div>
-        <div class="related-info">
-          <div class="related-topic">Workplace Safety</div>
-          <div class="related-title">Threat Assessment</div>
-        </div>
-      </a>
+      <!-- __RELATED_COURSES__ -->
     </div>
   </div>
 
@@ -1099,19 +1048,6 @@
 
     sections.forEach(s => observer.observe(s));
   });
-</script>
-
-<script>
-  const heroPlayer = new Vimeo.Player(document.getElementById('hero-player'));
-  let isMuted = true;
-
-  function toggleMute() {
-    isMuted = !isMuted;
-    heroPlayer.setMuted(isMuted);
-    document.getElementById('icon-muted').style.display   = isMuted ? '' : 'none';
-    document.getElementById('icon-unmuted').style.display = isMuted ? 'none' : '';
-    document.getElementById('mute-toggle').setAttribute('aria-label', isMuted ? 'Unmute video' : 'Mute video');
-  }
 </script>
 </body>
 </html>

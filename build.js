@@ -86,7 +86,7 @@ Object.keys(groups).forEach(aud => {
 }
 
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
-function buildCoursePage(detail) {
+function buildCoursePage(detail, catalog) {
   const bullets = (detail.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean)
     .map(b => `      <li>${b}</li>`).join('\n');
 
@@ -107,6 +107,32 @@ function buildCoursePage(detail) {
 
   const videoCountLabel = detail.videoCount ? `${detail.videoCount} short videos` : '';
 
+  // Auto related: same audience, exclude self, live only, max 3
+  const gradients = [
+    'linear-gradient(135deg,#096f9c,#0a2233)',
+    'linear-gradient(135deg,#f97c53,#096f9c)',
+    'linear-gradient(135deg,#065578,#f97c53)',
+    'linear-gradient(135deg,#0a2233,#096f9c)',
+  ];
+  const myAudiences = (detail.audienceLabel || '').toLowerCase();
+  const related = (catalog || [])
+    .filter(c => c.id !== detail.id && c.active !== 'false' && c.status === 'live')
+    .filter(c => {
+      const theirAud = (c.audience || '').toLowerCase();
+      return myAudiences.split(/[·,|]/).map(a => a.trim()).some(a => a && theirAud.includes(a));
+    })
+    .slice(0, 3);
+  const relatedHTML = related.length ? related.map((c, i) => `
+      <a href="${c.href}" class="related-card">
+        <div class="related-bg" style="background:${gradients[i % gradients.length]};"></div>
+        <div class="related-gradient"></div>
+        <div class="related-play"></div>
+        <div class="related-info">
+          <div class="related-topic">${c.title}</div>
+          <div class="related-title">${c.title}</div>
+        </div>
+      </a>`).join('\n') : '';
+
   const output = readTemplate('course-page.html')
     .replace(/__PAGE_TITLE__/g,      detail.pageTitle)
     .replace(/__HERO_TITLE__/g,      detail.heroTitle)
@@ -117,7 +143,8 @@ function buildCoursePage(detail) {
     .replace(/__AUDIENCE_LABEL__/g,  detail.audienceLabel)
     .replace(/__LMS__/g,             detail.lms)
     .replace('<!-- __COVERS_BULLETS__ -->', bullets)
-    .replace('<!-- __LESSONS__ -->',        lessonsHTML);
+    .replace('<!-- __LESSONS__ -->',        lessonsHTML)
+    .replace('<!-- __RELATED_COURSES__ -->', relatedHTML);
   write(path.join(DIST, `course-${detail.id}.html`), output);
 }
 
@@ -324,7 +351,7 @@ console.log('\nBuilding release calendar...');
 if (catalog.length) buildReleaseCalendar(catalog);
 
 console.log('\nBuilding course pages...');
-details.filter(d => d.status === 'live').forEach(d => buildCoursePage(d));
+details.filter(d => d.status === 'live').forEach(d => buildCoursePage(d, catalog));
 
 console.log('\nBuilding coming-soon course pages...');
 const comingSoonDetails = details.filter(d => d.status === 'coming-soon');
