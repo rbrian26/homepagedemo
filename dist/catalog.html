@@ -1788,31 +1788,35 @@ var trailerPlaying = false;
 var trailerMuted = false;
 
 function openTrailer(vimeoId, vimeoHash, title, href) {
-  const src = 'https://player.vimeo.com/video/' + vimeoId
-    + '?color=f97c53&title=0&byline=0&portrait=0'
-    + (vimeoHash ? '&h=' + vimeoHash : '');
-  document.getElementById('trailer-iframe').src = src;
+  // Reset state
+  trailerPlaying = false;
+  trailerMuted = false;
+  trailerPlayer = null;
+  setTrailerMuteUI(false);
+  setTrailerPlayUI(false);
+  document.getElementById('trailer-center-play').classList.remove('hidden');
+
   document.getElementById('trailer-modal-title').textContent = title;
   document.getElementById('trailer-course-btn').href = href;
   document.getElementById('trailer-modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 
-  // Reset state
-  trailerPlaying = false;
-  trailerMuted = false;
-  setTrailerMuteUI(false);
-  setTrailerPlayUI(false);
-  document.getElementById('trailer-center-play').classList.remove('hidden');
-
-  // Init player after iframe src is set
+  // Clear src first, then set — ensures a fresh load each time
+  const iframe = document.getElementById('trailer-iframe');
+  iframe.src = '';
   setTimeout(() => {
-    try {
-      trailerPlayer = new Vimeo.Player(document.getElementById('trailer-iframe'));
-      trailerPlayer.on('play',  () => { trailerPlaying = true;  setTrailerPlayUI(true); });
-      trailerPlayer.on('pause', () => { trailerPlaying = false; setTrailerPlayUI(false); });
-      trailerPlayer.on('ended', () => { trailerPlaying = false; setTrailerPlayUI(false); });
-    } catch(e) {}
-  }, 300);
+    iframe.src = 'https://player.vimeo.com/video/' + vimeoId
+      + '?color=f97c53&title=0&byline=0&portrait=0'
+      + (vimeoHash ? '&h=' + vimeoHash : '');
+    setTimeout(() => {
+      try {
+        trailerPlayer = new Vimeo.Player(iframe);
+        trailerPlayer.on('play',  () => { trailerPlaying = true;  setTrailerPlayUI(true); });
+        trailerPlayer.on('pause', () => { trailerPlaying = false; setTrailerPlayUI(false); });
+        trailerPlayer.on('ended', () => { trailerPlaying = false; setTrailerPlayUI(false); });
+      } catch(e) {}
+    }, 400);
+  }, 50);
 }
 
 function setTrailerPlayUI(playing) {
@@ -1852,7 +1856,7 @@ function closeTrailer(e) {
 
 function closeTrailerDirect() {
   document.getElementById('trailer-iframe').src = '';
-  if (trailerPlayer) { try { trailerPlayer.destroy(); } catch(e) {} trailerPlayer = null; }
+  trailerPlayer = null;
   document.getElementById('trailer-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }

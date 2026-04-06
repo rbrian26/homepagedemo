@@ -653,35 +653,52 @@
   var original = Array.from(track.querySelectorAll('.testimonial-card'));
   var total = original.length;
 
-  // Clone first 3 cards and append — so the loop slides into them naturally
+  // Clone first 3 cards for seamless loop
   original.slice(0, 3).forEach(function(card) {
     track.appendChild(card.cloneNode(true));
   });
 
   var current = 0;
+  var timer = null;
 
   function getCardWidth() {
     var style = window.getComputedStyle(track);
-    var gap = parseFloat(style.gap) || 24;
+    var gap = parseFloat(style.gap) || 0;
     return original[0].offsetWidth + gap;
+  }
+
+  function goTo(index, animate) {
+    track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.4,0,0.2,1)' : 'none';
+    track.style.transform = 'translateX(-' + (index * getCardWidth()) + 'px)';
   }
 
   function advance() {
     current++;
-    track.style.transition = 'transform 0.7s cubic-bezier(0.4,0,0.2,1)';
-    track.style.transform = 'translateX(-' + (current * getCardWidth()) + 'px)';
-
-    // Once we've scrolled into the cloned cards, silently reset to real position
+    goTo(current, true);
     if (current >= total) {
       setTimeout(function() {
-        track.style.transition = 'none';
         current = 0;
-        track.style.transform = 'translateX(0)';
+        goTo(0, false);
       }, 750);
     }
   }
 
-  setInterval(advance, 6000);
+  function reset() {
+    current = 0;
+    goTo(0, false);
+  }
+
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(advance, 6000);
+  }
+
+  // On resize: reset position so translateX stays accurate
+  window.addEventListener('resize', function() {
+    reset();
+  });
+
+  startTimer();
 })();
 </script>
 
