@@ -108,12 +108,6 @@ function buildCoursePage(detail, catalog) {
   const videoCountLabel = detail.videoCount ? `${detail.videoCount} short videos` : '';
 
   // Auto related: same audience, exclude self, live only, max 3
-  const gradients = [
-    'linear-gradient(135deg,#096f9c,#0a2233)',
-    'linear-gradient(135deg,#f97c53,#096f9c)',
-    'linear-gradient(135deg,#065578,#f97c53)',
-    'linear-gradient(135deg,#0a2233,#096f9c)',
-  ];
   // Find this course in catalog to get its audience field
   const myCatalogEntry = (catalog || []).find(c => c.id === detail.id) || {};
   const myAudiences = (myCatalogEntry.audience || '').split('|').map(a => a.trim()).filter(Boolean);
@@ -125,8 +119,11 @@ function buildCoursePage(detail, catalog) {
     })
     .slice(0, 3);
   const relatedHTML = related.length ? related.map((c, i) => `
-      <a href="${c.href}" class="related-card">
-        <div class="related-bg" style="background:${gradients[i % gradients.length]};"></div>
+      <a href="${c.href}" class="related-card"
+         ${c.thumbGif ? `onmouseenter="this.querySelector('.related-bg img').src='${c.thumbGif}'" onmouseleave="this.querySelector('.related-bg img').src='${c.thumb}'"` : ''}>
+        <div class="related-bg">
+          <img src="${c.thumb}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;display:block;">
+        </div>
         <div class="related-gradient"></div>
         <div class="related-play"></div>
         <div class="related-info">
