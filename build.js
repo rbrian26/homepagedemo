@@ -114,12 +114,14 @@ function buildCoursePage(detail, catalog) {
     'linear-gradient(135deg,#065578,#f97c53)',
     'linear-gradient(135deg,#0a2233,#096f9c)',
   ];
-  const myAudiences = (detail.audienceLabel || '').toLowerCase();
+  // Find this course in catalog to get its audience field
+  const myCatalogEntry = (catalog || []).find(c => c.id === detail.id) || {};
+  const myAudiences = (myCatalogEntry.audience || '').split('|').map(a => a.trim()).filter(Boolean);
   const related = (catalog || [])
     .filter(c => c.id !== detail.id && c.active !== 'false' && c.status === 'live')
     .filter(c => {
-      const theirAud = (c.audience || '').toLowerCase();
-      return myAudiences.split(/[·,|]/).map(a => a.trim()).some(a => a && theirAud.includes(a));
+      const theirAuds = (c.audience || '').split('|').map(a => a.trim());
+      return myAudiences.some(a => theirAuds.includes(a));
     })
     .slice(0, 3);
   const relatedHTML = related.length ? related.map((c, i) => `
