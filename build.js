@@ -40,7 +40,7 @@ function write(filePath, content) {
 }
 
 // ── CATALOG ────────────────────────────────────────────────────────────────────
-function buildCatalog(courses, orderData) {
+function buildCatalog(courses, orderData, featuredData) {
   const groups = { workplace: [], highered: [], k12: [] };
 
   courses.filter(c => c.active !== 'false').forEach(c => {
@@ -80,8 +80,39 @@ Object.keys(groups).forEach(aud => {
   });
 });
 
+  // Build featured course cards
+  const catalogById = {};
+  courses.forEach(c => { catalogById[c.id] = c; });
+  const featuredSlots = (featuredData || [])
+    .filter(f => f.courseId && f.courseId.trim() && f.vimeoId && f.vimeoId.trim())
+    .sort((a, b) => parseInt(a.slot) - parseInt(b.slot))
+    .slice(0, 3);
+  const featuredHTML = featuredSlots.map(f => {
+    const c = catalogById[f.courseId.trim()];
+    if (!c) return '';
+    const eyebrow = (f.eyebrow || '').trim() || '★ Featured';
+    const desc    = (f.desc   || '').trim() || c.desc || '';
+    const hash    = (f.vimeoHash || '').trim();
+    const safeTitle = c.title.replace(/'/g, "\\'");
+    const gifAttrs = c.thumbGif
+      ? ` onmouseenter="this.src='/assets/images/courses/${c.thumbGif}'" onmouseleave="this.src='/assets/images/courses/${c.thumb}'"`
+      : '';
+    return [
+      `<div class="featured-card" onclick="openTrailer('${f.vimeoId.trim()}','${hash}','${safeTitle}','${c.href}')">`,
+      `  <img src="/assets/images/courses/${c.thumb}" alt="${c.title}"${gifAttrs}>`,
+      '  <div class="featured-card-gradient"></div>',
+      '  <div class="featured-card-play"></div>',
+      '  <div class="featured-card-info">',
+      '    <div class="featured-card-eyebrow">' + eyebrow + '</div>',
+      '    <div class="featured-card-title">' + c.title + '</div>',
+      '  </div>',
+      '</div>',
+    ].join('\n');
+  }).join('\n');
+
   const output = readTemplate('catalog.html')
-    .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`);
+    .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`)
+    .replace('<!-- __FEATURED_COURSES__ -->', featuredHTML);
   write(path.join(DIST, 'catalog.html'), output);
 }
 
@@ -349,12 +380,13 @@ const catalogOrder = readCSV(path.join(__dirname, 'data', 'catalog-order.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
 const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
 const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
-const relatedCSV = readCSV(path.join(__dirname, 'data', 'related-courses.csv'));
+const relatedCSV  = readCSV(path.join(__dirname, 'data', 'related-courses.csv'));
+const featuredCSV = readCSV(path.join(__dirname, 'data', 'featured-courses.csv'));
 const relatedMap = {};
 relatedCSV.forEach(r => { if (r.courseId) relatedMap[r.courseId] = r; });
 
 console.log('Building catalog...');
-if (catalog.length) buildCatalog(catalog, catalogOrder);
+if (catalog.length) buildCatalog(catalog, catalogOrder, featuredCSV);
 
 console.log('\nBuilding release calendar...');
 if (catalog.length) buildReleaseCalendar(catalog);
