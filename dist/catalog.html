@@ -1542,12 +1542,15 @@ function cardHTML(course) {
        </div>`
     : '';
 
-  const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-href="${course.href}" data-coming-soon="${course.comingSoon}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
+  const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-thumb-gif="${course.thumbGif || ''}" data-href="${course.href}" data-coming-soon="${course.comingSoon}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
+  const gifSwap = course.thumbGif
+    ? `onmouseenter="this.src='${course.thumbGif}'" onmouseleave="this.src='${course.thumb}'"`
+    : '';
 
   return `
     <a class="course-card${course.comingSoon ? ' coming-soon' : ''}" href="#" onclick="openLightbox(this); return false;" ${dataAttrs}>
       <img class="card-thumb" src="${course.thumb}" alt="${course.title}"
-        onerror="this.style.opacity='0'" />
+        ${gifSwap} onerror="this.style.opacity='0'" />
       ${topBar}
       <div class="card-gradient"></div>
       <div class="card-info"><div class="card-title">${course.title}</div></div>
@@ -1642,8 +1645,10 @@ function openLightbox(card) {
   const desc  = card.dataset.desc;
   const comingSoon = card.dataset.comingSoon === 'true';
 
-  document.getElementById('lightbox-img').src = thumb;
-  document.getElementById('lightbox-img').alt = title;
+  const thumbGif = card.dataset.thumbGif;
+  const lightboxImg = document.getElementById('lightbox-img');
+  lightboxImg.src = thumbGif || thumb;
+  lightboxImg.alt = title;
   document.getElementById('lightbox-title').textContent = title;
   document.getElementById('lightbox-desc').textContent = desc;
 
