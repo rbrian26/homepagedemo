@@ -790,6 +790,75 @@
       display: block;
     }
 
+    /* ── TRAILER CONTROLS ── */
+    .trailer-close-btn {
+      position: absolute;
+      top: 0.75rem; right: 0.75rem;
+      z-index: 10;
+      width: 34px; height: 34px;
+      background: rgba(0,0,0,0.55);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 50%;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .trailer-close-btn:hover { background: var(--orange); border-color: transparent; }
+
+    .trailer-center-play {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      width: 64px; height: 64px;
+      background: var(--orange);
+      border: none;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s, opacity 0.2s;
+      box-shadow: 0 4px 20px rgba(249,124,83,0.5);
+    }
+    .trailer-center-play:hover { background: var(--orange-dk); transform: translate(-50%, -50%) scale(1.08); }
+    .trailer-center-play svg { width: 24px; height: 24px; margin-left: 3px; }
+    .trailer-center-play.hidden { opacity: 0; pointer-events: none; }
+
+    .trailer-bottom-controls {
+      position: absolute;
+      bottom: 0.75rem; right: 0.75rem;
+      z-index: 10;
+      display: flex;
+      gap: 0.4rem;
+      align-items: center;
+    }
+
+    .tvc-btn {
+      background: rgba(10,34,51,0.75);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: #fff;
+      border-radius: 50%;
+      width: 36px; height: 36px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .tvc-btn:hover { background: var(--orange); border-color: transparent; transform: scale(1.08); }
+    .tvc-btn svg { width: 14px; height: 14px; }
+
+    .tvc-mute {
+      border-radius: 50px;
+      width: auto;
+      padding: 0 0.85rem;
+      gap: 0.4rem;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+    }
+
     .trailer-modal-body {
       padding: 1.4rem 1.8rem 1.8rem;
       display: flex;
@@ -1166,7 +1235,25 @@
 <div class="trailer-modal-overlay" id="trailer-modal-overlay" onclick="closeTrailer(event)">
   <div class="trailer-modal" id="trailer-modal">
     <div class="trailer-video-wrap">
-      <iframe id="trailer-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+      <iframe id="trailer-iframe" src="" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <!-- Close -->
+      <button class="trailer-close-btn" onclick="closeTrailerDirect()" title="Close">✕</button>
+      <!-- Center play/pause -->
+      <button class="trailer-center-play hidden" id="trailer-center-play" onclick="toggleTrailerPlay()" title="Play / Pause">
+        <svg id="tcp-icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <svg id="tcp-icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none;margin-left:0"><line x1="6" y1="4" x2="6" y2="20"/><line x1="18" y1="4" x2="18" y2="20"/></svg>
+      </button>
+      <!-- Bottom-right controls -->
+      <div class="trailer-bottom-controls">
+        <button class="tvc-btn" onclick="replayTrailer()" title="Restart">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+        </button>
+        <button class="tvc-btn tvc-mute" onclick="toggleTrailerMute()" title="Mute / Unmute">
+          <svg id="tvc-icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <svg id="tvc-icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          <span id="tvc-mute-label">Unmute</span>
+        </button>
+      </div>
     </div>
     <div class="trailer-modal-body">
       <div class="trailer-modal-title" id="trailer-modal-title"></div>
@@ -1368,13 +1455,67 @@ function closeLightboxDirect() {
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightboxDirect(); closeTrailerDirect(); } });
 
 // ── TRAILER MODAL ──────────────────────────────────────────────────────────────
+var trailerPlayer = null;
+var trailerPlaying = false;
+var trailerMuted = false;
+
 function openTrailer(vimeoId, vimeoHash, title, href) {
-  const src = 'https://player.vimeo.com/video/' + vimeoId + '?autoplay=1&color=f97c53&title=0&byline=0&portrait=0' + (vimeoHash ? '&h=' + vimeoHash : '');
+  const src = 'https://player.vimeo.com/video/' + vimeoId
+    + '?color=f97c53&title=0&byline=0&portrait=0'
+    + (vimeoHash ? '&h=' + vimeoHash : '');
   document.getElementById('trailer-iframe').src = src;
   document.getElementById('trailer-modal-title').textContent = title;
   document.getElementById('trailer-course-btn').href = href;
   document.getElementById('trailer-modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
+
+  // Reset state
+  trailerPlaying = false;
+  trailerMuted = false;
+  setTrailerMuteUI(false);
+  setTrailerPlayUI(false);
+  document.getElementById('trailer-center-play').classList.remove('hidden');
+
+  // Init player after iframe src is set
+  setTimeout(() => {
+    try {
+      trailerPlayer = new Vimeo.Player(document.getElementById('trailer-iframe'));
+      trailerPlayer.on('play',  () => { trailerPlaying = true;  setTrailerPlayUI(true); });
+      trailerPlayer.on('pause', () => { trailerPlaying = false; setTrailerPlayUI(false); });
+      trailerPlayer.on('ended', () => { trailerPlaying = false; setTrailerPlayUI(false); });
+    } catch(e) {}
+  }, 300);
+}
+
+function setTrailerPlayUI(playing) {
+  document.getElementById('tcp-icon-play').style.display  = playing ? 'none'  : 'block';
+  document.getElementById('tcp-icon-pause').style.display = playing ? 'block' : 'none';
+  // Hide center button while playing, show when paused/stopped
+  document.getElementById('trailer-center-play').classList.toggle('hidden', playing);
+}
+
+function setTrailerMuteUI(muted) {
+  document.getElementById('tvc-icon-muted').style.display = muted ? 'block' : 'none';
+  document.getElementById('tvc-icon-sound').style.display = muted ? 'none'  : 'block';
+  document.getElementById('tvc-mute-label').textContent   = muted ? 'Unmute' : 'Mute';
+}
+
+function toggleTrailerPlay() {
+  if (!trailerPlayer) return;
+  trailerPlaying ? trailerPlayer.pause() : trailerPlayer.play();
+}
+
+function replayTrailer() {
+  if (!trailerPlayer) return;
+  trailerPlayer.setCurrentTime(0).then(() => trailerPlayer.play());
+}
+
+function toggleTrailerMute() {
+  if (!trailerPlayer) return;
+  trailerMuted = !trailerMuted;
+  trailerPlayer.setMuted(trailerMuted);
+  if (!trailerMuted) trailerPlayer.setVolume(1);
+  setTrailerMuteUI(trailerMuted);
 }
 
 function closeTrailer(e) {
@@ -1383,6 +1524,7 @@ function closeTrailer(e) {
 
 function closeTrailerDirect() {
   document.getElementById('trailer-iframe').src = '';
+  if (trailerPlayer) { try { trailerPlayer.destroy(); } catch(e) {} trailerPlayer = null; }
   document.getElementById('trailer-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
