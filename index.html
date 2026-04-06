@@ -292,10 +292,27 @@
       .stat-bar-inner { flex-wrap: wrap; gap: 1rem; justify-content: center; }
       .stat-item { padding: 0.5rem 1.5rem; }
       .stat-divider { display: none; }
-      /* Testimonials — show one card at a time */
-      .testimonials-inner { padding: 0 1.25rem; }
-      .testimonials-track-wrap { overflow: hidden; }
-      .testimonial-card { flex: 0 0 100%; }
+      /* Testimonials — native snap scroll on mobile */
+      .testimonials-inner { padding: 0; }
+      .testimonials-track-wrap { overflow: visible; }
+      .testimonials-track {
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        gap: 0;
+        padding: 0 1.25rem;
+        /* disable JS transform */
+        transform: none !important;
+        transition: none !important;
+      }
+      .testimonials-track::-webkit-scrollbar { display: none; }
+      .testimonial-card {
+        flex: 0 0 100%;
+        scroll-snap-align: start;
+        margin-right: 1rem;
+      }
+      .testimonial-card:last-child { margin-right: 0; }
       /* Logo row */
       .logo-row { gap: 1.5rem; justify-content: center; }
       .logo-row img { height: 40px; }
