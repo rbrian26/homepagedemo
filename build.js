@@ -122,7 +122,7 @@ function buildCoursePage(detail, catalog) {
       <a href="${c.href}" class="related-card"
          ${c.thumbGif ? `onmouseenter="this.querySelector('.related-bg img').src='${c.thumbGif}'" onmouseleave="this.querySelector('.related-bg img').src='${c.thumb}'"` : ''}>
         <div class="related-bg">
-          <img src="${c.thumb}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;display:block;">
+          <img src="/assets/images/courses/${c.thumb}" alt="${c.title}" style="width:100%;height:100%;object-fit:cover;display:block;">
         </div>
         <div class="related-gradient"></div>
         <div class="related-play"></div>
