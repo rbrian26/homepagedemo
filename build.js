@@ -52,8 +52,8 @@ function buildCatalog(courses, orderData, featuredData) {
       groups[aud].push({
         id:                c.id,
         title:             c.title,
-        thumb:             c.thumb,
-	thumbGif:          c.thumbGif || '',
+        thumb:             c.thumb ? '/assets/images/courses/' + c.thumb : '',
+        thumbGif:          c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '',
         // Always use comingSoonPageHref for coming-soon, href for available
         href:              isComingSoon ? (c.comingSoonPageHref || c.href) : c.href,
         status:            c.status,
@@ -95,12 +95,12 @@ Object.keys(groups).forEach(aud => {
     const hash    = (f.vimeoHash || '').trim();
     const safeTitle = c.title.replace(/'/g, "\\'");
     const gifAttrs = c.thumbGif
-      ? ` onmouseenter="this.src='/assets/images/courses/${c.thumbGif}'" onmouseleave="this.src='/assets/images/courses/${c.thumb}'"`
+      ? ` onmouseenter="this.src='${c.thumbGif}'" onmouseleave="this.src='${c.thumb}'"`
       : '';
     return [
       `<div class="featured-card" onclick="openTrailer('${f.vimeoId.trim()}','${hash}','${safeTitle}','${c.href}')">`,
       '  <div class="featured-card-thumb">',
-      `    <img src="/assets/images/courses/${c.thumb}" alt="${c.title}"${gifAttrs}>`,
+      `    <img src="${c.thumb}" alt="${c.title}"${gifAttrs}>`,
       '    <div class="featured-card-play"></div>',
       '  </div>',
       '  <div class="featured-card-info">',
@@ -162,7 +162,7 @@ function buildCoursePage(detail, catalog, relatedMap) {
           + ' onmouseleave="this.querySelector(\'.related-bg img\').src=\'/assets/images/courses/' + c.thumb + '\'">'
         : '>',
       '        <div class="related-bg">',
-      '          <img src="/assets/images/courses/' + c.thumb + '" alt="' + c.title + '" style="width:100%;height:100%;object-fit:cover;display:block;">',
+      '          <img src="' + c.thumb + '" alt="' + c.title + '" style="width:100%;height:100%;object-fit:cover;display:block;">',
       '        </div>',
       '        <div class="related-gradient"></div>',
       '        <div class="related-play"></div>',
@@ -238,7 +238,7 @@ function buildComingSoonPages(courses, catalog) {
     // Hero media — video iframe if vimeo ID exists, else course thumbnail
     const heroMedia = c.vimeoID
       ? `<iframe src="https://player.vimeo.com/video/${c.vimeoID}${c.vimeoHash ? '?h=' + c.vimeoHash : ''}" allow="fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>`
-      : `<img src="${catalogEntry.thumb || c.thumb}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
+      : `<img src="${catalogEntry.thumb ? '/assets/images/courses/' + catalogEntry.thumb : (c.thumb || '')}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
 
     const output = template
       .replace(/__PAGE_TITLE__/g,         c.title)
