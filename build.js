@@ -2,8 +2,8 @@
  * Blue Seat Studios — Site Builder
  *
  * Reads:
- *   data/catalog.csv         → catalog.html, coming-soon-[id].html, preorder.html
- *   data/course-detail.csv   → course-[id].html
+ *   data/catalog.csv         → catalog.html, preorder.html
+ *   data/course-detail.csv   → course-[id].html (status=live) or coming-soon-[id].html (status=coming-soon)
  *   data/demo-pages.csv      → demo-[id].html (hero content)
  *   data/demo-videos.csv     → demo-[id].html (video clips)
  *
@@ -105,30 +105,34 @@ function buildCoursePage(detail) {
       </div>`;
   }
 
+  const videoCountLabel = detail.videoCount ? `${detail.videoCount} short videos` : '';
+
   const output = readTemplate('course-page.html')
-    .replace(/__PAGE_TITLE__/g,     detail.pageTitle)
-    .replace(/__HERO_TITLE__/g,     detail.heroTitle)
-    .replace(/__HERO_TAGLINE__/g,   detail.heroTagline)
-    .replace(/__VIMEO_ID__/g,       detail.vimeoID)
-    .replace(/__DURATION__/g,       detail.duration)
-    .replace(/__FORMAT__/g,         detail.format)
-    .replace(/__AUDIENCE_LABEL__/g, detail.audienceLabel)
-    .replace(/__LMS__/g,            detail.lms)
-    .replace(/__COMPLIANCE__/g,     detail.compliance)
+    .replace(/__PAGE_TITLE__/g,      detail.pageTitle)
+    .replace(/__HERO_TITLE__/g,      detail.heroTitle)
+    .replace(/__HERO_TAGLINE__/g,    detail.heroTagline)
+    .replace(/__VIMEO_ID__/g,        detail.vimeoID)
+    .replace(/__VIDEO_COUNT__/g,     videoCountLabel)
+    .replace(/__FORMAT__/g,          detail.format)
+    .replace(/__AUDIENCE_LABEL__/g,  detail.audienceLabel)
+    .replace(/__LMS__/g,             detail.lms)
     .replace('<!-- __COVERS_BULLETS__ -->', bullets)
     .replace('<!-- __LESSONS__ -->',        lessonsHTML);
   write(path.join(DIST, `course-${detail.id}.html`), output);
 }
 
 // ── COMING SOON PAGES ──────────────────────────────────────────────────────────
-function buildComingSoonPages(courses) {
+function buildComingSoonPages(courses, catalog) {
   const template = readTemplate('coming-soon-course.html');
+  const catalogMap = {};
+  catalog.forEach(row => { catalogMap[row.id] = row; });
 
-  courses.filter(c => c.active !== 'false' && c.status === 'coming-soon').forEach(c => {
+  courses.forEach(c => {
+    const catalogEntry = catalogMap[c.id] || {};
 
-    // Audience label — pick first audience for display
+    // Audience label — look up from catalog
     const audienceMap = { workplace: 'Workplace', highered: 'Higher Education', k12: 'K–12' };
-    const audiences   = c.audience.split('|').map(a => a.trim());
+    const audiences   = (catalogEntry.audience || '').split('|').map(a => a.trim());
     const audienceLabel = audiences.map(a => audienceMap[a] || a).join(' · ');
 
     // Covers bullets — conditional, hidden if empty
@@ -156,7 +160,7 @@ function buildComingSoonPages(courses) {
     const lessonsSectionStyle = lessonsHTML ? '' : ' style="display:none"';
 
     // Sneak peek button — only if vimeo ID exists
-    const sneakPeekBtn = c.sneakPeekVimeoId
+    const sneakPeekBtn = c.vimeoID
       ? `<button class="btn-orange" onclick="openSneakPeek()">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Watch Sneak Peek
@@ -164,21 +168,21 @@ function buildComingSoonPages(courses) {
       : '';
 
     // Hero media — video iframe if vimeo ID exists, else course thumbnail
-    const heroMedia = c.sneakPeekVimeoId
-      ? `<iframe src="https://player.vimeo.com/video/${c.sneakPeekVimeoId}${c.sneakPeekHash ? '?h=' + c.sneakPeekHash : ''}" allow="fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>`
-      : `<img src="${c.thumb}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
+    const heroMedia = c.vimeoID
+      ? `<iframe src="https://player.vimeo.com/video/${c.vimeoID}${c.vimeoHash ? '?h=' + c.vimeoHash : ''}" allow="fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>`
+      : `<img src="${catalogEntry.thumb || c.thumb}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
 
     const output = template
       .replace(/__PAGE_TITLE__/g,         c.title)
       .replace(/__PAGE_TITLE__/g,         c.title)
       .replace(/__HERO_TITLE__/g,         c.title)
-      .replace(/__HERO_TAGLINE__/g,       c.desc)
-      .replace(/__LAUNCH_DATE__/g,        c.comingSoonDate || 'Coming Soon')
+      .replace(/__HERO_TAGLINE__/g,       c.heroTagline || catalogEntry.desc || '')
+      .replace(/__LAUNCH_DATE__/g,        catalogEntry.comingSoonDate || c.launchDate || 'Coming Soon')
       .replace(/__AUDIENCE_LABEL__/g,     audienceLabel)
       .replace(/__FORMAT__/g,             c.format     || 'eLearning')
       .replace(/__LMS__/g,                c.lms        || 'SCORM · Hosted')
-      .replace(/__PREVIEW_VIMEO_ID__/g,   c.sneakPeekVimeoId || '')
-      .replace(/__PREVIEW_HASH__/g,       c.sneakPeekHash    || '')
+      .replace(/__PREVIEW_VIMEO_ID__/g,   c.vimeoID   || '')
+      .replace(/__PREVIEW_HASH__/g,       c.vimeoHash || '')
       .replace('<!-- __HERO_MEDIA__ -->',       heroMedia)
       .replace('<!-- __SNEAK_PEEK_BTN__ -->',   sneakPeekBtn)
       .replace(/<!-- __COVERS_BULLETS__ -->/g,  bulletsHTML)
@@ -316,14 +320,15 @@ const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
 console.log('Building catalog...');
 if (catalog.length) buildCatalog(catalog, catalogOrder);
 
-console.log('\nBuilding coming-soon course pages...');
-if (catalog.length) buildComingSoonPages(catalog);
-
 console.log('\nBuilding release calendar...');
 if (catalog.length) buildReleaseCalendar(catalog);
 
 console.log('\nBuilding course pages...');
-details.forEach(d => buildCoursePage(d));
+details.filter(d => d.status === 'live').forEach(d => buildCoursePage(d));
+
+console.log('\nBuilding coming-soon course pages...');
+const comingSoonDetails = details.filter(d => d.status === 'coming-soon');
+if (comingSoonDetails.length) buildComingSoonPages(comingSoonDetails, catalog);
 
 console.log('\nBuilding demo pages...');
 if (demoPages.length) buildDemoPages(demoPages, demoVideos);

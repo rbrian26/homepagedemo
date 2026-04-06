@@ -2,8 +2,8 @@
  * Blue Seat Studios — Site Builder
  *
  * Reads:
- *   data/catalog.csv         → catalog.html
- *   data/course-detail.csv   → course-[id].html
+ *   data/catalog.csv         → catalog.html, preorder.html
+ *   data/course-detail.csv   → course-[id].html (status=live) or coming-soon-[id].html (status=coming-soon)
  *   data/demo-pages.csv      → demo-[id].html (hero content)
  *   data/demo-videos.csv     → demo-[id].html (video clips)
  *
@@ -14,6 +14,17 @@
 const fs   = require('fs');
 const path = require('path');
 const Papa = require('papaparse');
+
+const DIST = path.join(__dirname, 'dist');
+
+function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return;
+  fs.mkdirSync(dest, { recursive: true });
+  fs.readdirSync(src).forEach(file => {
+    const s = path.join(src, file), d = path.join(dest, file);
+    fs.statSync(s).isDirectory() ? copyDir(s, d) : fs.copyFileSync(s, d);
+  });
+}
 
 function readCSV(filePath) {
   if (!fs.existsSync(filePath)) { console.warn('  ⚠️  Missing:', filePath); return []; }
@@ -29,24 +40,54 @@ function write(filePath, content) {
 }
 
 // ── CATALOG ────────────────────────────────────────────────────────────────────
-function buildCatalog(courses) {
+function buildCatalog(courses, orderData) {
   const groups = { workplace: [], highered: [], k12: [] };
+
   courses.filter(c => c.active !== 'false').forEach(c => {
-    c.audience.split(',').map(a => a.trim()).forEach(aud => {
-      if (groups[aud]) groups[aud].push({
-        id: c.id, title: c.title, thumb: c.thumb, href: c.href,
-        comingSoon: c.comingSoon === 'true', comingSoonDate: c.comingSoonDate || '', desc: c.desc,
+    const staffAudiences = (c.staffAudiences || '').split('|').map(a => a.trim()).filter(Boolean);
+    const isComingSoon = c.comingSoon === 'TRUE';
+
+    c.audience.split('|').map(a => a.trim()).forEach(aud => {
+      if (!groups[aud]) return;
+      groups[aud].push({
+        id:                c.id,
+        title:             c.title,
+        thumb:             c.thumb,
+	thumbGif:          c.thumbGif || '',
+        // Always use comingSoonPageHref for coming-soon, href for available
+        href:              isComingSoon ? (c.comingSoonPageHref || c.href) : c.href,
+        status:            c.status,
+        comingSoonDate:    c.comingSoonDate || '',
+        desc:              c.desc,
+        isStaff:           staffAudiences.includes(aud),
       });
     });
   });
+
+const orderMap = {};
+orderData.forEach(row => {
+  orderMap[row.audience] = (row.order || '').split('|').map(id => id.trim());
+});
+Object.keys(groups).forEach(aud => {
+  const ordered = orderMap[aud] || [];
+  groups[aud].sort((a, b) => {
+    const ai = ordered.indexOf(a.id);
+    const bi = ordered.indexOf(b.id);
+    if (ai === -1 && bi === -1) return 0;
+    if (ai === -1) return 1;
+    if (bi === -1) return -1;
+    return ai - bi;
+  });
+});
+
   const output = readTemplate('catalog.html')
     .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`);
-  write(path.join(__dirname, 'catalog.html'), output);
+  write(path.join(DIST, 'catalog.html'), output);
 }
 
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
-function buildCoursePage(detail, catalogById) {
-  const bullets = detail.coversBullets.split('|').map(b => b.trim()).filter(Boolean)
+function buildCoursePage(detail) {
+  const bullets = (detail.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean)
     .map(b => `      <li>${b}</li>`).join('\n');
 
   let lessonsHTML = '';
@@ -64,43 +105,153 @@ function buildCoursePage(detail, catalogById) {
       </div>`;
   }
 
-  const gradients = [
-    'linear-gradient(135deg,#096f9c,#0a2233)',
-    'linear-gradient(135deg,#f97c53,#096f9c)',
-    'linear-gradient(135deg,#065578,#f97c53)',
-  ];
-  const relatedHTML = [detail.related1_id, detail.related2_id, detail.related3_id]
-    .map((id, i) => {
-      if (!id) return '';
-      const course = catalogById[id.trim()];
-      if (!course) { console.warn(`  ⚠️  Related course not found: ${id}`); return ''; }
-      return `
-      <a href="${course.href}" class="related-card">
-        <div class="related-bg" style="background: ${gradients[i]};"></div>
-        <div class="related-gradient"></div>
-        <div class="related-play"></div>
-        <div class="related-info">
-          <div class="related-topic">${course.topic || ''}</div>
-          <div class="related-title">${course.title}</div>
-        </div>
-      </a>`;
-    }).join('\n');
+  const videoCountLabel = detail.videoCount ? `${detail.videoCount} short videos` : '';
 
   const output = readTemplate('course-page.html')
-    .replace(/__PAGE_TITLE__/g,     detail.pageTitle)
-    .replace(/__HERO_TITLE__/g,     detail.heroTitle)
-    .replace(/__HERO_TAGLINE__/g,   detail.heroTagline)
-    .replace(/__VIMEO_ID__/g,       detail.vimeoID)
-    .replace(/__DURATION__/g,       detail.duration)
-    .replace(/__FORMAT__/g,         detail.format)
-    .replace(/__AUDIENCE_LABEL__/g, detail.audienceLabel)
-    .replace(/__LMS__/g,            detail.lms)
-    .replace(/__COMPLIANCE__/g,     detail.compliance)
+    .replace(/__PAGE_TITLE__/g,      detail.pageTitle)
+    .replace(/__HERO_TITLE__/g,      detail.heroTitle)
+    .replace(/__HERO_TAGLINE__/g,    detail.heroTagline)
+    .replace(/__VIMEO_ID__/g,        detail.vimeoID)
+    .replace(/__VIDEO_COUNT__/g,     videoCountLabel)
+    .replace(/__FORMAT__/g,          detail.format)
+    .replace(/__AUDIENCE_LABEL__/g,  detail.audienceLabel)
+    .replace(/__LMS__/g,             detail.lms)
     .replace('<!-- __COVERS_BULLETS__ -->', bullets)
-    .replace('<!-- __LESSONS__ -->',        lessonsHTML)
-    .replace('<!-- __SAMPLE_CLIPS__ -->',   clipsHTML)
-    .replace('<!-- __RELATED_COURSES__ -->', relatedHTML);
-  write(path.join(__dirname, `course-${detail.id}.html`), output);
+    .replace('<!-- __LESSONS__ -->',        lessonsHTML);
+  write(path.join(DIST, `course-${detail.id}.html`), output);
+}
+
+// ── COMING SOON PAGES ──────────────────────────────────────────────────────────
+function buildComingSoonPages(courses) {
+  const template = readTemplate('coming-soon-course.html');
+
+  courses.forEach(c => {
+
+    // Audience label — pick first audience for display
+    const audienceMap = { workplace: 'Workplace', highered: 'Higher Education', k12: 'K–12' };
+    const audiences   = c.audience.split('|').map(a => a.trim());
+    const audienceLabel = audiences.map(a => audienceMap[a] || a).join(' · ');
+
+    // Covers bullets — conditional, hidden if empty
+    const bulletItems = (c.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean);
+    const bulletsHTML = bulletItems.length
+      ? bulletItems.map(b => `      <li>${b}</li>`).join('\n')
+      : '';
+    const coversSectionStyle = bulletItems.length ? '' : ' style="display:none"';
+
+    // Lessons — conditional, hidden if empty
+    let lessonsHTML = '';
+    for (let i = 1; i <= 20; i++) {
+      const title = c[`L${i}_title`], desc = c[`L${i}_desc`];
+      if (!title || !title.trim()) break;
+      lessonsHTML += `
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">${i}</div>
+          <div class="accordion-header-text"><span class="accordion-title">${title}</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">${desc}</div></div>
+      </div>`;
+    }
+    const lessonsSectionStyle = lessonsHTML ? '' : ' style="display:none"';
+
+    // Sneak peek button — only if vimeo ID exists
+    const sneakPeekBtn = c.vimeoID
+      ? `<button class="btn-orange" onclick="openSneakPeek()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Watch Sneak Peek
+        </button>`
+      : '';
+
+    // Hero media — video iframe if vimeo ID exists, else course thumbnail
+    const heroMedia = c.vimeoID
+      ? `<iframe src="https://player.vimeo.com/video/${c.vimeoID}${c.vimeoHash ? '?h=' + c.vimeoHash : ''}" allow="fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>`
+      : `<img src="${c.thumb}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
+
+    const output = template
+      .replace(/__PAGE_TITLE__/g,         c.title)
+      .replace(/__PAGE_TITLE__/g,         c.title)
+      .replace(/__HERO_TITLE__/g,         c.title)
+      .replace(/__HERO_TAGLINE__/g,       c.desc)
+      .replace(/__LAUNCH_DATE__/g,        c.comingSoonDate || 'Coming Soon')
+      .replace(/__AUDIENCE_LABEL__/g,     audienceLabel)
+      .replace(/__FORMAT__/g,             c.format     || 'eLearning')
+      .replace(/__LMS__/g,                c.lms        || 'SCORM · Hosted')
+      .replace(/__PREVIEW_VIMEO_ID__/g,   c.vimeoID   || '')
+      .replace(/__PREVIEW_HASH__/g,       c.vimeoHash || '')
+      .replace('<!-- __HERO_MEDIA__ -->',       heroMedia)
+      .replace('<!-- __SNEAK_PEEK_BTN__ -->',   sneakPeekBtn)
+      .replace(/<!-- __COVERS_BULLETS__ -->/g,  bulletsHTML)
+      .replace('id="s-covers"',                 `id="s-covers"${coversSectionStyle}`)
+      .replace('id="s-lessons"',                `id="s-lessons"${lessonsSectionStyle}`)
+      .replace('<!-- __LESSONS__ -->',          lessonsHTML);
+
+    write(path.join(DIST, `coming-soon-${c.id}.html`), output);
+  });
+}
+
+// ── RELEASE CALENDAR (preorder.html) ───────────────────────────────────────────
+function buildReleaseCalendar(courses) {
+  const comingSoon = courses.filter(c => c.active !== 'false' && c.status === 'coming-soon');
+
+  // Group by date
+  const byDate = {};
+  comingSoon.forEach(c => {
+    const date = c.comingSoonDate || 'TBD';
+    if (!byDate[date]) byDate[date] = [];
+    byDate[date].push(c);
+  });
+
+  // Sort dates chronologically
+  const monthOrder = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const sortedDates = Object.keys(byDate).sort((a, b) => {
+    const [aM, aY] = a.split(' ');
+    const [bM, bY] = b.split(' ');
+    if (aY !== bY) return parseInt(aY) - parseInt(bY);
+    return monthOrder.indexOf(aM) - monthOrder.indexOf(bM);
+  });
+
+  const audienceMap = { workplace: 'Workplace', highered: 'Higher Ed', k12: 'K–12' };
+
+  const cardsHTML = sortedDates.map(date => {
+    const groupCards = byDate[date].map(c => {
+      const audiences = c.audience.split('|').map(a => {
+        const label = audienceMap[a.trim()] || a.trim();
+        return `<span class="card-audience-tag">${label}</span>`;
+      }).join('');
+
+      return `
+    <div class="course-card">
+      <div class="card-thumb">
+        <img src="${c.thumb}" alt="${c.title}" onerror="this.style.display='none'">
+        <div class="coming-soon-ribbon">Coming Soon</div>
+      </div>
+      <div class="card-body">
+        <div class="card-date">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          ${date}
+        </div>
+        <div class="card-title">${c.title}</div>
+        <div class="card-audience-tags">${audiences}</div>
+        <div class="card-desc">${c.desc}</div>
+        <div class="card-actions">
+          <a href="${c.comingSoonPageHref || c.href}" class="card-btn">Learn More</a>
+        </div>
+      </div>
+    </div>`;
+    }).join('\n');
+
+    return `
+  <div class="section-label">${date}</div>
+  <div class="course-cards">
+    ${groupCards}
+  </div>`;
+  }).join('\n');
+
+  const output = readTemplate('preorder.html')
+    .replace('<!-- __RELEASE_CARDS__ -->', cardsHTML);
+  write(path.join(DIST, 'preorder.html'), output);
 }
 
 // ── DEMO PAGES ─────────────────────────────────────────────────────────────────
@@ -150,7 +301,7 @@ function buildDemoPages(demoPages, demoVideos) {
       .replace('/* __VIDEOS_JSON__ */',         videosJSON)
       .replace(/\d+ clips? — click any to watch/, `${clipCount} clip${clipCount !== 1 ? 's' : ''} — click any to watch`);
 
-    write(path.join(__dirname, `demo-${page.courseId}.html`), output);
+    write(path.join(DIST, `demo-${page.courseId}.html`), output);
   });
 }
 
@@ -158,19 +309,28 @@ function buildDemoPages(demoPages, demoVideos) {
 console.log('\n🔨 Blue Seat Studios — Build\n');
 
 const catalog    = readCSV(path.join(__dirname, 'data', 'catalog.csv'));
+const catalogOrder = readCSV(path.join(__dirname, 'data', 'catalog-order.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
 const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
 const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
 
 console.log('Building catalog...');
-if (catalog.length) buildCatalog(catalog);
+if (catalog.length) buildCatalog(catalog, catalogOrder);
+
+console.log('\nBuilding release calendar...');
+if (catalog.length) buildReleaseCalendar(catalog);
 
 console.log('\nBuilding course pages...');
-const catalogById = {};
-catalog.forEach(c => { catalogById[c.id] = c; });
-details.forEach(d => buildCoursePage(d, catalogById));
+details.filter(d => d.status === 'live').forEach(d => buildCoursePage(d));
+
+console.log('\nBuilding coming-soon course pages...');
+const comingSoonDetails = details.filter(d => d.status === 'coming-soon');
+if (comingSoonDetails.length) buildComingSoonPages(comingSoonDetails);
 
 console.log('\nBuilding demo pages...');
 if (demoPages.length) buildDemoPages(demoPages, demoVideos);
+
+console.log('Copying assets...');
+copyDir(path.join(__dirname, 'assets'), path.join(DIST, 'assets'));
 
 console.log('\n✅ Done.\n');

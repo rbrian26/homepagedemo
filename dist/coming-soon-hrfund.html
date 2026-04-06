@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>HR Fundamentals — Coming Soon</title>
+  <title>undefined — Coming Soon</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -276,13 +276,39 @@
       footer { flex-direction: column; text-align: center; padding: 1.5rem; }
       .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
     }
+    /* ── NOTIFY MODAL ── */
+    .notify-modal-inner {
+      max-width: 520px;
+      background: #fff !important;
+    }
+    .notify-modal-inner .modal-header {
+      border-bottom-color: rgba(9,111,156,0.1);
+    }
+    .notify-modal-inner .modal-title {
+      color: var(--navy);
+    }
+    .notify-modal-inner .modal-close {
+      color: var(--muted);
+    }
+    .notify-modal-inner .modal-close:hover { color: var(--navy); }
+    .notify-modal-body {
+      padding: 1.5rem 2rem 2rem;
+    }
+    .notify-modal-desc {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.4rem;
+      font-weight: 500;
+    }
   </style>
+  <script src="https://js.hsforms.net/forms/embed/44723819.js" defer></script>
 </head>
 <body>
 
 <!-- NAV -->
 <nav id="main-nav">
-  <div class="nav-logo"><a href="/"><img src="blue_seat_logo_final.png" alt="Blue Seat Studios" /></a></div>
+  <div class="nav-logo"><a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a></div>
   <ul class="nav-links">
     <li><a href="catalog.html?audience=workplace">Workplace</a></li>
     <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
@@ -310,7 +336,7 @@
   <span class="breadcrumb-sep">›</span>
   <a href="preorder.html">Coming Soon</a>
   <span class="breadcrumb-sep">›</span>
-  <span class="breadcrumb-current">HR Fundamentals</span>
+  <span class="breadcrumb-current">undefined</span>
 </div>
 
 <!-- HERO -->
@@ -318,10 +344,10 @@
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-badge">Coming July 2026</div>
-      <h1>HR Fundamentals</h1>
+      <h1>undefined</h1>
       <div class="hero-audience">
         <div class="hero-audience-dot"></div>
-        Workplace
+        
       </div>
       <p class="hero-desc">Management isn't a personality type — it's a skill set. This course gives new and experienced managers the practical tools to set expectations, give feedback, and handle the conversations nobody wants to have.</p>
       <ul class="hero-bullets">
@@ -334,15 +360,17 @@
       </ul>
       <div class="hero-actions">
         
-        <a href="preorder.html#notify-card" class="btn-orange">
+        <button onclick="openNotifyModal()" class="btn-orange">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           Notify Me When Live
-        </a>
+        </button>
         <a href="full_access.html" class="btn-ghost">Explore Full Access</a>
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-preview-card"><div class="hero-preview-placeholder"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg><p>Preview clip coming soon</p></div></div>
+      <div class="hero-preview-card">
+        <img src="undefined" alt="undefined" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />
+      </div>
     </div>
   </div>
 </section>
@@ -359,7 +387,7 @@
   </div>
   <div class="meta-strip-item">
     <span class="meta-strip-label">Audience</span>
-    <span class="meta-strip-value">Workplace</span>
+    <span class="meta-strip-value"></span>
   </div>
   <div class="meta-strip-item">
     <span class="meta-strip-label">LMS</span>
@@ -394,13 +422,13 @@
   <div class="notify-bar section" id="s-notify">
     <div class="notify-bar-text">
       <div class="notify-bar-eyebrow">Get Early Access</div>
-      <strong>Be first in line when HR Fundamentals goes live.</strong>
+      <strong>Be first in line when undefined goes live.</strong>
       <p>We'll reach out as soon as it's ready — sometimes before public launch.</p>
     </div>
-    <a href="preorder.html#notify-card" class="btn-notify">
+    <button onclick="openNotifyModal()" class="btn-notify">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
       Notify Me
-    </a>
+    </button>
   </div>
 
   <!-- Course Lessons -->
@@ -441,15 +469,15 @@
           <div class="accordion-header-text"><span class="accordion-title">Having Hard Conversations</span></div>
           <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
         </button>
-        <div class="accordion-body"><div class="accordion-body-inner">How to address performance issues</div></div>
+        <div class="accordion-body"><div class="accordion-body-inner">How to address performance issues, attendance, attitude, and conflict directly — before small problems become big ones.</div></div>
       </div>
       <div class="accordion-item">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
           <div class="accordion-num">5</div>
-          <div class="accordion-header-text"><span class="accordion-title"> attendance</span></div>
+          <div class="accordion-header-text"><span class="accordion-title">Your Legal Obligations</span></div>
           <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
         </button>
-        <div class="accordion-body"><div class="accordion-body-inner"> attitude</div></div>
+        <div class="accordion-body"><div class="accordion-body-inner">What managers must know about discrimination, retaliation, accommodation, and when to loop in HR.</div></div>
       </div>
     </div>
   </div>
@@ -457,7 +485,7 @@
   <!-- Full Access Promo -->
   <div class="promo-bar">
     <div class="promo-bar-text">
-      Want access to this course the moment it drops?
+      Want access to all content the moment it drops?
       <span>A Full Access license covers your entire catalog — current courses plus everything in development.</span>
     </div>
     <a href="full_access.html" class="btn-white">Explore Full Access</a>
@@ -469,7 +497,7 @@
 <div class="modal-overlay" id="sneak-modal" onclick="if(event.target===this)closeModal()">
   <div class="modal">
     <div class="modal-header">
-      <div class="modal-title"><div class="modal-title-dot"></div>Sneak Peek — HR Fundamentals</div>
+      <div class="modal-title"><div class="modal-title-dot"></div>Sneak Peek — undefined</div>
       <button class="modal-close" onclick="closeModal()">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
@@ -480,9 +508,25 @@
   </div>
 </div>
 
+<!-- NOTIFY MODAL -->
+<div class="modal-overlay" id="notify-modal" onclick="if(event.target===this)closeNotifyModal()">
+  <div class="modal notify-modal-inner">
+    <div class="modal-header">
+      <div class="modal-title"><div class="modal-title-dot"></div>Get Notified — undefined</div>
+      <button class="modal-close" onclick="closeNotifyModal()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="notify-modal-body">
+      <p class="notify-modal-desc">We'll let you know as soon as <strong>undefined</strong> is ready — sometimes before it's publicly available.</p>
+      <div class="hs-form-frame" data-region="na1" data-form-id="1c50f1fc-20a3-4788-bbec-0e71462b0c62" data-portal-id="44723819"></div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
-  <div class="footer-logo"><img src="blue_seat_logo_final.png" alt="Blue Seat Studios" /></div>
+  <div class="footer-logo"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></div>
   <ul class="footer-links">
     <li><a href="catalog.html?audience=workplace">Workplace</a></li>
     <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
@@ -515,7 +559,19 @@
     document.body.style.overflow = '';
   }
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+  function openNotifyModal() {
+    document.getElementById('notify-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeNotifyModal() {
+    document.getElementById('notify-modal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { closeModal(); closeNotifyModal(); }
+  });
 
   function toggleAccordion(trigger) {
     const item = trigger.closest('.accordion-item');

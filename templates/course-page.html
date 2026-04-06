@@ -277,6 +277,26 @@
       border: 0;
     }
 
+    #mute-toggle {
+      position: absolute;
+      bottom: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.55);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      transition: background 0.2s;
+      z-index: 10;
+    }
+    #mute-toggle:hover { background: rgba(0,0,0,0.8); }
+    #mute-toggle svg { width: 16px; height: 16px; stroke: #fff; }
+
     /* ── META STRIP ── */
     .meta-strip {
       background: var(--white);
@@ -871,12 +891,17 @@
       <div class="hero-video-card">
         <div class="clip-video">
           <iframe
-            src="https://player.vimeo.com/video/__VIMEO_ID__?color=f97c53&title=0&byline=0&portrait=0"
+            id="hero-player"
+            src="https://player.vimeo.com/video/__VIMEO_ID__?color=f97c53&title=0&byline=0&portrait=0&autoplay=1&muted=1&loop=1&autopause=0"
             frameborder="0"
-            allow="fullscreen; picture-in-picture"
+            allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
-            title="Sexual Harassment Prevention — Preview">
+            title="Course Preview">
           </iframe>
+          <button id="mute-toggle" onclick="toggleMute()" aria-label="Unmute video">
+            <svg id="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+            <svg id="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -886,8 +911,8 @@
 <!-- META STRIP -->
 <div class="meta-strip">
   <div class="meta-strip-item">
-    <span class="meta-strip-label">Duration</span>
-    <span class="meta-strip-value">__DURATION__</span>
+    <span class="meta-strip-label">Videos</span>
+    <span class="meta-strip-value">__VIDEO_COUNT__</span>
   </div>
   <div class="meta-strip-item">
     <span class="meta-strip-label">Format</span>
@@ -901,10 +926,7 @@
     <span class="meta-strip-label">LMS</span>
     <span class="meta-strip-value">__LMS__</span>
   </div>
-  <div class="meta-strip-item">
-    <span class="meta-strip-label">Compliance</span>
-    <span class="meta-strip-value">__COMPLIANCE__</span>
-  </div>
+
 </div>
 
 <!-- MAIN CONTENT -->
@@ -1077,6 +1099,19 @@
 
     sections.forEach(s => observer.observe(s));
   });
+</script>
+
+<script>
+  const heroPlayer = new Vimeo.Player(document.getElementById('hero-player'));
+  let isMuted = true;
+
+  function toggleMute() {
+    isMuted = !isMuted;
+    heroPlayer.setMuted(isMuted);
+    document.getElementById('icon-muted').style.display   = isMuted ? '' : 'none';
+    document.getElementById('icon-unmuted').style.display = isMuted ? 'none' : '';
+    document.getElementById('mute-toggle').setAttribute('aria-label', isMuted ? 'Unmute video' : 'Mute video');
+  }
 </script>
 </body>
 </html>
