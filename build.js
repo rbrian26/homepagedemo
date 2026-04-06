@@ -160,17 +160,17 @@ function buildCoursePage(detail, catalog, relatedMap) {
     const c = catalogById[r.id.trim()];
     if (!c) return '';
     const eyebrow = (r.eyebrow || '').trim() || c.title;
+    const thumbSrc = c.thumb ? '/assets/images/courses/' + c.thumb : '';
+    const gifSrc   = c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '';
+    const gifAttrs = gifSrc
+      ? ` onmouseenter="this.querySelector('img').src='${gifSrc}'" onmouseleave="this.querySelector('img').src='${thumbSrc}'"`
+      : '';
     return [
-      '      <a href="' + c.href + '" class="related-card"',
-      c.thumbGif
-        ? '         onmouseenter="this.querySelector(\'.related-bg img\').src=\'/assets/images/courses/' + c.thumbGif + '\'"'
-          + ' onmouseleave="this.querySelector(\'.related-bg img\').src=\'/assets/images/courses/' + c.thumb + '\'">'
-        : '>',
-      '        <div class="related-bg">',
-      '          <img src="' + c.thumb + '" alt="' + c.title + '" style="width:100%;height:100%;object-fit:cover;display:block;">',
+      '      <a href="' + c.href + '" class="related-card"' + gifAttrs + '>',
+      '        <div class="related-thumb">',
+      '          <img src="' + thumbSrc + '" alt="' + c.title + '">',
+      '          <div class="related-play"></div>',
       '        </div>',
-      '        <div class="related-gradient"></div>',
-      '        <div class="related-play"></div>',
       '        <div class="related-info">',
       '          <div class="related-topic">' + eyebrow + '</div>',
       '          <div class="related-title">' + c.title + '</div>',
