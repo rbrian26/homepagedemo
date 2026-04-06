@@ -381,6 +381,83 @@ function buildDemoPages(demoPages, demoVideos) {
   });
 }
 
+// ── HOMEPAGE ───────────────────────────────────────────────────────────────────
+function buildHomepage(courses, testimonials) {
+  const audiences = [
+    {
+      key:      'workplace',
+      label:    'Workplace',
+      imgPng:   '/assets/images/ui/img_wp.png',
+      imgGif:   '/assets/images/ui/img_wp.gif',
+      imgAlt:   'Workplace Courses',
+    },
+    {
+      key:      'highered',
+      label:    'Higher Ed',
+      imgPng:   '/assets/images/ui/img_he.png',
+      imgGif:   '/assets/images/ui/img_he.gif',
+      imgAlt:   'Higher Ed Courses',
+    },
+    {
+      key:      'k12',
+      label:    'K–12',
+      imgPng:   '/assets/images/ui/img_k12.png',
+      imgGif:   '/assets/images/ui/img_k12.gif',
+      imgAlt:   'K–12 Courses',
+    },
+  ];
+
+  const activeCourses = courses.filter(c => c.active !== 'false');
+
+  const cardsHTML = audiences.map(aud => {
+    const audCourses = activeCourses.filter(c =>
+      c.audience.split('|').map(a => a.trim()).includes(aud.key)
+    );
+
+    const lozenges = audCourses.map(c => {
+      const isComingSoon = c.status === 'coming-soon' || c.comingSoon === 'TRUE';
+      const href = isComingSoon ? (c.comingSoonPageHref || c.href || '#') : (c.href || '#');
+      const cls  = isComingSoon ? 'aud-course-link coming' : 'aud-course-link';
+      return `            <a href="${href}" class="${cls}">${c.title}</a>`;
+    }).join('\n');
+
+    return `
+      <div class="aud-card">
+        <a class="aud-card-img" href="catalog.html?audience=${aud.key}"
+          onmouseenter="this.querySelector('img').src='${aud.imgGif}'"
+          onmouseleave="this.querySelector('img').src='${aud.imgPng}'">
+          <img src="${aud.imgPng}" alt="${aud.imgAlt}" />
+        </a>
+        <div class="aud-card-body">
+          <div class="aud-card-title">${aud.label}</div>
+          <div class="aud-course-list">
+${lozenges}
+          </div>
+          <a href="catalog.html?audience=${aud.key}" class="aud-view-all">View all ${aud.label} courses →</a>
+        </div>
+      </div>`;
+  }).join('\n');
+
+  const testimonialsHTML = (testimonials || []).map(t => {
+    const avatarInner = t.photo
+      ? `<img src="/assets/images/people/${t.photo}" alt="${t.name}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`
+      : `<svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>`;
+    return `
+        <div class="testimonial-card">
+          <p class="testimonial-body">${t.quote}</p>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">${avatarInner}</div>
+            <div class="testimonial-attr">${t.name}<br>${t.title} · ${t.org}</div>
+          </div>
+        </div>`;
+  }).join('\n');
+
+  const output = readTemplate('index.html')
+    .replace('<!-- __AUDIENCE_CARDS__ -->', cardsHTML)
+    .replace('<!-- __TESTIMONIALS__ -->', testimonialsHTML);
+  write(path.join(DIST, 'index.html'), output);
+}
+
 // ── MAIN ───────────────────────────────────────────────────────────────────────
 console.log('\n🔨 Blue Seat Studios — Build\n');
 
@@ -393,6 +470,11 @@ const relatedCSV  = readCSV(path.join(__dirname, 'data', 'related-courses.csv'))
 const featuredCSV = readCSV(path.join(__dirname, 'data', 'featured-courses.csv'));
 const relatedMap = {};
 relatedCSV.forEach(r => { if (r.courseId) relatedMap[r.courseId] = r; });
+
+const testimonials = readCSV(path.join(__dirname, 'data', 'testimonials.csv'));
+
+console.log('Building homepage...');
+if (catalog.length) buildHomepage(catalog, testimonials);
 
 console.log('Building catalog...');
 if (catalog.length) buildCatalog(catalog, catalogOrder, featuredCSV);

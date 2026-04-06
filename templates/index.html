@@ -396,7 +396,7 @@
 
 <!-- MOBILE MENU -->
 <div class="nav-mobile-menu" id="nav-mobile-menu">
-  <button class="nav-mobile-close" onclick="document.getElementById('nav-mobile-menu').classList.remove('open')" aria-label="Close menu">✕</button>
+  <button class="nav-mobile-close" onclick="document.getElementById('nav-mobile-menu').classList.remove('open'); return false;" aria-label="Close menu">✕</button>
   <a href="catalog.html">Full Catalog</a>
   <a href="catalog.html?audience=workplace">Workplace</a>
   <a href="catalog.html?audience=highered">Higher Ed</a>
@@ -534,72 +534,7 @@
       <p class="section-body">We make training genuinely engaging. With humor, craft, and a down-to-earth tone that makes even the toughest topics approachable.</p>
     </div>
     <div class="approach-grid">
-
-      <!-- WORKPLACE -->
-      <div class="aud-card">
-        <a class="aud-card-img" href="catalog.html?audience=workplace"
-          onmouseenter="this.querySelector('img').src='/assets/images/ui/img_wp.gif'"
-          onmouseleave="this.querySelector('img').src='/assets/images/ui/img_wp.png'">
-          <img src="/assets/images/ui/img_wp.png" alt="Workplace Courses" />
-        </a>
-        <div class="aud-card-body">
-          <div class="aud-card-title">Workplace</div>
-          <div class="aud-course-list">
-            <a href="/course-shp.html" class="aud-course-link">Sexual Harassment Prevention</a>
-            <a href="/course-ta.html" class="aud-course-link">Threat Assessment</a>
-            <a href="/course-cy.html" class="aud-course-link coming">Cybersecurity</a>
-            <a href="/course-hr.html" class="aud-course-link coming">HR Fundamentals</a>
-            <a href="/course-sg.html" class="aud-course-link coming">Safeguarding</a>
-          </div>
-          <a href="catalog.html?audience=workplace" class="aud-view-all">View all Workplace courses →</a>
-        </div>
-      </div>
-
-      <!-- HIGHER ED -->
-      <div class="aud-card">
-        <a class="aud-card-img" href="catalog.html?audience=highered"
-          onmouseenter="this.querySelector('img').src='/assets/images/ui/img_he.gif'"
-          onmouseleave="this.querySelector('img').src='/assets/images/ui/img_he.png'">
-          <img src="/assets/images/ui/img_he.png" alt="Higher Ed Courses" />
-        </a>
-        <div class="aud-card-body">
-          <div class="aud-card-title">Higher Ed</div>
-          <div class="aud-course-list">
-            <a href="/course-shp.html" class="aud-course-link">Sexual Harassment Prevention</a>
-            <a href="/course-co-he.html" class="aud-course-link">Consent</a>
-            <a href="/course-t9.html" class="aud-course-link coming">Title IX</a>
-            <a href="/course-by-he.html" class="aud-course-link">Bystander Intervention</a>
-            <a href="/course-ta.html" class="aud-course-link">Threat Assessment</a>
-            <a href="/course-al.html" class="aud-course-link coming">Alcohol Awareness</a>
-            <a href="/course-mh-he.html" class="aud-course-link coming">Mental Health Support</a>
-            <a href="/course-cy.html" class="aud-course-link coming">Cybersecurity</a>
-          </div>
-          <a href="catalog.html?audience=highered" class="aud-view-all">View all Higher Ed courses →</a>
-        </div>
-      </div>
-
-      <!-- K-12 -->
-      <div class="aud-card">
-        <a class="aud-card-img" href="catalog.html?audience=k12"
-          onmouseenter="this.querySelector('img').src='/assets/images/ui/img_k12.gif'"
-          onmouseleave="this.querySelector('img').src='/assets/images/ui/img_k12.png'">
-          <img src="/assets/images/ui/img_k12.png" alt="K-12 Courses" />
-        </a>
-        <div class="aud-card-body">
-          <div class="aud-card-title">K–12</div>
-          <div class="aud-course-list">
-            <a href="/course-co-k12.html" class="aud-course-link">Consent</a>
-            <a href="/course-by-k12.html" class="aud-course-link">Be a Bystander</a>
-            <a href="/course-bf-k12.html" class="aud-course-link">Bias and Fairness</a>
-            <a href="/course-shp.html" class="aud-course-link">Sexual Harassment Prevention</a>
-            <a href="/course-mh-k12.html" class="aud-course-link coming">Mental Health Basics</a>
-            <a href="/course-cy.html" class="aud-course-link coming">Cybersecurity</a>
-            <a href="/course-sg.html" class="aud-course-link coming">Safeguarding</a>
-          </div>
-          <a href="catalog.html?audience=k12" class="aud-view-all">View all K–12 courses →</a>
-        </div>
-      </div>
-
+      <!-- __AUDIENCE_CARDS__ -->
     </div>
   </div>
 </div>
@@ -657,45 +592,7 @@
     <div class="testimonials-track-wrap">
       <div class="testimonials-track" id="testimonialsTrack">
 
-        <div class="testimonial-card">
-          <p class="testimonial-body">It's inspiring to watch your talent shine through each new piece you create. Grateful to work alongside someone who consistently raises the bar and brings so much heart to their craft.</p>
-          <div class="testimonial-footer">
-            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-            <div class="testimonial-attr">Monica Marcelo<br>Director of Threat Assessment, University of Illinois–Urbana</div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <p class="testimonial-body">We love this training!</p>
-          <div class="testimonial-footer">
-            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-            <div class="testimonial-attr">Amanda Ruzicka, MA<br>Deputy Director, MOORE · Johns Hopkins Bloomberg School of Public Health</div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <p class="testimonial-body">Unforgettable customized training.</p>
-          <div class="testimonial-footer">
-            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-            <div class="testimonial-attr">Paul LaCaruba<br>Vice President, Strategy · National Hockey League (NHL)</div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <p class="testimonial-body">Compassionate and funny! This training helps strengthen communities.</p>
-          <div class="testimonial-footer">
-            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-            <div class="testimonial-attr">Brian O'Connor<br>Co-Founder, Team: Changing Minds · VP, Futures Without Violence</div>
-          </div>
-        </div>
-
-        <div class="testimonial-card">
-          <p class="testimonial-body">Very well-made, and the animation style and imagery are perfectly suitable for a K-12 environment across all grade levels.</p>
-          <div class="testimonial-footer">
-            <div class="testimonial-avatar"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
-            <div class="testimonial-attr">Tricia Hoeg<br>Director, Threat & Crisis Response · Clark County School District</div>
-          </div>
-        </div>
+        <!-- __TESTIMONIALS__ -->
 
       </div>
     </div>
