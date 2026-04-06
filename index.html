@@ -670,13 +670,17 @@
   var original = Array.from(track.querySelectorAll('.testimonial-card'));
   var total = original.length;
 
-  // Clone first 3 cards for seamless loop
+  // Clone first 3 cards for seamless loop (desktop only)
   original.slice(0, 3).forEach(function(card) {
     track.appendChild(card.cloneNode(true));
   });
 
   var current = 0;
   var timer = null;
+
+  function isMobile() {
+    return window.innerWidth <= 960;
+  }
 
   function getCardWidth() {
     var style = window.getComputedStyle(track);
@@ -685,11 +689,17 @@
   }
 
   function goTo(index, animate) {
+    if (isMobile()) {
+      track.style.transition = 'none';
+      track.style.transform = '';
+      return;
+    }
     track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.4,0,0.2,1)' : 'none';
     track.style.transform = 'translateX(-' + (index * getCardWidth()) + 'px)';
   }
 
   function advance() {
+    if (isMobile()) return;
     current++;
     goTo(current, true);
     if (current >= total) {
@@ -710,9 +720,12 @@
     timer = setInterval(advance, 6000);
   }
 
-  // On resize: reset position so translateX stays accurate
   window.addEventListener('resize', function() {
     reset();
+    if (isMobile()) {
+      track.style.transform = '';
+      track.scrollLeft = 0;
+    }
   });
 
   startTimer();
