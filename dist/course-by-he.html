@@ -577,30 +577,29 @@
       transform: scale(1.04);
     }
 
-    .related-play {
+    .related-play { display: none; }
+
+    .related-hover-cta {
       position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      width: 44px; height: 44px;
+      bottom: 0.7rem;
+      right: 0.75rem;
       background: var(--orange);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.3rem 0.75rem;
+      border-radius: 50px;
       opacity: 0;
+      transform: translateY(4px);
       transition: opacity 0.2s, transform 0.2s;
-      box-shadow: 0 4px 16px rgba(249,124,83,0.5);
+      pointer-events: none;
+      white-space: nowrap;
     }
 
-    .related-card:hover .related-play {
+    .related-card:hover .related-hover-cta {
       opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .related-play::after {
-      content: '';
-      border-left: 14px solid #fff;
-      border-top: 9px solid transparent;
-      border-bottom: 9px solid transparent;
-      margin-left: 3px;
+      transform: translateY(0);
     }
 
     .related-info {

@@ -169,7 +169,7 @@ function buildCoursePage(detail, catalog, relatedMap) {
       '      <a href="' + c.href + '" class="related-card"' + gifAttrs + '>',
       '        <div class="related-thumb">',
       '          <img src="' + thumbSrc + '" alt="' + c.title + '">',
-      '          <div class="related-play"></div>',
+      '          <div class="related-hover-cta">View Course →</div>',
       '        </div>',
       '        <div class="related-info">',
       '          <div class="related-topic">' + eyebrow + '</div>',
