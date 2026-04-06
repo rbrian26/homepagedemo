@@ -99,12 +99,16 @@ Object.keys(groups).forEach(aud => {
       : '';
     return [
       `<div class="featured-card" onclick="openTrailer('${f.vimeoId.trim()}','${hash}','${safeTitle}','${c.href}')">`,
-      `  <img src="/assets/images/courses/${c.thumb}" alt="${c.title}"${gifAttrs}>`,
-      '  <div class="featured-card-gradient"></div>',
-      '  <div class="featured-card-play"></div>',
+      '  <div class="featured-card-thumb">',
+      `    <img src="/assets/images/courses/${c.thumb}" alt="${c.title}"${gifAttrs}>`,
+      '    <div class="featured-card-play"></div>',
+      '  </div>',
       '  <div class="featured-card-info">',
-      '    <div class="featured-card-eyebrow">' + eyebrow + '</div>',
-      '    <div class="featured-card-title">' + c.title + '</div>',
+      '    <div class="featured-card-text">',
+      '      <div class="featured-card-eyebrow">' + eyebrow + '</div>',
+      '      <div class="featured-card-title">' + c.title + '</div>',
+      '    </div>',
+      '    <button class="featured-card-btn">▶ Watch Trailer</button>',
       '  </div>',
       '</div>',
     ].join('\n');
