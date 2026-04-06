@@ -40,7 +40,7 @@ function write(filePath, content) {
 }
 
 // ── CATALOG ────────────────────────────────────────────────────────────────────
-function buildCatalog(courses, orderData) {
+function buildCatalog(courses, orderData, featuredData) {
   const groups = { workplace: [], highered: [], k12: [] };
 
   courses.filter(c => c.active !== 'false').forEach(c => {
@@ -52,8 +52,8 @@ function buildCatalog(courses, orderData) {
       groups[aud].push({
         id:                c.id,
         title:             c.title,
-        thumb:             c.thumb,
-	thumbGif:          c.thumbGif || '',
+        thumb:             c.thumb ? '/assets/images/courses/' + c.thumb : '',
+        thumbGif:          c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '',
         // Always use comingSoonPageHref for coming-soon, href for available
         href:              isComingSoon ? (c.comingSoonPageHref || c.href) : c.href,
         status:            c.status,
@@ -80,13 +80,53 @@ Object.keys(groups).forEach(aud => {
   });
 });
 
+  // Build featured course cards — use prefixed paths
+  const catalogById = {};
+  courses.forEach(c => {
+    catalogById[c.id] = Object.assign({}, c, {
+      thumb:    c.thumb    ? '/assets/images/courses/' + c.thumb    : '',
+      thumbGif: c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '',
+    });
+  });
+  const featuredSlots = (featuredData || [])
+    .filter(f => f.courseId && f.courseId.trim() && f.vimeoId && f.vimeoId.trim())
+    .sort((a, b) => parseInt(a.slot) - parseInt(b.slot))
+    .slice(0, 3);
+  const featuredHTML = featuredSlots.map(f => {
+    const c = catalogById[f.courseId.trim()];
+    if (!c) return '';
+    const eyebrow = (f.eyebrow || '').trim() || '★ Featured';
+    const desc    = (f.desc   || '').trim() || c.desc || '';
+    const hash    = (f.vimeoHash || '').trim();
+    const safeTitle = c.title.replace(/'/g, "\\'");
+    const gifAttrs = c.thumbGif
+      ? ` onmouseenter="this.src='${c.thumbGif}'" onmouseleave="this.src='${c.thumb}'"`
+      : '';
+    return [
+      `<div class="featured-card" onclick="openTrailer('${f.vimeoId.trim()}','${hash}','${safeTitle}','${c.href}')">`,
+      '  <div class="featured-card-thumb">',
+      `    <img src="${c.thumb}" alt="${c.title}"${gifAttrs}>`,
+      '    <div class="featured-card-play"></div>',
+      '  </div>',
+      '  <div class="featured-card-info">',
+      '    <div class="featured-card-text">',
+      '      <div class="featured-card-eyebrow">' + eyebrow + '</div>',
+      '      <div class="featured-card-title">' + c.title + '</div>',
+      '    </div>',
+      '    <button class="featured-card-btn">▶ Watch Trailer</button>',
+      '  </div>',
+      '</div>',
+    ].join('\n');
+  }).join('\n');
+
   const output = readTemplate('catalog.html')
-    .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`);
+    .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`)
+    .replace('<!-- __FEATURED_COURSES__ -->', featuredHTML);
   write(path.join(DIST, 'catalog.html'), output);
 }
 
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
-function buildCoursePage(detail) {
+function buildCoursePage(detail, catalog, relatedMap) {
   const bullets = (detail.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean)
     .map(b => `      <li>${b}</li>`).join('\n');
 
@@ -107,6 +147,38 @@ function buildCoursePage(detail) {
 
   const videoCountLabel = detail.videoCount ? `${detail.videoCount} short videos` : '';
 
+  // Related courses — looked up from related-courses.csv
+  const catalogById = {};
+  (catalog || []).forEach(c => { catalogById[c.id] = c; });
+  const relatedRow = (relatedMap || {})[detail.id] || {};
+  const relatedSlots = [
+    { id: relatedRow.related1_id, eyebrow: relatedRow.related1_eyebrow },
+    { id: relatedRow.related2_id, eyebrow: relatedRow.related2_eyebrow },
+    { id: relatedRow.related3_id, eyebrow: relatedRow.related3_eyebrow },
+  ].filter(r => r.id && r.id.trim());
+  const relatedHTML = relatedSlots.map(r => {
+    const c = catalogById[r.id.trim()];
+    if (!c) return '';
+    const eyebrow = (r.eyebrow || '').trim() || c.title;
+    return [
+      '      <a href="' + c.href + '" class="related-card"',
+      c.thumbGif
+        ? '         onmouseenter="this.querySelector(\'.related-bg img\').src=\'/assets/images/courses/' + c.thumbGif + '\'"'
+          + ' onmouseleave="this.querySelector(\'.related-bg img\').src=\'/assets/images/courses/' + c.thumb + '\'">'
+        : '>',
+      '        <div class="related-bg">',
+      '          <img src="' + c.thumb + '" alt="' + c.title + '" style="width:100%;height:100%;object-fit:cover;display:block;">',
+      '        </div>',
+      '        <div class="related-gradient"></div>',
+      '        <div class="related-play"></div>',
+      '        <div class="related-info">',
+      '          <div class="related-topic">' + eyebrow + '</div>',
+      '          <div class="related-title">' + c.title + '</div>',
+      '        </div>',
+      '      </a>',
+    ].join('\n');
+  }).join('\n');
+
   const output = readTemplate('course-page.html')
     .replace(/__PAGE_TITLE__/g,      detail.pageTitle)
     .replace(/__HERO_TITLE__/g,      detail.heroTitle)
@@ -117,19 +189,23 @@ function buildCoursePage(detail) {
     .replace(/__AUDIENCE_LABEL__/g,  detail.audienceLabel)
     .replace(/__LMS__/g,             detail.lms)
     .replace('<!-- __COVERS_BULLETS__ -->', bullets)
-    .replace('<!-- __LESSONS__ -->',        lessonsHTML);
+    .replace('<!-- __LESSONS__ -->',        lessonsHTML)
+    .replace('<!-- __RELATED_COURSES__ -->', relatedHTML);
   write(path.join(DIST, `course-${detail.id}.html`), output);
 }
 
 // ── COMING SOON PAGES ──────────────────────────────────────────────────────────
-function buildComingSoonPages(courses) {
+function buildComingSoonPages(courses, catalog) {
   const template = readTemplate('coming-soon-course.html');
+  const catalogMap = {};
+  catalog.forEach(row => { catalogMap[row.id] = row; });
 
   courses.forEach(c => {
+    const catalogEntry = catalogMap[c.id] || {};
 
-    // Audience label — pick first audience for display
+    // Audience label — look up from catalog
     const audienceMap = { workplace: 'Workplace', highered: 'Higher Education', k12: 'K–12' };
-    const audiences   = c.audience.split('|').map(a => a.trim());
+    const audiences   = (catalogEntry.audience || '').split('|').map(a => a.trim());
     const audienceLabel = audiences.map(a => audienceMap[a] || a).join(' · ');
 
     // Covers bullets — conditional, hidden if empty
@@ -167,14 +243,14 @@ function buildComingSoonPages(courses) {
     // Hero media — video iframe if vimeo ID exists, else course thumbnail
     const heroMedia = c.vimeoID
       ? `<iframe src="https://player.vimeo.com/video/${c.vimeoID}${c.vimeoHash ? '?h=' + c.vimeoHash : ''}" allow="fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>`
-      : `<img src="${c.thumb}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
+      : `<img src="${catalogEntry.thumb ? '/assets/images/courses/' + catalogEntry.thumb : (c.thumb || '')}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
 
     const output = template
       .replace(/__PAGE_TITLE__/g,         c.title)
       .replace(/__PAGE_TITLE__/g,         c.title)
       .replace(/__HERO_TITLE__/g,         c.title)
-      .replace(/__HERO_TAGLINE__/g,       c.desc)
-      .replace(/__LAUNCH_DATE__/g,        c.comingSoonDate || 'Coming Soon')
+      .replace(/__HERO_TAGLINE__/g,       c.heroTagline || catalogEntry.desc || '')
+      .replace(/__LAUNCH_DATE__/g,        catalogEntry.comingSoonDate || c.launchDate || 'Coming Soon')
       .replace(/__AUDIENCE_LABEL__/g,     audienceLabel)
       .replace(/__FORMAT__/g,             c.format     || 'eLearning')
       .replace(/__LMS__/g,                c.lms        || 'SCORM · Hosted')
@@ -313,19 +389,23 @@ const catalogOrder = readCSV(path.join(__dirname, 'data', 'catalog-order.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
 const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
 const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
+const relatedCSV  = readCSV(path.join(__dirname, 'data', 'related-courses.csv'));
+const featuredCSV = readCSV(path.join(__dirname, 'data', 'featured-courses.csv'));
+const relatedMap = {};
+relatedCSV.forEach(r => { if (r.courseId) relatedMap[r.courseId] = r; });
 
 console.log('Building catalog...');
-if (catalog.length) buildCatalog(catalog, catalogOrder);
+if (catalog.length) buildCatalog(catalog, catalogOrder, featuredCSV);
 
 console.log('\nBuilding release calendar...');
 if (catalog.length) buildReleaseCalendar(catalog);
 
 console.log('\nBuilding course pages...');
-details.filter(d => d.status === 'live').forEach(d => buildCoursePage(d));
+details.filter(d => d.status === 'live').forEach(d => buildCoursePage(d, catalog, relatedMap));
 
 console.log('\nBuilding coming-soon course pages...');
 const comingSoonDetails = details.filter(d => d.status === 'coming-soon');
-if (comingSoonDetails.length) buildComingSoonPages(comingSoonDetails);
+if (comingSoonDetails.length) buildComingSoonPages(comingSoonDetails, catalog);
 
 console.log('\nBuilding demo pages...');
 if (demoPages.length) buildDemoPages(demoPages, demoVideos);
