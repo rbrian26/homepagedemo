@@ -293,26 +293,25 @@
       .stat-item { padding: 0.5rem 1.5rem; }
       .stat-divider { display: none; }
       /* Testimonials — native snap scroll on mobile */
-      .testimonials-inner { padding: 0; }
-      .testimonials-track-wrap { overflow: visible; }
+      .testimonials-wrap { overflow: visible; }
+      .testimonials-inner { padding: 0; overflow: hidden; }
+      .testimonials-track-wrap { overflow: hidden; }
       .testimonials-track {
-        overflow-x: auto;
+        overflow-x: scroll;
         scroll-snap-type: x mandatory;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: none;
-        gap: 0;
-        padding: 0 1.25rem;
-        /* disable JS transform */
+        gap: 1rem;
+        padding: 1rem 1.25rem;
         transform: none !important;
         transition: none !important;
+        width: 100%;
       }
       .testimonials-track::-webkit-scrollbar { display: none; }
       .testimonial-card {
-        flex: 0 0 100%;
+        flex: 0 0 calc(100vw - 2.5rem);
         scroll-snap-align: start;
-        margin-right: 1rem;
       }
-      .testimonial-card:last-child { margin-right: 0; }
       /* Logo row */
       .logo-row { gap: 1.5rem; justify-content: center; }
       .logo-row img { height: 40px; }
@@ -335,7 +334,6 @@
       .stat-num { font-size: 1.6rem; }
       /* Testimonials */
       .testimonials-wrap { padding: 3rem 0; }
-      .testimonials-inner { padding: 0 1.25rem; }
       .testimonial-card { padding: 1.6rem 1.4rem 1.4rem; }
       /* How banner */
       .how-banner { padding: 1rem 1.25rem; }
