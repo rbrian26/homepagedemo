@@ -80,9 +80,14 @@ Object.keys(groups).forEach(aud => {
   });
 });
 
-  // Build featured course cards
+  // Build featured course cards — use prefixed paths
   const catalogById = {};
-  courses.forEach(c => { catalogById[c.id] = c; });
+  courses.forEach(c => {
+    catalogById[c.id] = Object.assign({}, c, {
+      thumb:    c.thumb    ? '/assets/images/courses/' + c.thumb    : '',
+      thumbGif: c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '',
+    });
+  });
   const featuredSlots = (featuredData || [])
     .filter(f => f.courseId && f.courseId.trim() && f.vimeoId && f.vimeoId.trim())
     .sort((a, b) => parseInt(a.slot) - parseInt(b.slot))
