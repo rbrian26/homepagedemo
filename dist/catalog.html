@@ -1124,18 +1124,37 @@
     @media (max-width: 960px) {
       nav { padding: 0 1.5rem; }
       .filter-bar { padding: 0 1.5rem; top: 72px; }
-      .catalog-body { padding: 2rem 1.5rem 6rem; }
-      .hero-content { left: 2rem; bottom: 2rem; }
+      .catalog-body { padding: 2rem 0 6rem; }
+      .hero-content { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
       .mute-btn { right: 1.5rem; top: 80px; }
       .nav-links li:not(:last-child) { display: none; }
+      .section-header { padding: 0 1.5rem; }
+      .card-track { padding: 0.5rem 1.5rem 1rem; }
+      .scroll-btn { display: none; }
+      .featured-section { padding: 3rem 1.5rem; }
     }
 
     @media (max-width: 600px) {
-      .card-track { grid-template-columns: repeat(2, 1fr); }
-      .modal { max-height: 95vh; }
-      .modal-body { padding: 1.2rem 1.2rem 1.5rem; }
-      .modal h2 { font-size: 1.3rem; }
-      footer { flex-direction: column; text-align: center; }
+      /* Hero */
+      .hero h1 { font-size: 1.8rem; }
+      .hero-sub { font-size: 0.88rem; }
+      .hero-content { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .hero-actions { flex-direction: column; width: 100%; }
+      .hero-actions .btn-orange,
+      .hero-actions .btn-ghost { width: 100%; justify-content: center; }
+      /* Cards — slightly smaller on mobile */
+      .course-card { flex: 0 0 200px; }
+      /* Featured grid — single column */
+      .featured-grid { grid-template-columns: 1fr; gap: 1rem; }
+      /* Trailer modal — stack title and buttons */
+      .trailer-modal { margin: 0 0.5rem; }
+      .trailer-modal-body { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .trailer-modal-actions { width: 100%; }
+      .trailer-modal-actions .btn-orange,
+      .trailer-modal-actions .btn-ghost { flex: 1; justify-content: center; text-align: center; }
+      /* Footer */
+      footer { flex-direction: column; align-items: flex-start; padding: 1.5rem 1.25rem; gap: 1rem; }
+      .footer-links { flex-wrap: wrap; gap: 0.75rem; }
     }
   </style>
 </head>
