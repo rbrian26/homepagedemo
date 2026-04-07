@@ -80,6 +80,8 @@
     .nav-links a:hover, .nav-links a.active { color: #fff; }
 
     .nav-cta {
+      display: inline-flex;
+      align-items: center;
       background: var(--orange);
       color: #fff !important;
       padding: 0.5rem 1.4rem;
@@ -217,6 +219,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+      line-height: 1;
     }
 
     .btn-orange:hover { background: var(--orange-dk); transform: translateY(-2px); }
@@ -235,6 +238,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
+      line-height: 1;
     }
 
     .btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
@@ -500,7 +504,7 @@
 
     .staff-badge {
       position: absolute;
-      bottom: 2.6rem; right: 0.6rem;
+      top: 2.2rem; right: 0.6rem;
       z-index: 4;
       background: var(--blue);
       color: #fff;
