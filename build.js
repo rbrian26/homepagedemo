@@ -382,7 +382,7 @@ function buildDemoPages(demoPages, demoVideos) {
 }
 
 // ── HOMEPAGE ───────────────────────────────────────────────────────────────────
-function buildHomepage(courses, testimonials) {
+function buildHomepage(courses, testimonials, catalogOrder) {
   const audiences = [
     {
       key:      'workplace',
@@ -409,17 +409,41 @@ function buildHomepage(courses, testimonials) {
 
   const activeCourses = courses.filter(c => c.active !== 'false');
 
+  // Build a lookup of audience → ordered IDs from catalog-order.csv
+  const orderMap = {};
+  (catalogOrder || []).forEach(row => {
+    const aud = (row.audience || '').trim();
+    const ids = (row.order || '').split('|').map(s => s.trim()).filter(Boolean);
+    if (aud) orderMap[aud] = ids;
+  });
+
   const cardsHTML = audiences.map(aud => {
     const audCourses = activeCourses.filter(c =>
       c.audience.split('|').map(a => a.trim()).includes(aud.key)
     );
 
-    const lozenges = audCourses.map(c => {
+    // Sort: ordered IDs first (in specified order), then remaining by original CSV order
+    const orderedIds = orderMap[aud.key] || [];
+    const orderedCourses = orderedIds
+      .map(id => audCourses.find(c => c.id === id))
+      .filter(Boolean);
+    const remainingCourses = audCourses.filter(c => !orderedIds.includes(c.id));
+    const sortedCourses = [...orderedCourses, ...remainingCourses];
+
+    const MAX = 6;
+    const displayCourses = sortedCourses.slice(0, MAX);
+    const hasMore = sortedCourses.length > MAX;
+
+    const lozenges = displayCourses.map(c => {
       const isComingSoon = c.status === 'coming-soon' || c.comingSoon === 'TRUE';
       const href = isComingSoon ? (c.comingSoonPageHref || c.href || '#') : (c.href || '#');
       const cls  = isComingSoon ? 'aud-course-link coming' : 'aud-course-link';
       return `            <a href="${href}" class="${cls}">${c.title}</a>`;
     }).join('\n');
+
+    const andMore = hasMore
+      ? `\n            <a href="catalog.html?audience=${aud.key}" class="aud-course-link aud-course-more">and more →</a>`
+      : '';
 
     return `
       <div class="aud-card">
@@ -431,7 +455,7 @@ function buildHomepage(courses, testimonials) {
         <div class="aud-card-body">
           <div class="aud-card-title">${aud.label}</div>
           <div class="aud-course-list">
-${lozenges}
+${lozenges}${andMore}
           </div>
           <a href="catalog.html?audience=${aud.key}" class="aud-view-all">View all ${aud.label} courses →</a>
         </div>
@@ -474,7 +498,7 @@ relatedCSV.forEach(r => { if (r.courseId) relatedMap[r.courseId] = r; });
 const testimonials = readCSV(path.join(__dirname, 'data', 'testimonials.csv'));
 
 console.log('Building homepage...');
-if (catalog.length) buildHomepage(catalog, testimonials);
+if (catalog.length) buildHomepage(catalog, testimonials, catalogOrder);
 
 console.log('Building catalog...');
 if (catalog.length) buildCatalog(catalog, catalogOrder, featuredCSV);
