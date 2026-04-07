@@ -498,6 +498,21 @@
       white-space: nowrap;
     }
 
+    .staff-badge {
+      position: absolute;
+      top: 0.5rem; right: 0.5rem;
+      z-index: 4;
+      background: var(--navy, #1a2e4a);
+      color: #fff;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
     /* ── LIGHTBOX ── */
     .lightbox-overlay {
       position: fixed;
@@ -1339,6 +1354,10 @@ function cardHTML(course) {
        </div>`
     : '';
 
+  const staffBadge = course.isStaff
+    ? `<div class="staff-badge">For Staff</div>`
+    : '';
+
   const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-thumb-gif="${course.thumbGif || ''}" data-href="${course.href}" data-coming-soon="${course.comingSoon}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
   const gifSwap = course.thumbGif
     ? `onmouseenter="this.src='${course.thumbGif}'" onmouseleave="this.src='${course.thumb}'"`
@@ -1349,6 +1368,7 @@ function cardHTML(course) {
       <img class="card-thumb" src="${course.thumb}" alt="${course.title}"
         ${gifSwap} onerror="this.style.opacity='0'" />
       ${topBar}
+      ${staffBadge}
       <div class="card-gradient"></div>
       <div class="card-info"><div class="card-title">${course.title}</div></div>
     </a>

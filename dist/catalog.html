@@ -498,6 +498,21 @@
       white-space: nowrap;
     }
 
+    .staff-badge {
+      position: absolute;
+      top: 0.5rem; right: 0.5rem;
+      z-index: 4;
+      background: var(--navy, #1a2e4a);
+      color: #fff;
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      white-space: nowrap;
+    }
+
     /* ── LIGHTBOX ── */
     .lightbox-overlay {
       position: fixed;
@@ -1365,6 +1380,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_shp.png",
       "thumbGif": "/assets/images/courses/img_shp.gif",
       "href": "/course-shp.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",
       "isStaff": false
@@ -1375,6 +1391,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_ta.png",
       "thumbGif": "/assets/images/courses/img_ta.gif",
       "href": "/course-ta.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
       "isStaff": false
@@ -1385,6 +1402,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_sg.png",
       "thumbGif": "/assets/images/courses/img_sg.gif",
       "href": "/course-sg.html",
+      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.",
       "isStaff": false
@@ -1395,6 +1413,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_cy.png",
       "thumbGif": "/assets/images/courses/img_cy.gif",
       "href": "/course-cy.html",
+      "comingSoon": true,
       "comingSoonDate": "May 2026",
       "desc": "Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",
       "isStaff": false
@@ -1405,6 +1424,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_hr.png",
       "thumbGif": "/assets/images/courses/img_hr.gif",
       "href": "/course-hr.html",
+      "comingSoon": true,
       "comingSoonDate": "July 2026",
       "desc": "Practical, no-nonsense guidance on core people management skills like setting expectations, giving feedback, and addressing issues early. Helps managers lead clearly, consistently, and fairly.",
       "isStaff": false
@@ -1417,6 +1437,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_mh-he.png",
       "thumbGif": "/assets/images/courses/img_mh-he.gif",
       "href": "/course-mh-he.html",
+      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Helps students build self-awareness, understand their emotions, and make more intentional choices in challenging moments. Encourages recognition of signs of struggle and supports a campus culture where seeking help feels normal.",
       "isStaff": false
@@ -1427,6 +1448,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_co-he.png",
       "thumbGif": "/assets/images/courses/img_co-he.gif",
       "href": "/course-co-he.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Clear, engaging guidance on consent that reflects real-life situations students face. Helps students understand boundaries, communicate clearly, and make better decisions in the moment.",
       "isStaff": false
@@ -1437,6 +1459,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_ta.png",
       "thumbGif": "/assets/images/courses/img_ta.gif",
       "href": "/course-ta.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
       "isStaff": false
@@ -1447,6 +1470,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_by-he.png",
       "thumbGif": "/assets/images/courses/img_by-he.gif",
       "href": "/course-by-he.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps students recognize when something isn’t right, step in safely, and know when to involve others. Focuses on practical, realistic ways to support others and contribute to a safer campus community",
       "isStaff": false
@@ -1457,6 +1481,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_cy.png",
       "thumbGif": "/assets/images/courses/img_cy.gif",
       "href": "/course-cy.html",
+      "comingSoon": true,
       "comingSoonDate": "May 2026",
       "desc": "Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",
       "isStaff": false
@@ -1467,6 +1492,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_al.png",
       "thumbGif": "/assets/images/courses/img_al.gif",
       "href": "/course-al.html",
+      "comingSoon": true,
       "comingSoonDate": "July 2026",
       "desc": "Honest, non-preachy education that helps people understand their patterns and make more intentional choices. Grounded in self-reflection, awareness, and aligning decisions with what matters most.",
       "isStaff": false
@@ -1477,6 +1503,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_shp.png",
       "thumbGif": "/assets/images/courses/img_shp.gif",
       "href": "/course-shp.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",
       "isStaff": true
@@ -1487,6 +1514,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_hr.png",
       "thumbGif": "/assets/images/courses/img_hr.gif",
       "href": "/course-hr.html",
+      "comingSoon": true,
       "comingSoonDate": "July 2026",
       "desc": "Practical, no-nonsense guidance on core people management skills like setting expectations, giving feedback, and addressing issues early. Helps managers lead clearly, consistently, and fairly.",
       "isStaff": true
@@ -1497,6 +1525,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_t9.png",
       "thumbGif": "/assets/images/courses/img_t9.gif",
       "href": "/course-t9.html",
+      "comingSoon": true,
       "comingSoonDate": "",
       "desc": "Explains how Title IX works on campus, including rights, reporting options, and what happens after a report is made. Gives students a clear understanding of the process so they can navigate it with more confidence.",
       "isStaff": false
@@ -1507,6 +1536,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_sg.png",
       "thumbGif": "/assets/images/courses/img_sg.gif",
       "href": "/course-sg.html",
+      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.",
       "isStaff": true
@@ -1519,6 +1549,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_co-k12.png",
       "thumbGif": "/assets/images/courses/img_co-k12.gif",
       "href": "/course-co-k12.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Age-appropriate, engaging lessons that help students understand bodily autonomy, boundaries, and consent. Builds skills for asking, listening, and respecting others from an early age.",
       "isStaff": false
@@ -1529,6 +1560,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_by-k12.png",
       "thumbGif": "/assets/images/courses/img_by-k12.gif",
       "href": "/course-by-k12.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps students recognize when something isn’t right and take simple, age-appropriate action. Builds confidence to speak up, support others, and be part of a safer, more respectful community.",
       "isStaff": false
@@ -1539,6 +1571,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_bf-k12.png",
       "thumbGif": "/assets/images/courses/img_bf-k12.gif",
       "href": "/course-bf-k12.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Ferdinand Ferret is on the case—joined by his practical, no-nonsense partner Dr. Bear. This three-part series helps students understand bias and fairness, question snap judgments, and think a little more carefully about they see others.",
       "isStaff": false
@@ -1549,6 +1582,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_mh-k12.png",
       "thumbGif": "/assets/images/courses/img_mh-k12.gif",
       "href": "/course-mh-k12.html",
+      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Helps students recognize and name their emotions, build self-awareness, and make more intentional choices in the moment. Reinforces that all emotions are part of being human—and that they will pass.",
       "isStaff": false
@@ -1559,6 +1593,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_shp.png",
       "thumbGif": "/assets/images/courses/img_shp.gif",
       "href": "/course-shp.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",
       "isStaff": true
@@ -1569,6 +1604,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_ta.png",
       "thumbGif": "/assets/images/courses/img_ta.gif",
       "href": "/course-ta.html",
+      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
       "isStaff": false
@@ -1579,6 +1615,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_hr.png",
       "thumbGif": "/assets/images/courses/img_hr.gif",
       "href": "/course-hr.html",
+      "comingSoon": true,
       "comingSoonDate": "July 2026",
       "desc": "Practical, no-nonsense guidance on core people management skills like setting expectations, giving feedback, and addressing issues early. Helps managers lead clearly, consistently, and fairly.",
       "isStaff": true
@@ -1589,6 +1626,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_sg.png",
       "thumbGif": "/assets/images/courses/img_sg.gif",
       "href": "/course-sg.html",
+      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.",
       "isStaff": true
@@ -1599,6 +1637,7 @@ const COURSES = {
       "thumb": "/assets/images/courses/img_cy.png",
       "thumbGif": "/assets/images/courses/img_cy.gif",
       "href": "/course-cy.html",
+      "comingSoon": true,
       "comingSoonDate": "May 2026",
       "desc": "Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",
       "isStaff": false
@@ -1624,6 +1663,10 @@ function cardHTML(course) {
        </div>`
     : '';
 
+  const staffBadge = course.isStaff
+    ? `<div class="staff-badge">For Staff</div>`
+    : '';
+
   const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-thumb-gif="${course.thumbGif || ''}" data-href="${course.href}" data-coming-soon="${course.comingSoon}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
   const gifSwap = course.thumbGif
     ? `onmouseenter="this.src='${course.thumbGif}'" onmouseleave="this.src='${course.thumb}'"`
@@ -1634,6 +1677,7 @@ function cardHTML(course) {
       <img class="card-thumb" src="${course.thumb}" alt="${course.title}"
         ${gifSwap} onerror="this.style.opacity='0'" />
       ${topBar}
+      ${staffBadge}
       <div class="card-gradient"></div>
       <div class="card-info"><div class="card-title">${course.title}</div></div>
     </a>

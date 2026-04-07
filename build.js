@@ -57,6 +57,7 @@ function buildCatalog(courses, orderData, featuredData) {
         // Always use comingSoonPageHref for coming-soon, href for available
         href:              isComingSoon ? (c.comingSoonPageHref || c.href) : c.href,
         status:            c.status,
+        comingSoon:        isComingSoon,
         comingSoonDate:    c.comingSoonDate || '',
         desc:              c.desc,
         isStaff:           staffAudiences.includes(aud),
