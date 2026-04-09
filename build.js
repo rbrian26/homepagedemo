@@ -58,6 +58,7 @@ function buildCatalog(courses, orderData) {
         href:              isComingSoon ? (c.comingSoonPageHref || c.href) : c.href,
         status:            c.status,
         comingSoonDate:    c.comingSoonDate || '',
+	comingSoon:        isComingSoon,
         desc:              c.desc,
         isStaff:           staffAudiences.includes(aud),
       });
