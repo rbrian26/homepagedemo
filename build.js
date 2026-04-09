@@ -179,7 +179,7 @@ function buildCoursePage(detail, catalog, relatedMap) {
     .replace(/__PAGE_TITLE__/g,     detail.pageTitle)
     .replace(/__HERO_TITLE__/g,     detail.heroTitle)
     .replace(/__HERO_TAGLINE__/g,   detail.heroTagline)
-    .replace(/__VIMEO_ID__/g,       detail.vimeoHash ? `${detail.vimeoID}?h=${detail.vimeoHash}` : detail.vimeoID)
+    .replace(/__VIMEO_ID__/g,       detail.vimeoHash ? `${detail.vimeoID}?h=${detail.vimeoHash}&` : `${detail.vimeoID}?`)
     .replace(/__DURATION__/g,       detail.duration)
     .replace(/__FORMAT__/g,         detail.format)
     .replace(/__AUDIENCE_LABEL__/g, detail.audienceLabel)
