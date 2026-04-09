@@ -349,12 +349,8 @@
     .section {
       padding: 3.5rem 0;
       border-bottom: 1px solid rgba(9,111,156,0.08);
-      opacity: 0;
-      transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
     }
 
-    .section.visible { opacity: 1; transform: translateY(0); }
     .section:last-child { border-bottom: none; }
 
     .section-eyebrow {
@@ -675,125 +671,47 @@
       flex-wrap: wrap;
     }
 
-    /* ── ACCORDION ── */
-    .accordion {
+    /* ── LESSON LIST (always visible) ── */
+    .lessons-list {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
 
-    .accordion-item {
+    .lesson-item {
       background: var(--surface);
       border: 1px solid rgba(9,111,156,0.1);
       border-radius: 10px;
-      overflow: hidden;
+      padding: 1rem 1.2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    .accordion-item.open {
+    .lesson-item:hover {
       border-color: rgba(9,111,156,0.22);
       box-shadow: 0 4px 18px rgba(9,111,156,0.08);
     }
 
-    .accordion-item.optional {
-      border-color: rgba(249,124,83,0.2);
-    }
-    .accordion-item.optional.open {
-      border-color: rgba(249,124,83,0.4);
-      box-shadow: 0 4px 18px rgba(249,124,83,0.08);
-    }
-
-    .accordion-trigger {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.2rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      font-family: 'Quicksand', sans-serif;
-      transition: background 0.15s;
-    }
-
-    .accordion-trigger:hover { background: rgba(9,111,156,0.03); }
-    .accordion-item.optional .accordion-trigger:hover { background: rgba(249,124,83,0.03); }
-
-    .accordion-num {
+    .lesson-num {
       flex-shrink: 0;
       width: 28px; height: 28px;
       background: var(--surface2);
       border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--blue);
+      font-size: 0.72rem; font-weight: 700; color: var(--blue);
+      margin-top: 0.1rem;
     }
 
-    .accordion-item.open .accordion-num {
-      background: var(--blue);
-      color: #fff;
+    .lesson-text { flex: 1; }
+
+    .lesson-title {
+      font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem;
     }
 
-    .accordion-item.optional .accordion-num {
-      background: rgba(249,124,83,0.12);
-      color: var(--orange);
-    }
-
-    .accordion-item.optional.open .accordion-num {
-      background: var(--orange);
-      color: #fff;
-    }
-
-    .accordion-header-text {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .accordion-title {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--navy);
-    }
-
-    .optional-badge {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--orange);
-      background: rgba(249,124,83,0.12);
-      padding: 0.2rem 0.55rem;
-      border-radius: 50px;
-      border: 1px solid rgba(249,124,83,0.25);
-    }
-
-    .accordion-chevron {
-      flex-shrink: 0;
-      width: 20px; height: 20px;
-      display: flex; align-items: center; justify-content: center;
-      color: var(--muted);
-      transition: transform 0.25s ease;
-    }
-
-    .accordion-item.open .accordion-chevron { transform: rotate(180deg); }
-
-    .accordion-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-
-    .accordion-body-inner {
-      padding: 0 1.2rem 1.1rem 3.4rem;
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.7;
-      font-weight: 500;
+    .lesson-desc {
+      font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-weight: 500;
     }
 
     /* ── FOOTER ── */
@@ -877,22 +795,14 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <div class="hero-badge">
-        <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Workplace · Full Course
-      </div>
+      <div class="hero-badge">__HERO_BADGE__</div>
       <h1>Mental Health Basics</h1>
       <p class="hero-desc"></p>
       <div class="hero-audience">
-        For All Employees &amp; Managers
-        <span class="hero-audience-dot"></span>
-        25 min
+        Students and Faculty__DURATION_SEP__undefined
       </div>
       <ul class="hero-bullets">
-        <li>Meets CA SB 1343, NY, and multi-state compliance requirements</li>
-        <li>Scenario-based learning covering recognition, reporting, and response</li>
-        <li>Separate manager track with supervisor-specific obligations</li>
-        <li>SCORM-compatible — drops into any LMS</li>
+<!-- __HERO_BULLETS__ -->
       </ul>
       <div class="hero-actions">
         <a href="/demo.html" class="btn-orange">Watch a Demo</a>
@@ -904,7 +814,7 @@
         <div class="clip-video">
           <iframe
             id="hero-player"
-            src="https://player.vimeo.com/video/1152648266?color=f97c53&title=0&byline=0&portrait=0&controls=0&autoplay=1&muted=1&loop=1&autopause=0"
+            src="https://player.vimeo.com/video/1152648266&color=f97c53&title=0&byline=0&portrait=0&controls=0&autoplay=1&muted=1&loop=1&autopause=0"
             frameborder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
@@ -947,8 +857,8 @@
 <!-- META STRIP -->
 <div class="meta-strip">
   <div class="meta-strip-item">
-    <span class="meta-strip-label">Videos</span>
-    <span class="meta-strip-value"></span>
+    <span class="meta-strip-label">Structure</span>
+    <span class="meta-strip-value">__VIDEO_COUNT__</span>
   </div>
   <div class="meta-strip-item">
     <span class="meta-strip-label">Format</span>
@@ -968,15 +878,27 @@
 <!-- MAIN CONTENT -->
 <div class="page-content">
 
-  <!-- What This Course Covers -->
-  <div class="section" id="s-covers">
+  <!-- Course Lessons -->
+  <div class="section" id="s-lessons">
     <div class="section-eyebrow">
       <div class="section-eyebrow-dot"></div>
-      <h2 class="section-title">What This Course Covers</h2>
+      <h2 class="section-title">Course Lessons</h2>
     </div>
-    <ul class="covers-list">
+    <div class="lessons-list">
 
-    </ul>
+    </div>
+  </div>
+
+  <!-- CTA Strip -->
+  <div class="cta-strip">
+    <div>
+      <h2>Ready to license this course?</h2>
+      <p>Get instant demo access or talk to us about pricing for your organization.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="demo.html" class="btn-orange">Watch a Demo</a>
+      <a href="request-a-quote.html" class="btn-ghost-dark">Request a Quote</a>
+    </div>
   </div>
 
   <!-- Full Access Promo Bar -->
@@ -988,15 +910,14 @@
     <a href="full_access.html" class="btn-white">Explore Full Access</a>
   </div>
 
-  <!-- Course Lessons -->
-  <div class="section" id="s-lessons">
+  <!-- Related Courses -->
+  <div class="section" id="s-related">
     <div class="section-eyebrow">
       <div class="section-eyebrow-dot"></div>
-      <h2 class="section-title">Course Lessons</h2>
+      <h2 class="section-title">Related Courses</h2>
     </div>
-    <div class="accordion">
-
-
+    <div class="related-grid">
+      <!-- __RELATED_COURSES__ -->
     </div>
   </div>
 
@@ -1031,58 +952,6 @@
     </div>
   </div>
 
-  <!-- Related Courses -->
-  <div class="section" id="s-related">
-    <div class="section-eyebrow">
-      <div class="section-eyebrow-dot"></div>
-      <h2 class="section-title">Related Courses</h2>
-    </div>
-    <div class="related-grid">
-            <a href="/course-co-k12.html" class="related-card" onmouseenter="this.querySelector('img').src='/assets/images/courses/img_co-k12.gif'" onmouseleave="this.querySelector('img').src='/assets/images/courses/img_co-k12.png'">
-        <div class="related-thumb">
-          <img src="/assets/images/courses/img_co-k12.png" alt="Consent">
-          <div class="related-hover-cta">View Course →</div>
-        </div>
-        <div class="related-info">
-          <div class="related-topic">Healthy Friendships</div>
-          <div class="related-title">Consent</div>
-        </div>
-      </a>
-      <a href="/course-by-k12.html" class="related-card" onmouseenter="this.querySelector('img').src='/assets/images/courses/img_by-k12.gif'" onmouseleave="this.querySelector('img').src='/assets/images/courses/img_by-k12.png'">
-        <div class="related-thumb">
-          <img src="/assets/images/courses/img_by-k12.png" alt="Be a Bystander">
-          <div class="related-hover-cta">View Course →</div>
-        </div>
-        <div class="related-info">
-          <div class="related-topic">Safety Culture</div>
-          <div class="related-title">Be a Bystander</div>
-        </div>
-      </a>
-      <a href="/course-bf-k12.html" class="related-card" onmouseenter="this.querySelector('img').src='/assets/images/courses/img_bf-k12.gif'" onmouseleave="this.querySelector('img').src='/assets/images/courses/img_bf-k12.png'">
-        <div class="related-thumb">
-          <img src="/assets/images/courses/img_bf-k12.png" alt="Bias and Fairness">
-          <div class="related-hover-cta">View Course →</div>
-        </div>
-        <div class="related-info">
-          <div class="related-topic">New!</div>
-          <div class="related-title">Bias and Fairness</div>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- CTA Strip -->
-  <div class="cta-strip">
-    <div>
-      <h2>Ready to license this course?</h2>
-      <p>Get instant demo access or talk to us about pricing for your organization.</p>
-    </div>
-    <div class="cta-actions">
-      <a href="demo.html" class="btn-orange">Watch a Demo</a>
-      <a href="request-a-quote.html" class="btn-ghost-dark">Request a Quote</a>
-    </div>
-  </div>
-
 </div>
 
 <!-- FOOTER -->
@@ -1101,42 +970,9 @@
 </footer>
 
 <script>
-  function toggleAccordion(trigger) {
-    const item = trigger.closest('.accordion-item');
-    const body = item.querySelector('.accordion-body');
-    const isOpen = item.classList.contains('open');
-
-    // Close all open items
-    document.querySelectorAll('.accordion-item.open').forEach(openItem => {
-      openItem.classList.remove('open');
-      openItem.querySelector('.accordion-body').style.maxHeight = '0';
-    });
-
-    // Open clicked item if it was closed
-    if (!isOpen) {
-      item.classList.add('open');
-      body.style.maxHeight = body.scrollHeight + 'px';
-    }
-  }
-
   // ── NAV SCROLL ──
   window.addEventListener('scroll', () => {
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
-  });
-
-  // ── SCROLL REVEAL ──
-  document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(s => observer.observe(s));
   });
 </script>
 <script>

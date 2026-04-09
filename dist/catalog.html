@@ -1267,45 +1267,7 @@
     <h2>See What We Do</h2>
   </div>
   <div class="featured-grid">
-    <div class="featured-card" onclick="openTrailer('1152648266','','Sexual Harassment Prevention','/course-shp.html')">
-  <div class="featured-card-thumb">
-    <img src="/assets/images/courses/img_shp.png" alt="Sexual Harassment Prevention" onmouseenter="this.src='/assets/images/courses/img_shp.gif'" onmouseleave="this.src='/assets/images/courses/img_shp.png'">
-    <div class="featured-card-play"></div>
-  </div>
-  <div class="featured-card-info">
-    <div class="featured-card-text">
-      <div class="featured-card-eyebrow">★ Featured</div>
-      <div class="featured-card-title">Sexual Harassment Prevention</div>
-    </div>
-    <button class="featured-card-btn">▶ Watch Trailer</button>
-  </div>
-</div>
-<div class="featured-card" onclick="openTrailer('1152648266','','Threat Assessment','/course-ta.html')">
-  <div class="featured-card-thumb">
-    <img src="/assets/images/courses/img_ta.png" alt="Threat Assessment" onmouseenter="this.src='/assets/images/courses/img_ta.gif'" onmouseleave="this.src='/assets/images/courses/img_ta.png'">
-    <div class="featured-card-play"></div>
-  </div>
-  <div class="featured-card-info">
-    <div class="featured-card-text">
-      <div class="featured-card-eyebrow">★ New Release</div>
-      <div class="featured-card-title">Threat Assessment</div>
-    </div>
-    <button class="featured-card-btn">▶ Watch Trailer</button>
-  </div>
-</div>
-<div class="featured-card" onclick="openTrailer('1152648266','','Cybersecurity','/coming-soon-cy.html')">
-  <div class="featured-card-thumb">
-    <img src="/assets/images/courses/img_cy.png" alt="Cybersecurity" onmouseenter="this.src='/assets/images/courses/img_cy.gif'" onmouseleave="this.src='/assets/images/courses/img_cy.png'">
-    <div class="featured-card-play"></div>
-  </div>
-  <div class="featured-card-info">
-    <div class="featured-card-text">
-      <div class="featured-card-eyebrow">Coming Soon</div>
-      <div class="featured-card-title">Cybersecurity</div>
-    </div>
-    <button class="featured-card-btn">▶ Watch Trailer</button>
-  </div>
-</div>
+    <!-- __FEATURED_COURSES__ -->
   </div>
 </section>
 
@@ -1383,10 +1345,9 @@ const COURSES = {
     {
       "id": "shp",
       "title": "Sexual Harassment Prevention",
-      "thumb": "/assets/images/courses/img_shp.png",
-      "thumbGif": "/assets/images/courses/img_shp.gif",
+      "thumb": "img_shp.png",
+      "thumbGif": "img_shp.gif",
       "href": "/course-shp.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",
       "isStaff": false
@@ -1394,10 +1355,9 @@ const COURSES = {
     {
       "id": "ta",
       "title": "Threat Assessment",
-      "thumb": "/assets/images/courses/img_ta.png",
-      "thumbGif": "/assets/images/courses/img_ta.gif",
+      "thumb": "img_ta.png",
+      "thumbGif": "img_ta.gif",
       "href": "/course-ta.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
       "isStaff": false
@@ -1405,10 +1365,9 @@ const COURSES = {
     {
       "id": "sg",
       "title": "Safeguarding",
-      "thumb": "/assets/images/courses/img_sg.png",
-      "thumbGif": "/assets/images/courses/img_sg.gif",
+      "thumb": "img_sg.png",
+      "thumbGif": "img_sg.gif",
       "href": "/coming-soon-sg.html",
-      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.",
       "isStaff": false
@@ -1416,10 +1375,9 @@ const COURSES = {
     {
       "id": "cy",
       "title": "Cybersecurity",
-      "thumb": "/assets/images/courses/img_cy.png",
-      "thumbGif": "/assets/images/courses/img_cy.gif",
+      "thumb": "img_cy.png",
+      "thumbGif": "img_cy.gif",
       "href": "/coming-soon-cy.html",
-      "comingSoon": true,
       "comingSoonDate": "May 2026",
       "desc": "Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",
       "isStaff": false
@@ -1427,10 +1385,9 @@ const COURSES = {
     {
       "id": "hr",
       "title": "HR Fundamentals",
-      "thumb": "/assets/images/courses/img_hr.png",
-      "thumbGif": "/assets/images/courses/img_hr.gif",
+      "thumb": "img_hr.png",
+      "thumbGif": "img_hr.gif",
       "href": "/coming-soon-hr.html",
-      "comingSoon": true,
       "comingSoonDate": "July 2026",
       "desc": "Practical, no-nonsense guidance on core people management skills like setting expectations, giving feedback, and addressing issues early. Helps managers lead clearly, consistently, and fairly.",
       "isStaff": false
@@ -1440,10 +1397,9 @@ const COURSES = {
     {
       "id": "mh-he",
       "title": "Mental Health Support",
-      "thumb": "/assets/images/courses/img_mh-he.png",
-      "thumbGif": "/assets/images/courses/img_mh-he.gif",
+      "thumb": "img_mh-he.png",
+      "thumbGif": "img_mh-he.gif",
       "href": "/coming-soon-mh-he.html",
-      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Helps students build self-awareness, understand their emotions, and make more intentional choices in challenging moments. Encourages recognition of signs of struggle and supports a campus culture where seeking help feels normal.",
       "isStaff": false
@@ -1451,10 +1407,9 @@ const COURSES = {
     {
       "id": "co-he",
       "title": "Consent",
-      "thumb": "/assets/images/courses/img_co-he.png",
-      "thumbGif": "/assets/images/courses/img_co-he.gif",
+      "thumb": "img_co-he.png",
+      "thumbGif": "img_co-he.gif",
       "href": "/course-co-he.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Clear, engaging guidance on consent that reflects real-life situations students face. Helps students understand boundaries, communicate clearly, and make better decisions in the moment.",
       "isStaff": false
@@ -1462,10 +1417,9 @@ const COURSES = {
     {
       "id": "ta",
       "title": "Threat Assessment",
-      "thumb": "/assets/images/courses/img_ta.png",
-      "thumbGif": "/assets/images/courses/img_ta.gif",
+      "thumb": "img_ta.png",
+      "thumbGif": "img_ta.gif",
       "href": "/course-ta.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
       "isStaff": false
@@ -1473,10 +1427,9 @@ const COURSES = {
     {
       "id": "by-he",
       "title": "Bystander Intervention",
-      "thumb": "/assets/images/courses/img_by-he.png",
-      "thumbGif": "/assets/images/courses/img_by-he.gif",
+      "thumb": "img_by-he.png",
+      "thumbGif": "img_by-he.gif",
       "href": "/course-by-he.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps students recognize when something isn’t right, step in safely, and know when to involve others. Focuses on practical, realistic ways to support others and contribute to a safer campus community",
       "isStaff": false
@@ -1484,10 +1437,9 @@ const COURSES = {
     {
       "id": "cy",
       "title": "Cybersecurity",
-      "thumb": "/assets/images/courses/img_cy.png",
-      "thumbGif": "/assets/images/courses/img_cy.gif",
+      "thumb": "img_cy.png",
+      "thumbGif": "img_cy.gif",
       "href": "/coming-soon-cy.html",
-      "comingSoon": true,
       "comingSoonDate": "May 2026",
       "desc": "Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",
       "isStaff": false
@@ -1495,10 +1447,9 @@ const COURSES = {
     {
       "id": "al",
       "title": "Alcohol Awareness",
-      "thumb": "/assets/images/courses/img_al.png",
-      "thumbGif": "/assets/images/courses/img_al.gif",
+      "thumb": "img_al.png",
+      "thumbGif": "img_al.gif",
       "href": "/coming-soon-al.html",
-      "comingSoon": true,
       "comingSoonDate": "July 2026",
       "desc": "Honest, non-preachy education that helps people understand their patterns and make more intentional choices. Grounded in self-reflection, awareness, and aligning decisions with what matters most.",
       "isStaff": false
@@ -1506,10 +1457,9 @@ const COURSES = {
     {
       "id": "shp",
       "title": "Sexual Harassment Prevention",
-      "thumb": "/assets/images/courses/img_shp.png",
-      "thumbGif": "/assets/images/courses/img_shp.gif",
+      "thumb": "img_shp.png",
+      "thumbGif": "img_shp.gif",
       "href": "/course-shp.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",
       "isStaff": true
@@ -1517,10 +1467,9 @@ const COURSES = {
     {
       "id": "hr",
       "title": "HR Fundamentals",
-      "thumb": "/assets/images/courses/img_hr.png",
-      "thumbGif": "/assets/images/courses/img_hr.gif",
+      "thumb": "img_hr.png",
+      "thumbGif": "img_hr.gif",
       "href": "/coming-soon-hr.html",
-      "comingSoon": true,
       "comingSoonDate": "July 2026",
       "desc": "Practical, no-nonsense guidance on core people management skills like setting expectations, giving feedback, and addressing issues early. Helps managers lead clearly, consistently, and fairly.",
       "isStaff": true
@@ -1528,10 +1477,9 @@ const COURSES = {
     {
       "id": "t9-he",
       "title": "Title IX",
-      "thumb": "/assets/images/courses/img_t9.png",
-      "thumbGif": "/assets/images/courses/img_t9.gif",
+      "thumb": "img_t9.png",
+      "thumbGif": "img_t9.gif",
       "href": "/coming-soon-t9.html",
-      "comingSoon": true,
       "comingSoonDate": "",
       "desc": "Explains how Title IX works on campus, including rights, reporting options, and what happens after a report is made. Gives students a clear understanding of the process so they can navigate it with more confidence.",
       "isStaff": false
@@ -1539,10 +1487,9 @@ const COURSES = {
     {
       "id": "sg",
       "title": "Safeguarding",
-      "thumb": "/assets/images/courses/img_sg.png",
-      "thumbGif": "/assets/images/courses/img_sg.gif",
+      "thumb": "img_sg.png",
+      "thumbGif": "img_sg.gif",
       "href": "/coming-soon-sg.html",
-      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.",
       "isStaff": true
@@ -1552,10 +1499,9 @@ const COURSES = {
     {
       "id": "co-k12",
       "title": "Consent",
-      "thumb": "/assets/images/courses/img_co-k12.png",
-      "thumbGif": "/assets/images/courses/img_co-k12.gif",
+      "thumb": "img_co-k12.png",
+      "thumbGif": "img_co-k12.gif",
       "href": "/course-co-k12.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Age-appropriate, engaging lessons that help students understand bodily autonomy, boundaries, and consent. Builds skills for asking, listening, and respecting others from an early age.",
       "isStaff": false
@@ -1563,10 +1509,9 @@ const COURSES = {
     {
       "id": "by-k12",
       "title": "Be a Bystander",
-      "thumb": "/assets/images/courses/img_by-k12.png",
-      "thumbGif": "/assets/images/courses/img_by-k12.gif",
+      "thumb": "img_by-k12.png",
+      "thumbGif": "img_by-k12.gif",
       "href": "/course-by-k12.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps students recognize when something isn’t right and take simple, age-appropriate action. Builds confidence to speak up, support others, and be part of a safer, more respectful community.",
       "isStaff": false
@@ -1574,10 +1519,9 @@ const COURSES = {
     {
       "id": "bf-k12",
       "title": "Bias and Fairness",
-      "thumb": "/assets/images/courses/img_bf-k12.png",
-      "thumbGif": "/assets/images/courses/img_bf-k12.gif",
+      "thumb": "img_bf-k12.png",
+      "thumbGif": "img_bf-k12.gif",
       "href": "/course-bf-k12.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Ferdinand Ferret is on the case—joined by his practical, no-nonsense partner Dr. Bear. This three-part series helps students understand bias and fairness, question snap judgments, and think a little more carefully about they see others.",
       "isStaff": false
@@ -1585,10 +1529,9 @@ const COURSES = {
     {
       "id": "mh-k12",
       "title": "Mental Health Basics",
-      "thumb": "/assets/images/courses/img_mh-k12.png",
-      "thumbGif": "/assets/images/courses/img_mh-k12.gif",
+      "thumb": "img_mh-k12.png",
+      "thumbGif": "img_mh-k12.gif",
       "href": "/coming-soon-mh-k12.html",
-      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Helps students recognize and name their emotions, build self-awareness, and make more intentional choices in the moment. Reinforces that all emotions are part of being human—and that they will pass.",
       "isStaff": false
@@ -1596,10 +1539,9 @@ const COURSES = {
     {
       "id": "shp",
       "title": "Sexual Harassment Prevention",
-      "thumb": "/assets/images/courses/img_shp.png",
-      "thumbGif": "/assets/images/courses/img_shp.gif",
+      "thumb": "img_shp.png",
+      "thumbGif": "img_shp.gif",
       "href": "/course-shp.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",
       "isStaff": true
@@ -1607,10 +1549,9 @@ const COURSES = {
     {
       "id": "ta",
       "title": "Threat Assessment",
-      "thumb": "/assets/images/courses/img_ta.png",
-      "thumbGif": "/assets/images/courses/img_ta.gif",
+      "thumb": "img_ta.png",
+      "thumbGif": "img_ta.gif",
       "href": "/course-ta.html",
-      "comingSoon": false,
       "comingSoonDate": "",
       "desc": "Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
       "isStaff": false
@@ -1618,10 +1559,9 @@ const COURSES = {
     {
       "id": "hr",
       "title": "HR Fundamentals",
-      "thumb": "/assets/images/courses/img_hr.png",
-      "thumbGif": "/assets/images/courses/img_hr.gif",
+      "thumb": "img_hr.png",
+      "thumbGif": "img_hr.gif",
       "href": "/coming-soon-hr.html",
-      "comingSoon": true,
       "comingSoonDate": "July 2026",
       "desc": "Practical, no-nonsense guidance on core people management skills like setting expectations, giving feedback, and addressing issues early. Helps managers lead clearly, consistently, and fairly.",
       "isStaff": true
@@ -1629,10 +1569,9 @@ const COURSES = {
     {
       "id": "sg",
       "title": "Safeguarding",
-      "thumb": "/assets/images/courses/img_sg.png",
-      "thumbGif": "/assets/images/courses/img_sg.gif",
+      "thumb": "img_sg.png",
+      "thumbGif": "img_sg.gif",
       "href": "/coming-soon-sg.html",
-      "comingSoon": true,
       "comingSoonDate": "June 2026",
       "desc": "Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.",
       "isStaff": true
@@ -1640,10 +1579,9 @@ const COURSES = {
     {
       "id": "cy",
       "title": "Cybersecurity",
-      "thumb": "/assets/images/courses/img_cy.png",
-      "thumbGif": "/assets/images/courses/img_cy.gif",
+      "thumb": "img_cy.png",
+      "thumbGif": "img_cy.gif",
       "href": "/coming-soon-cy.html",
-      "comingSoon": true,
       "comingSoonDate": "May 2026",
       "desc": "Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",
       "isStaff": false
