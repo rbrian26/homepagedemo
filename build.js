@@ -128,22 +128,25 @@ Object.keys(groups).forEach(aud => {
 
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
 function buildCoursePage(detail, catalog, relatedMap) {
+  const bullets = (detail.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean)
+    .map(b => `      <li>${b}</li>`).join('\n');
 
   let lessonsHTML = '';
   for (let i = 1; i <= 20; i++) {
     const title = detail[`L${i}_title`], desc = detail[`L${i}_desc`];
     if (!title || !title.trim()) break;
     lessonsHTML += `
-      <div class="lesson-item">
-        <div class="lesson-num">${i}</div>
-        <div class="lesson-text">
-          <div class="lesson-title">${title}</div>
-          ${desc ? `<div class="lesson-desc">${desc}</div>` : ''}
-        </div>
+      <div class="accordion-item">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-num">${i}</div>
+          <div class="accordion-header-text"><span class="accordion-title">${title}</span></div>
+          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
+        </button>
+        <div class="accordion-body"><div class="accordion-body-inner">${desc}</div></div>
       </div>`;
   }
 
-  const videoCountLabel = (detail.videoCount || '').trim();
+  const videoCountLabel = detail.videoCount ? `${detail.videoCount} short videos` : '';
 
   // Related courses — looked up from related-courses.csv
   const catalogById = {};
@@ -177,26 +180,17 @@ function buildCoursePage(detail, catalog, relatedMap) {
     ].join('\n');
   }).join('\n');
 
-  const heroBullets = (detail.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean)
-    .map(b => `        <li>${b}</li>`).join('\n');
-
-  const duration = (detail.duration || '').trim();
-  const durationSep = duration ? '<span class="hero-audience-dot"></span>' : '';
-
   const output = readTemplate('course-page.html')
     .replace(/__PAGE_TITLE__/g,      detail.pageTitle)
-    .replace(/__HERO_BADGE__/g,      detail.heroBadge || '')
     .replace(/__HERO_TITLE__/g,      detail.heroTitle)
     .replace(/__HERO_TAGLINE__/g,    detail.heroTagline)
-    .replace(/__AUDIENCE_LABEL__/g,  detail.audienceLabel)
-    .replace(/__DURATION_SEP__/g,    durationSep)
-    .replace(/__DURATION__/g,        duration)
-    .replace(/__VIMEO_ID__/g,        detail.vimeoHash ? `${detail.vimeoID}?h=${detail.vimeoHash}` : detail.vimeoID)
+    .replace(/__VIMEO_ID__/g,        detail.vimeoID)
     .replace(/__VIDEO_COUNT__/g,     videoCountLabel)
     .replace(/__FORMAT__/g,          detail.format)
+    .replace(/__AUDIENCE_LABEL__/g,  detail.audienceLabel)
     .replace(/__LMS__/g,             detail.lms)
-    .replace('<!-- __HERO_BULLETS__ -->', heroBullets)
-    .replace('<!-- __LESSONS__ -->',      lessonsHTML)
+    .replace('<!-- __COVERS_BULLETS__ -->', bullets)
+    .replace('<!-- __LESSONS__ -->',        lessonsHTML)
     .replace('<!-- __RELATED_COURSES__ -->', relatedHTML);
   write(path.join(DIST, `course-${detail.id}.html`), output);
 }
@@ -215,47 +209,43 @@ function buildComingSoonPages(courses, catalog) {
     const audiences   = (catalogEntry.audience || '').split('|').map(a => a.trim());
     const audienceLabel = audiences.map(a => audienceMap[a] || a).join(' · ');
 
-    // Covers bullets — conditional, hidden if empty
+    // Bullets for hero only
     const bulletItems = (c.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean);
-    const bulletsHTML = bulletItems.length
-      ? bulletItems.map(b => `      <li>${b}</li>`).join('\n')
-      : '';
-    const coversSectionStyle = bulletItems.length ? '' : ' style="display:none"';
+    const bulletsHTML = bulletItems.map(b => `      <li>${b}</li>`).join('\n');
 
-    // Lessons — conditional, hidden if empty
+    // Lessons — always-visible cards
     let lessonsHTML = '';
     for (let i = 1; i <= 20; i++) {
       const title = c[`L${i}_title`], desc = c[`L${i}_desc`];
       if (!title || !title.trim()) break;
       lessonsHTML += `
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">${i}</div>
-          <div class="accordion-header-text"><span class="accordion-title">${title}</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">${desc}</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">${i}</div>
+        <div class="lesson-text">
+          <div class="lesson-title">${title}</div>
+          ${desc ? `<div class="lesson-desc">${desc}</div>` : ''}
+        </div>
       </div>`;
     }
     const lessonsSectionStyle = lessonsHTML ? '' : ' style="display:none"';
 
+    // Curtain image and text
+    const curtainImg = c.vimeoID
+      ? `/assets/images/courses/${catalogEntry.thumb || 'img_comingsoon.png'}`
+      : '/assets/images/ui/img_comingsoon.png';
+    const curtainText = c.vimeoID ? 'Watch Sneak Peek' : 'Coming Soon';
+
     // Sneak peek button — only if vimeo ID exists
     const sneakPeekBtn = c.vimeoID
-      ? `<button class="btn-orange" onclick="openSneakPeek()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      ? `<button class="btn-ghost" onclick="playSneakPeek()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Watch Sneak Peek
         </button>`
       : '';
 
-    // Hero media — video iframe if vimeo ID exists, else course thumbnail
-    const heroMedia = c.vimeoID
-      ? `<iframe src="https://player.vimeo.com/video/${c.vimeoID}${c.vimeoHash ? '?h=' + c.vimeoHash : ''}" allow="fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>`
-      : `<img src="${catalogEntry.thumb ? '/assets/images/courses/' + catalogEntry.thumb : (c.thumb || '')}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
-
     const output = template
-      .replace(/__PAGE_TITLE__/g,         c.title)
-      .replace(/__PAGE_TITLE__/g,         c.title)
-      .replace(/__HERO_TITLE__/g,         c.title)
+      .replace(/__PAGE_TITLE__/g,         c.pageTitle || c.title)
+      .replace(/__HERO_TITLE__/g,         c.heroTitle || c.title)
       .replace(/__HERO_TAGLINE__/g,       c.heroTagline || catalogEntry.desc || '')
       .replace(/__LAUNCH_DATE__/g,        catalogEntry.comingSoonDate || c.launchDate || 'Coming Soon')
       .replace(/__AUDIENCE_LABEL__/g,     audienceLabel)
@@ -263,10 +253,10 @@ function buildComingSoonPages(courses, catalog) {
       .replace(/__LMS__/g,                c.lms        || 'SCORM · Hosted')
       .replace(/__PREVIEW_VIMEO_ID__/g,   c.vimeoID   || '')
       .replace(/__PREVIEW_HASH__/g,       c.vimeoHash || '')
-      .replace('<!-- __HERO_MEDIA__ -->',       heroMedia)
+      .replace(/__CURTAIN_IMG__/g,        curtainImg)
+      .replace(/__CURTAIN_TEXT__/g,       curtainText)
       .replace('<!-- __SNEAK_PEEK_BTN__ -->',   sneakPeekBtn)
       .replace(/<!-- __COVERS_BULLETS__ -->/g,  bulletsHTML)
-      .replace('id="s-covers"',                 `id="s-covers"${coversSectionStyle}`)
       .replace('id="s-lessons"',                `id="s-lessons"${lessonsSectionStyle}`)
       .replace('<!-- __LESSONS__ -->',          lessonsHTML);
 

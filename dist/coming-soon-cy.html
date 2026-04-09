@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>undefined — Coming Soon</title>
+  <title>Cybersecurity — Coming Soon</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -159,8 +159,6 @@
 
     .section {
       padding: 3.5rem 0; border-bottom: 1px solid rgba(9,111,156,0.08);
-      opacity: 0; transform: translateY(18px);
-      transition: opacity 0.55s ease, transform 0.55s ease;
     }
     .section.visible { opacity: 1; transform: translateY(0); }
     .section:last-child { border-bottom: none; }
@@ -205,23 +203,86 @@
     .btn-notify:hover { background: var(--orange-dk); transform: translateY(-1px); }
     .btn-notify svg { width: 15px; height: 15px; }
 
-    /* ── ACCORDION ── */
-    .accordion { display: flex; flex-direction: column; gap: 0.5rem; }
-    .accordion-item { background: var(--surface); border: 1px solid rgba(9,111,156,0.1); border-radius: 10px; overflow: hidden; }
-    .accordion-trigger {
-      width: 100%; display: flex; align-items: center; gap: 1rem;
-      padding: 1.1rem 1.3rem; background: none; border: none; cursor: pointer;
-      font-family: 'Quicksand', sans-serif; text-align: left;
-      transition: background 0.15s;
+    /* ── CURTAIN PREVIEW ── */
+    .hero-preview-card {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 12px 48px rgba(9,111,156,0.14), 0 2px 8px rgba(9,111,156,0.08);
+      border: 1px solid rgba(9,111,156,0.1);
+      background: var(--navy); position: relative;
+      aspect-ratio: 16/9; cursor: pointer;
     }
-    .accordion-trigger:hover { background: var(--bg); }
-    .accordion-num { width: 24px; height: 24px; background: var(--blue-lt); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; color: var(--blue-dk); flex-shrink: 0; }
-    .accordion-header-text { flex: 1; }
-    .accordion-title { font-size: 0.92rem; font-weight: 700; color: var(--navy); }
-    .accordion-chevron { color: var(--muted); transition: transform 0.25s; flex-shrink: 0; display: flex; }
-    .accordion-item.open .accordion-chevron { transform: rotate(180deg); }
-    .accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
-    .accordion-body-inner { padding: 0 1.3rem 1.3rem 3.5rem; font-size: 0.88rem; color: var(--muted); line-height: 1.65; font-weight: 500; }
+    .curtain-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: opacity 0.4s ease;
+    }
+    .curtain-label {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 0.75rem; z-index: 2;
+      background: rgba(10,34,51,0.45);
+      transition: background 0.3s;
+    }
+    .hero-preview-card:hover .curtain-label { background: rgba(10,34,51,0.3); }
+    .curtain-play {
+      width: 56px; height: 56px; background: var(--orange);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 24px rgba(249,124,83,0.5);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .hero-preview-card:hover .curtain-play { transform: scale(1.08); box-shadow: 0 8px 32px rgba(249,124,83,0.65); }
+    .curtain-play svg { width: 22px; height: 22px; fill: #fff; margin-left: 3px; }
+    .curtain-text {
+      font-size: 0.82rem; font-weight: 700; color: #fff;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      text-shadow: 0 1px 4px rgba(0,0,0,0.4);
+    }
+    .hero-preview-card iframe {
+      position: absolute; inset: 0; width: 100%; height: 100%; border: 0;
+      opacity: 0; transition: opacity 0.4s ease; pointer-events: none;
+    }
+    .hero-preview-card.playing .curtain-img,
+    .hero-preview-card.playing .curtain-label { opacity: 0; pointer-events: none; }
+    .hero-preview-card.playing iframe { opacity: 1; pointer-events: all; }
+
+    /* ── LESSON LIST (always visible) ── */
+    .lessons-list { display: flex; flex-direction: column; gap: 0.5rem; }
+    .lesson-item {
+      background: var(--surface); border: 1px solid rgba(9,111,156,0.1);
+      border-radius: 10px; padding: 1rem 1.2rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .lesson-item:hover { border-color: rgba(9,111,156,0.22); box-shadow: 0 4px 18px rgba(9,111,156,0.08); }
+    .lesson-num {
+      flex-shrink: 0; width: 28px; height: 28px;
+      background: var(--surface2); border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; font-weight: 700; color: var(--blue); margin-top: 0.1rem;
+    }
+    .lesson-text { flex: 1; }
+    .lesson-title { font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem; }
+    .lesson-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-weight: 500; }
+
+    /* ── NOTIFY CTA STRIP ── */
+    .notify-strip {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--blue-dk) 100%);
+      border-radius: 16px; padding: 2.5rem 3rem;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 2rem; flex-wrap: wrap; margin-top: 2.5rem;
+    }
+    .notify-strip h2 { font-size: 1.35rem; font-weight: 700; color: #fff; margin-bottom: 0.4rem; }
+    .notify-strip p { font-size: 0.88rem; color: rgba(255,255,255,0.6); font-weight: 500; }
+    .notify-strip-actions { display: flex; gap: 0.8rem; flex-shrink: 0; flex-wrap: wrap; }
+    .btn-ghost-dark {
+      background: rgba(255,255,255,0.15); color: #fff; padding: 0.75rem 1.8rem;
+      border-radius: 6px; font-weight: 700; font-size: 0.95rem;
+      font-family: 'Quicksand', sans-serif; text-decoration: none;
+      border: 2px solid rgba(255,255,255,0.7);
+      transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-ghost-dark:hover { background: rgba(255,255,255,0.28); transform: translateY(-2px); }
 
     /* ── SNEAK PEEK MODAL ── */
     .modal-overlay {
@@ -336,7 +397,7 @@
   <span class="breadcrumb-sep">›</span>
   <a href="preorder.html">Coming Soon</a>
   <span class="breadcrumb-sep">›</span>
-  <span class="breadcrumb-current">undefined</span>
+  <span class="breadcrumb-current">Cybersecurity</span>
 </div>
 
 <!-- HERO -->
@@ -344,7 +405,7 @@
   <div class="hero-inner">
     <div class="hero-left">
       <div class="hero-badge">Coming May 2026</div>
-      <h1>undefined</h1>
+      <h1>Cybersecurity</h1>
       <div class="hero-audience">
         <div class="hero-audience-dot"></div>
         K–12 · Higher Education · Workplace
@@ -354,20 +415,27 @@
 
       </ul>
       <div class="hero-actions">
-        <button class="btn-orange" onclick="openSneakPeek()">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        <button class="btn-ghost" onclick="playSneakPeek()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><polygon points="5 3 19 12 5 21 5 3"/></svg>
           Watch Sneak Peek
         </button>
-        <button onclick="openNotifyModal()" class="btn-orange">
+        <a href="preorder.html" class="btn-orange">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
           Notify Me When Live
-        </button>
+        </a>
         <a href="full_access.html" class="btn-ghost">Explore Full Access</a>
       </div>
     </div>
     <div class="hero-right">
-      <div class="hero-preview-card">
-        <iframe src="https://player.vimeo.com/video/1152648266" allow="fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>
+      <div class="hero-preview-card" id="preview-card" onclick="playSneakPeek()">
+        <img class="curtain-img" src="/assets/images/courses/img_cy.png" alt="Course Preview" />
+        <div class="curtain-label">
+          <div class="curtain-play">
+            <svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+          <div class="curtain-text">Watch Sneak Peek</div>
+        </div>
+        <iframe id="preview-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
       </div>
     </div>
   </div>
@@ -400,81 +468,41 @@
 <!-- MAIN CONTENT -->
 <div class="page-content">
 
-  <!-- What This Course Will Cover -->
-  <div class="section" id="s-covers" style="display:none">
-    <div class="section-eyebrow">
-      <div class="section-eyebrow-dot"></div>
-      <h2 class="section-title">What This Course Will Cover</h2>
-    </div>
-    <ul class="covers-list">
-
-    </ul>
-  </div>
-
-  <!-- Notify Me Bar -->
-  <div class="notify-bar section" id="s-notify">
-    <div class="notify-bar-text">
-      <div class="notify-bar-eyebrow">Get Early Access</div>
-      <strong>Be first in line when undefined goes live.</strong>
-      <p>We'll reach out as soon as it's ready — sometimes before public launch.</p>
-    </div>
-    <button onclick="openNotifyModal()" class="btn-notify">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-      Notify Me
-    </button>
-  </div>
-
   <!-- Course Lessons -->
   <div class="section" id="s-lessons" style="display:none">
     <div class="section-eyebrow">
       <div class="section-eyebrow-dot"></div>
       <h2 class="section-title">Planned Lessons</h2>
     </div>
-    <div class="accordion">
+    <div class="lessons-list">
 
+    </div>
+  </div>
+
+  <!-- Notify Me Strip -->
+  <div class="notify-strip">
+    <div>
+      <h2>Notify Me When Live</h2>
+      <p>Be first in line — we'll reach out as soon as this course is ready, sometimes before public launch.</p>
+    </div>
+    <div class="notify-strip-actions">
+      <a href="preorder.html" class="btn-orange">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+        Get Notified
+      </a>
+      <a href="request-a-quote.html" class="btn-ghost-dark">Request a Quote</a>
     </div>
   </div>
 
   <!-- Full Access Promo -->
   <div class="promo-bar">
     <div class="promo-bar-text">
-      Want access to all content the moment it drops?
-      <span>A Full Access license covers your entire catalog — current courses plus everything in development.</span>
+      Get Full Access — including all upcoming releases.
+      <span>A Full Access license covers your entire catalog — every current course plus everything in development.</span>
     </div>
     <a href="full_access.html" class="btn-white">Explore Full Access</a>
   </div>
 
-</div>
-
-<!-- SNEAK PEEK MODAL -->
-<div class="modal-overlay" id="sneak-modal" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title"><div class="modal-title-dot"></div>Sneak Peek — undefined</div>
-      <button class="modal-close" onclick="closeModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="modal-video">
-      <iframe id="modal-iframe" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
-    </div>
-  </div>
-</div>
-
-<!-- NOTIFY MODAL -->
-<div class="modal-overlay" id="notify-modal" onclick="if(event.target===this)closeNotifyModal()">
-  <div class="modal notify-modal-inner">
-    <div class="modal-header">
-      <div class="modal-title"><div class="modal-title-dot"></div>Get Notified — undefined</div>
-      <button class="modal-close" onclick="closeNotifyModal()">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-      </button>
-    </div>
-    <div class="notify-modal-body">
-      <p class="notify-modal-desc">We'll let you know as soon as <strong>undefined</strong> is ready — sometimes before it's publicly available.</p>
-      <div class="hs-form-frame" data-region="na1" data-form-id="1c50f1fc-20a3-4788-bbec-0e71462b0c62" data-portal-id="44723819"></div>
-    </div>
-  </div>
 </div>
 
 <!-- FOOTER -->
@@ -497,52 +525,16 @@
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
   });
 
-  function openSneakPeek() {
+  function playSneakPeek() {
+    if (!SNEAK_PEEK_VIMEO_ID) return;
+    const card = document.getElementById('preview-card');
+    if (card.classList.contains('playing')) return;
     const src = SNEAK_PEEK_HASH
-      ? `https://player.vimeo.com/video/${SNEAK_PEEK_VIMEO_ID}?h=${SNEAK_PEEK_HASH}&autoplay=1`
-      : `https://player.vimeo.com/video/${SNEAK_PEEK_VIMEO_ID}?autoplay=1`;
-    document.getElementById('modal-iframe').src = src;
-    document.getElementById('sneak-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
+      ? `https://player.vimeo.com/video/${SNEAK_PEEK_VIMEO_ID}?h=${SNEAK_PEEK_HASH}&autoplay=1&color=f97c53&title=0&byline=0&portrait=0`
+      : `https://player.vimeo.com/video/${SNEAK_PEEK_VIMEO_ID}?autoplay=1&color=f97c53&title=0&byline=0&portrait=0`;
+    document.getElementById('preview-iframe').src = src;
+    card.classList.add('playing');
   }
-
-  function closeModal() {
-    document.getElementById('sneak-modal').classList.remove('open');
-    document.getElementById('modal-iframe').src = '';
-    document.body.style.overflow = '';
-  }
-
-  function openNotifyModal() {
-    document.getElementById('notify-modal').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
-
-  function closeNotifyModal() {
-    document.getElementById('notify-modal').classList.remove('open');
-    document.body.style.overflow = '';
-  }
-
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') { closeModal(); closeNotifyModal(); }
-  });
-
-  function toggleAccordion(trigger) {
-    const item = trigger.closest('.accordion-item');
-    const body = item.querySelector('.accordion-body');
-    const isOpen = item.classList.contains('open');
-    document.querySelectorAll('.accordion-item.open').forEach(o => {
-      o.classList.remove('open');
-      o.querySelector('.accordion-body').style.maxHeight = '0';
-    });
-    if (!isOpen) { item.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
-  }
-
-  document.addEventListener('DOMContentLoaded', () => {
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.section').forEach(s => observer.observe(s));
-  });
 </script>
 </body>
 </html>
