@@ -134,13 +134,12 @@ function buildCoursePage(detail, catalog, relatedMap) {
     const title = detail[`L${i}_title`], desc = detail[`L${i}_desc`];
     if (!title || !title.trim()) break;
     lessonsHTML += `
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">${i}</div>
-          <div class="accordion-header-text"><span class="accordion-title">${title}</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">${desc}</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">${i}</div>
+        <div class="lesson-text">
+          <div class="lesson-title">${title}</div>
+          ${desc ? `<div class="lesson-desc">${desc}</div>` : ''}
+        </div>
       </div>`;
   }
 
@@ -220,13 +219,12 @@ function buildComingSoonPages(courses) {
       const title = c[`L${i}_title`], desc = c[`L${i}_desc`];
       if (!title || !title.trim()) break;
       lessonsHTML += `
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">${i}</div>
-          <div class="accordion-header-text"><span class="accordion-title">${title}</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">${desc}</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">${i}</div>
+        <div class="lesson-text">
+          <div class="lesson-title">${title}</div>
+          ${desc ? `<div class="lesson-desc">${desc}</div>` : ''}
+        </div>
       </div>`;
     }
     const lessonsSectionStyle = lessonsHTML ? '' : ' style="display:none"';
