@@ -125,7 +125,7 @@ Object.keys(groups).forEach(aud => {
 }
 
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
-function buildCoursePage(detail) {
+function buildCoursePage(detail, catalog, relatedMap) {
   const bullets = (detail.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean)
     .map(b => `      <li>${b}</li>`).join('\n');
 
@@ -144,6 +144,38 @@ function buildCoursePage(detail) {
       </div>`;
   }
 
+  // Related courses
+  const catalogById = {};
+  (catalog || []).forEach(c => { catalogById[c.id] = c; });
+  const relatedRow = (relatedMap || {})[detail.id] || {};
+  const relatedSlots = [
+    { id: relatedRow.related1_id, eyebrow: relatedRow.related1_eyebrow },
+    { id: relatedRow.related2_id, eyebrow: relatedRow.related2_eyebrow },
+    { id: relatedRow.related3_id, eyebrow: relatedRow.related3_eyebrow },
+  ].filter(r => r.id && r.id.trim());
+  const relatedHTML = relatedSlots.map(r => {
+    const c = catalogById[r.id.trim()];
+    if (!c) return '';
+    const eyebrow = (r.eyebrow || '').trim() || c.title;
+    const thumbSrc = c.thumb ? '/assets/images/courses/' + c.thumb : '';
+    const gifSrc   = c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '';
+    const gifAttrs = gifSrc
+      ? ` onmouseenter="this.querySelector('img').src='${gifSrc}'" onmouseleave="this.querySelector('img').src='${thumbSrc}'"`
+      : '';
+    return [
+      '      <a href="' + c.href + '" class="related-card"' + gifAttrs + '>',
+      '        <div class="related-thumb">',
+      '          <img src="' + thumbSrc + '" alt="' + c.title + '">',
+      '          <div class="related-hover-cta">View Course →</div>',
+      '        </div>',
+      '        <div class="related-info">',
+      '          <div class="related-topic">' + eyebrow + '</div>',
+      '          <div class="related-title">' + c.title + '</div>',
+      '        </div>',
+      '      </a>',
+    ].join('\n');
+  }).join('\n');
+
   const output = readTemplate('course-page.html')
     .replace(/__PAGE_TITLE__/g,     detail.pageTitle)
     .replace(/__HERO_TITLE__/g,     detail.heroTitle)
@@ -154,8 +186,13 @@ function buildCoursePage(detail) {
     .replace(/__AUDIENCE_LABEL__/g, detail.audienceLabel)
     .replace(/__LMS__/g,            detail.lms)
     .replace(/__COMPLIANCE__/g,     detail.compliance)
+    .replace(/__HERO_BADGE__/g,      detail.heroBadge || '')
+    .replace(/__HERO_BULLETS__/g,    bullets)
+    .replace(/__DURATION_SEP__/g,    detail.duration ? '<span class="hero-audience-dot"></span>' : '')
+    .replace(/__VIDEO_COUNT__/g,     detail.videoCount || '')
     .replace('<!-- __COVERS_BULLETS__ -->', bullets)
-    .replace('<!-- __LESSONS__ -->',        lessonsHTML);
+    .replace('<!-- __LESSONS__ -->',        lessonsHTML)
+    .replace('<!-- __RELATED_COURSES__ -->', relatedHTML);
   write(path.join(DIST, `course-${detail.id}.html`), output);
 }
 
@@ -349,6 +386,7 @@ console.log('\n🔨 Blue Seat Studios — Build\n');
 const catalog    = readCSV(path.join(__dirname, 'data', 'catalog.csv'));
 const catalogOrder = readCSV(path.join(__dirname, 'data', 'catalog-order.csv'));
 const featuredCSV  = readCSV(path.join(__dirname, 'data', 'featured-courses.csv'));
+const relatedCSV   = readCSV(path.join(__dirname, 'data', 'related-courses.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
 const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
 const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
@@ -363,7 +401,9 @@ console.log('\nBuilding release calendar...');
 if (catalog.length) buildReleaseCalendar(catalog);
 
 console.log('\nBuilding course pages...');
-details.forEach(d => buildCoursePage(d));
+const relatedMap = {};
+relatedCSV.forEach(r => { if (r.courseId) relatedMap[r.courseId] = r; });
+details.forEach(d => buildCoursePage(d, catalog, relatedMap));
 
 console.log('\nBuilding demo pages...');
 if (demoPages.length) buildDemoPages(demoPages, demoVideos);
