@@ -351,7 +351,6 @@
       border-bottom: 1px solid rgba(9,111,156,0.08);
     }
 
-    .section.visible { opacity: 1; transform: translateY(0); }
     .section:last-child { border-bottom: none; }
 
     .section-eyebrow {
@@ -647,7 +646,7 @@
       justify-content: space-between;
       gap: 2rem;
       flex-wrap: wrap;
-      margin-top: 2.5rem;
+      margin-top: 4rem;
     }
 
     .cta-strip h2 {
@@ -701,26 +700,18 @@
       background: var(--surface2);
       border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--blue);
+      font-size: 0.72rem; font-weight: 700; color: var(--blue);
       margin-top: 0.1rem;
     }
 
     .lesson-text { flex: 1; }
 
     .lesson-title {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 0.25rem;
+      font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem;
     }
 
     .lesson-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.6;
-      font-weight: 500;
+      font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-weight: 500;
     }
 
     /* ── FOOTER ── */
@@ -804,14 +795,14 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <div class="hero-badge">__HERO_BADGE__</div>
+      <div class="hero-badge"></div>
       <h1>Bias and Fairness</h1>
       <p class="hero-desc"></p>
       <div class="hero-audience">
-        Students and Faculty__DURATION_SEP____DURATION__
+        Students and Faculty
       </div>
       <ul class="hero-bullets">
-<!-- __HERO_BULLETS__ -->
+
       </ul>
       <div class="hero-actions">
         <a href="/demo.html" class="btn-orange">Watch a Demo</a>
@@ -999,22 +990,8 @@
 
 <script>
   // ── NAV SCROLL ──
+  window.addEventListener('scroll', () => {
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
-  });
-
-  // ── SCROLL REVEAL ──
-  document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(s => observer.observe(s));
   });
 </script>
 <script>

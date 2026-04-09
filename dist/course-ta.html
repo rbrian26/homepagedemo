@@ -351,7 +351,6 @@
       border-bottom: 1px solid rgba(9,111,156,0.08);
     }
 
-    .section.visible { opacity: 1; transform: translateY(0); }
     .section:last-child { border-bottom: none; }
 
     .section-eyebrow {
@@ -647,7 +646,7 @@
       justify-content: space-between;
       gap: 2rem;
       flex-wrap: wrap;
-      margin-top: 2.5rem;
+      margin-top: 4rem;
     }
 
     .cta-strip h2 {
@@ -701,26 +700,18 @@
       background: var(--surface2);
       border-radius: 6px;
       display: flex; align-items: center; justify-content: center;
-      font-size: 0.72rem;
-      font-weight: 700;
-      color: var(--blue);
+      font-size: 0.72rem; font-weight: 700; color: var(--blue);
       margin-top: 0.1rem;
     }
 
     .lesson-text { flex: 1; }
 
     .lesson-title {
-      font-size: 0.92rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 0.25rem;
+      font-size: 0.92rem; font-weight: 700; color: var(--navy); margin-bottom: 0.25rem;
     }
 
     .lesson-desc {
-      font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.6;
-      font-weight: 500;
+      font-size: 0.85rem; color: var(--muted); line-height: 1.6; font-weight: 500;
     }
 
     /* ── FOOTER ── */
@@ -804,14 +795,17 @@
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-left">
-      <div class="hero-badge">__HERO_BADGE__</div>
+      <div class="hero-badge">★ Full Course</div>
       <h1>Threat Assessment</h1>
       <p class="hero-desc">Give your community the tools to recognize warning signs, support others, and report concerns early.</p>
       <div class="hero-audience">
-        Employees · Students · Faculty__DURATION_SEP____DURATION__
+        Employees · Students · Faculty
       </div>
       <ul class="hero-bullets">
-<!-- __HERO_BULLETS__ -->
+        <li>Confidence to notice, listen, and connect</li>
+        <li>Clear guidance for real situations</li>
+        <li>Human-centered, not fear-based</li>
+        <li>Builds trust in reporting and response</li>
       </ul>
       <div class="hero-actions">
         <a href="/demo.html" class="btn-orange">Watch a Demo</a>
@@ -823,7 +817,7 @@
         <div class="clip-video">
           <iframe
             id="hero-player"
-            src="https://player.vimeo.com/video/1181575256&color=f97c53&title=0&byline=0&portrait=0&controls=0&autoplay=1&muted=1&loop=1&autopause=0"
+            src="https://player.vimeo.com/video/1181575256?h=867ea97e11&color=f97c53&title=0&byline=0&portrait=0&controls=0&autoplay=1&muted=1&loop=1&autopause=0"
             frameborder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
@@ -867,7 +861,7 @@
 <div class="meta-strip">
   <div class="meta-strip-item">
     <span class="meta-strip-label">Structure</span>
-    <span class="meta-strip-value">7-Video Series short videos</span>
+    <span class="meta-strip-value">7-Video Series</span>
   </div>
   <div class="meta-strip-item">
     <span class="meta-strip-label">Format</span>
@@ -895,61 +889,54 @@
     </div>
     <div class="lessons-list">
 
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">1</div>
-          <div class="accordion-header-text"><span class="accordion-title">Introduction to Safety Culture</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">What does a “safety culture” mean in real life? This video shows how small, everyday actions—like noticing, checking in, and speaking up—add up to a community where people look out for each other.</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">1</div>
+        <div class="lesson-text">
+          <div class="lesson-title">Introduction to Safety Culture</div>
+          <div class="lesson-desc">What does a “safety culture” mean in real life? This video shows how small, everyday actions—like noticing, checking in, and speaking up—add up to a community where people look out for each other.</div>
+        </div>
       </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">2</div>
-          <div class="accordion-header-text"><span class="accordion-title">The Pathway to Violence</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">Concerning behavior rarely appears out of nowhere. This video introduces the idea of a pathway to violence and helps viewers understand what to notice—without expecting them to diagnose or predict outcomes.</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">2</div>
+        <div class="lesson-text">
+          <div class="lesson-title">The Pathway to Violence</div>
+          <div class="lesson-desc">Concerning behavior rarely appears out of nowhere. This video introduces the idea of a pathway to violence and helps viewers understand what to notice—without expecting them to diagnose or predict outcomes.</div>
+        </div>
       </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">3</div>
-          <div class="accordion-header-text"><span class="accordion-title">How to Support Someone in Crisis</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">When someone is struggling, you don’t need perfect words—you need a place to start. This video offers simple, grounded ways to notice, listen, and connect someone to support.</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">3</div>
+        <div class="lesson-text">
+          <div class="lesson-title">How to Support Someone in Crisis</div>
+          <div class="lesson-desc">When someone is struggling, you don’t need perfect words—you need a place to start. This video offers simple, grounded ways to notice, listen, and connect someone to support.</div>
+        </div>
       </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">4</div>
-          <div class="accordion-header-text"><span class="accordion-title">Listening(TM)</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">A not-so-subtle ad for a skill we all think we have. This piece highlights common ways we miss the mark—and what real listening looks like.</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">4</div>
+        <div class="lesson-text">
+          <div class="lesson-title">Listening(TM)</div>
+          <div class="lesson-desc">A not-so-subtle ad for a skill we all think we have. This piece highlights common ways we miss the mark—and what real listening looks like.</div>
+        </div>
       </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">5</div>
-          <div class="accordion-header-text"><span class="accordion-title">When to Share a Concern</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">Not everything requires a report—but some things do. This video helps viewers recognize when it’s time to loop in support and why early sharing matters.</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">5</div>
+        <div class="lesson-text">
+          <div class="lesson-title">When to Share a Concern</div>
+          <div class="lesson-desc">Not everything requires a report—but some things do. This video helps viewers recognize when it’s time to loop in support and why early sharing matters.</div>
+        </div>
       </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">6</div>
-          <div class="accordion-header-text"><span class="accordion-title">What Happens After You Report?</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">You raised a concern, now what? This video demystifies the process, showing how teams assess situations, coordinate support, and focus on keeping people safe.</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">6</div>
+        <div class="lesson-text">
+          <div class="lesson-title">What Happens After You Report?</div>
+          <div class="lesson-desc">You raised a concern, now what? This video demystifies the process, showing how teams assess situations, coordinate support, and focus on keeping people safe.</div>
+        </div>
       </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">7</div>
-          <div class="accordion-header-text"><span class="accordion-title">What to do When There's an Immediate Threat</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">In rare but urgent situations, clear action matters. This video walks through practical steps to protect yourself and others when something feels immediately unsafe.</div></div>
+      <div class="lesson-item">
+        <div class="lesson-num">7</div>
+        <div class="lesson-text">
+          <div class="lesson-title">What to do When There's an Immediate Threat</div>
+          <div class="lesson-desc">In rare but urgent situations, clear action matters. This video walks through practical steps to protect yourself and others when something feels immediately unsafe.</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1065,22 +1052,8 @@
 
 <script>
   // ── NAV SCROLL ──
+  window.addEventListener('scroll', () => {
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
-  });
-
-  // ── SCROLL REVEAL ──
-  document.addEventListener('DOMContentLoaded', () => {
-    const sections = document.querySelectorAll('.section');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 });
-
-    sections.forEach(s => observer.observe(s));
   });
 </script>
 <script>
