@@ -1314,8 +1314,8 @@
       <div class="lightbox-title" id="lightbox-title"></div>
       <div class="lightbox-desc" id="lightbox-desc"></div>
       <div class="lightbox-actions">
-        <a id="lb-course" href="#" class="lb-btn lb-btn-primary">Go to Course</a>
-        <a href="demo.html" class="lb-btn lb-btn-secondary">See Demo</a>
+        <a id="lb-primary" href="#" class="lb-btn lb-btn-primary">Go to Course</a>
+        <a id="lb-secondary" href="demo.html" class="lb-btn lb-btn-secondary">See Demo</a>
         <a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>
       </div>
     </div>
@@ -1356,7 +1356,7 @@ function cardHTML(course) {
   const topBar = course.comingSoon
     ? `<div class="coming-soon-bar">
         <span>Coming ${course.comingSoonDate}</span>
-        <span>Preorder Now →</span>
+        <span>Learn More →</span>
        </div>`
     : '';
 
@@ -1475,13 +1475,18 @@ function openLightbox(card) {
   document.getElementById('lightbox-title').textContent = title;
   document.getElementById('lightbox-desc').textContent = desc;
 
-  const courseBtn = document.getElementById('lb-course');
+  const primaryBtn   = document.getElementById('lb-primary');
+  const secondaryBtn = document.getElementById('lb-secondary');
   if (comingSoon) {
-    courseBtn.textContent = 'Preorder Now';
-    courseBtn.href = '/preorder';
+    primaryBtn.textContent = 'Sneak Peek';
+    primaryBtn.href = href;
+    secondaryBtn.textContent = 'Notify Me';
+    secondaryBtn.href = 'preorder.html';
   } else {
-    courseBtn.textContent = 'Go to Course';
-    courseBtn.href = href;
+    primaryBtn.textContent = 'Go to Course';
+    primaryBtn.href = href;
+    secondaryBtn.textContent = 'See Demo';
+    secondaryBtn.href = 'demo.html';
   }
 
   document.getElementById('lightbox-overlay').classList.add('open');
