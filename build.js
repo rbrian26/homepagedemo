@@ -52,8 +52,8 @@ function buildCatalog(courses, orderData) {
       groups[aud].push({
         id:                c.id,
         title:             c.title,
-        thumb:             c.thumb,
-	thumbGif:          c.thumbGif || '',
+        thumb:             c.thumb    ? '/assets/images/courses/' + c.thumb    : '',
+        thumbGif:          c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '',
         // Always use comingSoonPageHref for coming-soon, href for available
         href:              isComingSoon ? (c.comingSoonPageHref || c.href) : c.href,
         status:            c.status,
@@ -166,7 +166,7 @@ function buildComingSoonPages(courses) {
     // Hero media — video iframe if vimeo ID exists, else course thumbnail
     const heroMedia = c.sneakPeekVimeoId
       ? `<iframe src="https://player.vimeo.com/video/${c.sneakPeekVimeoId}${c.sneakPeekHash ? '?h=' + c.sneakPeekHash : ''}" allow="fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>`
-      : `<img src="${c.thumb}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
+      : `<img src="/assets/images/courses/${c.thumb}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
 
     const output = template
       .replace(/__PAGE_TITLE__/g,         c.title)
@@ -223,7 +223,7 @@ function buildReleaseCalendar(courses) {
       return `
     <div class="course-card">
       <div class="card-thumb">
-        <img src="${c.thumb}" alt="${c.title}" onerror="this.style.display='none'">
+        <img src="/assets/images/courses/${c.thumb}" alt="${c.title}" onerror="this.style.display='none'">
         <div class="coming-soon-ribbon">Coming Soon</div>
       </div>
       <div class="card-body">
