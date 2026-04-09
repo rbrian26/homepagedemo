@@ -143,7 +143,7 @@ function buildCoursePage(detail, catalog, relatedMap) {
       </div>`;
   }
 
-  const videoCountLabel = detail.videoCount ? `${detail.videoCount} short videos` : '';
+  const videoCountLabel = (detail.videoCount || '').trim();
 
   // Related courses — looked up from related-courses.csv
   const catalogById = {};
