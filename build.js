@@ -40,7 +40,7 @@ function write(filePath, content) {
 }
 
 // ── CATALOG ────────────────────────────────────────────────────────────────────
-function buildCatalog(courses, orderData, featuredData) {
+function buildCatalog(courses, orderData) {
   const groups = { workplace: [], highered: [], k12: [] };
 
   courses.filter(c => c.active !== 'false').forEach(c => {
@@ -52,8 +52,8 @@ function buildCatalog(courses, orderData, featuredData) {
       groups[aud].push({
         id:                c.id,
         title:             c.title,
-        thumb:             c.thumb,
-	thumbGif:          c.thumbGif || '',
+        thumb:             c.thumb    ? '/assets/images/courses/' + c.thumb    : '',
+	thumbGif:          c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '',
         // Always use comingSoonPageHref for coming-soon, href for available
         href:              isComingSoon ? (c.comingSoonPageHref || c.href) : c.href,
         status:            c.status,
@@ -80,47 +80,8 @@ Object.keys(groups).forEach(aud => {
   });
 });
 
-  // Build featured course cards
-  const catalogById = {};
-  courses.forEach(c => {
-    catalogById[c.id] = Object.assign({}, c, {
-      thumb:    c.thumb    ? '/assets/images/courses/' + c.thumb    : '',
-      thumbGif: c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '',
-    });
-  });
-  const featuredSlots = (featuredData || [])
-    .filter(f => f.courseId && f.courseId.trim() && f.vimeoId && f.vimeoId.trim())
-    .sort((a, b) => parseInt(a.slot) - parseInt(b.slot))
-    .slice(0, 3);
-  const featuredHTML = featuredSlots.map(f => {
-    const c = catalogById[f.courseId.trim()];
-    if (!c) return '';
-    const eyebrow = (f.eyebrow || '').trim() || '★ Featured';
-    const hash    = (f.vimeoHash || '').trim();
-    const safeTitle = c.title.replace(/'/g, "\\'");
-    const gifAttrs = c.thumbGif
-      ? ` onmouseenter="this.src='${c.thumbGif}'" onmouseleave="this.src='${c.thumb}'"`
-      : '';
-    return [
-      `<div class="featured-card" onclick="openTrailer('${f.vimeoId.trim()}','${hash}','${safeTitle}','${c.href}')">`,
-      '  <div class="featured-card-thumb">',
-      `    <img src="${c.thumb}" alt="${c.title}"${gifAttrs}>`,
-      '    <div class="featured-card-play"></div>',
-      '  </div>',
-      '  <div class="featured-card-info">',
-      '    <div class="featured-card-text">',
-      '      <div class="featured-card-eyebrow">' + eyebrow + '</div>',
-      '      <div class="featured-card-title">' + c.title + '</div>',
-      '    </div>',
-      '    <button class="featured-card-btn">▶ Watch Trailer</button>',
-      '  </div>',
-      '</div>',
-    ].join('\n');
-  }).join('\n');
-
   const output = readTemplate('catalog.html')
-    .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`)
-    .replace('<!-- __FEATURED_COURSES__ -->', featuredHTML);
+    .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`);
   write(path.join(DIST, 'catalog.html'), output);
 }
 
@@ -205,7 +166,7 @@ function buildComingSoonPages(courses) {
     // Hero media — video iframe if vimeo ID exists, else course thumbnail
     const heroMedia = c.sneakPeekVimeoId
       ? `<iframe src="https://player.vimeo.com/video/${c.sneakPeekVimeoId}${c.sneakPeekHash ? '?h=' + c.sneakPeekHash : ''}" allow="fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0;"></iframe>`
-      : `<img src="${c.thumb}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
+      : `<img src="/assets/images/courses/${c.thumb}" alt="${c.title}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:14px;" />`;
 
     const output = template
       .replace(/__PAGE_TITLE__/g,         c.title)
@@ -262,7 +223,7 @@ function buildReleaseCalendar(courses) {
       return `
     <div class="course-card">
       <div class="card-thumb">
-        <img src="${c.thumb}" alt="${c.title}" onerror="this.style.display='none'">
+        <img src="/assets/images/courses/${c.thumb}" alt="${c.title}" onerror="this.style.display='none'">
         <div class="coming-soon-ribbon">Coming Soon</div>
       </div>
       <div class="card-body">
@@ -348,13 +309,12 @@ console.log('\n🔨 Blue Seat Studios — Build\n');
 
 const catalog    = readCSV(path.join(__dirname, 'data', 'catalog.csv'));
 const catalogOrder = readCSV(path.join(__dirname, 'data', 'catalog-order.csv'));
-const featuredCSV  = readCSV(path.join(__dirname, 'data', 'featured-courses.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
 const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
 const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
 
 console.log('Building catalog...');
-if (catalog.length) buildCatalog(catalog, catalogOrder, featuredCSV);
+if (catalog.length) buildCatalog(catalog, catalogOrder);
 
 console.log('\nBuilding coming-soon course pages...');
 if (catalog.length) buildComingSoonPages(catalog);
