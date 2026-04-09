@@ -650,7 +650,7 @@
       justify-content: space-between;
       gap: 2rem;
       flex-wrap: wrap;
-      margin-top: 4rem;
+      margin-top: 2.5rem;
     }
 
     .cta-strip h2 {
@@ -675,52 +675,30 @@
       flex-wrap: wrap;
     }
 
-    /* ── ACCORDION ── */
-    .accordion {
+    /* ── LESSON LIST (always visible) ── */
+    .lessons-list {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
     }
 
-    .accordion-item {
+    .lesson-item {
       background: var(--surface);
       border: 1px solid rgba(9,111,156,0.1);
       border-radius: 10px;
-      overflow: hidden;
+      padding: 1rem 1.2rem;
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
 
-    .accordion-item.open {
+    .lesson-item:hover {
       border-color: rgba(9,111,156,0.22);
       box-shadow: 0 4px 18px rgba(9,111,156,0.08);
     }
 
-    .accordion-item.optional {
-      border-color: rgba(249,124,83,0.2);
-    }
-    .accordion-item.optional.open {
-      border-color: rgba(249,124,83,0.4);
-      box-shadow: 0 4px 18px rgba(249,124,83,0.08);
-    }
-
-    .accordion-trigger {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 1rem 1.2rem;
-      cursor: pointer;
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      font-family: 'Quicksand', sans-serif;
-      transition: background 0.15s;
-    }
-
-    .accordion-trigger:hover { background: rgba(9,111,156,0.03); }
-    .accordion-item.optional .accordion-trigger:hover { background: rgba(249,124,83,0.03); }
-
-    .accordion-num {
+    .lesson-num {
       flex-shrink: 0;
       width: 28px; height: 28px;
       background: var(--surface2);
@@ -729,70 +707,22 @@
       font-size: 0.72rem;
       font-weight: 700;
       color: var(--blue);
+      margin-top: 0.1rem;
     }
 
-    .accordion-item.open .accordion-num {
-      background: var(--blue);
-      color: #fff;
-    }
+    .lesson-text { flex: 1; }
 
-    .accordion-item.optional .accordion-num {
-      background: rgba(249,124,83,0.12);
-      color: var(--orange);
-    }
-
-    .accordion-item.optional.open .accordion-num {
-      background: var(--orange);
-      color: #fff;
-    }
-
-    .accordion-header-text {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      flex-wrap: wrap;
-    }
-
-    .accordion-title {
+    .lesson-title {
       font-size: 0.92rem;
       font-weight: 700;
       color: var(--navy);
+      margin-bottom: 0.25rem;
     }
 
-    .optional-badge {
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--orange);
-      background: rgba(249,124,83,0.12);
-      padding: 0.2rem 0.55rem;
-      border-radius: 50px;
-      border: 1px solid rgba(249,124,83,0.25);
-    }
-
-    .accordion-chevron {
-      flex-shrink: 0;
-      width: 20px; height: 20px;
-      display: flex; align-items: center; justify-content: center;
+    .lesson-desc {
+      font-size: 0.85rem;
       color: var(--muted);
-      transition: transform 0.25s ease;
-    }
-
-    .accordion-item.open .accordion-chevron { transform: rotate(180deg); }
-
-    .accordion-body {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-    }
-
-    .accordion-body-inner {
-      padding: 0 1.2rem 1.1rem 3.4rem;
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.7;
+      line-height: 1.6;
       font-weight: 500;
     }
 
@@ -879,20 +809,20 @@
     <div class="hero-left">
       <div class="hero-badge">
         <svg width="9" height="9" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-        Workplace · Full Course
+        ★ Full Course
       </div>
       <h1>Threat Assessment</h1>
       <p class="hero-desc">Gives employees, students, and faculty the tools to recognize warning signs, support others, and report concerns early.</p>
       <div class="hero-audience">
-        For All Employees &amp; Managers
-        <span class="hero-audience-dot"></span>
-        25 min
+        Employees · Students · Faculty
       </div>
       <ul class="hero-bullets">
-        <li>Meets CA SB 1343, NY, and multi-state compliance requirements</li>
-        <li>Scenario-based learning covering recognition, reporting, and response</li>
-        <li>Separate manager track with supervisor-specific obligations</li>
-        <li>SCORM-compatible — drops into any LMS</li>
+        <li>Building a shared safety culture across your organization</li>
+        <li>Identifying concerning behavior before it escalates</li>
+        <li>Practical ways to support someone who may be struggling</li>
+        <li>Clear guidance on when to report and why early matters</li>
+        <li>What to expect after reporting — how teams assess and respond</li>
+        <li>How to act in urgent, high-risk situations</li>
       </ul>
       <div class="hero-actions">
         <a href="/demo.html" class="btn-orange">Watch a Demo</a>
@@ -904,7 +834,7 @@
         <div class="clip-video">
           <iframe
             id="hero-player"
-            src="https://player.vimeo.com/video/1181575256?h=867ea97e11&color=f97c53&title=0&byline=0&portrait=0&controls=0&autoplay=1&muted=1&loop=1&autopause=0"
+            src="https://player.vimeo.com/video/1181575256?h=867ea97e11?color=f97c53&title=0&byline=0&portrait=0&controls=0&autoplay=1&muted=1&loop=1&autopause=0"
             frameborder="0"
             allow="autoplay; fullscreen; picture-in-picture"
             allowfullscreen
@@ -968,20 +898,76 @@
 <!-- MAIN CONTENT -->
 <div class="page-content">
 
-  <!-- What This Course Covers -->
-  <div class="section" id="s-covers">
+  <!-- Course Lessons -->
+  <div class="section" id="s-lessons">
     <div class="section-eyebrow">
       <div class="section-eyebrow-dot"></div>
-      <h2 class="section-title">What This Course Covers</h2>
+      <h2 class="section-title">Course Lessons</h2>
     </div>
-    <ul class="covers-list">
-      <li>Building a shared safety culture across your organization</li>
-      <li>Identifying concerning behavior before it escalates</li>
-      <li>Practical ways to support someone who may be struggling</li>
-      <li>Clear guidance on when to report and why early matters</li>
-      <li>What to expect after reporting — how teams assess and respond</li>
-      <li>How to act in urgent, high-risk situations</li>
-    </ul>
+    <div class="lessons-list">
+
+      <div class="lesson-item">
+        <div class="lesson-num">1</div>
+        <div class="lesson-text">
+          <div class="lesson-title">Introduction to Safety Culture</div>
+          <div class="lesson-desc">What does a “safety culture” mean in real life? This video shows how small, everyday actions—like noticing, checking in, and speaking up—add up to a community where people look out for each other.</div>
+        </div>
+      </div>
+      <div class="lesson-item">
+        <div class="lesson-num">2</div>
+        <div class="lesson-text">
+          <div class="lesson-title">The Pathway to Violence</div>
+          <div class="lesson-desc">Concerning behavior rarely appears out of nowhere. This video introduces the idea of a pathway to violence and helps viewers understand what to notice—without expecting them to diagnose or predict outcomes.</div>
+        </div>
+      </div>
+      <div class="lesson-item">
+        <div class="lesson-num">3</div>
+        <div class="lesson-text">
+          <div class="lesson-title">How to Support Someone in Crisis</div>
+          <div class="lesson-desc">When someone is struggling, you don’t need perfect words—you need a place to start. This video offers simple, grounded ways to notice, listen, and connect someone to support.</div>
+        </div>
+      </div>
+      <div class="lesson-item">
+        <div class="lesson-num">4</div>
+        <div class="lesson-text">
+          <div class="lesson-title">Listening(TM)</div>
+          <div class="lesson-desc">A not-so-subtle ad for a skill we all think we have. This piece highlights common ways we miss the mark—and what real listening looks like.</div>
+        </div>
+      </div>
+      <div class="lesson-item">
+        <div class="lesson-num">5</div>
+        <div class="lesson-text">
+          <div class="lesson-title">When to Share a Concern</div>
+          <div class="lesson-desc">Not everything requires a report—but some things do. This video helps viewers recognize when it’s time to loop in support and why early sharing matters.</div>
+        </div>
+      </div>
+      <div class="lesson-item">
+        <div class="lesson-num">6</div>
+        <div class="lesson-text">
+          <div class="lesson-title">What Happens After You Report?</div>
+          <div class="lesson-desc">You raised a concern, now what? This video demystifies the process, showing how teams assess situations, coordinate support, and focus on keeping people safe.</div>
+        </div>
+      </div>
+      <div class="lesson-item">
+        <div class="lesson-num">7</div>
+        <div class="lesson-text">
+          <div class="lesson-title">What to do When There's an Immediate Threat</div>
+          <div class="lesson-desc">In rare but urgent situations, clear action matters. This video walks through practical steps to protect yourself and others when something feels immediately unsafe.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Strip -->
+  <div class="cta-strip">
+    <div>
+      <h2>Ready to license this course?</h2>
+      <p>Get instant demo access or talk to us about pricing for your organization.</p>
+    </div>
+    <div class="cta-actions">
+      <a href="demo.html" class="btn-orange">Watch a Demo</a>
+      <a href="request-a-quote.html" class="btn-ghost-dark">Request a Quote</a>
+    </div>
   </div>
 
   <!-- Full Access Promo Bar -->
@@ -991,105 +977,6 @@
       <span>Get full access to the Blue Seat Studios catalog — every course, every update, one license.</span>
     </div>
     <a href="full_access.html" class="btn-white">Explore Full Access</a>
-  </div>
-
-  <!-- Course Lessons -->
-  <div class="section" id="s-lessons">
-    <div class="section-eyebrow">
-      <div class="section-eyebrow-dot"></div>
-      <h2 class="section-title">Course Lessons</h2>
-    </div>
-    <div class="accordion">
-
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">1</div>
-          <div class="accordion-header-text"><span class="accordion-title">Introduction to Safety Culture</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">What does a “safety culture” mean in real life? This video shows how small, everyday actions—like noticing, checking in, and speaking up—add up to a community where people look out for each other.</div></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">2</div>
-          <div class="accordion-header-text"><span class="accordion-title">The Pathway to Violence</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">Concerning behavior rarely appears out of nowhere. This video introduces the idea of a pathway to violence and helps viewers understand what to notice—without expecting them to diagnose or predict outcomes.</div></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">3</div>
-          <div class="accordion-header-text"><span class="accordion-title">How to Support Someone in Crisis</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">When someone is struggling, you don’t need perfect words—you need a place to start. This video offers simple, grounded ways to notice, listen, and connect someone to support.</div></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">4</div>
-          <div class="accordion-header-text"><span class="accordion-title">Listening(TM)</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">A not-so-subtle ad for a skill we all think we have. This piece highlights common ways we miss the mark—and what real listening looks like.</div></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">5</div>
-          <div class="accordion-header-text"><span class="accordion-title">When to Share a Concern</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">Not everything requires a report—but some things do. This video helps viewers recognize when it’s time to loop in support and why early sharing matters.</div></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">6</div>
-          <div class="accordion-header-text"><span class="accordion-title">What Happens After You Report?</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">You raised a concern, now what? This video demystifies the process, showing how teams assess situations, coordinate support, and focus on keeping people safe.</div></div>
-      </div>
-      <div class="accordion-item">
-        <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-num">7</div>
-          <div class="accordion-header-text"><span class="accordion-title">What to do When There's an Immediate Threat</span></div>
-          <div class="accordion-chevron"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></div>
-        </button>
-        <div class="accordion-body"><div class="accordion-body-inner">In rare but urgent situations, clear action matters. This video walks through practical steps to protect yourself and others when something feels immediately unsafe.</div></div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- How Licensing Works -->
-  <div class="section" id="s-licensing">
-    <div class="section-eyebrow">
-      <div class="section-eyebrow-dot"></div>
-      <h2 class="section-title">How Licensing Works</h2>
-    </div>
-    <div class="licensing-grid">
-      <div class="license-card">
-        <div class="license-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-        </div>
-        <h3>Annual Licensing</h3>
-        <p>A single yearly fee covers unlimited use across your organization — no per-seat costs or surprise renewals.</p>
-      </div>
-      <div class="license-card">
-        <div class="license-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h3>Organization-Wide Access</h3>
-        <p>Deploy to every employee, department, and location — no limits on how many people complete the course.</p>
-      </div>
-      <div class="license-card">
-        <div class="license-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-        </div>
-        <h3>LMS Compatible</h3>
-        <p>Can be deployed on your internal LMS or hosted directly by us — whichever works best for your organization.</p>
-      </div>
-    </div>
   </div>
 
   <!-- Related Courses -->
@@ -1132,15 +1019,34 @@
     </div>
   </div>
 
-  <!-- CTA Strip -->
-  <div class="cta-strip">
-    <div>
-      <h2>Ready to license this course?</h2>
-      <p>Get instant demo access or talk to us about pricing for your organization.</p>
+  <!-- How Licensing Works -->
+  <div class="section" id="s-licensing">
+    <div class="section-eyebrow">
+      <div class="section-eyebrow-dot"></div>
+      <h2 class="section-title">How Licensing Works</h2>
     </div>
-    <div class="cta-actions">
-      <a href="demo.html" class="btn-orange">Watch a Demo</a>
-      <a href="request-a-quote.html" class="btn-ghost-dark">Request a Quote</a>
+    <div class="licensing-grid">
+      <div class="license-card">
+        <div class="license-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <h3>Annual Licensing</h3>
+        <p>A single yearly fee covers unlimited use across your organization — no per-seat costs or surprise renewals.</p>
+      </div>
+      <div class="license-card">
+        <div class="license-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h3>Organization-Wide Access</h3>
+        <p>Deploy to every employee, department, and location — no limits on how many people complete the course.</p>
+      </div>
+      <div class="license-card">
+        <div class="license-card-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>LMS Compatible</h3>
+        <p>Can be deployed on your internal LMS or hosted directly by us — whichever works best for your organization.</p>
+      </div>
     </div>
   </div>
 
@@ -1162,26 +1068,7 @@
 </footer>
 
 <script>
-  function toggleAccordion(trigger) {
-    const item = trigger.closest('.accordion-item');
-    const body = item.querySelector('.accordion-body');
-    const isOpen = item.classList.contains('open');
-
-    // Close all open items
-    document.querySelectorAll('.accordion-item.open').forEach(openItem => {
-      openItem.classList.remove('open');
-      openItem.querySelector('.accordion-body').style.maxHeight = '0';
-    });
-
-    // Open clicked item if it was closed
-    if (!isOpen) {
-      item.classList.add('open');
-      body.style.maxHeight = body.scrollHeight + 'px';
-    }
-  }
-
   // ── NAV SCROLL ──
-  window.addEventListener('scroll', () => {
     document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
   });
 
