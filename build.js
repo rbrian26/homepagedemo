@@ -287,14 +287,13 @@ function buildReleaseCalendar(courses) {
 
   const audienceMap = { workplace: 'Workplace', highered: 'Higher Ed', k12: 'K–12' };
 
-  const cardsHTML = sortedDates.map(date => {
-    const groupCards = byDate[date].map(c => {
-      const audiences = c.audience.split('|').map(a => {
-        const label = audienceMap[a.trim()] || a.trim();
-        return `<span class="card-audience-tag">${label}</span>`;
-      }).join('');
+  const allCards = sortedDates.flatMap(date => byDate[date].map(c => {
+    const audiences = c.audience.split('|').map(a => {
+      const label = audienceMap[a.trim()] || a.trim();
+      return `<span class="card-audience-tag">${label}</span>`;
+    }).join('');
 
-      return `
+    return `
     <div class="course-card">
       <div class="card-thumb">
         <img src="/assets/images/courses/${c.thumb}" alt="${c.title}" onerror="this.style.display='none'">
@@ -307,20 +306,14 @@ function buildReleaseCalendar(courses) {
         </div>
         <div class="card-title">${c.title}</div>
         <div class="card-audience-tags">${audiences}</div>
-        <div class="card-desc">${c.desc}</div>
         <div class="card-actions">
           <a href="${c.comingSoonPageHref || c.href}" class="card-btn">Learn More</a>
         </div>
       </div>
     </div>`;
-    }).join('\n');
+  }));
 
-    return `
-  <div class="section-label">${date}</div>
-  <div class="course-cards">
-    ${groupCards}
-  </div>`;
-  }).join('\n');
+  const cardsHTML = `<div class="course-cards">${allCards.join('\n')}</div>`;
 
   const output = readTemplate('preorder.html')
     .replace('<!-- __RELEASE_CARDS__ -->', cardsHTML);
