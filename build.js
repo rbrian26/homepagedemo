@@ -320,6 +320,26 @@ function buildReleaseCalendar(courses) {
   write(path.join(DIST, 'preorder.html'), output);
 }
 
+// ── HOMEPAGE ───────────────────────────────────────────────────────────────────
+function buildHomepage(testimonials) {
+  const testimonialsHTML = testimonials.map(t => `
+        <div class="testimonial-card">
+          <div class="testimonial-body">"${t.quote}"</div>
+          <div class="testimonial-footer">
+            <div class="testimonial-avatar">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+            </div>
+            <div class="testimonial-attr">
+              <strong>${t.name}</strong><br>${t.title}, ${t.org}
+            </div>
+          </div>
+        </div>`).join('\n');
+
+  const output = readTemplate('index.html')
+    .replace('<!-- __TESTIMONIALS__ -->', testimonialsHTML);
+  write(path.join(DIST, 'index.html'), output);
+}
+
 // ── DEMO PAGES ─────────────────────────────────────────────────────────────────
 function buildDemoPages(demoPages, demoVideos) {
   const videosByCourse = {};
@@ -374,13 +394,17 @@ function buildDemoPages(demoPages, demoVideos) {
 // ── MAIN ───────────────────────────────────────────────────────────────────────
 console.log('\n🔨 Blue Seat Studios — Build\n');
 
-const catalog    = readCSV(path.join(__dirname, 'data', 'catalog.csv'));
+const catalog       = readCSV(path.join(__dirname, 'data', 'catalog.csv'));
+const testimonials  = readCSV(path.join(__dirname, 'data', 'testimonials.csv'));
 const catalogOrder = readCSV(path.join(__dirname, 'data', 'catalog-order.csv'));
 const featuredCSV  = readCSV(path.join(__dirname, 'data', 'featured-courses.csv'));
 const relatedCSV   = readCSV(path.join(__dirname, 'data', 'related-courses.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
 const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
 const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
+
+console.log('Building homepage...');
+if (testimonials.length) buildHomepage(testimonials);
 
 console.log('Building catalog...');
 if (catalog.length) buildCatalog(catalog, catalogOrder, featuredCSV);
