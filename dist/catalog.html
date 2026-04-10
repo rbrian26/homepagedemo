@@ -1313,7 +1313,7 @@
 <div class="trailer-modal-overlay" id="trailer-modal-overlay" onclick="closeTrailer(event)">
   <div class="trailer-modal" id="trailer-modal">
     <div class="trailer-video-wrap">
-      <iframe id="trailer-iframe" src="" allow="fullscreen; picture-in-picture" allowfullscreen></iframe>
+      <iframe id="trailer-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
       <!-- Close -->
       <button class="trailer-close-btn" onclick="closeTrailerDirect()" title="Close">✕</button>
       <!-- Center play/pause -->
@@ -1824,6 +1824,7 @@ function openTrailer(vimeoId, vimeoHash, title, href) {
   trailerMuted = false;
   trailerPlayer = null;
   setTrailerMuteUI(false);
+  document.getElementById('tvc-mute-label').textContent = 'Mute';
   setTrailerPlayUI(false);
   document.getElementById('trailer-center-play').classList.remove('hidden');
 
@@ -1837,7 +1838,7 @@ function openTrailer(vimeoId, vimeoHash, title, href) {
   iframe.src = '';
   setTimeout(() => {
     iframe.src = 'https://player.vimeo.com/video/' + vimeoId
-      + '?color=f97c53&title=0&byline=0&portrait=0'
+      + '?color=f97c53&title=0&byline=0&portrait=0&muted=0'
       + (vimeoHash ? '&h=' + vimeoHash : '');
     setTimeout(() => {
       try {
