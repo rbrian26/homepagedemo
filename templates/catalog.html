@@ -94,67 +94,22 @@
 
     /* ── HERO ── */
     .hero {
-      position: relative;
-      height: 80vh;
-      min-height: 520px;
-      max-height: 760px;
-      overflow: hidden;
-      background: var(--navy);
-    }
-
-    .hero-video-wrap {
-      position: absolute;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
-
-    .vimeo-sizer {
-      position: absolute;
-      top: 50%; left: 50%;
-      width: 100vw;
-      height: 56.25vw;
-      min-height: 100%;
-      min-width: 177.78vh;
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-    }
-
-    .vimeo-sizer iframe {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      border: 0;
-    }
-
-    .hero-gradient { display: none; }
-
-    .hero-gradient-top { display: none; }
-
-    .hero-bottom-gradient {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 38%;
-      z-index: 1;
-      background: linear-gradient(
-        to top,
-        rgba(9,111,156,0.92) 0%,
-        rgba(9,111,156,0.55) 45%,
-        transparent 100%
-      );
-      pointer-events: none;
+      background: linear-gradient(to bottom, #ffffff 0%, #096f9c 65%, #0a2233 100%);
+      min-height: 260px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 4rem 2.5rem;
     }
 
     .hero-content {
-      position: absolute;
-      z-index: 2;
-      bottom: 2.2rem;
-      left: 4rem;
-      right: 4rem;
       display: flex;
-      align-items: flex-end;
+      align-items: center;
       justify-content: space-between;
       gap: 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+      width: 100%;
       animation: fadeUp 0.8s ease both;
     }
 
@@ -242,49 +197,6 @@
     }
 
     .btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
-
-    .mute-btn {
-      position: absolute;
-      top: 80px;
-      right: 3rem;
-      z-index: 3;
-      background: var(--orange);
-      border: none;
-      color: #fff;
-      border-radius: 50%;
-      width: 38px; height: 38px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-      box-shadow: 0 2px 10px rgba(249,124,83,0.35);
-    }
-
-    .mute-btn:hover { background: var(--orange-dk); transform: scale(1.08); }
-    .mute-btn svg { width: 16px; height: 16px; }
-
-    .hero-preview-label {
-      position: absolute;
-      top: 5.5rem;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      background: rgba(9,111,156,0.75);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,0.2);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      padding: 0.4rem 1rem;
-      border-radius: 50px;
-      opacity: 0;
-      transition: opacity 0.3s;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-
-    .hero-preview-label.visible { opacity: 1; }
 
     /* ── FILTER BAR ── */
     .filter-bar {
@@ -1146,8 +1058,7 @@
       nav { padding: 0 1.5rem; }
       .filter-bar { padding: 0 1.5rem; top: 72px; }
       .catalog-body { padding: 2rem 0 6rem; }
-      .hero-content { left: 1.5rem; right: 1.5rem; bottom: 1.5rem; }
-      .mute-btn { right: 1.5rem; top: 80px; }
+      .hero { padding: 0 1.5rem 2rem; min-height: 200px; }
       .nav-links li:not(:last-child) { display: none; }
       .section-header { padding: 0 1.5rem; }
       .card-track { padding: 0.5rem 1.5rem 1rem; }
@@ -1201,21 +1112,6 @@
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-video-wrap">
-    <div class="vimeo-sizer">
-      <iframe
-        id="hero-video"
-        src="https://player.vimeo.com/video/1152648266?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1"
-        frameborder="0"
-        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
-        title="Blue Seat Studios Demo Reel">
-      </iframe>
-    </div>
-  </div>
-  <div class="hero-gradient"></div>
-  <div class="hero-gradient-top"></div>
-  <div class="hero-bottom-gradient"></div>
-
   <div class="hero-content">
     <div class="hero-left">
       <h1>Explore the <span>Blue Seat</span> Catalog.</h1>
@@ -1229,21 +1125,6 @@
       <a href="request-a-quote.html" class="btn-ghost">Get Pricing</a>
     </div>
   </div>
-
-  <div class="hero-preview-label" id="hero-preview-label"></div>
-
-  <button class="mute-btn" id="mute-btn" onclick="toggleMute()" title="Toggle audio">
-    <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <line x1="23" y1="9" x2="17" y2="15"></line>
-      <line x1="17" y1="9" x2="23" y2="15"></line>
-    </svg>
-    <svg id="icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-    </svg>
-  </button>
 </section>
 
 <!-- FILTER BAR -->
@@ -1648,25 +1529,6 @@ document.getElementById('audience-tabs').addEventListener('click', e => {
 window.addEventListener('scroll', () => {
   document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
 });
-
-// ── MUTE ──────────────────────────────────────────────────────────────────────
-var heroPlayer;
-var isMuted = true;
-
-document.addEventListener('DOMContentLoaded', () => {
-  try {
-    heroPlayer = new Vimeo.Player(document.getElementById('hero-video'));
-  } catch(e) {}
-});
-
-function toggleMute() {
-  if (!heroPlayer) return;
-  isMuted = !isMuted;
-  heroPlayer.setMuted(isMuted);
-  if (!isMuted) heroPlayer.setVolume(1);
-  document.getElementById('icon-muted').style.display = isMuted ? 'block' : 'none';
-  document.getElementById('icon-sound').style.display = isMuted ? 'none' : 'block';
-}
 
 // ── LIGHTBOX ──────────────────────────────────────────────────────────────────
 function openLightbox(card) {
