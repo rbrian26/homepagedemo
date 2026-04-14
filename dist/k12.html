@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>K–12 Training — Blue Seat Studios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:      #096f9c;
+      --blue-dk:   #065578;
+      --blue-lt:   #d6edf7;
+      --blue-pale: #eef7fc;
+      --orange:    #f97c53;
+      --orange-dk: #e05e35;
+      --cream:     #faf8f5;
+      --white:     #ffffff;
+      --navy:      #0a2233;
+      --text:      #1c2b36;
+      --muted:     #5a7282;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Quicksand', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 3rem;
+      background: rgba(9,111,156,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-logo img { height: 60px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-cta { background: var(--orange) !important; color: #fff !important; padding: 0.5rem 1.4rem; border-radius: 50px; font-weight: 700 !important; transition: background 0.2s, transform 0.15s !important; display: inline-flex !important; align-items: center !important; }
+    .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
+
+    /* ── BUTTONS ── */
+    .btn-orange {
+      background: var(--orange); color: #fff; padding: 0.85rem 2rem; border-radius: 50px;
+      font-weight: 700; font-size: 1rem; font-family: 'Quicksand', sans-serif; text-decoration: none;
+      transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-orange:hover { background: var(--orange-dk); transform: translateY(-2px); }
+    .btn-ghost-light {
+      background: rgba(255,255,255,0.12); color: #fff; padding: 0.85rem 2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; font-family: 'Quicksand', sans-serif; text-decoration: none;
+      border: 1.5px solid rgba(255,255,255,0.4); transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center;
+    }
+    .btn-ghost-light:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+    .btn-ghost {
+      background: transparent; color: var(--blue); padding: 0.85rem 2rem; border-radius: 50px;
+      font-weight: 600; font-size: 1rem; font-family: 'Quicksand', sans-serif; text-decoration: none;
+      border: 2px solid var(--blue); transition: background 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center;
+    }
+    .btn-ghost:hover { background: var(--blue-lt); transform: translateY(-2px); }
+
+    /* ── SHARED ── */
+    .section-label { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.6rem; }
+    .section-title { font-size: clamp(1.65rem,2.6vw,2.3rem); font-weight: 700; line-height: 1.2; color: var(--navy); margin-bottom: 1rem; }
+
+    /* ── HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, #0d1f2d 0%, #084060 100%);
+      padding: 9rem 3rem 5.5rem;
+    }
+    .page-hero-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 3.5rem; align-items: center; }
+    .hero-courses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+    .hero-courses-grid .course-card { background: rgba(255,255,255,0.97); }
+    .page-hero .eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.75rem; }
+    .page-hero h1 { font-size: clamp(2.4rem, 4.5vw, 3.6rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 1.2rem; letter-spacing: -0.02em; }
+    .page-hero h1 em { font-style: normal; color: var(--orange); }
+    .page-hero p { font-size: 1.12rem; color: rgba(255,255,255,0.8); line-height: 1.65; font-weight: 500; margin-bottom: 2rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* ── PACKAGE ── */
+    .package-wrap { background: var(--navy); padding: 5rem 3rem; }
+    .package-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; align-items: center; }
+    .package-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--orange); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 50px; margin-bottom: 1rem; }
+    .package-title { font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+    .package-desc { font-size: 1rem; color: rgba(255,255,255,0.72); line-height: 1.7; font-weight: 500; margin-bottom: 2rem; }
+    .package-cta-group { display: flex; gap: 1rem; flex-wrap: wrap; }
+    /* ── CARD FAN ── */
+    .fan-wrap-box {
+      background: rgba(255,255,255,0.13); border: 1.5px solid rgba(255,255,255,0.22);
+      border-radius: 24px; padding: 1.75rem 1.5rem 1.25rem;
+      backdrop-filter: blur(8px); position: relative; overflow: hidden;
+    }
+    .fan-bundle-ribbon {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 20;
+      background: #f97c53; color: #fff;
+      font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+      text-align: center; padding: 0.45rem 1rem;
+      pointer-events: none;
+    }
+    .card-fan-wrap {
+      display: flex; align-items: flex-end; justify-content: center;
+    }
+    .fan-card {
+      width: 195px; min-height: 320px;
+      border-radius: 14px; overflow: hidden;
+      background: #fff; text-decoration: none; cursor: pointer;
+      box-shadow: 0 8px 28px rgba(0,0,0,0.32);
+      transition: transform 0.28s ease, box-shadow 0.28s ease, z-index 0s;
+      position: relative; flex-shrink: 0; z-index: 1;
+    }
+    .fan-card + .fan-card { margin-left: -28px; }
+    .fan-card:nth-child(2) { transform: scale(1.08) translateY(-10px); z-index: 2; box-shadow: 0 14px 40px rgba(0,0,0,0.38); }
+    .fan-card:nth-child(2):hover { transform: scale(1.13) translateY(-18px); }
+    .fan-card:hover { transform: translateY(-14px) scale(1.06); z-index: 10; box-shadow: 0 22px 52px rgba(9,111,156,0.38); }
+    .four-cards .fan-card { width: 163px; }
+    .four-cards .fan-card + .fan-card { margin-left: -38px; }
+    .four-cards .fan-card:nth-child(2) { transform: scale(1.08) translateY(-10px); z-index: 2; }
+    .four-cards .fan-card:nth-child(2):hover { transform: scale(1.13) translateY(-18px); }
+    .fan-card img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+    .fan-card-body { padding: 0.75rem 0.9rem 0.9rem; }
+    .fan-card-title { font-size: 0.8rem; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 0.3rem; }
+    .fan-card-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.5; font-weight: 500; margin-bottom: 0.45rem; }
+    .fan-card-status { font-size: 0.65rem; font-weight: 700; color: var(--muted); letter-spacing: 0.04em; }
+    .fan-card-status.available { color: #059669; }
+
+    /* ── COURSES ── */
+    .courses-wrap { background: var(--cream); padding: 5rem 3rem; }
+    .courses-inner { max-width: 1100px; margin: 0 auto; }
+    .courses-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    .course-card {
+      background: var(--white); border-radius: 16px; overflow: hidden;
+      border: 1.5px solid rgba(9,111,156,0.1);
+      transition: transform 0.2s, box-shadow 0.2s; text-decoration: none;
+    }
+    .course-card:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(9,111,156,0.12); }
+    .course-card-img-wrap { position: relative; aspect-ratio: 16/9; overflow: hidden; background: #eee; }
+    .course-card-img-wrap img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s; }
+    .course-card:hover .course-card-img-wrap img { transform: scale(1.03); }
+    .coming-soon-bar {
+      position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+      background: var(--orange); color: #fff;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.3rem 0.75rem; display: flex; justify-content: space-between;
+    }
+    .course-card-body { padding: 1.25rem 1.4rem 1.5rem; }
+    .course-card-title { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+    .course-card-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.6; font-weight: 500; }
+
+    /* ── DEPLOYMENT ── */
+    .deploy-wrap { background: var(--blue-pale); padding: 5rem 3rem; }
+    .deploy-inner { max-width: 1100px; margin: 0 auto; }
+    .deploy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 2.5rem; }
+    .deploy-card {
+      background: var(--white); border-radius: 20px; padding: 2.5rem 2rem;
+      border: 1.5px solid rgba(9,111,156,0.12);
+    }
+    .deploy-icon { width: 52px; height: 52px; border-radius: 14px; background: var(--blue-lt); display: flex; align-items: center; justify-content: center; margin-bottom: 1.2rem; }
+    .deploy-icon svg { width: 24px; height: 24px; stroke: var(--blue); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .deploy-card h3 { font-size: 1.25rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; }
+    .deploy-sub { font-size: 0.78rem; font-weight: 700; color: var(--orange); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 1.2rem; }
+    .deploy-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.65rem; }
+    .deploy-card li { font-size: 0.92rem; color: var(--muted); font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4; }
+    .deploy-card li::before { content: '✓'; color: var(--blue); font-weight: 700; flex-shrink: 0; }
+    .deploy-note { text-align: center; margin-top: 1.75rem; font-size: 0.95rem; color: var(--muted); font-weight: 600; }
+    .deploy-note strong { color: var(--navy); }
+
+    /* ── PREVIEW CLIPS ── */
+    .preview-wrap { background: var(--navy); padding: 5rem 3rem; }
+    .preview-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+    .preview-wrap .section-label { color: rgba(255,255,255,0.55); }
+    .preview-title { font-size: clamp(1.65rem,2.6vw,2.3rem); font-weight: 700; color: #fff; margin-bottom: 0.75rem; }
+    .preview-wrap > .preview-inner > p { font-size: 1rem; color: rgba(255,255,255,0.65); margin-bottom: 2rem; font-weight: 500; line-height: 1.65; }
+    .preview-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .preview-clip {
+      background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 12px; overflow: hidden; cursor: pointer;
+      transition: transform 0.2s, background 0.2s; text-align: left;
+    }
+    .preview-clip:hover { transform: translateY(-2px); background: rgba(255,255,255,0.1); }
+    .preview-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+    .preview-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .preview-play {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      background: rgba(0,0,0,0.28);
+    }
+    .preview-play svg { width: 42px; height: 42px; fill: rgba(255,255,255,0.92); }
+    .preview-body { padding: 0.9rem; }
+    .preview-tag { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.3rem; }
+    .preview-clip-title { font-size: 0.85rem; font-weight: 700; color: #fff; line-height: 1.3; }
+
+    /* ── VIDEO MODAL ── */
+    .video-modal-overlay {
+      display: none; position: fixed; inset: 0; z-index: 1000;
+      background: rgba(6,15,23,0.94); backdrop-filter: blur(10px);
+      align-items: center; justify-content: center;
+    }
+    .video-modal-overlay.open { display: flex; }
+    .video-modal { position: relative; width: 92%; max-width: 900px; animation: modalIn 0.25s ease both; }
+    @keyframes modalIn { from { opacity:0; transform:scale(0.95); } to { opacity:1; transform:scale(1); } }
+    .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.85rem; }
+    .modal-tag { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.2rem; }
+    .modal-title { font-size: 1rem; font-weight: 700; color: #fff; }
+    .modal-close { width: 36px; height: 36px; border-radius: 50%; background: rgba(255,255,255,0.15); border: none; cursor: pointer; color: #fff; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: background 0.2s; flex-shrink: 0; }
+    .modal-close:hover { background: rgba(255,255,255,0.28); }
+    .video-wrap { position: relative; }
+    .video-sizer { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; }
+    .video-sizer iframe { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 12px; }
+    .cta-overlay {
+      display: none; position: absolute; inset: 0; border-radius: 12px;
+      background: rgba(6,15,23,0.88);
+      flex-direction: column; align-items: center; justify-content: center; gap: 1rem; text-align: center; padding: 2rem;
+    }
+    .cta-overlay.show { display: flex; }
+    .cta-overlay p { font-size: 1.1rem; font-weight: 700; color: #fff; max-width: 320px; line-height: 1.45; }
+
+    /* ── CTA STRIP ── */
+    .cta-strip { background: var(--white); padding: 5rem 3rem; text-align: center; }
+    .cta-strip-inner { max-width: 580px; margin: 0 auto; }
+    .cta-strip .section-title { margin-bottom: 0.75rem; }
+    .cta-strip p { font-size: 1rem; color: var(--muted); line-height: 1.7; font-weight: 500; margin-bottom: 2rem; }
+    .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+    /* ── FOOTER ── */
+    footer { background: #060f17; color: rgba(255,255,255,0.38); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; font-weight: 500; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo img { height: 30px; width: auto; opacity: 0.72; }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.72); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0.9rem 1.5rem; }
+      .nav-links li:not(:last-child) { display: none; }
+      .page-hero-inner { grid-template-columns: 1fr; }
+      .package-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-courses-grid { grid-template-columns: 1fr 1fr; }
+      .courses-grid { grid-template-columns: 1fr; }
+      .deploy-grid { grid-template-columns: 1fr; }
+      .preview-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .page-hero { padding: 7rem 1.5rem 4rem; }
+      .package-wrap, .courses-wrap, .deploy-wrap, .preview-wrap, .cta-strip { padding: 3.5rem 1.5rem; }
+      .preview-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">
+    <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+  </div>
+  <ul class="nav-links">
+      <li><a href="/catalog.html">Catalog</a></li>
+      <li><a href="/workplace.html">Workplace</a></li>
+      <li><a href="/highered.html">Higher Ed</a></li>
+      <li><a href="/k12.html" class="active">K–12</a></li>
+      <li><a href="/about-us.html">About Us</a></li>
+      <li><a href="/contact.html">Contact Us</a></li>
+      <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
+  </ul>
+</nav>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-content">
+    <div class="eyebrow">K–12 Schools</div>
+    <h1>Training That Fits<br><em>Your School.</em></h1>
+    <p>Age-appropriate, engaging content that helps students and staff build the skills they need — for consent, safety, and mental health. Thoughtfully designed for the K–12 environment.</p>
+    <div class="hero-actions">
+      <a href="request-a-quote.html" class="btn-orange">Get Pricing</a>
+    </div>
+      </div>
+    <div class="hero-courses-grid">
+
+      <a href="/course-co-k12.html" class="course-card">
+        <div class="course-card-img-wrap">
+          <img src="/assets/images/courses/img_co-k12.png" alt="Consent (K–12)"
+               onmouseenter="this.src='/assets/images/courses/img_co-k12.gif'"
+               onmouseleave="this.src='/assets/images/courses/img_co-k12.png'" />
+        </div>
+        <div class="course-card-body">
+          <div class="course-card-title">Consent (K–12)</div>
+          <div class="course-card-desc">Age-appropriate, engaging lessons that help students understand bodily autonomy, boundaries, and consent. Builds skills for asking, listening, and respecting others from an early age.</div>
+        </div>
+      </a>
+
+      <a href="/course-ta.html" class="course-card">
+        <div class="course-card-img-wrap">
+          <img src="/assets/images/courses/img_ta.png" alt="Threat Assessment"
+               onmouseenter="this.src='/assets/images/courses/img_ta.gif'"
+               onmouseleave="this.src='/assets/images/courses/img_ta.png'" />
+        </div>
+        <div class="course-card-body">
+          <div class="course-card-title">Threat Assessment</div>
+          <div class="course-card-desc">Helps students, staff, and administrators recognize early warning signs and understand their role in keeping the school community safe.</div>
+        </div>
+      </a>
+
+      <a href="/coming-soon-mh-k12.html" class="course-card">
+        <div class="course-card-img-wrap">
+          <div class="coming-soon-bar"><span>Coming June 2026</span><span>Preorder →</span></div>
+          <img src="/assets/images/courses/img_mh-k12.png" alt="Mental Health Basics"
+               onmouseenter="this.src='/assets/images/courses/img_mh-k12.gif'"
+               onmouseleave="this.src='/assets/images/courses/img_mh-k12.png'" />
+        </div>
+        <div class="course-card-body">
+          <div class="course-card-title">Mental Health Basics</div>
+          <div class="course-card-desc">Helps students recognize and name their emotions, build self-awareness, and make more intentional choices in the moment. Reinforces that all emotions are part of being human.</div>
+        </div>
+      </a>
+
+      <a href="/course-by-k12.html" class="course-card">
+        <div class="course-card-img-wrap">
+          <img src="/assets/images/courses/img_by-k12.png" alt="Be a Bystander"
+               onmouseenter="this.src='/assets/images/courses/img_by-k12.gif'"
+               onmouseleave="this.src='/assets/images/courses/img_by-k12.png'" />
+        </div>
+        <div class="course-card-body">
+          <div class="course-card-title">Be a Bystander</div>
+          <div class="course-card-desc">Helps students recognize when something isn't right and take simple, age-appropriate action to support others and be part of a safer community.</div>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ PACKAGE ══ -->
+<div class="package-wrap">
+  <div class="package-inner">
+    <div>
+      <div class="package-badge">★ Package Deal</div>
+      <h2 class="package-title">School Safety Package</h2>
+      <p class="package-desc">Three courses that address the most critical needs in K–12 schools today — consent education, threat awareness, and student mental health — bundled and ready to deploy immediately.</p>
+      <div class="package-cta-group">
+        <a href="request-a-quote.html" class="btn-orange">Get Pricing</a>
+        <a href="contact.html" class="btn-ghost-light">Ask a Question</a>
+      </div>
+    </div>
+    <div class="fan-wrap-box">
+      <div class="card-fan-wrap">
+        <a href="/course-co-k12.html" class="fan-card">
+          <img src="/assets/images/courses/img_co-k12.png"
+               onmouseenter="this.src='/assets/images/courses/img_co-k12.gif'"
+               onmouseleave="this.src='/assets/images/courses/img_co-k12.png'" alt="Consent" />
+          <div class="fan-card-body">
+            <div class="fan-card-title">Consent (K–12)</div>
+            <div class="fan-card-desc">Age-appropriate lessons that help students understand bodily autonomy, boundaries, and consent from an early age.</div>
+            <div class="fan-card-status available">✓ Available now</div>
+          </div>
+        </a>
+        <a href="/course-ta-k12.html" class="fan-card">
+          <img src="/assets/images/courses/img_ta.png"
+               onmouseenter="this.src='/assets/images/courses/img_ta.gif'"
+               onmouseleave="this.src='/assets/images/courses/img_ta.png'" alt="Threat Assessment" />
+          <div class="fan-card-body">
+            <div class="fan-card-title">Threat Assessment</div>
+            <div class="fan-card-desc">Helps students and staff recognize early warning signs and understand their role in keeping the school community safe.</div>
+            <div class="fan-card-status available">✓ Available now</div>
+          </div>
+        </a>
+        <a href="/coming-soon-mh-k12.html" class="fan-card">
+          <img src="/assets/images/courses/img_mh-k12.png"
+               onmouseenter="this.src='/assets/images/courses/img_mh-k12.gif'"
+               onmouseleave="this.src='/assets/images/courses/img_mh-k12.png'" alt="Mental Health Basics" />
+          <div class="fan-card-body">
+            <div class="fan-card-title">Mental Health Basics</div>
+            <div class="fan-card-desc">Helps students recognize and name their emotions, build self-awareness, and make more intentional choices.</div>
+            <div class="fan-card-status">Coming June 2026</div>
+          </div>
+        </a>
+      </div>
+      <div class="fan-bundle-ribbon">Safety Bundle</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══ DEPLOYMENT ══ -->
+<div style="background: #eef7fc; padding: 5rem 3rem;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #f97c53; margin-bottom: 0.6rem; text-align:center;">Flexible Deployment</div>
+    <h2 style="font-size: clamp(1.65rem,2.6vw,2.3rem); font-weight: 700; color: #0a2233; margin-bottom: 3rem; line-height: 1.2; text-align:center;">Two Ways to Deploy — You Choose</h2>
+    <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center;">
+
+      <!-- We Host It -->
+      <div style="background: #fff; border-radius: 20px; border: 1.5px solid rgba(9,111,156,0.12); display:flex; overflow:hidden; min-height:260px;">
+        <div style="flex:0 0 38%; overflow:hidden; min-height:100%;">
+          <img src="/assets/images/ui/we_host.png" alt="We Host It" style="width:100%; height:100%; object-fit:cover; display:block;" onmouseenter="this.src='/assets/images/ui/we_host.gif'" onmouseleave="this.src='/assets/images/ui/we_host.png'">
+        </div>
+        <div style="flex:1; padding:2rem 1.75rem; display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size: clamp(1.6rem,2.4vw,2.1rem); font-weight: 800; color: #0a2233; margin-bottom: 0.2rem; line-height:1.1;">We Host It</h3>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #f97c53; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem;">Fully Managed</div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Completion tracking and reporting</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Built-in quizzes</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Certificates of completion</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Deploy the same day you purchase</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- OR circle -->
+      <div style="display:flex; align-items:center; justify-content:center; padding: 0 2rem;">
+        <div style="width:72px; height:72px; border-radius:50%; background:#f97c53; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 18px rgba(249,124,83,0.35);">
+          <span style="font-size:1.25rem; font-weight:900; color:#fff; letter-spacing:-0.03em;">OR</span>
+        </div>
+      </div>
+
+      <!-- You Host It -->
+      <div style="background: #fff; border-radius: 20px; border: 1.5px solid rgba(9,111,156,0.12); display:flex; overflow:hidden; min-height:260px;">
+        <div style="flex:0 0 38%; overflow:hidden; min-height:100%;">
+          <img src="/assets/images/ui/you_host.png" alt="You Host It" style="width:100%; height:100%; object-fit:cover; display:block;" onmouseenter="this.src='/assets/images/ui/you_host.gif'" onmouseleave="this.src='/assets/images/ui/you_host.png'">
+        </div>
+        <div style="flex:1; padding:2rem 1.75rem; display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size: clamp(1.6rem,2.4vw,2.1rem); font-weight: 800; color: #0a2233; margin-bottom: 0.2rem; line-height:1.1;">You Host It</h3>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #f97c53; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem;">SCORM Compatible</div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>SCORM package for your LMS</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Compatible with all major platforms</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Your branding, your environment</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Deploy the same day you purchase</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">
+    <img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" />
+  </div>
+  <ul class="footer-links">
+    <li><a href="workplace.html">Workplace</a></li>
+    <li><a href="highered.html">Higher Ed</a></li>
+    <li><a href="k12.html">K–12</a></li>
+    <li><a href="#">Privacy</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div>© 2025 Blue Seat Studios. All rights reserved.</div>
+</footer>
+
+<!-- ══ VIDEO MODAL ══ -->
+<div class="video-modal-overlay" id="videoModal" onclick="handleOverlayClick(event)">
+  <div class="video-modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-tag" id="modalTag"></div>
+        <div class="modal-title" id="modalTitle"></div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="video-wrap">
+      <div class="video-sizer">
+        <iframe id="modalFrame" src="" frameborder="0"
+          allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <div class="cta-overlay" id="ctaOverlay">
+        <p>Want to see the full course?</p>
+        <a href="request-a-quote.html" class="btn-orange">Get Pricing →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  let ctaTimer;
+
+  function openClip(vimeoId, hash, title, tag) {
+    document.getElementById('modalTag').textContent = tag;
+    document.getElementById('modalTitle').textContent = title;
+    document.getElementById('modalFrame').src =
+      'https://player.vimeo.com/video/' + vimeoId + '?h=' + hash + '&autoplay=1&title=0&byline=0&portrait=0';
+    document.getElementById('ctaOverlay').classList.remove('show');
+    document.getElementById('videoModal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    ctaTimer = setTimeout(function() {
+      document.getElementById('ctaOverlay').classList.add('show');
+    }, 60000);
+  }
+
+  function closeModal() {
+    clearTimeout(ctaTimer);
+    document.getElementById('videoModal').classList.remove('open');
+    document.getElementById('modalFrame').src = '';
+    document.body.style.overflow = '';
+  }
+
+  function handleOverlayClick(e) {
+    if (e.target === document.getElementById('videoModal')) closeModal();
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeModal();
+  });
+</script>
+
+</body>
+</html>

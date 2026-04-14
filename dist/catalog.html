@@ -1188,12 +1188,13 @@
   </div>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="catalog.html" class="active">Catalog</a></li>
-      <li><a href="catalog.html?audience=workplace">Workplace</a></li>
-      <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
-      <li><a href="catalog.html?audience=k12">K–12</a></li>
-      <li><a href="about-us.html">About</a></li>
-      <li><a href="demo.html" class="nav-cta">Demo</a></li>
+      <li><a href="/catalog.html" class="active">Catalog</a></li>
+      <li><a href="/workplace.html">Workplace</a></li>
+      <li><a href="/highered.html">Higher Ed</a></li>
+      <li><a href="/k12.html">K–12</a></li>
+      <li><a href="/about-us.html">About Us</a></li>
+      <li><a href="/contact.html">Contact Us</a></li>
+      <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
     </ul>
   </div>
 </nav>
@@ -1221,10 +1222,10 @@
       <p class="hero-sub">Award-winning animated courses for workplace, higher ed, and K–12 — training that sticks.</p>
     </div>
     <div class="hero-actions">
-      <a href="demo.html" class="btn-orange">
+      <button onclick="openDemoModal()" class="btn-orange" style="cursor:pointer;border:none;font:inherit;line-height:inherit;letter-spacing:inherit;">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         Watch a Demo
-      </a>
+      </button>
       <a href="request-a-quote.html" class="btn-ghost">Get Pricing</a>
     </div>
   </div>
@@ -1264,7 +1265,7 @@
 <section class="featured-section">
   <div class="featured-section-header">
     <div class="featured-section-eyebrow">★ Featured Courses</div>
-    <h2>See What We Do</h2>
+    <h2>Watch a Course Trailer</h2>
   </div>
   <div class="featured-grid">
     <div class="featured-card" onclick="openTrailer('1181577191','eb9cbcb589','Sexual Harassment Prevention','/course-shp.html')">
@@ -1344,6 +1345,48 @@
 </div>
 
 <!-- LIGHTBOX -->
+<!-- ══ DEMO MODAL (hero + course trailers) ══ -->
+<div id="demoModal" style="display:none; position:fixed; inset:0; z-index:9000; background:rgba(10,34,51,0.85); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+  <div style="position:relative; width:90%; max-width:900px; background:#0a2233; border-radius:16px; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+    <button onclick="closeDemoModal()" style="position:absolute; top:12px; right:12px; z-index:20; background:rgba(255,255,255,0.12); border:none; color:#fff; border-radius:50%; width:36px; height:36px; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+    <div style="position:absolute; top:12px; left:16px; z-index:20; display:flex; gap:0.5rem; align-items:center; background:rgba(255,255,255,0.88); backdrop-filter:blur(4px); border-radius:50px; padding:0.25rem 0.85rem 0.25rem 0.25rem;">
+      <span id="demoModalTag" style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:#f97c53; color:#fff; padding:0.2rem 0.6rem; border-radius:50px;"></span>
+      <span id="demoModalTitle" style="font-size:0.82rem; font-weight:600; color:#2d3748;"></span>
+    </div>
+    <div id="demoModalPoster" onclick="startDemoVideo()" style="aspect-ratio:16/9; width:100%; cursor:pointer; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#0a2233 0%,#096f9c 100%); background-size:cover; background-position:center; position:relative;">
+      <div style="position:absolute; inset:0; background:rgba(10,34,51,0.35); pointer-events:none;"></div>
+      <div id="demoPlayBtn" style="position:relative; z-index:2; width:80px; height:80px; background:#f97c53; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 32px rgba(249,124,83,0.45); transition:transform 0.2s, box-shadow 0.2s;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </div>
+    <div id="demoModalVideoWrap" style="display:none; position:relative; aspect-ratio:16/9; width:100%;">
+      <iframe id="demoModalFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="display:block;"></iframe>
+      <div style="position:absolute; bottom:54px; right:14px; z-index:15; display:flex; gap:0.5rem; align-items:center;">
+        <button onclick="rewatchDemo()" title="Watch again" style="background:#f97c53; border:none; color:#fff; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s, transform 0.15s; box-shadow:0 3px 12px rgba(249,124,83,0.45);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+        </button>
+        <button id="demoMuteBtn" onclick="toggleDemoMute()" title="Toggle mute" style="background:#f97c53; border:none; color:#fff; border-radius:50px; height:36px; padding:0 1rem; display:flex; align-items:center; justify-content:center; gap:0.4rem; cursor:pointer; transition:background 0.2s, transform 0.15s; box-shadow:0 3px 12px rgba(249,124,83,0.45); font-family:'Quicksand',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.04em;">
+          <svg id="demoIconUnmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <svg id="demoIconMuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <span id="demoMuteLabel">Mute</span>
+        </button>
+      </div>
+      <div id="demoModalCta" style="display:none; position:absolute; inset:0; background:rgba(10,34,51,0.9); align-items:center; justify-content:center; flex-direction:column; gap:1.2rem; text-align:center; padding:2rem; z-index:14;">
+        <p style="font-size:1.3rem; font-weight:700; color:#fff; margin:0;">Want to see more?</p>
+        <p style="font-size:0.95rem; color:rgba(255,255,255,0.8); margin:0;">License our courses for your organization.</p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+          <a href="request-a-quote.html" style="background:#f97c53; color:#fff; font-weight:700; padding:0.75rem 1.75rem; border-radius:50px; text-decoration:none; font-size:0.95rem;">Get Pricing</a>
+          <a href="#" onclick="closeDemoModal(); return false;" style="background:transparent; color:rgba(255,255,255,0.7); border:1.5px solid rgba(255,255,255,0.3); font-weight:600; padding:0.75rem 1.5rem; border-radius:50px; font-size:0.95rem; text-decoration:none; display:inline-flex; align-items:center;">Keep Browsing</a>
+        </div>
+      </div>
+    </div>
+    <div style="background:#060f17; padding:0.75rem 1rem; display:flex; align-items:center; gap:0.75rem;">
+      <div id="demoNavItems" style="flex:1; display:flex; gap:0.5rem; min-width:0; overflow:hidden;"></div>
+      <a href="request-a-quote.html" style="flex-shrink:0; background:#f97c53; color:#fff; font-weight:700; font-size:0.78rem; padding:0.45rem 1rem; border-radius:50px; text-decoration:none; white-space:nowrap;">Get Pricing →</a>
+    </div>
+  </div>
+</div>
+
 <div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" onclick="closeLightboxDirect()">✕</button>
@@ -1399,7 +1442,7 @@ const COURSES = {
       "href": "/course-ta.html",
       "comingSoonDate": "",
       "comingSoon": false,
-      "desc": "Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
+      "desc": "Helps your organization recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
       "isStaff": false
     },
     {
@@ -1449,39 +1492,6 @@ const COURSES = {
       "isStaff": false
     },
     {
-      "id": "co-he",
-      "title": "Consent",
-      "thumb": "/assets/images/courses/img_co-he.png",
-      "thumbGif": "/assets/images/courses/img_co-he.gif",
-      "href": "/course-co-he.html",
-      "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Clear, engaging guidance on consent that reflects real-life situations students face. Helps students understand boundaries, communicate clearly, and make better decisions in the moment.",
-      "isStaff": false
-    },
-    {
-      "id": "ta",
-      "title": "Threat Assessment",
-      "thumb": "/assets/images/courses/img_ta.png",
-      "thumbGif": "/assets/images/courses/img_ta.gif",
-      "href": "/course-ta.html",
-      "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
-      "isStaff": false
-    },
-    {
-      "id": "by-he",
-      "title": "Bystander Intervention",
-      "thumb": "/assets/images/courses/img_by-he.png",
-      "thumbGif": "/assets/images/courses/img_by-he.gif",
-      "href": "/course-by-he.html",
-      "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Helps students recognize when something isn’t right, step in safely, and know when to involve others. Focuses on practical, realistic ways to support others and contribute to a safer campus community",
-      "isStaff": false
-    },
-    {
       "id": "cy",
       "title": "Cybersecurity",
       "thumb": "/assets/images/courses/img_cy.png",
@@ -1515,6 +1525,17 @@ const COURSES = {
       "isStaff": true
     },
     {
+      "id": "ta-he",
+      "title": "Threat Assessment",
+      "thumb": "/assets/images/courses/img_ta.png",
+      "thumbGif": "/assets/images/courses/img_ta.gif",
+      "href": "/course-ta-he.html",
+      "comingSoonDate": "",
+      "comingSoon": false,
+      "desc": "Helps your campus community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
+      "isStaff": false
+    },
+    {
       "id": "hr",
       "title": "HR Fundamentals",
       "thumb": "/assets/images/courses/img_hr.png",
@@ -1526,14 +1547,14 @@ const COURSES = {
       "isStaff": true
     },
     {
-      "id": "t9-he",
-      "title": "Title IX",
-      "thumb": "/assets/images/courses/img_t9.png",
-      "thumbGif": "/assets/images/courses/img_t9.gif",
-      "href": "/coming-soon-t9.html",
+      "id": "shp-he",
+      "title": "Sexual Harassment Prevention",
+      "thumb": "/assets/images/courses/img_shp-he.png",
+      "thumbGif": "/assets/images/courses/img_shp-he.gif",
+      "href": "/course-shp-he.html",
       "comingSoonDate": "",
-      "comingSoon": true,
-      "desc": "Explains how Title IX works on campus, including rights, reporting options, and what happens after a report is made. Gives students a clear understanding of the process so they can navigate it with more confidence.",
+      "comingSoon": false,
+      "desc": "Clear, engaging training that meets legal requirements while helping students navigate real situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful campus culture.",
       "isStaff": false
     },
     {
@@ -1605,14 +1626,14 @@ const COURSES = {
       "isStaff": true
     },
     {
-      "id": "ta",
+      "id": "ta-k12",
       "title": "Threat Assessment",
       "thumb": "/assets/images/courses/img_ta.png",
       "thumbGif": "/assets/images/courses/img_ta.gif",
-      "href": "/course-ta.html",
+      "href": "/course-ta-k12.html",
       "comingSoonDate": "",
       "comingSoon": false,
-      "desc": "Helps your community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
+      "desc": "Helps students and staff recognize early warning signs, respond appropriately, and understand their role in keeping the school community safe. Focused on early support, clear pathways to action, and building trust in the process.",
       "isStaff": false
     },
     {
@@ -1651,6 +1672,267 @@ const COURSES = {
   ]
 };
 
+// Homepage sample clips (for hero "Watch a Demo" button)
+var demoVideos = [
+    { vimeoId: '1177367700', hash: 'd32252af73', tag: "Threat Assessment", title: "" },
+  { vimeoId: '1117099851', hash: 'e8a752b2e2', tag: "Sexual Harassment", title: "" },
+  { vimeoId: '1155163734', hash: '7c29c1c3bc', tag: "Safety Culture", title: "" },
+  { vimeoId: '1117122564', hash: '4094bffc04', tag: "Compliance", title: "" }
+];
+
+// Per-course demo clips (for lightbox "Watch a Course Trailer" button)
+const COURSE_DEMOS = {
+  "shp": [
+    {
+      "vimeoId": "1117099851",
+      "hash": "e8a752b2e2",
+      "tag": "Intro",
+      "title": "Welcome: Your Right to a Respectful Workplace"
+    },
+    {
+      "vimeoId": "1111431000",
+      "hash": "aadb3a79ee",
+      "tag": "Concepts",
+      "title": "Person to Person Harassment"
+    },
+    {
+      "vimeoId": "1121597000",
+      "hash": "2466e595b5",
+      "tag": "Meet Stan",
+      "title": "Stan — Unwelcome Questions"
+    },
+    {
+      "vimeoId": "1117104000",
+      "hash": "92e053e17b",
+      "tag": "Reporting",
+      "title": "Reporting & Retaliation Protection"
+    },
+    {
+      "vimeoId": "1117123000",
+      "hash": "4094bffc04",
+      "tag": "Concepts",
+      "title": "Quid Pro Quo"
+    }
+  ],
+  "ta": [
+    {
+      "vimeoId": "1181596966",
+      "hash": "e4a12063ac",
+      "tag": "Intro",
+      "title": "Introduction to Safety Culture"
+    },
+    {
+      "vimeoId": "1181596979",
+      "hash": "43cc3cc06b",
+      "tag": "Key Concepts",
+      "title": "The Pathway to Violence"
+    },
+    {
+      "vimeoId": "1181597011",
+      "hash": "6dc4face20",
+      "tag": "Skills",
+      "title": "What To Do When There's An Immediate Threat"
+    }
+  ],
+  "ta-he": [
+    {
+      "vimeoId": "1181596966",
+      "hash": "e4a12063ac",
+      "tag": "Intro",
+      "title": "Introduction to Safety Culture"
+    },
+    {
+      "vimeoId": "1181596979",
+      "hash": "43cc3cc06b",
+      "tag": "Key Concepts",
+      "title": "The Pathway to Violence"
+    },
+    {
+      "vimeoId": "1181597011",
+      "hash": "6dc4face20",
+      "tag": "Skills",
+      "title": "What To Do When There's An Immediate Threat"
+    }
+  ],
+  "ta-k12": [
+    {
+      "vimeoId": "1181596966",
+      "hash": "e4a12063ac",
+      "tag": "Intro",
+      "title": "Introduction to Safety Culture"
+    },
+    {
+      "vimeoId": "1181596979",
+      "hash": "43cc3cc06b",
+      "tag": "Key Concepts",
+      "title": "The Pathway to Violence"
+    },
+    {
+      "vimeoId": "1181597011",
+      "hash": "6dc4face20",
+      "tag": "Skills",
+      "title": "What To Do When There's An Immediate Threat"
+    }
+  ]
+};
+
+// Prefetch Vimeo thumbnails
+demoVideos.forEach(function(clip) {
+  var url = 'https://vimeo.com/api/oembed.json?width=1280&url=' + encodeURIComponent('https://vimeo.com/' + clip.vimeoId + (clip.hash ? '/' + clip.hash : ''));
+  fetch(url).then(function(r) { return r.json(); }).then(function(d) {
+    clip.thumbnail = (d.thumbnail_url || '').replace(/_\d+x\d+(\.\w+)$/, '_1280x720$1');
+  }).catch(function() {});
+});
+Object.values(COURSE_DEMOS).forEach(function(clips) {
+  clips.forEach(function(clip) {
+    var url = 'https://vimeo.com/api/oembed.json?width=1280&url=' + encodeURIComponent('https://vimeo.com/' + clip.vimeoId + (clip.hash ? '/' + clip.hash : ''));
+    fetch(url).then(function(r) { return r.json(); }).then(function(d) {
+      clip.thumbnail = (d.thumbnail_url || '').replace(/_\d+x\d+(\.\w+)$/, '_1280x720$1');
+    }).catch(function() {});
+  });
+});
+
+var demoCtaTimer = null;
+var demoPlayer = null;
+var demoMuted = false;
+var demoClipSet = [];
+var demoClipIdx = 0;
+
+document.getElementById('demoPlayBtn').addEventListener('mouseenter', function() { this.style.transform='scale(1.1)'; this.style.boxShadow='0 12px 40px rgba(249,124,83,0.65)'; });
+document.getElementById('demoPlayBtn').addEventListener('mouseleave', function() { this.style.transform='scale(1)'; this.style.boxShadow='0 8px 32px rgba(249,124,83,0.45)'; });
+
+function openDemoModal() {
+  demoClipSet = demoVideos.slice();
+  demoClipIdx = 0;
+  _loadDemoClip(0);
+  document.getElementById('demoModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function openCourseDemoModal(courseId) {
+  var clips = COURSE_DEMOS[courseId];
+  if (!clips || !clips.length) clips = demoVideos;
+  demoClipSet = clips.slice();
+  demoClipIdx = 0;
+  _loadDemoClip(0);
+  document.getElementById('demoModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function _loadDemoClip(idx) {
+  demoClipIdx = idx;
+  var clip = demoClipSet[idx];
+  document.getElementById('demoModalTag').textContent = clip.tag;
+  document.getElementById('demoModalTitle').textContent = clip.title;
+  var poster = document.getElementById('demoModalPoster');
+  poster.style.backgroundImage = clip.thumbnail ? 'url(' + clip.thumbnail + ')' : 'linear-gradient(135deg,#0a2233 0%,#096f9c 100%)';
+  poster.style.display = 'flex';
+  clearTimeout(demoCtaTimer);
+  demoPlayer = null;
+  document.getElementById('demoModalFrame').src = '';
+  document.getElementById('demoModalVideoWrap').style.display = 'none';
+  document.getElementById('demoModalCta').style.display = 'none';
+  renderDemoNav();
+}
+
+function renderDemoNav() {
+  var btnStyle = 'border:none; border-radius:50px; height:30px; padding:0 0.75rem; font-family:\'Quicksand\',sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer; transition:background 0.15s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;';
+  document.getElementById('demoNavItems').innerHTML = demoClipSet.map(function(clip, i) {
+    var active = i === demoClipIdx;
+    var bg = active ? 'background:#f97c53; color:#fff;' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.65);';
+    return '<button onclick="switchDemoClip(' + i + ')" style="' + btnStyle + bg + '" title="' + clip.title + '">' + clip.tag + '</button>';
+  }).join('');
+}
+
+function switchDemoClip(idx) { _loadDemoClip(idx); }
+
+function startDemoVideo() {
+  var clip = demoClipSet[demoClipIdx];
+  if (!clip) return;
+  document.getElementById('demoModalPoster').style.display = 'none';
+  document.getElementById('demoModalVideoWrap').style.display = 'block';
+  document.getElementById('demoModalCta').style.display = 'none';
+  var frame = document.getElementById('demoModalFrame');
+  frame.src = 'https://player.vimeo.com/video/' + clip.vimeoId + '?h=' + clip.hash + '&autoplay=1&title=0&byline=0&portrait=0';
+  if (typeof Vimeo !== 'undefined') {
+    demoPlayer = new Vimeo.Player(frame);
+    demoMuted = false;
+    updateDemoMuteIcon();
+    demoPlayer.on('ended', function() { clearTimeout(demoCtaTimer); fadeDemoVolume(0, 1800, null); });
+  }
+  clearTimeout(demoCtaTimer);
+  demoCtaTimer = setTimeout(function() {
+    fadeDemoVolume(0, 2000, function() {
+      demoMuted = true;
+      updateDemoMuteIcon();
+      document.getElementById('demoModalCta').style.display = 'flex';
+    });
+  }, 30000);
+}
+
+function rewatchDemo() {
+  clearTimeout(demoCtaTimer);
+  document.getElementById('demoModalCta').style.display = 'none';
+  if (demoPlayer) {
+    demoMuted = false;
+    demoPlayer.setMuted(false).catch(function() {});
+    demoPlayer.setVolume(1).catch(function() {});
+    updateDemoMuteIcon();
+    demoPlayer.setCurrentTime(0).then(function() { demoPlayer.play().catch(function() {}); }).catch(function() { startDemoVideo(); });
+  } else { startDemoVideo(); }
+  demoCtaTimer = setTimeout(function() {
+    document.getElementById('demoModalCta').style.display = 'flex';
+    if (demoPlayer) demoPlayer.setMuted(true).catch(function() {});
+    demoMuted = true;
+    updateDemoMuteIcon();
+  }, 30000);
+}
+
+function fadeDemoVolume(toVol, duration, onComplete) {
+  if (!demoPlayer) { if (onComplete) onComplete(); return; }
+  demoPlayer.getVolume().then(function(vol) {
+    var steps = 25, stepMs = duration / steps, delta = (toVol - vol) / steps, count = 0;
+    function tick() {
+      if (!demoPlayer || count >= steps) { if (onComplete) onComplete(); return; }
+      vol = Math.max(0, Math.min(1, vol + delta));
+      demoPlayer.setVolume(vol).catch(function() {});
+      count++;
+      setTimeout(tick, stepMs);
+    }
+    tick();
+  }).catch(function() { if (onComplete) onComplete(); });
+}
+
+function toggleDemoMute() {
+  if (!demoPlayer) return;
+  demoMuted = !demoMuted;
+  demoPlayer.setMuted(demoMuted).catch(function() {});
+  updateDemoMuteIcon();
+}
+
+function updateDemoMuteIcon() {
+  document.getElementById('demoIconUnmuted').style.display = demoMuted ? 'none' : 'block';
+  document.getElementById('demoIconMuted').style.display = demoMuted ? 'block' : 'none';
+  document.getElementById('demoMuteLabel').textContent = demoMuted ? 'Unmute' : 'Mute';
+}
+
+function closeDemoModal() {
+  clearTimeout(demoCtaTimer);
+  demoPlayer = null;
+  document.getElementById('demoModalFrame').src = '';
+  document.getElementById('demoModal').style.display = 'none';
+  document.getElementById('demoModalPoster').style.display = 'flex';
+  document.getElementById('demoModalVideoWrap').style.display = 'none';
+  document.getElementById('demoModalCta').style.display = 'none';
+  document.body.style.overflow = '';
+  demoMuted = false;
+  demoClipSet = [];
+}
+
+document.getElementById('demoModal').addEventListener('click', function(e) {
+  if (e.target === this) closeDemoModal();
+});
+
 const AUDIENCE_LABELS = {
   workplace: 'Workplace',
   highered: 'Higher Education',
@@ -1673,7 +1955,7 @@ function cardHTML(course) {
     ? `<div class="staff-badge">For Staff</div>`
     : '';
 
-  const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-thumb-gif="${course.thumbGif || ''}" data-href="${course.href}" data-coming-soon="${course.comingSoon}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
+  const dataAttrs = `data-id="${course.id}" data-title="${course.title}" data-thumb="${course.thumb}" data-thumb-gif="${course.thumbGif || ''}" data-href="${course.href}" data-coming-soon="${course.comingSoon}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
   const gifSwap = course.thumbGif
     ? `onmouseenter="this.src='${course.thumbGif}'" onmouseleave="this.src='${course.thumb}'"`
     : '';
@@ -1771,10 +2053,11 @@ function toggleMute() {
 
 // ── LIGHTBOX ──────────────────────────────────────────────────────────────────
 function openLightbox(card) {
-  const title = card.dataset.title;
-  const thumb = card.dataset.thumb;
-  const href  = card.dataset.href;
-  const desc  = card.dataset.desc;
+  const title      = card.dataset.title;
+  const thumb      = card.dataset.thumb;
+  const href       = card.dataset.href;
+  const desc       = card.dataset.desc;
+  const courseId   = card.dataset.id || '';
   const comingSoon = card.dataset.comingSoon === 'true';
 
   const thumbGif = card.dataset.thumbGif;
@@ -1786,16 +2069,30 @@ function openLightbox(card) {
 
   const primaryBtn   = document.getElementById('lb-primary');
   const secondaryBtn = document.getElementById('lb-secondary');
+  secondaryBtn.onclick = null;
+
   if (comingSoon) {
     primaryBtn.textContent = 'Sneak Peek';
     primaryBtn.href = href;
+    secondaryBtn.style.display = '';
     secondaryBtn.textContent = 'Notify Me';
     secondaryBtn.href = 'preorder.html';
   } else {
     primaryBtn.textContent = 'Go to Course';
     primaryBtn.href = href;
-    secondaryBtn.textContent = 'See Demo';
-    secondaryBtn.href = 'demo.html';
+    const clips = COURSE_DEMOS[courseId];
+    if (clips && clips.length) {
+      secondaryBtn.style.display = '';
+      secondaryBtn.textContent = 'See Samples';
+      secondaryBtn.href = '#';
+      secondaryBtn.onclick = function(e) {
+        e.preventDefault();
+        closeLightboxDirect();
+        openCourseDemoModal(courseId);
+      };
+    } else {
+      secondaryBtn.style.display = 'none';
+    }
   }
 
   document.getElementById('lightbox-overlay').classList.add('open');
@@ -1811,7 +2108,7 @@ function closeLightboxDirect() {
   document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightboxDirect(); closeTrailerDirect(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightboxDirect(); closeTrailerDirect(); closeDemoModal(); } });
 
 // ── TRAILER MODAL ──────────────────────────────────────────────────────────────
 var trailerPlayer = null;

@@ -1,14 +1,16 @@
 courseId,related1_id,related1_eyebrow,related2_id,related2_eyebrow,related3_id,related3_eyebrow
 shp,ta,Safety Culture,cy,Protect Your Organization,hr,For Managers
 ta,shp,Culture Builder,cy,Protect Your Organization,hr,For Managers
+ta-he,by-he,Safety Culture,shp-he,Healthy Relationships,mh-he,Student Wellbeing
+ta-k12,by-k12,Safety Culture,co-k12,Healthy Relationships,mh-k12,Student Wellbeing
 al,mh-he,Personal Growth,ta,Safety Culture,shp,Culture Builder
 hr,mh-he,Personal Growth,ta,Safety Culture,shp,Culture Builder
 mh-k12,co-k12,Healthy Friendships,by-k12,Safety Culture,bf-k12,New!
 mh-he,ta,Safety Culture,t9-he,Laws and Reporting,by-he,Safety Culture
 co-k12,bf-k12,Teaching Fairness,by-k12,Safety Culture,,
-co-he,t9-he,Laws and Reporting,by-he,Safety Culture,ta,New!
-t9-he,by-he,Safety Culture,co-he,Healthy Relationships,ta,New!
-by-he,co-he,Healthy Relationships,t9-he,Safety and Compliance,ta,New!
+shp-he,t9-he,Laws and Reporting,by-he,Safety Culture,ta,New!
+t9-he,by-he,Safety Culture,shp-he,Healthy Relationships,ta,New!
+by-he,shp-he,Healthy Relationships,t9-he,Safety and Compliance,ta,New!
 by-k12,co-k12,Healthy Friendships,bf-k12,Teaching Fairness,,
 sg,ta,Safety Culture,hr,Workplace Culture,shp,Workplace Safety
 cy,ta,Safety Culture,hr,Workplace Culture,sg,Workplace Safety

@@ -40,7 +40,7 @@ function write(filePath, content) {
 }
 
 // ── CATALOG ────────────────────────────────────────────────────────────────────
-function buildCatalog(courses, orderData, featuredData) {
+function buildCatalog(courses, orderData, featuredData, homepageDemos, videosByCourse) {
   const groups = { workplace: [], highered: [], k12: [] };
 
   courses.filter(c => c.active !== 'false').forEach(c => {
@@ -118,23 +118,40 @@ Object.keys(groups).forEach(aud => {
     ].join('\n');
   }).join('\n');
 
+  const homepageDemosJS = (homepageDemos || []).map(d =>
+    `  { vimeoId: '${d.vimeoId}', hash: '${d.hash || ''}', tag: ${JSON.stringify(d.tag || '')}, title: ${JSON.stringify(d.clipTitle || '')} }`
+  ).join(',\n');
+
+  const courseDemosObj = {};
+  Object.entries(videosByCourse || {}).forEach(([id, clips]) => {
+    courseDemosObj[id] = clips.map(c => ({
+      vimeoId: c.vimeoId, hash: c.hash || '', tag: c.tag || '', title: c.title || c.clipTitle || ''
+    }));
+  });
+
   const output = readTemplate('catalog.html')
     .replace('/* __COURSES_DATA__ */', `const COURSES = ${JSON.stringify(groups, null, 2)};`)
+    .replace('/* __HOMEPAGE_DEMOS__ */', homepageDemosJS)
+    .replace('/* __COURSE_DEMOS__ */', `const COURSE_DEMOS = ${JSON.stringify(courseDemosObj, null, 2)};`)
     .replace('<!-- __FEATURED_COURSES__ -->', featuredHTML);
   write(path.join(DIST, 'catalog.html'), output);
 }
 
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
-function buildCoursePage(detail, catalog, relatedMap) {
+function buildCoursePage(detail, catalog, relatedMap, videosByCourse) {
   const bullets = (detail.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean)
     .map(b => `      <li>${b}</li>`).join('\n');
 
+  const imgPrefix = detail.id.replace(/-/g, '_');
   let lessonsHTML = '';
   for (let i = 1; i <= 20; i++) {
     const title = detail[`L${i}_title`], desc = detail[`L${i}_desc`];
     if (!title || !title.trim()) break;
+    const pngSrc = `/assets/images/courses/${imgPrefix}_${i}.png`;
+    const gifSrc = `/assets/images/courses/${imgPrefix}_${i}.gif`;
     lessonsHTML += `
-      <div class="lesson-item">
+      <div class="lesson-item" onmouseenter="var img=this.querySelector('.lesson-thumb');if(img)img.src='${gifSrc}';" onmouseleave="var img=this.querySelector('.lesson-thumb');if(img)img.src='${pngSrc}';">
+        <img class="lesson-thumb" src="${pngSrc}" data-png="${pngSrc}" data-gif="${gifSrc}" alt="" onerror="this.style.display='none'">
         <div class="lesson-num">${i}</div>
         <div class="lesson-text">
           <div class="lesson-title">${title}</div>
@@ -175,12 +192,21 @@ function buildCoursePage(detail, catalog, relatedMap) {
     ].join('\n');
   }).join('\n');
 
+  const courseClips = ((videosByCourse || {})[detail.id] || []).slice(0, 3);
+  const courseDemosJS = courseClips
+    .map(v => `  { vimeoId: '${(v.vimeoId||'').trim()}', hash: '${(v.hash||'').trim()}', tag: '${(v.tag||'').trim().replace(/'/g,"\\'")}', title: '${(v.clipTitle||v.title||'').trim().replace(/'/g,"\\'")}' }`)
+    .join(',\n');
+
+  const packagesHref = detail.id.endsWith('-he')  ? '/highered.html#package'
+                     : detail.id.endsWith('-k12') ? '/k12.html#package'
+                     : '/workplace.html#package';
+
   const output = readTemplate('course-page.html')
     .replace(/__PAGE_TITLE__/g,     detail.pageTitle)
     .replace(/__HERO_TITLE__/g,     detail.heroTitle)
     .replace(/__HERO_TAGLINE__/g,   detail.heroTagline)
     .replace(/__VIMEO_ID__/g,       detail.vimeoHash ? `${detail.vimeoID}?h=${detail.vimeoHash}&` : `${detail.vimeoID}?`)
-    .replace(/__DURATION__/g,       detail.duration)
+    .replace(/__DURATION__/g,       detail.duration || '')
     .replace(/__FORMAT__/g,         detail.format)
     .replace(/__AUDIENCE_LABEL__/g, detail.audienceLabel)
     .replace(/__LMS__/g,            detail.lms)
@@ -189,9 +215,12 @@ function buildCoursePage(detail, catalog, relatedMap) {
     .replace(/__HERO_BULLETS__/g,    bullets)
     .replace(/__DURATION_SEP__/g,    detail.duration ? '<span class="hero-audience-dot"></span>' : '')
     .replace(/__VIDEO_COUNT__/g,     detail.videoCount || '')
+    .replace('__PACKAGES_HREF__',    packagesHref)
     .replace('<!-- __COVERS_BULLETS__ -->', bullets)
+    .replace('id="s-lessons"',             `id="s-lessons"${lessonsHTML ? '' : ' style="display:none"'}`)
     .replace('<!-- __LESSONS__ -->',        lessonsHTML)
-    .replace('<!-- __RELATED_COURSES__ -->', relatedHTML);
+    .replace('<!-- __RELATED_COURSES__ -->', relatedHTML)
+    .replace('/* __COURSE_DEMOS__ */', courseDemosJS);
   write(path.join(DIST, `course-${detail.id}.html`), output);
 }
 
@@ -321,7 +350,7 @@ function buildReleaseCalendar(courses) {
 }
 
 // ── HOMEPAGE ───────────────────────────────────────────────────────────────────
-function buildHomepage(testimonials) {
+function buildHomepage(testimonials, courses, featuredData, homepageDemosData) {
   const testimonialsHTML = testimonials.map(t => `
         <div class="testimonial-card">
           <div class="testimonial-body">"${t.quote}"</div>
@@ -335,8 +364,54 @@ function buildHomepage(testimonials) {
           </div>
         </div>`).join('\n');
 
+  // Build featured course cards for homepage
+  const catalogById = {};
+  courses.forEach(c => {
+    catalogById[c.id] = Object.assign({}, c, {
+      thumb: c.thumb ? '/assets/images/courses/' + c.thumb : '',
+      thumbGif: c.thumbGif ? '/assets/images/courses/' + c.thumbGif : '',
+    });
+  });
+  const featuredSlots = (featuredData || [])
+    .filter(f => f.courseId && f.courseId.trim() && f.vimeoId && f.vimeoId.trim())
+    .sort((a, b) => parseInt(a.slot) - parseInt(b.slot))
+    .slice(0, 3);
+  const featuredCardsHTML = featuredSlots.map(f => {
+    const c = catalogById[f.courseId.trim()];
+    if (!c) return '';
+    const eyebrow = (f.eyebrow || '').trim() || '★ Featured';
+    const hash = (f.vimeoHash || '').trim();
+    const safeTitle = c.title.replace(/'/g, "\\'");
+    const gifAttrs = c.thumbGif
+      ? ` onmouseenter="this.src='${c.thumbGif}'" onmouseleave="this.src='${c.thumb}'"`
+      : '';
+    return [
+      `<div class="featured-card" onclick="openHomepageTrailer('${f.vimeoId.trim()}','${hash}','${safeTitle}','${c.href}')">`,
+      '  <div class="featured-card-thumb">',
+      `    <img src="${c.thumb}" alt="${c.title}"${gifAttrs}>`,
+      '    <div class="featured-card-play"></div>',
+      '  </div>',
+      '  <div class="featured-card-info">',
+      '    <div class="featured-card-text">',
+      '      <div class="featured-card-eyebrow">' + eyebrow + '</div>',
+      '      <div class="featured-card-title">' + c.title + '</div>',
+      '    </div>',
+      '    <button class="featured-card-btn">▶ Watch Trailer</button>',
+      '  </div>',
+      '</div>',
+    ].join('\n');
+  }).join('\n');
+
+  // Homepage demo modal — sourced from homepage-demos.csv (curated subset)
+  const demosJS = (homepageDemosData || [])
+    .filter(d => d.vimeoId && d.vimeoId.trim() && d.hash && d.hash.trim())
+    .map(d => `  { vimeoId: '${d.vimeoId.trim()}', hash: '${d.hash.trim()}', tag: '${(d.tag||'').trim().replace(/'/g,"\\'")}', title: '${(d.title||'').trim().replace(/'/g,"\\'")}' }`)
+    .join(',\n');
+
   const output = readTemplate('index.html')
-    .replace('<!-- __TESTIMONIALS__ -->', testimonialsHTML);
+    .replace('<!-- __TESTIMONIALS__ -->', testimonialsHTML)
+    .replace('<!-- __FEATURED_COURSES__ -->', featuredCardsHTML)
+    .replace('/* __HOMEPAGE_DEMOS__ */', demosJS);
   write(path.join(DIST, 'index.html'), output);
 }
 
@@ -400,14 +475,12 @@ const catalogOrder = readCSV(path.join(__dirname, 'data', 'catalog-order.csv'));
 const featuredCSV  = readCSV(path.join(__dirname, 'data', 'featured-courses.csv'));
 const relatedCSV   = readCSV(path.join(__dirname, 'data', 'related-courses.csv'));
 const details    = readCSV(path.join(__dirname, 'data', 'course-detail.csv'));
-const demoPages  = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
-const demoVideos = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
+const demoPages      = readCSV(path.join(__dirname, 'data', 'demo-pages.csv'));
+const demoVideos     = readCSV(path.join(__dirname, 'data', 'demo-videos.csv'));
+const homepageDemos  = readCSV(path.join(__dirname, 'data', 'homepage-demos.csv'));
 
 console.log('Building homepage...');
-if (testimonials.length) buildHomepage(testimonials);
-
-console.log('Building catalog...');
-if (catalog.length) buildCatalog(catalog, catalogOrder, featuredCSV);
+if (testimonials.length) buildHomepage(testimonials, catalog, featuredCSV, homepageDemos);
 
 console.log('\nBuilding coming-soon course pages...');
 if (catalog.length) buildComingSoonPages(catalog);
@@ -418,10 +491,25 @@ if (catalog.length) buildReleaseCalendar(catalog);
 console.log('\nBuilding course pages...');
 const relatedMap = {};
 relatedCSV.forEach(r => { if (r.courseId) relatedMap[r.courseId] = r; });
-details.forEach(d => buildCoursePage(d, catalog, relatedMap));
+const videosByCourse = {};
+demoVideos.forEach(v => { if (v.courseId) { if (!videosByCourse[v.courseId]) videosByCourse[v.courseId] = []; videosByCourse[v.courseId].push(v); } });
+details.forEach(d => buildCoursePage(d, catalog, relatedMap, videosByCourse));
+
+console.log('\nBuilding catalog...');
+if (catalog.length) buildCatalog(catalog, catalogOrder, featuredCSV, homepageDemos, videosByCourse);
 
 console.log('\nBuilding demo pages...');
 if (demoPages.length) buildDemoPages(demoPages, demoVideos);
+
+// These patterns are generated from templates — don't overwrite them with stale root copies
+const generatedPatterns = [/^index\.html$/, /^catalog\.html$/, /^preorder\.html$/, /^course-.+\.html$/, /^coming-soon-.+\.html$/, /^demo-.+\.html$/];
+console.log('Copying static HTML files...');
+fs.readdirSync(__dirname).forEach(file => {
+  if (!file.endsWith('.html')) return;
+  if (generatedPatterns.some(p => p.test(file))) return;
+  fs.copyFileSync(path.join(__dirname, file), path.join(DIST, file));
+  console.log('  ✓', file);
+});
 
 console.log('Copying assets...');
 copyDir(path.join(__dirname, 'assets'), path.join(DIST, 'assets'));

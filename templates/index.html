@@ -307,6 +307,56 @@
     .btn-outline-blue:hover { background: var(--blue-lt); transform: translateY(-2px); }
     .cta-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
 
+    /* ── FEATURED COURSES ── */
+    .featured-courses-wrap { background: var(--navy); padding: 5rem 3rem; }
+    .featured-courses-inner { max-width: 1100px; margin: 0 auto; }
+    .featured-courses-header { margin-bottom: 2.5rem; }
+    .featured-courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+
+    .featured-card {
+      border-radius: 14px; overflow: hidden; cursor: pointer;
+      background: #fff;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
+      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
+      display: flex; flex-direction: column;
+    }
+    .featured-card:hover { transform: scale(1.03) translateY(-4px); box-shadow: 0 16px 44px rgba(0,0,0,0.28), 0 0 0 2px rgba(249,124,83,0.6); }
+    .featured-card-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; }
+    .featured-card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .featured-card:hover .featured-card-thumb img { transform: scale(1.04); }
+    .featured-card-play {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%) scale(0.8);
+      width: 52px; height: 52px;
+      background: var(--orange); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 4px 16px rgba(249,124,83,0.5);
+    }
+    .featured-card:hover .featured-card-play { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    .featured-card-play::after {
+      content: ''; border-left: 16px solid #fff;
+      border-top: 10px solid transparent; border-bottom: 10px solid transparent;
+      margin-left: 4px;
+    }
+    .featured-card-info { padding: 0.9rem 1.1rem 1rem; display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; }
+    .featured-card-text { flex: 1; }
+    .featured-card-eyebrow { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.2rem; }
+    .featured-card-title { font-size: 0.95rem; font-weight: 700; color: var(--navy); line-height: 1.3; }
+    .featured-card-btn { flex-shrink: 0; background: var(--navy); color: #fff; border: none; border-radius: 6px; padding: 0.45rem 0.9rem; font-family: 'Quicksand', sans-serif; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: background 0.2s; white-space: nowrap; }
+    .featured-card-btn:hover { background: var(--blue); }
+
+    /* trailer modal */
+    .hp-trailer-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 9100; align-items: center; justify-content: center; padding: 2rem; }
+    .hp-trailer-overlay.open { display: flex; }
+    .hp-trailer-modal { background: var(--navy); border-radius: 16px; overflow: hidden; width: 100%; max-width: 820px; box-shadow: 0 32px 80px rgba(0,0,0,0.6); position: relative; }
+    .hp-trailer-video-wrap { aspect-ratio: 16/9; }
+    .hp-trailer-video-wrap iframe { width: 100%; height: 100%; border: 0; display: block; }
+    .hp-trailer-footer { padding: 1rem 1.4rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+    .hp-trailer-title { font-size: 1rem; font-weight: 700; color: #fff; }
+    .hp-trailer-close { position: absolute; top: 0.75rem; right: 0.75rem; z-index: 10; width: 34px; height: 34px; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.15); border-radius: 50%; color: #fff; font-size: 1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .hp-trailer-close:hover { background: var(--orange); border-color: transparent; }
+
     /* ── FOOTER ── */
     footer { background: #060f17; color: rgba(255,255,255,0.38); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; font-weight: 500; flex-wrap: wrap; gap: 1rem; }
     .footer-logo img { height: 30px; width: auto; opacity: 0.72; }
@@ -381,13 +431,13 @@
     <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
   </div>
   <ul class="nav-links">
-    <li><a href="catalog.html?audience=workplace">Workplace</a></li>
-    <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
-    <li><a href="catalog.html?audience=k12">K–12</a></li>
-    <li><a href="catalog.html">Catalog</a></li>
+    <li><a href="workplace.html">Workplace</a></li>
+    <li><a href="highered.html">Higher Ed</a></li>
+    <li><a href="k12.html">K–12</a></li>
+    <li><a href="catalog.html">Full Catalog</a></li>
     <li><a href="about-us.html">About</a></li>
-    <li><a href="contact.html">Contact Us</a></li>
-    <li><a href="demo.html" class="nav-cta">Watch a Demo</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
   </ul>
   <button class="nav-hamburger" onclick="document.getElementById('nav-mobile-menu').classList.add('open')" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -397,13 +447,13 @@
 <!-- MOBILE MENU -->
 <div class="nav-mobile-menu" id="nav-mobile-menu">
   <button class="nav-mobile-close" onclick="document.getElementById('nav-mobile-menu').classList.remove('open'); return false;" aria-label="Close menu">✕</button>
+  <a href="workplace.html">Workplace</a>
+  <a href="highered.html">Higher Ed</a>
+  <a href="k12.html">K–12</a>
   <a href="catalog.html">Full Catalog</a>
-  <a href="catalog.html?audience=workplace">Workplace</a>
-  <a href="catalog.html?audience=highered">Higher Ed</a>
-  <a href="catalog.html?audience=k12">K–12</a>
   <a href="about-us.html">About</a>
-  <a href="contact.html">Contact Us</a>
-  <a href="demo.html" style="color: var(--orange);">Watch a Demo →</a>
+  <a href="contact.html">Contact</a>
+  <a href="request-a-quote.html" style="color: var(--orange);">Get Pricing →</a>
 </div>
 
 <!-- ══ 1. HERO ══ -->
@@ -458,15 +508,16 @@
         <svg width="13" height="13" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
         150M+ views · Creators of Tea Consent
       </div>
-      <h1>Training That <em>Sticks.</em></h1>
-      <p class="hero-sub">Content people remember when it matters.</p>
+      <h1>Training that <em>Sticks</em></h1>
+      <p class="hero-sub">Difficult topics made memorable.</p>
     </div>
     <div class="hero-actions">
-      <a href="demo.html" class="btn-orange">
+      <button onclick="openDemoModal()" class="btn-orange" style="cursor:pointer;border:none;font:inherit;line-height:inherit;letter-spacing:inherit;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
         Watch a Demo
-      </a>
+      </button>
       <a href="request-a-quote.html" class="btn-ghost">Get Pricing</a>
+      <a href="https://calendly.com/rachelbrian" target="_blank" class="btn-ghost">Book a Call</a>
     </div>
   </div>
 </section>
@@ -534,47 +585,132 @@
       <p class="section-body">We make training genuinely engaging. With humor, craft, and a down-to-earth tone that makes even the toughest topics approachable.</p>
     </div>
     <div class="approach-grid">
-      <!-- __AUDIENCE_CARDS__ -->
+
+      <!-- Workplace -->
+      <div class="aud-card" onclick="window.location='workplace.html'" style="cursor:pointer; display:flex; flex-direction:column;">
+        <div class="aud-card-img">
+          <img src="/assets/images/ui/img_wp.png" alt="Workplace Training" onmouseenter="this.src='/assets/images/ui/img_wp.gif'" onmouseleave="this.src='/assets/images/ui/img_wp.png'">
+        </div>
+        <div class="aud-card-body" style="flex:1;">
+          <div class="aud-card-title">Workplace</div>
+          <ul class="aud-course-list">
+            <li><a href="/course-shp.html" class="aud-course-link" onclick="event.stopPropagation()">Sexual Harassment Prevention</a></li>
+            <li><a href="/course-ta.html" class="aud-course-link" onclick="event.stopPropagation()">Threat Assessment</a></li>
+            <li><a href="/coming-soon-cy.html" class="aud-course-link coming" onclick="event.stopPropagation()">Cybersecurity</a></li>
+            <li><a href="/coming-soon-hr.html" class="aud-course-link coming" onclick="event.stopPropagation()">HR Fundamentals</a></li>
+          </ul>
+          <span class="aud-view-all">View all Workplace courses →</span>
+        </div>
+      </div>
+
+      <!-- Higher Ed -->
+      <div class="aud-card" onclick="window.location='highered.html'" style="cursor:pointer; display:flex; flex-direction:column;">
+        <div class="aud-card-img">
+          <img src="/assets/images/ui/img_he.png" alt="Higher Ed Training" onmouseenter="this.src='/assets/images/ui/img_he.gif'" onmouseleave="this.src='/assets/images/ui/img_he.png'">
+        </div>
+        <div class="aud-card-body" style="flex:1;">
+          <div class="aud-card-title">Higher Ed</div>
+          <ul class="aud-course-list">
+            <li><a href="/course-ta.html" class="aud-course-link" onclick="event.stopPropagation()">Threat Assessment</a></li>
+            <li><a href="/course-by-he.html" class="aud-course-link" onclick="event.stopPropagation()">Bystander Intervention</a></li>
+            <li><a href="/coming-soon-al.html" class="aud-course-link coming" onclick="event.stopPropagation()">Alcohol Awareness</a></li>
+            <li><a href="/coming-soon-mh-he.html" class="aud-course-link coming" onclick="event.stopPropagation()">Mental Health Support</a></li>
+          </ul>
+          <span class="aud-view-all">View all Higher Ed courses →</span>
+        </div>
+      </div>
+
+      <!-- K-12 -->
+      <div class="aud-card" onclick="window.location='k12.html'" style="cursor:pointer; display:flex; flex-direction:column;">
+        <div class="aud-card-img">
+          <img src="/assets/images/ui/img_k12.png" alt="K-12 Training" onmouseenter="this.src='/assets/images/ui/img_k12.gif'" onmouseleave="this.src='/assets/images/ui/img_k12.png'">
+        </div>
+        <div class="aud-card-body" style="flex:1;">
+          <div class="aud-card-title">K-12</div>
+          <ul class="aud-course-list">
+            <li><a href="/course-co-k12.html" class="aud-course-link" onclick="event.stopPropagation()">Consent (K–12)</a></li>
+            <li><a href="/course-ta.html" class="aud-course-link" onclick="event.stopPropagation()">Threat Assessment</a></li>
+            <li><a href="/coming-soon-mh-k12.html" class="aud-course-link coming" onclick="event.stopPropagation()">Mental Health Basics</a></li>
+          </ul>
+          <span class="aud-view-all">View all K-12 courses →</span>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
 
 <!-- ══ 5. AUDIENCES (removed) ══ -->
 
-<!-- ══ HOW IT WORKS BANNER ══ -->
-<div class="how-banner">
-  <div class="how-banner-inner">
-    <span class="how-banner-title">How It Works</span>
-    <span class="how-banner-divider">·</span>
-    <span class="how-banner-steps"><strong>Choose</strong> → <strong>Customize</strong> → <strong>Launch</strong></span>
-    <span class="how-banner-divider">·</span>
-    <span class="how-banner-desc">Pick your courses or full access, tailor as needed, and deploy on your LMS or ours.</span>
+<!-- ══ DEPLOYMENT ══ -->
+<div style="background: #eef7fc; padding: 5rem 3rem;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #f97c53; margin-bottom: 0.6rem; text-align:center;">Flexible Deployment</div>
+    <h2 style="font-size: clamp(1.65rem,2.6vw,2.3rem); font-weight: 700; color: #0a2233; margin-bottom: 3rem; line-height: 1.2; text-align:center;">Two Ways to Deploy — You Choose</h2>
+    <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center;">
+
+      <!-- We Host It -->
+      <div style="background: #fff; border-radius: 20px; border: 1.5px solid rgba(9,111,156,0.12); display:flex; overflow:hidden; min-height:260px;">
+        <!-- IMAGE left: narrow and tall -->
+        <div style="flex:0 0 38%; overflow:hidden; min-height:100%;">
+          <img src="/assets/images/ui/we_host.png" alt="We Host It" style="width:100%; height:100%; object-fit:cover; display:block;" onmouseenter="this.src='/assets/images/ui/we_host.gif'" onmouseleave="this.src='/assets/images/ui/we_host.png'">
+        </div>
+        <!-- TEXT right -->
+        <div style="flex:1; padding:2rem 1.75rem; display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size: clamp(1.6rem,2.4vw,2.1rem); font-weight: 800; color: #0a2233; margin-bottom: 0.2rem; line-height:1.1;">We Host It</h3>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #f97c53; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem;">Fully Managed</div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Completion tracking and reporting</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Built-in quizzes</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Certificates of completion</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Deploy the same day you purchase</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- OR circle -->
+      <div style="display:flex; align-items:center; justify-content:center; padding: 0 2rem;">
+        <div style="width:72px; height:72px; border-radius:50%; background:#f97c53; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 18px rgba(249,124,83,0.35);">
+          <span style="font-size:1.25rem; font-weight:900; color:#fff; letter-spacing:-0.03em;">OR</span>
+        </div>
+      </div>
+
+      <!-- You Host It -->
+      <div style="background: #fff; border-radius: 20px; border: 1.5px solid rgba(9,111,156,0.12); display:flex; overflow:hidden; min-height:260px;">
+        <!-- IMAGE left: narrow and tall -->
+        <div style="flex:0 0 38%; overflow:hidden; min-height:100%;">
+          <img src="/assets/images/ui/you_host.png" alt="You Host It" style="width:100%; height:100%; object-fit:cover; display:block;" onmouseenter="this.src='/assets/images/ui/you_host.gif'" onmouseleave="this.src='/assets/images/ui/you_host.png'">
+        </div>
+        <!-- TEXT right -->
+        <div style="flex:1; padding:2rem 1.75rem; display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size: clamp(1.6rem,2.4vw,2.1rem); font-weight: 800; color: #0a2233; margin-bottom: 0.2rem; line-height:1.1;">You Host It</h3>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #f97c53; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem;">SCORM Compatible</div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>SCORM package for your LMS</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Compatible with all major platforms</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Your branding, your environment</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Deploy the same day you purchase</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<!-- ══ 6. HOW IT WORKS ══ -->
-<div class="how-wrap">
-  <div class="how-inner">
-    <h2 class="section-title">Get Started</h2>
-    <div class="steps">
-      <a href="demo.html" class="step">
-        <div class="step-num"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <h3>Watch a Demo</h3>
-        <p>See the tone, humor, and quality for yourself. Request a free demo and explore our full course catalog.</p>
-        <span class="step-cta">Watch Now →</span>
-      </a>
-      <a href="request-a-quote.html" class="step">
-        <div class="step-num"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <h3>Get Pricing</h3>
-        <p>Flexible pricing for any org size — full catalog access or individual courses. We'll find what fits.</p>
-        <span class="step-cta">Get a Quote →</span>
-      </a>
-      <a href="https://calendly.com/rachelbrian" target="_blank" class="step">
-        <div class="step-num"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
-        <h3>Book a Call</h3>
-        <p>Prefer to talk it through? Schedule a quick call with our team — no pressure, no lengthy sales process.</p>
-        <span class="step-cta">Schedule Now →</span>
-      </a>
+<!-- ══ FEATURED COURSES ══ -->
+<div class="featured-courses-wrap">
+  <div class="featured-courses-inner">
+    <div class="featured-courses-header">
+      <div class="section-label" style="color: rgba(255,255,255,0.55);">Take a Peek</div>
+      <h2 class="section-title" style="color: #fff;">Our Courses</h2>
+      <p class="section-body" style="color: rgba(255,255,255,0.65);">Click any card to watch a trailer.</p>
+    </div>
+    <div class="featured-courses-grid">
+      <!-- __FEATURED_COURSES__ -->
+    </div>
+    <div style="text-align:center; margin-top: 2.5rem;">
+      <a href="catalog.html" class="btn-ghost" style="display:inline-flex; align-items:center; gap:0.5rem;">Browse Full Catalog →</a>
     </div>
   </div>
 </div>
@@ -667,13 +803,302 @@
 })();
 </script>
 
+<!-- ══ TRAILER MODAL ══ -->
+<div class="hp-trailer-overlay" id="hpTrailerOverlay">
+  <div class="hp-trailer-modal">
+    <button class="hp-trailer-close" onclick="closeHomepageTrailer()">✕</button>
+    <div class="hp-trailer-video-wrap" style="position:relative;">
+      <iframe id="hpTrailerFrame" src="" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+    </div>
+    <div class="hp-trailer-footer">
+      <div class="hp-trailer-title" id="hpTrailerTitle"></div>
+      <div style="display:flex; align-items:center; gap:0.75rem;">
+        <button id="hpTrailerMuteBtn" onclick="toggleTrailerMute()" style="background:#f97c53; border:none; border-radius:50px; height:34px; padding:0 1rem; display:flex; align-items:center; gap:0.4rem; cursor:pointer; font-family:inherit; font-size:0.8rem; font-weight:700; color:#fff; white-space:nowrap;">
+          <svg id="hpIconUnmuted" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <svg id="hpIconMuted" style="display:none;" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <span id="hpMuteLabel">Mute</span>
+        </button>
+        <a id="hpTrailerLink" href="#" class="btn-orange" style="font-size:0.85rem; padding:0.5rem 1.25rem;">View Course →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+var hpTrailerPlayer = null, hpTrailerMuted = false;
+
+function openHomepageTrailer(vimeoId, hash, title, href) {
+  hpTrailerMuted = false;
+  document.getElementById('hpIconUnmuted').style.display = '';
+  document.getElementById('hpIconMuted').style.display = 'none';
+  document.getElementById('hpMuteLabel').textContent = 'Mute';
+  document.getElementById('hpTrailerTitle').textContent = title;
+  document.getElementById('hpTrailerLink').href = href;
+  var frame = document.getElementById('hpTrailerFrame');
+  frame.src = 'https://player.vimeo.com/video/' + vimeoId + '?h=' + hash + '&title=0&byline=0&portrait=0';
+  if (typeof Vimeo !== 'undefined') {
+    hpTrailerPlayer = new Vimeo.Player(frame);
+  }
+  document.getElementById('hpTrailerOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeHomepageTrailer() {
+  hpTrailerPlayer = null;
+  hpTrailerMuted = false;
+  document.getElementById('hpTrailerOverlay').classList.remove('open');
+  document.getElementById('hpTrailerFrame').src = '';
+  document.body.style.overflow = '';
+}
+function toggleTrailerMute() {
+  if (!hpTrailerPlayer) return;
+  hpTrailerMuted = !hpTrailerMuted;
+  hpTrailerPlayer.setMuted(hpTrailerMuted).catch(function(){});
+  document.getElementById('hpIconUnmuted').style.display = hpTrailerMuted ? 'none' : '';
+  document.getElementById('hpIconMuted').style.display = hpTrailerMuted ? '' : 'none';
+  document.getElementById('hpMuteLabel').textContent = hpTrailerMuted ? 'Unmute' : 'Mute';
+}
+document.getElementById('hpTrailerOverlay').addEventListener('click', function(e) {
+  if (e.target === this) closeHomepageTrailer();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('hpTrailerOverlay').classList.contains('open')) {
+    closeHomepageTrailer();
+  }
+});
+</script>
+
+<!-- ══ DEMO MODAL ══ -->
+<!-- Video list is managed in data/homepage-demos.csv — run node build.js after updating -->
+<div id="demoModal" style="display:none; position:fixed; inset:0; z-index:9000; background:rgba(10,34,51,0.85); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+  <div style="position:relative; width:90%; max-width:900px; background:#0a2233; border-radius:16px; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+
+    <!-- Close button -->
+    <button onclick="closeDemoModal()" style="position:absolute; top:12px; right:12px; z-index:20; background:rgba(255,255,255,0.12); border:none; color:#fff; border-radius:50%; width:36px; height:36px; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+
+    <!-- Tag + title overlay -->
+    <div style="position:absolute; top:12px; left:16px; z-index:20; display:flex; gap:0.5rem; align-items:center; background:rgba(255,255,255,0.88); backdrop-filter:blur(4px); border-radius:50px; padding:0.25rem 0.85rem 0.25rem 0.25rem;">
+      <span id="demoModalTag" style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:#f97c53; color:#fff; padding:0.2rem 0.6rem; border-radius:50px;"></span>
+      <span id="demoModalTitle" style="font-size:0.82rem; font-weight:600; color:#2d3748;"></span>
+    </div>
+
+    <!-- Poster (shown before play) -->
+    <div id="demoModalPoster" onclick="startDemoVideo()" style="aspect-ratio:16/9; width:100%; cursor:pointer; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#0a2233 0%,#096f9c 100%); background-size:cover; background-position:center; position:relative;">
+      <div style="position:absolute; inset:0; background:rgba(10,34,51,0.35); pointer-events:none;"></div>
+      <div id="demoPlayBtn" style="position:relative; z-index:2; width:80px; height:80px; background:#f97c53; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 32px rgba(249,124,83,0.45); transition:transform 0.2s, box-shadow 0.2s;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </div>
+
+    <!-- Video (shown after play clicked) -->
+    <div id="demoModalVideoWrap" style="display:none; position:relative; aspect-ratio:16/9; width:100%;">
+      <iframe id="demoModalFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="display:block;"></iframe>
+      <!-- Video controls: rewatch + mute -->
+      <div style="position:absolute; bottom:54px; right:14px; z-index:15; display:flex; gap:0.5rem; align-items:center;">
+        <button onclick="rewatchDemo()" title="Watch again" style="background:#f97c53; border:none; color:#fff; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s, transform 0.15s; box-shadow:0 3px 12px rgba(249,124,83,0.45);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+        </button>
+        <button id="demoMuteBtn" onclick="toggleDemoMute()" title="Toggle mute" style="background:#f97c53; border:none; color:#fff; border-radius:50px; height:36px; padding:0 1rem; display:flex; align-items:center; justify-content:center; gap:0.4rem; cursor:pointer; transition:background 0.2s, transform 0.15s; box-shadow:0 3px 12px rgba(249,124,83,0.45); font-family:'Quicksand',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.04em;">
+          <svg id="demoIconUnmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <svg id="demoIconMuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <span id="demoMuteLabel">Mute</span>
+        </button>
+      </div>
+      <!-- CTA overlay (after 60s) — inside videoWrap so bottom nav stays clickable -->
+      <div id="demoModalCta" style="display:none; position:absolute; inset:0; background:rgba(10,34,51,0.9); align-items:center; justify-content:center; flex-direction:column; gap:1.2rem; text-align:center; padding:2rem; z-index:14;">
+        <p style="font-size:1.3rem; font-weight:700; color:#fff; margin:0;">Want to see more?</p>
+        <p style="font-size:0.95rem; color:rgba(255,255,255,0.8); margin:0;">License our courses for your organization.</p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+          <a href="request-a-quote.html" style="background:#f97c53; color:#fff; font-weight:700; padding:0.75rem 1.75rem; border-radius:50px; text-decoration:none; font-size:0.95rem;">Get Pricing</a>
+          <a href="catalog.html" onclick="closeDemoModal()" style="background:transparent; color:rgba(255,255,255,0.7); border:1.5px solid rgba(255,255,255,0.3); font-weight:600; padding:0.75rem 1.5rem; border-radius:50px; font-size:0.95rem; text-decoration:none; display:inline-flex; align-items:center;">Explore the Catalog</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav: 3 clip selector + CTA -->
+    <div style="background:#060f17; padding:0.75rem 1rem; display:flex; align-items:center; gap:0.75rem;">
+      <div id="demoNavItems" style="flex:1; display:flex; gap:0.5rem; min-width:0; overflow:hidden;"></div>
+      <a href="request-a-quote.html" style="flex-shrink:0; background:#f97c53; color:#fff; font-weight:700; font-size:0.78rem; padding:0.45rem 1rem; border-radius:50px; text-decoration:none; white-space:nowrap;">Get Pricing →</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// player.vimeo.com/api/player.js is already loaded in the hero section above
+var demoVideos = [
+  /* __HOMEPAGE_DEMOS__ */
+];
+
+// Prefetch Vimeo thumbnails via oEmbed — request width=1280 for high-res poster
+demoVideos.forEach(function(clip) {
+  var oembedUrl = 'https://vimeo.com/api/oembed.json?width=1280&url=' + encodeURIComponent('https://vimeo.com/' + clip.vimeoId + (clip.hash ? '/' + clip.hash : ''));
+  fetch(oembedUrl)
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      // Strip the size suffix (e.g. _295x166) to get the highest-res version from Vimeo CDN
+      var thumb = (d.thumbnail_url || '').replace(/_\d+x\d+(\.\w+)$/, '_1280x720$1');
+      clip.thumbnail = thumb;
+    })
+    .catch(function() {});
+});
+
+var demoCtaTimer = null;
+var demoPlayer = null;
+var demoMuted = false;
+var demoClipSet = [];   // 3 clips shown in nav
+var demoClipIdx = 0;   // which is active
+
+document.getElementById('demoPlayBtn').addEventListener('mouseenter', function() { this.style.transform='scale(1.1)'; this.style.boxShadow='0 12px 40px rgba(249,124,83,0.65)'; });
+document.getElementById('demoPlayBtn').addEventListener('mouseleave', function() { this.style.transform='scale(1)'; this.style.boxShadow='0 8px 32px rgba(249,124,83,0.45)'; });
+
+function openDemoModal() {
+  demoClipSet = demoVideos.slice(); // all clips in fixed order
+  demoClipIdx = 0;
+  _loadDemoClip(0);
+  document.getElementById('demoModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function _loadDemoClip(idx) {
+  demoClipIdx = idx;
+  var clip = demoClipSet[idx];
+  document.getElementById('demoModalTag').textContent = clip.tag;
+  document.getElementById('demoModalTitle').textContent = clip.title;
+  var poster = document.getElementById('demoModalPoster');
+  poster.style.backgroundImage = clip.thumbnail ? 'url(' + clip.thumbnail + ')' : 'linear-gradient(135deg,#0a2233 0%,#096f9c 100%)';
+  poster.style.display = 'flex';
+  // Stop any playing video
+  clearTimeout(demoCtaTimer);
+  demoPlayer = null;  // NOTE: do NOT call destroy() — it removes the iframe from the DOM
+  document.getElementById('demoModalFrame').src = '';
+  document.getElementById('demoModalVideoWrap').style.display = 'none';
+  document.getElementById('demoModalCta').style.display = 'none';
+  renderDemoNav();
+}
+
+function renderDemoNav() {
+  var btnStyle = 'border:none; border-radius:50px; height:30px; padding:0 0.75rem; font-family:\'Quicksand\',sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer; transition:background 0.15s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;';
+  document.getElementById('demoNavItems').innerHTML = demoClipSet.map(function(clip, i) {
+    var active = i === demoClipIdx;
+    var bg = active ? 'background:#f97c53; color:#fff;' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.65);';
+    return '<button onclick="switchDemoClip(' + i + ')" style="' + btnStyle + bg + '" title="' + clip.title + '">' + clip.tag + '</button>';
+  }).join('');
+}
+
+function switchDemoClip(idx) {
+  _loadDemoClip(idx);
+}
+
+function startDemoVideo() {
+  var clip = demoClipSet[demoClipIdx];
+  if (!clip) return;
+  document.getElementById('demoModalPoster').style.display = 'none';
+  document.getElementById('demoModalVideoWrap').style.display = 'block';
+  document.getElementById('demoModalCta').style.display = 'none';
+  var frame = document.getElementById('demoModalFrame');
+  frame.src = 'https://player.vimeo.com/video/' + clip.vimeoId + '?h=' + clip.hash + '&autoplay=1&title=0&byline=0&portrait=0';
+  if (typeof Vimeo !== 'undefined') {
+    demoPlayer = new Vimeo.Player(frame);
+    demoMuted = false;
+    updateDemoMuteIcon();
+    // On video end: fade audio out, leave nav clickable (no CTA overlay)
+    demoPlayer.on('ended', function() {
+      clearTimeout(demoCtaTimer);
+      fadeDemoVolume(0, 1800, null);
+    });
+  }
+  clearTimeout(demoCtaTimer);
+  demoCtaTimer = setTimeout(function() {
+    // Fade audio then show CTA
+    fadeDemoVolume(0, 2000, function() {
+      demoMuted = true;
+      updateDemoMuteIcon();
+      document.getElementById('demoModalCta').style.display = 'flex';
+    });
+  }, 30000);
+}
+
+function rewatchDemo() {
+  clearTimeout(demoCtaTimer);
+  document.getElementById('demoModalCta').style.display = 'none';
+  if (demoPlayer) {
+    demoMuted = false;
+    demoPlayer.setMuted(false).catch(function() {});
+    demoPlayer.setVolume(1).catch(function() {});
+    updateDemoMuteIcon();
+    demoPlayer.setCurrentTime(0).then(function() {
+      demoPlayer.play().catch(function() {});
+    }).catch(function() { startDemoVideo(); });
+  } else {
+    startDemoVideo();
+  }
+  demoCtaTimer = setTimeout(function() {
+    document.getElementById('demoModalCta').style.display = 'flex';
+    if (demoPlayer) demoPlayer.setMuted(true).catch(function() {});
+    demoMuted = true;
+    updateDemoMuteIcon();
+  }, 30000);
+}
+
+function fadeDemoVolume(toVol, duration, onComplete) {
+  if (!demoPlayer) { if (onComplete) onComplete(); return; }
+  demoPlayer.getVolume().then(function(vol) {
+    var steps = 25;
+    var stepMs = duration / steps;
+    var delta = (toVol - vol) / steps;
+    var count = 0;
+    function tick() {
+      if (!demoPlayer || count >= steps) { if (onComplete) onComplete(); return; }
+      vol = Math.max(0, Math.min(1, vol + delta));
+      demoPlayer.setVolume(vol).catch(function() {});
+      count++;
+      setTimeout(tick, stepMs);
+    }
+    tick();
+  }).catch(function() { if (onComplete) onComplete(); });
+}
+
+function toggleDemoMute() {
+  if (!demoPlayer) return;
+  demoMuted = !demoMuted;
+  demoPlayer.setMuted(demoMuted).catch(function() {});
+  updateDemoMuteIcon();
+}
+
+function updateDemoMuteIcon() {
+  document.getElementById('demoIconUnmuted').style.display = demoMuted ? 'none' : 'block';
+  document.getElementById('demoIconMuted').style.display = demoMuted ? 'block' : 'none';
+  document.getElementById('demoMuteLabel').textContent = demoMuted ? 'Unmute' : 'Mute';
+}
+
+function closeDemoModal() {
+  clearTimeout(demoCtaTimer);
+  demoPlayer = null;  // do NOT call destroy() — it removes the iframe from the DOM
+  document.getElementById('demoModalFrame').src = '';
+  document.getElementById('demoModal').style.display = 'none';
+  document.getElementById('demoModalPoster').style.display = 'flex';
+  document.getElementById('demoModalVideoWrap').style.display = 'none';
+  document.getElementById('demoModalCta').style.display = 'none';
+  document.body.style.overflow = '';
+  demoMuted = false;
+  demoClipSet = [];
+}
+
+document.getElementById('demoModal').addEventListener('click', function(e) {
+  if (e.target === this) closeDemoModal();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('demoModal').style.display === 'flex') closeDemoModal();
+});
+</script>
+
 <!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-logo">
     <img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" />
   </div>
   <ul class="footer-links">
-    <li><a href="catalog.html?audience=workplace">Workplace</a></li>
-    <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
-    <li><a href="catalog.html?audience=k12">K–12</a></li>
+    <li><a href="workplace.html">Workplace</a></li>
+    <li><a href="highered.html">Higher Ed</a></li>
+    <li><a href="k12.html">K–12</a></li>
     <li><a href="#">Privacy<

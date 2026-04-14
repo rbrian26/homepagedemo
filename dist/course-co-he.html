@@ -685,13 +685,28 @@
       padding: 1rem 1.2rem;
       display: flex;
       gap: 1rem;
-      align-items: flex-start;
+      align-items: center;
       transition: border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
     }
 
     .lesson-item:hover {
       border-color: rgba(9,111,156,0.22);
       box-shadow: 0 4px 18px rgba(9,111,156,0.08);
+    }
+
+    .lesson-thumb {
+      flex-shrink: 0;
+      width: 80px;
+      height: 52px;
+      object-fit: cover;
+      border-radius: 7px;
+      display: block;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .lesson-item:hover .lesson-thumb {
+      transform: scale(1.04);
+      box-shadow: 0 4px 14px rgba(9,111,156,0.18);
     }
 
     .lesson-num {
@@ -776,7 +791,7 @@
     <li><a href="catalog.html">Catalog</a></li>
     <li><a href="about-us.html">About</a></li>
     <li><a href="contact.html">Contact Us</a></li>
-    <li><a href="demo.html" class="nav-cta">Watch a Demo</a></li>
+    <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
   </ul>
 </nav>
 
@@ -799,13 +814,13 @@
       <h1>Consent</h1>
       <p class="hero-desc"></p>
       <div class="hero-audience">
-        Students and Facultyundefined
+        Students and Faculty
       </div>
       <ul class="hero-bullets">
 <!--  -->
       </ul>
       <div class="hero-actions">
-        <a href="/demo.html" class="btn-orange">Watch a Demo</a>
+        <a href="#" class="btn-orange" onclick="openCourseDemo(); return false;">Watch a Demo</a>
         <a href="/request-a-quote.html" class="btn-ghost">Get Pricing</a>
       </div>
     </div>
@@ -889,25 +904,65 @@
     </div>
   </div>
 
-  <!-- CTA Strip -->
-  <div class="cta-strip">
-    <div>
-      <h2>Ready to license this course?</h2>
-      <p>Get instant demo access or talk to us about pricing for your organization.</p>
-    </div>
-    <div class="cta-actions">
-      <a href="demo.html" class="btn-orange">Watch a Demo</a>
-      <a href="request-a-quote.html" class="btn-ghost-dark">Request a Quote</a>
-    </div>
-  </div>
-
-  <!-- Full Access Promo Bar -->
+  <!-- Packages Promo Bar -->
   <div class="promo-bar">
     <div class="promo-bar-text">
-      Need multiple courses for your workplace?
-      <span>Get full access to the Blue Seat Studios catalog — every course, every update, one license.</span>
+      Need multiple courses for your organization?
+      <span>Get access to the full Blue Seat Studios catalog — every course, every update, one license.</span>
     </div>
-    <a href="full_access.html" class="btn-white">Explore Full Access</a>
+    <a href="packages.html" class="btn-white">Explore Course Packages</a>
+  </div>
+
+  <!-- Two Ways to Deploy -->
+  <div style="background: #eef7fc; padding: 4rem 3rem;">
+    <div style="max-width: 1100px; margin: 0 auto;">
+      <div style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #f97c53; margin-bottom: 0.6rem; text-align:center;">Flexible Deployment</div>
+      <h2 style="font-size: clamp(1.5rem,2.2vw,2rem); font-weight: 700; color: #0a2233; margin-bottom: 2.5rem; line-height: 1.2; text-align:center;">Two Ways to Deploy — You Choose</h2>
+      <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center;">
+
+        <!-- We Host It -->
+        <div style="background: #fff; border-radius: 20px; border: 1.5px solid rgba(9,111,156,0.12); display:flex; overflow:hidden; min-height:240px;">
+          <div style="flex:0 0 38%; overflow:hidden; min-height:100%;">
+            <img src="/assets/images/ui/we_host.png" alt="We Host It" style="width:100%; height:100%; object-fit:cover; display:block;" onmouseenter="this.src='/assets/images/ui/we_host.gif'" onmouseleave="this.src='/assets/images/ui/we_host.png'">
+          </div>
+          <div style="flex:1; padding:1.75rem 1.5rem; display:flex; flex-direction:column; justify-content:center;">
+            <h3 style="font-size: clamp(1.4rem,2vw,1.8rem); font-weight: 800; color: #0a2233; margin-bottom: 0.2rem; line-height:1.1;">We Host It</h3>
+            <div style="font-size: 0.78rem; font-weight: 700; color: #f97c53; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">Fully Managed</div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li style="font-size: 0.88rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Completion tracking and reporting</li>
+              <li style="font-size: 0.88rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Built-in quizzes</li>
+              <li style="font-size: 0.88rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Certificates of completion</li>
+              <li style="font-size: 0.88rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Deploy the same day you purchase</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- OR -->
+        <div style="display:flex; align-items:center; justify-content:center; padding: 0 1.5rem;">
+          <div style="width:64px; height:64px; border-radius:50%; background:#f97c53; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 18px rgba(249,124,83,0.35);">
+            <span style="font-size:1.1rem; font-weight:900; color:#fff; letter-spacing:-0.03em;">OR</span>
+          </div>
+        </div>
+
+        <!-- You Host It -->
+        <div style="background: #fff; border-radius: 20px; border: 1.5px solid rgba(9,111,156,0.12); display:flex; overflow:hidden; min-height:240px;">
+          <div style="flex:0 0 38%; overflow:hidden; min-height:100%;">
+            <img src="/assets/images/ui/you_host.png" alt="You Host It" style="width:100%; height:100%; object-fit:cover; display:block;" onmouseenter="this.src='/assets/images/ui/you_host.gif'" onmouseleave="this.src='/assets/images/ui/you_host.png'">
+          </div>
+          <div style="flex:1; padding:1.75rem 1.5rem; display:flex; flex-direction:column; justify-content:center;">
+            <h3 style="font-size: clamp(1.4rem,2vw,1.8rem); font-weight: 800; color: #0a2233; margin-bottom: 0.2rem; line-height:1.1;">You Host It</h3>
+            <div style="font-size: 0.78rem; font-weight: 700; color: #f97c53; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1rem;">SCORM Compatible</div>
+            <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.5rem;">
+              <li style="font-size: 0.88rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>SCORM package for your LMS</li>
+              <li style="font-size: 0.88rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Compatible with all major platforms</li>
+              <li style="font-size: 0.88rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Your branding, your environment</li>
+              <li style="font-size: 0.88rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.6rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Deploy the same day you purchase</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
   </div>
 
   <!-- Related Courses -->
@@ -982,6 +1037,187 @@
   </div>
 
 </div>
+
+<!-- ══ COURSE DEMO MODAL ══ -->
+<div id="courseDemoModal" style="display:none; position:fixed; inset:0; z-index:9000; background:rgba(10,34,51,0.85); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
+  <div style="position:relative; width:90%; max-width:900px; background:#0a2233; border-radius:16px; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+
+    <button onclick="closeCourseDemo()" style="position:absolute; top:12px; right:12px; z-index:20; background:rgba(255,255,255,0.12); border:none; color:#fff; border-radius:50%; width:36px; height:36px; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
+
+    <!-- Tag + title overlay -->
+    <div style="position:absolute; top:12px; left:16px; z-index:20; display:flex; gap:0.5rem; align-items:center; background:rgba(255,255,255,0.88); backdrop-filter:blur(4px); border-radius:50px; padding:0.25rem 0.85rem 0.25rem 0.25rem;">
+      <span id="cdModalTag" style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:#f97c53; color:#fff; padding:0.2rem 0.6rem; border-radius:50px;"></span>
+      <span id="cdModalTitle" style="font-size:0.82rem; font-weight:600; color:#2d3748;"></span>
+    </div>
+
+    <!-- Poster -->
+    <div id="cdModalPoster" onclick="cdStartVideo()" style="aspect-ratio:16/9; width:100%; cursor:pointer; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#0a2233 0%,#096f9c 100%); background-size:cover; background-position:center; position:relative;">
+      <div style="position:absolute; inset:0; background:rgba(10,34,51,0.35); pointer-events:none;"></div>
+      <div id="cdPlayBtn" style="position:relative; z-index:2; width:80px; height:80px; background:#f97c53; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 32px rgba(249,124,83,0.45); transition:transform 0.2s, box-shadow 0.2s;">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+      </div>
+    </div>
+
+    <!-- Video -->
+    <div id="cdModalVideoWrap" style="display:none; position:relative; aspect-ratio:16/9; width:100%;">
+      <iframe id="cdModalFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="display:block;"></iframe>
+      <div style="position:absolute; bottom:54px; right:14px; z-index:15; display:flex; gap:0.5rem; align-items:center;">
+        <button onclick="cdRewatch()" title="Watch again" style="background:#f97c53; border:none; color:#fff; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s, transform 0.15s; box-shadow:0 3px 12px rgba(249,124,83,0.45);">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
+        </button>
+        <button id="cdMuteBtn" onclick="cdToggleMute()" style="background:#f97c53; border:none; color:#fff; border-radius:50px; height:36px; padding:0 1rem; display:flex; align-items:center; justify-content:center; gap:0.4rem; cursor:pointer; transition:background 0.2s; box-shadow:0 3px 12px rgba(249,124,83,0.45); font-family:'Quicksand',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.04em;">
+          <svg id="cdIconUnmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
+          <svg id="cdIconMuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+          <span id="cdMuteLabel">Mute</span>
+        </button>
+      </div>
+      <!-- CTA overlay at 30s -->
+      <div id="cdModalCta" style="display:none; position:absolute; inset:0; background:rgba(10,34,51,0.9); align-items:center; justify-content:center; flex-direction:column; gap:1.2rem; text-align:center; padding:2rem; z-index:14;">
+        <p style="font-size:1.3rem; font-weight:700; color:#fff; margin:0;">Want to see more?</p>
+        <p style="font-size:0.95rem; color:rgba(255,255,255,0.8); margin:0;">License this course for your organization.</p>
+        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+          <a href="request-a-quote.html" style="background:#f97c53; color:#fff; font-weight:700; padding:0.75rem 1.75rem; border-radius:50px; text-decoration:none; font-size:0.95rem;">Get Pricing</a>
+          <button onclick="cdRewatch()" style="background:transparent; color:rgba(255,255,255,0.7); border:1.5px solid rgba(255,255,255,0.3); font-weight:600; padding:0.75rem 1.5rem; border-radius:50px; font-size:0.95rem; cursor:pointer; font-family:'Quicksand',sans-serif;">Watch Again</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom nav -->
+    <div style="background:#060f17; padding:0.75rem 1rem; display:flex; align-items:center; gap:0.75rem;">
+      <div id="cdNavItems" style="flex:1; display:flex; gap:0.5rem; min-width:0; overflow:hidden;"></div>
+      <a href="request-a-quote.html" style="flex-shrink:0; background:#f97c53; color:#fff; font-weight:700; font-size:0.78rem; padding:0.45rem 1rem; border-radius:50px; text-decoration:none; white-space:nowrap;">Get Pricing →</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+var cdVideos = [
+  
+];
+
+// Prefetch thumbnails
+cdVideos.forEach(function(clip) {
+  var url = 'https://vimeo.com/api/oembed.json?width=1280&url=' + encodeURIComponent('https://vimeo.com/' + clip.vimeoId + (clip.hash ? '/' + clip.hash : ''));
+  fetch(url).then(function(r){ return r.json(); }).then(function(d){
+    clip.thumbnail = (d.thumbnail_url || '').replace(/_\d+x\d+(\.\w+)$/, '_1280x720$1');
+  }).catch(function(){});
+});
+
+var cdCtaTimer = null, cdPlayer = null, cdMuted = false, cdIdx = 0;
+
+document.getElementById('cdPlayBtn').addEventListener('mouseenter', function(){ this.style.transform='scale(1.1)'; });
+document.getElementById('cdPlayBtn').addEventListener('mouseleave', function(){ this.style.transform='scale(1)'; });
+
+function openCourseDemo() {
+  cdIdx = 0;
+  _cdLoad(0);
+  document.getElementById('courseDemoModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+function closeCourseDemo() {
+  clearTimeout(cdCtaTimer);
+  cdPlayer = null;
+  document.getElementById('courseDemoModal').style.display = 'none';
+  document.getElementById('cdModalFrame').src = '';
+  document.body.style.overflow = '';
+}
+function _cdLoad(idx) {
+  cdIdx = idx;
+  var clip = cdVideos[idx];
+  if (!clip) return;
+  document.getElementById('cdModalTag').textContent = clip.tag;
+  document.getElementById('cdModalTitle').textContent = clip.title;
+  var poster = document.getElementById('cdModalPoster');
+  poster.style.backgroundImage = clip.thumbnail ? 'url(' + clip.thumbnail + ')' : 'linear-gradient(135deg,#0a2233 0%,#096f9c 100%)';
+  poster.style.display = 'flex';
+  clearTimeout(cdCtaTimer);
+  cdPlayer = null;
+  document.getElementById('cdModalFrame').src = '';
+  document.getElementById('cdModalVideoWrap').style.display = 'none';
+  document.getElementById('cdModalCta').style.display = 'none';
+  _cdRenderNav();
+}
+function _cdRenderNav() {
+  var btnStyle = 'border:none; border-radius:50px; height:30px; padding:0 0.75rem; font-family:\'Quicksand\',sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer; transition:background 0.15s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;';
+  document.getElementById('cdNavItems').innerHTML = cdVideos.map(function(clip, i) {
+    var active = i === cdIdx;
+    var bg = active ? 'background:#f97c53; color:#fff;' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.65);';
+    return '<button onclick="cdSwitch(' + i + ')" style="' + btnStyle + bg + '" title="' + clip.title + '">' + clip.tag + '</button>';
+  }).join('');
+}
+function cdSwitch(idx) { _cdLoad(idx); }
+function cdStartVideo() {
+  var clip = cdVideos[cdIdx];
+  if (!clip) return;
+  document.getElementById('cdModalPoster').style.display = 'none';
+  document.getElementById('cdModalVideoWrap').style.display = 'block';
+  document.getElementById('cdModalCta').style.display = 'none';
+  var frame = document.getElementById('cdModalFrame');
+  frame.src = 'https://player.vimeo.com/video/' + clip.vimeoId + '?h=' + clip.hash + '&autoplay=1&title=0&byline=0&portrait=0';
+  if (typeof Vimeo !== 'undefined') {
+    cdPlayer = new Vimeo.Player(frame);
+    cdMuted = false;
+    _cdUpdateMuteIcon();
+    cdPlayer.on('ended', function() { clearTimeout(cdCtaTimer); cdFadeVolume(0, 1800, null); });
+  }
+  clearTimeout(cdCtaTimer);
+  cdCtaTimer = setTimeout(function() {
+    cdFadeVolume(0, 2000, function() {
+      cdMuted = true;
+      _cdUpdateMuteIcon();
+      document.getElementById('cdModalCta').style.display = 'flex';
+    });
+  }, 30000);
+}
+function cdRewatch() {
+  clearTimeout(cdCtaTimer);
+  document.getElementById('cdModalCta').style.display = 'none';
+  if (cdPlayer) {
+    cdPlayer.setCurrentTime(0).then(function() {
+      cdPlayer.setVolume(1).catch(function(){});
+      cdMuted = false;
+      _cdUpdateMuteIcon();
+      cdPlayer.play().catch(function(){});
+    }).catch(function(){ cdStartVideo(); });
+  } else {
+    cdStartVideo();
+  }
+  cdCtaTimer = setTimeout(function() {
+    document.getElementById('cdModalCta').style.display = 'flex';
+    if (cdPlayer) cdPlayer.setMuted(true).catch(function(){});
+    cdMuted = true;
+    _cdUpdateMuteIcon();
+  }, 30000);
+}
+function cdToggleMute() {
+  if (!cdPlayer) return;
+  cdMuted = !cdMuted;
+  cdPlayer.setMuted(cdMuted).catch(function(){});
+  _cdUpdateMuteIcon();
+}
+function _cdUpdateMuteIcon() {
+  document.getElementById('cdIconUnmuted').style.display = cdMuted ? 'none' : '';
+  document.getElementById('cdIconMuted').style.display = cdMuted ? '' : 'none';
+  document.getElementById('cdMuteLabel').textContent = cdMuted ? 'Unmute' : 'Mute';
+}
+function cdFadeVolume(toVol, duration, onComplete) {
+  if (!cdPlayer) { if (onComplete) onComplete(); return; }
+  var steps = 20, stepMs = duration / steps, stepSize = (1 - toVol) / steps, vol = 1;
+  function tick() {
+    vol = Math.max(toVol, vol - stepSize);
+    cdPlayer.setVolume(vol).catch(function(){});
+    if (vol > toVol) { setTimeout(tick, stepMs); } else { if (onComplete) onComplete(); }
+  }
+  tick();
+}
+document.getElementById('courseDemoModal').addEventListener('click', function(e) {
+  if (e.target === this) closeCourseDemo();
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('courseDemoModal').style.display === 'flex') closeCourseDemo();
+});
+</script>
 
 <!-- FOOTER -->
 <footer>
