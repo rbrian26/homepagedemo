@@ -70,11 +70,15 @@
     /* ── HERO ── */
     .page-hero {
       background: linear-gradient(135deg, #0d1f2d 0%, #084060 100%);
-      padding: 9rem 3rem 5.5rem;
+      padding: 6.5rem 3rem 3rem;
     }
-    .page-hero-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.1fr; gap: 3.5rem; align-items: center; }
-    .hero-courses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.9rem; }
+    .page-hero-inner { max-width: 1240px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.5fr; gap: 3rem; align-items: center; }
+    .hero-courses-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; }
     .hero-courses-grid .course-card { background: rgba(255,255,255,0.97); }
+    .hero-courses-grid .course-card-img-wrap { aspect-ratio: 2/1; }
+    .hero-courses-grid .course-card-body { padding: 0.45rem 0.85rem 0.55rem; background: var(--navy); }
+    .hero-courses-grid .course-card-title { font-size: 0.82rem; color: #fff; }
+    .hero-courses-grid .course-card-desc { display: none; }
     .page-hero .eyebrow { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.75rem; }
     .page-hero h1 { font-size: clamp(2.4rem, 4.5vw, 3.6rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 1.2rem; letter-spacing: -0.02em; }
     .page-hero h1 em { font-style: normal; color: var(--orange); }
@@ -82,7 +86,7 @@
     .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
     /* ── PACKAGE ── */
-    .package-wrap { background: var(--navy); padding: 5rem 3rem; }
+    .package-wrap { background: var(--navy); padding: 2rem 3rem 5rem; }
     .package-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1.15fr; gap: 4rem; align-items: center; }
     .package-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: var(--orange); color: #fff; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 0.35rem 0.9rem; border-radius: 50px; margin-bottom: 1rem; }
     .package-title { font-size: clamp(1.8rem,3vw,2.6rem); font-weight: 700; color: #fff; line-height: 1.1; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
@@ -231,6 +235,47 @@
     .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: rgba(255,255,255,0.72); }
 
+    /* ── LIGHTBOX ── */
+    .lightbox-overlay {
+      position: fixed; inset: 0; z-index: 600;
+      background: rgba(0,0,0,0.82); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 2rem; opacity: 0; pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+    .lightbox-overlay.open { opacity: 1; pointer-events: all; }
+    .lightbox {
+      background: #0f1c25; border-radius: 16px; width: 100%; max-width: 420px;
+      overflow: hidden; box-shadow: 0 32px 80px rgba(0,0,0,0.6);
+      transform: scale(0.94) translateY(16px);
+      transition: transform 0.3s cubic-bezier(0.34,1.3,0.64,1); position: relative;
+    }
+    .lightbox-overlay.open .lightbox { transform: scale(1) translateY(0); }
+    .lightbox-close {
+      position: absolute; top: 0.75rem; right: 0.75rem; z-index: 10;
+      width: 32px; height: 32px; background: rgba(0,0,0,0.5); border: none;
+      border-radius: 50%; color: #fff; font-size: 1rem; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s; font-family: 'Quicksand', sans-serif;
+    }
+    .lightbox-close:hover { background: var(--orange); }
+    .lightbox-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; }
+    .lightbox-body { padding: 1.4rem 1.6rem 1.8rem; }
+    .lightbox-title { font-size: 1.15rem; font-weight: 700; color: #fff; margin-bottom: 0.6rem; line-height: 1.2; }
+    .lightbox-desc { font-size: 0.85rem; color: rgba(255,255,255,0.6); line-height: 1.6; font-weight: 500; margin-bottom: 1.2rem; }
+    .lightbox-actions { display: flex; flex-direction: column; gap: 0.6rem; }
+    .lb-btn {
+      display: block; width: 100%; padding: 0.75rem 1.2rem; border-radius: 8px;
+      font-family: 'Quicksand', sans-serif; font-weight: 700; font-size: 0.9rem;
+      text-align: center; text-decoration: none; transition: background 0.2s, transform 0.15s;
+      cursor: pointer; border: none;
+    }
+    .lb-btn:hover { transform: translateY(-1px); }
+    .lb-btn-primary { background: var(--orange); color: #fff; }
+    .lb-btn-primary:hover { background: var(--orange-dk); }
+    .lb-btn-secondary { background: rgba(255,255,255,0.08); color: #fff; border: 1.5px solid rgba(255,255,255,0.15); }
+    .lb-btn-secondary:hover { background: rgba(255,255,255,0.14); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       nav { padding: 0.9rem 1.5rem; }
@@ -243,7 +288,7 @@
       .preview-grid { grid-template-columns: 1fr 1fr; }
     }
     @media (max-width: 600px) {
-      .page-hero { padding: 7rem 1.5rem 4rem; }
+      .page-hero { padding: 5.5rem 1.5rem 2.5rem; }
       .package-wrap, .courses-wrap, .deploy-wrap, .preview-wrap, .cta-strip { padding: 3.5rem 1.5rem; }
       .preview-grid { grid-template-columns: 1fr; }
       footer { flex-direction: column; text-align: center; }
@@ -281,7 +326,12 @@
       </div>
     <div class="hero-courses-grid">
 
-      <a href="/course-co-k12.html" class="course-card">
+      <a href="#" onclick="openLightbox(this); return false;" class="course-card"
+         data-title="Consent (K–12)"
+         data-thumb="/assets/images/courses/img_co-k12.png"
+         data-href="/course-co-k12.html"
+         data-status="available"
+         data-desc="Age-appropriate lessons that help students understand bodily autonomy, boundaries, and consent — built for the K–12 environment.">
         <div class="course-card-img-wrap">
           <img src="/assets/images/courses/img_co-k12.png" alt="Consent (K–12)"
                onmouseenter="this.src='/assets/images/courses/img_co-k12.gif'"
@@ -293,7 +343,14 @@
         </div>
       </a>
 
-      <a href="/course-ta.html" class="course-card">
+      <a href="#" onclick="openLightbox(this); return false;" class="course-card"
+         data-title="Threat Assessment"
+         data-thumb="/assets/images/courses/img_ta.png"
+         data-href="/course-ta.html"
+         data-status="available"
+         data-vimeo="1177367700"
+         data-hash="d32252af73"
+         data-desc="Give your school community the tools to recognize warning signs, support others, and report concerns early.">
         <div class="course-card-img-wrap">
           <img src="/assets/images/courses/img_ta.png" alt="Threat Assessment"
                onmouseenter="this.src='/assets/images/courses/img_ta.gif'"
@@ -305,7 +362,12 @@
         </div>
       </a>
 
-      <a href="/coming-soon-mh-k12.html" class="course-card">
+      <a href="#" onclick="openLightbox(this); return false;" class="course-card"
+         data-title="Mental Health Basics"
+         data-thumb="/assets/images/courses/img_mh-k12.png"
+         data-href="/coming-soon-mh-k12.html"
+         data-status="coming-soon"
+         data-desc="Helps students name their emotions, build self-awareness, and make more intentional choices. Reinforces that all emotions are part of being human.">
         <div class="course-card-img-wrap">
           <div class="coming-soon-bar"><span>Coming June 2026</span><span>Preorder →</span></div>
           <img src="/assets/images/courses/img_mh-k12.png" alt="Mental Health Basics"
@@ -318,7 +380,12 @@
         </div>
       </a>
 
-      <a href="/course-by-k12.html" class="course-card">
+      <a href="#" onclick="openLightbox(this); return false;" class="course-card"
+         data-title="Be a Bystander"
+         data-thumb="/assets/images/courses/img_by-k12.png"
+         data-href="/course-by-k12.html"
+         data-status="available"
+         data-desc="Gives students the skills and confidence to step in when something isn't right — age-appropriate bystander training for K–12.">
         <div class="course-card-img-wrap">
           <img src="/assets/images/courses/img_by-k12.png" alt="Be a Bystander"
                onmouseenter="this.src='/assets/images/courses/img_by-k12.gif'"
@@ -436,6 +503,19 @@
   </div>
 </div>
 
+<!-- LIGHTBOX -->
+<div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" onclick="closeLightboxDirect()">✕</button>
+    <img class="lightbox-img" id="lightbox-img" src="" alt="" />
+    <div class="lightbox-body">
+      <div class="lightbox-title" id="lightbox-title"></div>
+      <div class="lightbox-desc" id="lightbox-desc"></div>
+      <div class="lightbox-actions" id="lightbox-actions"></div>
+    </div>
+  </div>
+</div>
+
 <!-- ══ FOOTER ══ -->
 <footer>
   <div class="footer-logo">
@@ -502,8 +582,38 @@
   }
 
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeModal();
+    if (e.key === 'Escape') { closeModal(); closeLightboxDirect(); }
   });
+
+  function openLightbox(card) {
+    const title = card.dataset.title;
+    const thumb = card.dataset.thumb;
+    const href  = card.dataset.href;
+    const desc  = card.dataset.desc;
+    const vimeo = card.dataset.vimeo;
+    const hash  = card.dataset.hash;
+    const isComingSoon = card.dataset.status === 'coming-soon';
+    document.getElementById('lightbox-img').src = thumb;
+    document.getElementById('lightbox-img').alt = title;
+    document.getElementById('lightbox-title').textContent = title;
+    document.getElementById('lightbox-desc').textContent = desc;
+    const actions = document.getElementById('lightbox-actions');
+    if (isComingSoon) {
+      actions.innerHTML = `<a href="${href}" class="lb-btn lb-btn-primary">Preorder</a><a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>`;
+    } else {
+      const demoBtn = vimeo ? `<button onclick="closeLightboxDirect(); openClip('${vimeo}','${hash}','${title}','Demo')" class="lb-btn lb-btn-secondary">See Demo</button>` : '';
+      actions.innerHTML = `<a href="${href}" class="lb-btn lb-btn-primary">Go to Course</a>${demoBtn}<a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>`;
+    }
+    document.getElementById('lightbox-overlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeLightbox(e) {
+    if (e.target === document.getElementById('lightbox-overlay')) closeLightboxDirect();
+  }
+  function closeLightboxDirect() {
+    document.getElementById('lightbox-overlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
 </script>
 
 
