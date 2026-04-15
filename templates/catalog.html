@@ -92,6 +92,37 @@
 
     .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
 
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 0.25rem;
+    }
+    .nav-hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: #fff; border-radius: 2px;
+      transition: transform 0.2s, opacity 0.2s;
+    }
+    .nav-mobile-menu {
+      display: none;
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(9,111,156,0.98);
+      z-index: 999;
+      flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a {
+      color: #fff; text-decoration: none; font-size: 1.4rem;
+      font-weight: 700; transition: color 0.2s;
+    }
+    .nav-mobile-menu a:hover { color: var(--orange); }
+    .nav-mobile-close {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      background: none; border: none; color: #fff;
+      font-size: 2rem; cursor: pointer; line-height: 1;
+    }
+
     /* ── HERO ── */
     .hero {
       background: linear-gradient(to bottom, #ffffff 0%, #096f9c 65%, #0a2233 100%);
@@ -133,7 +164,7 @@
       margin-bottom: 1rem;
     }
 
-    .hero-left { flex: 1; }
+    .hero-left { flex: 1; min-width: 0; }
 
     .hero h1 {
       font-size: clamp(1.6rem, 3vw, 2.6rem);
@@ -712,6 +743,8 @@
       box-shadow: 0 32px 80px rgba(0,0,0,0.6);
     }
 
+    .trailer-video-area { position: relative; }
+
     .trailer-video-wrap {
       aspect-ratio: 16/9;
       position: relative;
@@ -1056,21 +1089,32 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       nav { padding: 0 1.5rem; }
-      .filter-bar { padding: 0 1.5rem; top: 72px; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .filter-bar { padding: 0; top: 72px; }
       .catalog-body { padding: 2rem 0 6rem; }
       .hero { padding: 0 1.5rem 2rem; min-height: 200px; }
-      .nav-links li:not(:last-child) { display: none; }
       .section-header { padding: 0 1.5rem; }
       .card-track { padding: 0.5rem 1.5rem 1rem; }
       .scroll-btn { display: none; }
       .featured-section { padding: 3rem 1.5rem; }
     }
 
+    @media (max-width: 768px) {
+      /* Hero — stack text above buttons, ensure content clears fixed nav */
+      .hero { padding-top: 88px; min-height: 0; }
+      .hero-content { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .hero-left { width: 100%; }
+      .hero-sub { max-width: 100%; }
+      .hero-actions { flex-direction: row; width: 100%; }
+    }
+
     @media (max-width: 600px) {
+      nav { padding: 0 1.25rem; }
       /* Hero */
+      .hero { padding: 0 1.25rem 1.5rem; }
       .hero h1 { font-size: 1.8rem; }
       .hero-sub { font-size: 0.88rem; }
-      .hero-content { flex-direction: column; align-items: flex-start; gap: 1rem; }
       .hero-actions { flex-direction: column; width: 100%; }
       .hero-actions .btn-orange,
       .hero-actions .btn-ghost { width: 100%; justify-content: center; }
@@ -1078,15 +1122,27 @@
       .course-card { flex: 0 0 200px; }
       /* Featured grid — single column */
       .featured-grid { grid-template-columns: 1fr; gap: 1rem; }
-      /* Trailer modal — stack title and buttons */
-      .trailer-modal { margin: 0 0.5rem; }
-      .trailer-modal-body { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      .featured-section { padding: 2.5rem 1.25rem; }
+      .section-header { padding: 0 1.25rem; }
+      /* Trailer modal — C1 bottom sheet */
+      .trailer-modal-overlay { align-items: flex-end !important; padding: 0 !important; }
+      .trailer-modal { width: 100% !important; max-width: 100% !important; border-radius: 16px 16px 0 0; margin: 0; }
+      .trailer-video-area { border-radius: 16px 16px 0 0; overflow: hidden; }
+      .trailer-bottom-controls { position: static !important; bottom: auto !important; right: auto !important; width: 100%; background: #060f17; padding: 0.5rem 1rem; justify-content: flex-end; }
+      .trailer-modal-body { flex-direction: column; align-items: flex-start; gap: 0.75rem; padding: 1rem 1.25rem; }
       .trailer-modal-actions { width: 100%; }
       .trailer-modal-actions .btn-orange,
       .trailer-modal-actions .btn-ghost { flex: 1; justify-content: center; text-align: center; }
       /* Footer */
       footer { flex-direction: column; align-items: flex-start; padding: 1.5rem 1.25rem; gap: 1rem; }
       .footer-links { flex-wrap: wrap; gap: 0.75rem; }
+      /* Demo modal — C1 bottom sheet */
+      #demoModal { align-items: flex-end !important; }
+      #demoModalInner { width: 100% !important; max-width: 100% !important; border-radius: 16px 16px 0 0 !important; }
+      #demoModalHeader { position: relative !important; top: auto !important; left: auto !important; background: #0d2d45 !important; border-radius: 16px 16px 0 0 !important; padding: 0.65rem 3.5rem 0.65rem 1rem !important; backdrop-filter: none !important; }
+      #demoModalTitle { color: rgba(255,255,255,0.9) !important; }
+      #demoModalControls { position: static !important; background: #060f17; padding: 0.5rem 1rem; justify-content: flex-end; gap: 0.5rem; }
+      #demoNavItems { overflow-x: auto !important; overflow-y: hidden; }
     }
   </style>
 </head>
@@ -1107,8 +1163,23 @@
       <li><a href="/contact.html">Contact Us</a></li>
       <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
     </ul>
+    <button class="nav-hamburger" onclick="document.getElementById('cat-mobile-menu').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="cat-mobile-menu">
+  <button class="nav-mobile-close" onclick="document.getElementById('cat-mobile-menu').classList.remove('open')" aria-label="Close menu">✕</button>
+  <a href="/catalog.html">Catalog</a>
+  <a href="/workplace.html">Workplace</a>
+  <a href="/highered.html">Higher Ed</a>
+  <a href="/k12.html">K–12</a>
+  <a href="/about-us.html">About Us</a>
+  <a href="/contact.html">Contact Us</a>
+  <a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Book a Call</a>
+</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -1156,16 +1227,18 @@
 <!-- TRAILER MODAL -->
 <div class="trailer-modal-overlay" id="trailer-modal-overlay" onclick="closeTrailer(event)">
   <div class="trailer-modal" id="trailer-modal">
-    <div class="trailer-video-wrap">
-      <iframe id="trailer-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-      <!-- Close -->
-      <button class="trailer-close-btn" onclick="closeTrailerDirect()" title="Close">✕</button>
-      <!-- Center play/pause -->
-      <button class="trailer-center-play hidden" id="trailer-center-play" onclick="toggleTrailerPlay()" title="Play / Pause">
-        <svg id="tcp-icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        <svg id="tcp-icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none;margin-left:0"><line x1="6" y1="4" x2="6" y2="20"/><line x1="18" y1="4" x2="18" y2="20"/></svg>
-      </button>
-      <!-- Bottom-right controls -->
+    <div class="trailer-video-area">
+      <div class="trailer-video-wrap">
+        <iframe id="trailer-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+        <!-- Close -->
+        <button class="trailer-close-btn" onclick="closeTrailerDirect()" title="Close">✕</button>
+        <!-- Center play/pause -->
+        <button class="trailer-center-play hidden" id="trailer-center-play" onclick="toggleTrailerPlay()" title="Play / Pause">
+          <svg id="tcp-icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <svg id="tcp-icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none;margin-left:0"><line x1="6" y1="4" x2="6" y2="20"/><line x1="18" y1="4" x2="18" y2="20"/></svg>
+        </button>
+      </div>
+      <!-- Controls: absolute over video on desktop, static strip on mobile -->
       <div class="trailer-bottom-controls">
         <button class="tvc-btn" onclick="replayTrailer()" title="Restart">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
@@ -1190,43 +1263,58 @@
 <!-- LIGHTBOX -->
 <!-- ══ DEMO MODAL (hero + course trailers) ══ -->
 <div id="demoModal" style="display:none; position:fixed; inset:0; z-index:9000; background:rgba(10,34,51,0.85); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
-  <div style="position:relative; width:90%; max-width:900px; background:#0a2233; border-radius:16px; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+  <div id="demoModalInner" style="position:relative; width:90%; max-width:900px; background:#0a2233; border-radius:16px; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
+
     <button onclick="closeDemoModal()" style="position:absolute; top:12px; right:12px; z-index:20; background:rgba(255,255,255,0.12); border:none; color:#fff; border-radius:50%; width:36px; height:36px; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
-    <div style="position:absolute; top:12px; left:16px; z-index:20; display:flex; gap:0.5rem; align-items:center; background:rgba(255,255,255,0.88); backdrop-filter:blur(4px); border-radius:50px; padding:0.25rem 0.85rem 0.25rem 0.25rem;">
+
+    <!-- Title: absolute pill on desktop, static dark strip on mobile -->
+    <div id="demoModalHeader" style="position:absolute; top:12px; left:16px; z-index:20; display:flex; gap:0.5rem; align-items:center; background:rgba(255,255,255,0.88); backdrop-filter:blur(4px); border-radius:50px; padding:0.25rem 0.85rem 0.25rem 0.25rem;">
       <span id="demoModalTag" style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:#f97c53; color:#fff; padding:0.2rem 0.6rem; border-radius:50px;"></span>
       <span id="demoModalTitle" style="font-size:0.82rem; font-weight:600; color:#2d3748;"></span>
     </div>
-    <div id="demoModalPoster" onclick="startDemoVideo()" style="aspect-ratio:16/9; width:100%; cursor:pointer; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#0a2233 0%,#096f9c 100%); background-size:cover; background-position:center; position:relative;">
-      <div style="position:absolute; inset:0; background:rgba(10,34,51,0.35); pointer-events:none;"></div>
-      <div id="demoPlayBtn" style="position:relative; z-index:2; width:80px; height:80px; background:#f97c53; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 32px rgba(249,124,83,0.45); transition:transform 0.2s, box-shadow 0.2s;">
-        <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+
+    <!-- Video area -->
+    <div id="demoModalVideoArea" style="position:relative;">
+
+      <div id="demoModalPoster" onclick="startDemoVideo()" style="aspect-ratio:16/9; width:100%; cursor:pointer; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#0a2233 0%,#096f9c 100%); background-size:cover; background-position:center; position:relative;">
+        <div style="position:absolute; inset:0; background:rgba(10,34,51,0.35); pointer-events:none;"></div>
+        <div id="demoPlayBtn" style="position:relative; z-index:2; width:80px; height:80px; background:#f97c53; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 32px rgba(249,124,83,0.45); transition:transform 0.2s, box-shadow 0.2s;">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+        </div>
       </div>
-    </div>
-    <div id="demoModalVideoWrap" style="display:none; position:relative; aspect-ratio:16/9; width:100%;">
-      <iframe id="demoModalFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="display:block;"></iframe>
-      <div style="position:absolute; bottom:54px; right:14px; z-index:15; display:flex; gap:0.5rem; align-items:center;">
+
+      <div id="demoModalVideoWrap" style="display:none; position:relative; aspect-ratio:16/9; width:100%;">
+        <iframe id="demoModalFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="display:block;"></iframe>
+        <div id="demoModalCta" style="display:none; position:absolute; inset:0; background:rgba(10,34,51,0.9); align-items:center; justify-content:center; flex-direction:column; gap:1.2rem; text-align:center; padding:2rem; z-index:14;">
+          <p style="font-size:1.3rem; font-weight:700; color:#fff; margin:0;">Want to see more?</p>
+          <p style="font-size:0.95rem; color:rgba(255,255,255,0.8); margin:0;">License our courses for your organization.</p>
+          <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
+            <a href="request-a-quote.html" style="background:#f97c53; color:#fff; font-weight:700; padding:0.75rem 1.75rem; border-radius:50px; text-decoration:none; font-size:0.95rem;">Get Pricing</a>
+            <a href="#" onclick="closeDemoModal(); return false;" style="background:transparent; color:rgba(255,255,255,0.7); border:1.5px solid rgba(255,255,255,0.3); font-weight:600; padding:0.75rem 1.5rem; border-radius:50px; font-size:0.95rem; text-decoration:none; display:inline-flex; align-items:center;">Keep Browsing</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Controls: absolute over video on desktop, static strip on mobile -->
+      <div id="demoModalControls" style="position:absolute; bottom:54px; right:14px; z-index:15; display:none; gap:0.5rem; align-items:center;">
         <button onclick="rewatchDemo()" title="Watch again" style="background:#f97c53; border:none; color:#fff; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s, transform 0.15s; box-shadow:0 3px 12px rgba(249,124,83,0.45);">
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
         </button>
-        <button id="demoMuteBtn" onclick="toggleDemoMute()" title="Toggle mute" style="background:#f97c53; border:none; color:#fff; border-radius:50px; height:36px; padding:0 1rem; display:flex; align-items:center; justify-content:center; gap:0.4rem; cursor:pointer; transition:background 0.2s, transform 0.15s; box-shadow:0 3px 12px rgba(249,124,83,0.45); font-family:'Quicksand',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.04em;">
+        <button id="demoMuteBtn" onclick="toggleDemoMute()" style="background:#f97c53; border:none; color:#fff; border-radius:50px; height:36px; padding:0 1rem; display:flex; align-items:center; justify-content:center; gap:0.4rem; cursor:pointer; transition:background 0.2s; box-shadow:0 3px 12px rgba(249,124,83,0.45); font-family:'Quicksand',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.04em;">
           <svg id="demoIconUnmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
           <svg id="demoIconMuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
           <span id="demoMuteLabel">Mute</span>
         </button>
       </div>
-      <div id="demoModalCta" style="display:none; position:absolute; inset:0; background:rgba(10,34,51,0.9); align-items:center; justify-content:center; flex-direction:column; gap:1.2rem; text-align:center; padding:2rem; z-index:14;">
-        <p style="font-size:1.3rem; font-weight:700; color:#fff; margin:0;">Want to see more?</p>
-        <p style="font-size:0.95rem; color:rgba(255,255,255,0.8); margin:0;">License our courses for your organization.</p>
-        <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
-          <a href="request-a-quote.html" style="background:#f97c53; color:#fff; font-weight:700; padding:0.75rem 1.75rem; border-radius:50px; text-decoration:none; font-size:0.95rem;">Get Pricing</a>
-          <a href="#" onclick="closeDemoModal(); return false;" style="background:transparent; color:rgba(255,255,255,0.7); border:1.5px solid rgba(255,255,255,0.3); font-weight:600; padding:0.75rem 1.5rem; border-radius:50px; font-size:0.95rem; text-decoration:none; display:inline-flex; align-items:center;">Keep Browsing</a>
-        </div>
-      </div>
-    </div>
-    <div style="background:#060f17; padding:0.75rem 1rem; display:flex; align-items:center; gap:0.75rem;">
+
+    </div><!-- /demoModalVideoArea -->
+
+    <!-- Bottom nav -->
+    <div id="demoModalNav" style="background:#060f17; padding:0.75rem 1rem; display:flex; align-items:center; gap:0.75rem;">
       <div id="demoNavItems" style="flex:1; display:flex; gap:0.5rem; min-width:0; overflow:hidden;"></div>
       <a href="request-a-quote.html" style="flex-shrink:0; background:#f97c53; color:#fff; font-weight:700; font-size:0.78rem; padding:0.45rem 1rem; border-radius:50px; text-decoration:none; white-space:nowrap;">Get Pricing →</a>
     </div>
+
   </div>
 </div>
 
@@ -1330,6 +1418,7 @@ function _loadDemoClip(idx) {
   document.getElementById('demoModalFrame').src = '';
   document.getElementById('demoModalVideoWrap').style.display = 'none';
   document.getElementById('demoModalCta').style.display = 'none';
+  document.getElementById('demoModalControls').style.display = 'none';
   renderDemoNav();
 }
 
@@ -1350,6 +1439,7 @@ function startDemoVideo() {
   document.getElementById('demoModalPoster').style.display = 'none';
   document.getElementById('demoModalVideoWrap').style.display = 'block';
   document.getElementById('demoModalCta').style.display = 'none';
+  document.getElementById('demoModalControls').style.display = 'flex';
   var frame = document.getElementById('demoModalFrame');
   frame.src = 'https://player.vimeo.com/video/' + clip.vimeoId + '?h=' + clip.hash + '&autoplay=1&title=0&byline=0&portrait=0';
   if (typeof Vimeo !== 'undefined') {
@@ -1363,6 +1453,7 @@ function startDemoVideo() {
     fadeDemoVolume(0, 2000, function() {
       demoMuted = true;
       updateDemoMuteIcon();
+      document.getElementById('demoModalControls').style.display = 'none';
       document.getElementById('demoModalCta').style.display = 'flex';
     });
   }, 30000);
@@ -1371,6 +1462,7 @@ function startDemoVideo() {
 function rewatchDemo() {
   clearTimeout(demoCtaTimer);
   document.getElementById('demoModalCta').style.display = 'none';
+  document.getElementById('demoModalControls').style.display = 'flex';
   if (demoPlayer) {
     demoMuted = false;
     demoPlayer.setMuted(false).catch(function() {});
@@ -1379,6 +1471,7 @@ function rewatchDemo() {
     demoPlayer.setCurrentTime(0).then(function() { demoPlayer.play().catch(function() {}); }).catch(function() { startDemoVideo(); });
   } else { startDemoVideo(); }
   demoCtaTimer = setTimeout(function() {
+    document.getElementById('demoModalControls').style.display = 'none';
     document.getElementById('demoModalCta').style.display = 'flex';
     if (demoPlayer) demoPlayer.setMuted(true).catch(function() {});
     demoMuted = true;
