@@ -385,18 +385,27 @@
       .stat-divider { display: none; }
       /* Logo bar — white background */
       .proof-wrap { background: var(--white); }
-      /* Testimonials — hide on mobile */
-      .testimonials-wrap, .testimonials-wrap + div { display: none; }
+      /* Testimonials — one card at a time */
+      .testimonial-card { flex: 0 0 100%; }
       /* How banner */
       .how-banner-inner { flex-direction: column; align-items: flex-start; gap: 0.4rem; }
       .how-banner-divider { display: none; }
       /* Logo row */
       .logo-row { gap: 1.5rem; justify-content: center; }
       .logo-row img { height: 40px; }
+      /* Featured courses — 2 columns on tablet */
+      .featured-courses-grid { grid-template-columns: repeat(2, 1fr); }
+      .featured-courses-wrap { padding: 3rem 1.5rem; }
+      /* Deployment — stack vertically */
+      .deploy-section { padding: 3rem 1.5rem !important; }
+      .deploy-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+      .deploy-or { padding: 0 !important; flex-direction: row; }
     }
 
     @media (max-width: 600px) {
       .approach-grid, .audiences-grid, .topics-grid, .steps { grid-template-columns: 1fr; }
+      /* Nav */
+      nav { padding: 0.75rem 1.25rem; }
       /* Hero */
       .hero h1 { font-size: 1.9rem; }
       .hero-sub { font-size: 0.9rem; }
@@ -405,7 +414,8 @@
       .hero-actions .btn-ghost { width: 100%; justify-content: center; }
       /* Sections */
       .proof-wrap, .approach-wrap, .topics-wrap, .audiences-wrap, .how-wrap, .cta-wrap { padding: 3rem 1.25rem; }
-      .testimonials-header-bar { display: none; }
+      .featured-courses-grid { grid-template-columns: 1fr; }
+      .featured-courses-wrap { padding: 3rem 1.25rem; }
       .stat-bar { padding: 1.25rem 1.25rem; }
       .stat-num { font-size: 1.6rem; }
       /* Testimonials */
@@ -447,13 +457,13 @@
 <!-- MOBILE MENU -->
 <div class="nav-mobile-menu" id="nav-mobile-menu">
   <button class="nav-mobile-close" onclick="document.getElementById('nav-mobile-menu').classList.remove('open'); return false;" aria-label="Close menu">✕</button>
-  <a href="workplace.html">Workplace</a>
-  <a href="highered.html">Higher Ed</a>
-  <a href="k12.html">K–12</a>
-  <a href="catalog.html">Full Catalog</a>
-  <a href="about-us.html">About</a>
-  <a href="contact.html">Contact</a>
-  <a href="request-a-quote.html" style="color: var(--orange);">Get Pricing →</a>
+  <a href="/catalog.html">Catalog</a>
+  <a href="/workplace.html">Workplace</a>
+  <a href="/highered.html">Higher Ed</a>
+  <a href="/k12.html">K–12</a>
+  <a href="/about-us.html">About Us</a>
+  <a href="/contact.html">Contact Us</a>
+  <a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Book a Call</a>
 </div>
 
 <!-- ══ 1. HERO ══ -->
@@ -461,7 +471,7 @@
   <div class="hero-video-wrap">
     <div class="vimeo-sizer">
       <iframe id="hero-video"
-        src="https://player.vimeo.com/video/1152648266?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1"
+        src="https://player.vimeo.com/video/1152648266?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&controls=0"
         frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
         referrerpolicy="strict-origin-when-cross-origin" title="Demo Reel 2026">
       </iframe>
@@ -643,11 +653,11 @@
 <!-- ══ 5. AUDIENCES (removed) ══ -->
 
 <!-- ══ DEPLOYMENT ══ -->
-<div style="background: #eef7fc; padding: 5rem 3rem;">
+<div class="deploy-section" style="background: #eef7fc; padding: 5rem 3rem;">
   <div style="max-width: 1100px; margin: 0 auto;">
     <div style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #f97c53; margin-bottom: 0.6rem; text-align:center;">Flexible Deployment</div>
     <h2 style="font-size: clamp(1.65rem,2.6vw,2.3rem); font-weight: 700; color: #0a2233; margin-bottom: 3rem; line-height: 1.2; text-align:center;">Two Ways to Deploy — You Choose</h2>
-    <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center;">
+    <div class="deploy-grid" style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center;">
 
       <!-- We Host It -->
       <div style="background: #fff; border-radius: 20px; border: 1.5px solid rgba(9,111,156,0.12); display:flex; overflow:hidden; min-height:260px;">
@@ -669,7 +679,7 @@
       </div>
 
       <!-- OR circle -->
-      <div style="display:flex; align-items:center; justify-content:center; padding: 0 2rem;">
+      <div class="deploy-or" style="display:flex; align-items:center; justify-content:center; padding: 0 2rem;">
         <div style="width:72px; height:72px; border-radius:50%; background:#f97c53; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 18px rgba(249,124,83,0.35);">
           <span style="font-size:1.25rem; font-weight:900; color:#fff; letter-spacing:-0.03em;">OR</span>
         </div>
@@ -845,17 +855,11 @@
   }
 
   function goTo(index, animate) {
-    if (isMobile()) {
-      track.style.transition = 'none';
-      track.style.transform = '';
-      return;
-    }
     track.style.transition = animate ? 'transform 0.7s cubic-bezier(0.4,0,0.2,1)' : 'none';
     track.style.transform = 'translateX(-' + (index * getCardWidth()) + 'px)';
   }
 
   function advance() {
-    if (isMobile()) return;
     current++;
     goTo(current, true);
     if (current >= total) {
@@ -878,10 +882,6 @@
 
   window.addEventListener('resize', function() {
     reset();
-    if (isMobile()) {
-      track.style.transform = '';
-      track.scrollLeft = 0;
-    }
   });
 
   startTimer();
