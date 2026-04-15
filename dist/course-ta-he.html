@@ -500,8 +500,8 @@
       background: var(--surface);
       border: 1px solid rgba(9,111,156,0.12);
       border-radius: 12px;
-      padding: 1.5rem;
       transition: box-shadow 0.2s, border-color 0.2s;
+      margin-top: 28px;
     }
 
     .license-card:hover {
@@ -509,21 +509,51 @@
       border-color: rgba(9,111,156,0.22);
     }
 
-    .license-card-icon {
-      width: 40px; height: 40px;
-      background: var(--surface2);
-      border-radius: 10px;
-      display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1rem;
+    .license-card-banner {
+      background: #f97c53;
+      border-radius: 12px 12px 0 0;
+      min-height: 100px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 0 1.25rem 1.25rem;
     }
 
-    .license-card-icon svg { width: 20px; height: 20px; stroke: var(--blue); }
+    .license-card-star {
+      position: absolute;
+      top: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 56px;
+      height: 56px;
+      background: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+      flex-shrink: 0;
+    }
 
-    .license-card h3 {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--navy);
-      margin-bottom: 0.4rem;
+    .license-card-star svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .license-card-banner h3 {
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #fff;
+      margin: 0;
+      line-height: 1.25;
+      text-align: center;
+      width: 100%;
+    }
+
+    .license-card-body {
+      padding: 1.25rem 1.5rem;
     }
 
     .license-card p {
@@ -531,6 +561,7 @@
       color: var(--muted);
       line-height: 1.6;
       font-weight: 500;
+      margin: 0;
     }
 
     /* ── RELATED COURSES ── */
@@ -969,7 +1000,7 @@
       Need multiple courses for your organization?
       <span>Get access to the full Blue Seat Studios catalog — every course, every update, one license.</span>
     </div>
-    <a href="/highered.html#package" class="btn-white">Explore Course Packages</a>
+    <a href="/bundles" class="btn-white">Explore Bundles</a>
   </div>
 
   <!-- Two Ways to Deploy -->
@@ -1072,25 +1103,37 @@
     </div>
     <div class="licensing-grid">
       <div class="license-card">
-        <div class="license-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <div class="license-card-banner">
+          <div class="license-card-star">
+            <svg viewBox="0 0 24 24" fill="#f97c53" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          </div>
+          <h3>Annual Licensing</h3>
         </div>
-        <h3>Annual Licensing</h3>
-        <p>A single yearly fee covers unlimited use across your organization — no per-seat costs or surprise renewals.</p>
+        <div class="license-card-body">
+          <p>A single yearly fee covers unlimited use across your organization — no per-seat costs or surprise renewals.</p>
+        </div>
       </div>
       <div class="license-card">
-        <div class="license-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <div class="license-card-banner">
+          <div class="license-card-star">
+            <svg viewBox="0 0 24 24" fill="#f97c53" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          </div>
+          <h3>Organization-Wide Access</h3>
         </div>
-        <h3>Organization-Wide Access</h3>
-        <p>Deploy to every employee, department, and location — no limits on how many people complete the course.</p>
+        <div class="license-card-body">
+          <p>Deploy to every employee, department, and location — no limits on how many people complete the course.</p>
+        </div>
       </div>
       <div class="license-card">
-        <div class="license-card-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <div class="license-card-banner">
+          <div class="license-card-star">
+            <svg viewBox="0 0 24 24" fill="#f97c53" stroke="none"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>
+          </div>
+          <h3>LMS Compatible</h3>
         </div>
-        <h3>LMS Compatible</h3>
-        <p>Can be deployed on your internal LMS or hosted directly by us — whichever works best for your organization.</p>
+        <div class="license-card-body">
+          <p>Can be deployed on your internal LMS or hosted directly by us — whichever works best for your organization.</p>
+        </div>
       </div>
     </div>
   </div>

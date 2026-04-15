@@ -197,9 +197,7 @@ function buildCoursePage(detail, catalog, relatedMap, videosByCourse) {
     .map(v => `  { vimeoId: '${(v.vimeoId||'').trim()}', hash: '${(v.hash||'').trim()}', tag: '${(v.tag||'').trim().replace(/'/g,"\\'")}', title: '${(v.clipTitle||v.title||'').trim().replace(/'/g,"\\'")}' }`)
     .join(',\n');
 
-  const packagesHref = detail.id.endsWith('-he')  ? '/highered.html#package'
-                     : detail.id.endsWith('-k12') ? '/k12.html#package'
-                     : '/workplace.html#package';
+  const packagesHref = '/bundles';
 
   const output = readTemplate('course-page.html')
     .replace(/__PAGE_TITLE__/g,     detail.pageTitle)
