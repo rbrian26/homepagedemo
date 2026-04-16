@@ -186,6 +186,7 @@
       margin-bottom: 1rem;
     }
     .course-card {
+      display: block; text-decoration: none; color: inherit;
       background: var(--surface);
       border-radius: 12px;
       overflow: hidden;
@@ -194,6 +195,7 @@
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+      cursor: pointer;
     }
     .course-card.visible { opacity: 1; transform: translateY(0); }
     .course-card:hover { box-shadow: 0 6px 24px rgba(10,34,51,0.12); transform: translateY(-3px); }
@@ -522,7 +524,7 @@
     </div>
     <div class="courses-section">
       <div class="course-cards">
-    <div class="course-card">
+    <a class="course-card" href="/coming-soon-cy.html">
       <div class="card-thumb">
         <img src="/assets/images/courses/img_cy.png" alt="Cybersecurity" onerror="this.style.display='none'">
         <div class="coming-soon-ribbon">Coming Soon</div>
@@ -534,13 +536,10 @@
         </div>
         <div class="card-title">Cybersecurity</div>
         <div class="card-audience-tags"><span class="card-audience-tag">K–12</span><span class="card-audience-tag">Higher Ed</span><span class="card-audience-tag">Workplace</span></div>
-        <div class="card-actions">
-          <a href="/coming-soon-cy.html" class="card-btn">Learn More</a>
-        </div>
       </div>
-    </div>
+    </a>
 
-    <div class="course-card">
+    <a class="course-card" href="/coming-soon-mh-k12.html">
       <div class="card-thumb">
         <img src="/assets/images/courses/img_mh-k12.png" alt="Mental Health Basics" onerror="this.style.display='none'">
         <div class="coming-soon-ribbon">Coming Soon</div>
@@ -552,13 +551,10 @@
         </div>
         <div class="card-title">Mental Health Basics</div>
         <div class="card-audience-tags"><span class="card-audience-tag">K–12</span></div>
-        <div class="card-actions">
-          <a href="/coming-soon-mh-k12.html" class="card-btn">Learn More</a>
-        </div>
       </div>
-    </div>
+    </a>
 
-    <div class="course-card">
+    <a class="course-card" href="/coming-soon-mh-he.html">
       <div class="card-thumb">
         <img src="/assets/images/courses/img_mh-he.png" alt="Mental Health Support" onerror="this.style.display='none'">
         <div class="coming-soon-ribbon">Coming Soon</div>
@@ -570,13 +566,10 @@
         </div>
         <div class="card-title">Mental Health Support</div>
         <div class="card-audience-tags"><span class="card-audience-tag">Higher Ed</span></div>
-        <div class="card-actions">
-          <a href="/coming-soon-mh-he.html" class="card-btn">Learn More</a>
-        </div>
       </div>
-    </div>
+    </a>
 
-    <div class="course-card">
+    <a class="course-card" href="/coming-soon-sg.html">
       <div class="card-thumb">
         <img src="/assets/images/courses/img_sg.png" alt="Safeguarding" onerror="this.style.display='none'">
         <div class="coming-soon-ribbon">Coming Soon</div>
@@ -588,13 +581,10 @@
         </div>
         <div class="card-title">Safeguarding</div>
         <div class="card-audience-tags"><span class="card-audience-tag">K–12</span><span class="card-audience-tag">Higher Ed</span><span class="card-audience-tag">Workplace</span></div>
-        <div class="card-actions">
-          <a href="/coming-soon-sg.html" class="card-btn">Learn More</a>
-        </div>
       </div>
-    </div>
+    </a>
 
-    <div class="course-card">
+    <a class="course-card" href="/coming-soon-al.html">
       <div class="card-thumb">
         <img src="/assets/images/courses/img_al.png" alt="Alcohol Awareness" onerror="this.style.display='none'">
         <div class="coming-soon-ribbon">Coming Soon</div>
@@ -606,13 +596,10 @@
         </div>
         <div class="card-title">Alcohol Awareness</div>
         <div class="card-audience-tags"><span class="card-audience-tag">Higher Ed</span></div>
-        <div class="card-actions">
-          <a href="/coming-soon-al.html" class="card-btn">Learn More</a>
-        </div>
       </div>
-    </div>
+    </a>
 
-    <div class="course-card">
+    <a class="course-card" href="/coming-soon-hr.html">
       <div class="card-thumb">
         <img src="/assets/images/courses/img_hr.png" alt="HR Fundamentals" onerror="this.style.display='none'">
         <div class="coming-soon-ribbon">Coming Soon</div>
@@ -624,11 +611,8 @@
         </div>
         <div class="card-title">HR Fundamentals</div>
         <div class="card-audience-tags"><span class="card-audience-tag">K–12</span><span class="card-audience-tag">Higher Ed</span><span class="card-audience-tag">Workplace</span></div>
-        <div class="card-actions">
-          <a href="/coming-soon-hr.html" class="card-btn">Learn More</a>
-        </div>
       </div>
-    </div></div>
+    </a></div>
     </div>
   </div>
   <div class="form-section">

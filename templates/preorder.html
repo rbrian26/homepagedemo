@@ -186,6 +186,7 @@
       margin-bottom: 1rem;
     }
     .course-card {
+      display: block; text-decoration: none; color: inherit;
       background: var(--surface);
       border-radius: 12px;
       overflow: hidden;
@@ -194,6 +195,7 @@
       opacity: 0;
       transform: translateY(16px);
       transition: opacity 0.5s ease, transform 0.5s ease, box-shadow 0.2s;
+      cursor: pointer;
     }
     .course-card.visible { opacity: 1; transform: translateY(0); }
     .course-card:hover { box-shadow: 0 6px 24px rgba(10,34,51,0.12); transform: translateY(-3px); }

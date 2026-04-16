@@ -331,8 +331,9 @@ function buildReleaseCalendar(courses) {
       return `<span class="card-audience-tag">${label}</span>`;
     }).join('');
 
+    const href = c.comingSoonPageHref || c.href;
     return `
-    <div class="course-card">
+    <a class="course-card" href="${href}">
       <div class="card-thumb">
         <img src="/assets/images/courses/${c.thumb}" alt="${c.title}" onerror="this.style.display='none'">
         <div class="coming-soon-ribbon">Coming Soon</div>
@@ -344,11 +345,8 @@ function buildReleaseCalendar(courses) {
         </div>
         <div class="card-title">${c.title}</div>
         <div class="card-audience-tags">${audiences}</div>
-        <div class="card-actions">
-          <a href="${c.comingSoonPageHref || c.href}" class="card-btn">Learn More</a>
-        </div>
       </div>
-    </div>`;
+    </a>`;
   }));
 
   const cardsHTML = `<div class="course-cards">${allCards.join('\n')}</div>`;
