@@ -440,13 +440,34 @@
     .footer-links a:hover { color: rgba(255,255,255,0.85); }
     footer > div:last-child { font-size: 0.78rem; color: rgba(255,255,255,0.3); font-weight: 500; }
 
+    /* ── HAMBURGER ── */
+    .nav-right { display: flex; align-items: center; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 0.25rem;
+    }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+    .nav-mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(9,111,156,0.98); z-index: 999;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a { color: #fff; text-decoration: none; font-size: 1.4rem; font-weight: 700; }
+    .nav-mobile-menu a:hover { color: var(--orange); }
+    .nav-mobile-close {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 768px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
       .preorder-body { grid-template-columns: 1fr; padding: 0 1.5rem; }
       .cards-column { padding: 2rem 0 1rem; }
-      .form-section { position: static; padding: 0 0 4rem; }
+      .form-section { order: -1; position: static; padding: 2rem 0 0; }
       .form-card-body { padding: 1.5rem; }
       footer { flex-direction: column; text-align: center; padding: 1.5rem; }
       .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
@@ -461,16 +482,33 @@
   <div class="nav-logo">
     <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
   </div>
-  <ul class="nav-links">
-    <li><a href="catalog.html?audience=workplace">Workplace</a></li>
-    <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
-    <li><a href="catalog.html?audience=k12">K–12</a></li>
-    <li><a href="catalog.html">Catalog</a></li>
-    <li><a href="about-us.html">About</a></li>
-    <li><a href="contact.html">Contact Us</a></li>
-    <li><a href="demo.html" class="nav-cta">Watch a Demo</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="catalog.html?audience=workplace">Workplace</a></li>
+      <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
+      <li><a href="catalog.html?audience=k12">K–12</a></li>
+      <li><a href="catalog.html">Catalog</a></li>
+      <li><a href="about-us.html">About</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="demo.html" class="nav-cta">Watch a Demo</a></li>
+    </ul>
+    <button class="nav-hamburger" onclick="document.getElementById('preorder-mobile-menu').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="preorder-mobile-menu">
+  <button class="nav-mobile-close" onclick="document.getElementById('preorder-mobile-menu').classList.remove('open')" aria-label="Close menu">✕</button>
+  <a href="catalog.html?audience=workplace">Workplace</a>
+  <a href="catalog.html?audience=highered">Higher Ed</a>
+  <a href="catalog.html?audience=k12">K–12</a>
+  <a href="catalog.html">Catalog</a>
+  <a href="about-us.html">About</a>
+  <a href="contact.html">Contact Us</a>
+  <a href="demo.html" style="color: var(--orange);">Watch a Demo</a>
+</div>
 
 
 
