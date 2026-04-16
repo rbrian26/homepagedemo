@@ -332,6 +332,8 @@
       .fan-card:nth-child(2):hover { transform: none !important; }
       .fan-bundle-ribbon { position: static; border-radius: 6px; margin-top: 0.75rem; }
       .four-cards .fan-card { width: 140px !important; margin-left: 0 !important; }
+      /* Bundle modal: hide course images on mobile, show text-only cards */
+      #bundleModal .bundle-cards-grid > div > div:first-child { display: none; }
     }
   </style>
 </head>
