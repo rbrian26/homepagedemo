@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How It Works — Blue Seat Studios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:      #096f9c;
+      --blue-dk:   #065578;
+      --blue-lt:   #d6edf7;
+      --blue-pale: #eef7fc;
+      --orange:    #f97c53;
+      --orange-dk: #e05e35;
+      --cream:     #faf8f5;
+      --white:     #ffffff;
+      --navy:      #0a2233;
+      --text:      #1c2b36;
+      --muted:     #5a7282;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Quicksand', sans-serif; background: var(--white); color: var(--text); overflow-x: hidden; padding-top: 78px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 3rem; height: 78px;
+      background: rgba(9,111,156,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-logo img { height: 56px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-cta { background: var(--orange) !important; color: #fff !important; padding: 0.5rem 1.4rem; border-radius: 50px; font-weight: 700 !important; transition: background 0.2s, transform 0.15s !important; display: inline-flex !important; align-items: center !important; }
+    .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
+
+    /* ── HAMBURGER ── */
+    .nav-right { display: flex; align-items: center; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.25rem; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+    .nav-mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(9,111,156,0.98); z-index: 999;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a { color: #fff; text-decoration: none; font-size: 1.4rem; font-weight: 700; }
+    .nav-mobile-menu a:hover { color: var(--orange); }
+    .nav-mobile-close { position: absolute; top: 1.2rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1; }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      background: var(--navy);
+      padding: 5rem 3rem 4.5rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(9,111,156,0.55) 0%, transparent 70%),
+                  linear-gradient(160deg, #0d2b40 0%, var(--navy) 50%, #061420 100%);
+      z-index: 0;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 720px; margin: 0 auto; }
+    .hero-eyebrow { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--orange); margin-bottom: 1rem; }
+    .hero h1 {
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      font-weight: 700; color: #fff; line-height: 1.05;
+      letter-spacing: -0.02em; margin-bottom: 1.1rem;
+    }
+    .hero h1 span { color: var(--orange); }
+    .hero-sub { font-size: 1.1rem; color: rgba(255,255,255,0.7); line-height: 1.65; font-weight: 500; max-width: 520px; margin: 0 auto; }
+
+    /* ── COLUMNS WRAPPER ── */
+    .columns-section { background: var(--blue-pale); padding: 4rem 3rem 5rem; }
+    .columns-inner { max-width: 1200px; margin: 0 auto; }
+    .columns-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: start; }
+
+    /* ── OR DIVIDER ── */
+    .col-divider {
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding: 0 2rem; padding-top: 6rem;
+    }
+    .or-circle {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 20px rgba(249,124,83,0.4);
+      position: sticky; top: 100px;
+    }
+    .or-circle span { font-size: 1.1rem; font-weight: 900; color: #fff; letter-spacing: -0.03em; }
+
+    /* ── COLUMN ── */
+    .col { display: flex; flex-direction: column; gap: 0; }
+
+    /* ── IMAGE CARD ── */
+    .img-card {
+      background: var(--white); border-radius: 20px 20px 0 0;
+      border: 1.5px solid rgba(9,111,156,0.12); border-bottom: none;
+      overflow: hidden;
+    }
+    .img-card img { width: 100%; display: block; aspect-ratio: 4/3; object-fit: cover; object-position: center 15%; }
+    .img-card-header { padding: 1.25rem 1.75rem 1rem; }
+    .img-card-header h2 { font-size: clamp(1.4rem, 2.2vw, 1.8rem); font-weight: 800; color: var(--navy); line-height: 1.1; margin-bottom: 0.2rem; }
+    .img-card-badge { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); }
+
+    /* ── STEPS ── */
+    .steps-card {
+      background: var(--white);
+      border-left: 1.5px solid rgba(9,111,156,0.12);
+      border-right: 1.5px solid rgba(9,111,156,0.12);
+      padding: 1.5rem 1.75rem;
+    }
+    .steps-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
+    .steps-list { display: flex; flex-direction: column; gap: 0.75rem; }
+    .step-row { display: flex; align-items: flex-start; gap: 1rem; }
+    .step-num {
+      width: 38px; height: 38px; border-radius: 50%; background: var(--orange);
+      color: #fff; font-size: 1.1rem; font-weight: 700;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(249,124,83,0.35);
+    }
+    .step-text h3 { font-size: 0.95rem; font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 0.1rem; }
+    .step-text p { font-size: 0.85rem; color: var(--muted); font-weight: 500; line-height: 1.45; }
+
+    /* ── DIVISION OF WORK ── */
+    .resp-card {
+      border-left: 1.5px solid rgba(9,111,156,0.12);
+      border-right: 1.5px solid rgba(9,111,156,0.12);
+      border-bottom: none;
+      padding: 1.5rem 1.75rem;
+    }
+    .resp-card.you { background: var(--cream); }
+    .resp-card.us  { background: var(--blue-pale); }
+    .resp-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.85rem; }
+    .resp-card.you .resp-label { color: var(--muted); }
+    .resp-card.us  .resp-label { color: var(--blue); }
+    .resp-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .resp-item { display: flex; align-items: flex-start; gap: 0.75rem; font-size: 0.92rem; color: var(--text); font-weight: 600; line-height: 1.4; }
+    .star-bullet {
+      width: 26px; height: 26px; border-radius: 50%; background: var(--orange);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(249,124,83,0.35);
+    }
+    .star-bullet svg { width: 13px; height: 13px; fill: #fff; }
+
+    /* ── TAGLINE ── */
+    .tagline-card {
+      background: var(--navy); border-radius: 0 0 20px 20px;
+      border: 1.5px solid rgba(9,111,156,0.12);
+      padding: 1.25rem 1.75rem; text-align: center;
+    }
+    .tagline-card p { font-size: 0.92rem; font-weight: 700; color: rgba(255,255,255,0.85); line-height: 1.5; }
+    .tagline-card span { color: var(--orange); }
+    .tagline-card a { color: rgba(255,255,255,0.6); font-size: 0.82rem; font-weight: 600; text-decoration: none; display: block; margin-top: 0.5rem; transition: color 0.2s; }
+    .tagline-card a:hover { color: var(--orange); }
+
+    /* ── CTA ── */
+    .cta-strip { background: linear-gradient(135deg, var(--navy) 0%, var(--blue-dk) 100%); padding: 4.5rem 3rem; text-align: center; }
+    .cta-strip-inner { max-width: 520px; margin: 0 auto; }
+    .cta-strip h2 { font-size: clamp(1.5rem, 2.4vw, 2rem); font-weight: 700; color: #fff; margin-bottom: 0.65rem; }
+    .cta-strip p { font-size: 1rem; color: rgba(255,255,255,0.7); line-height: 1.7; font-weight: 500; margin-bottom: 2rem; }
+    .cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn-orange { background: var(--orange); color: #fff; padding: 0.85rem 2rem; border-radius: 50px; font-weight: 700; font-size: 1rem; font-family: 'Quicksand', sans-serif; text-decoration: none; transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-orange:hover { background: var(--orange-dk); transform: translateY(-2px); }
+    .btn-ghost-light { background: rgba(255,255,255,0.12); color: #fff; padding: 0.85rem 2rem; border-radius: 50px; font-weight: 600; font-size: 1rem; font-family: 'Quicksand', sans-serif; text-decoration: none; border: 1.5px solid rgba(255,255,255,0.4); transition: background 0.2s, transform 0.15s; display: inline-flex; align-items: center; }
+    .btn-ghost-light:hover { background: rgba(255,255,255,0.22); transform: translateY(-2px); }
+
+    /* ── FOOTER ── */
+    footer { background: #060f17; color: rgba(255,255,255,0.38); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; font-weight: 500; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo img { height: 30px; width: auto; opacity: 0.72; }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.72); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0.9rem 1.5rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .columns-grid { grid-template-columns: 1fr; }
+      .col-divider { flex-direction: row; padding: 1.5rem 0; padding-top: 1.5rem; }
+      .col-divider .or-circle { position: static; }
+    }
+    @media (max-width: 600px) {
+      .hero { padding: 3.5rem 1.5rem 3rem; }
+      .columns-section { padding: 2.5rem 1.25rem 3.5rem; }
+      .cta-strip { padding: 3rem 1.5rem; }
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">
+    <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+  </div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="/catalog.html">Catalog</a></li>
+      <li><a href="/workplace.html">Workplace</a></li>
+      <li><a href="/highered.html">Higher Ed</a></li>
+      <li><a href="/k12.html">K–12</a></li>
+      <li><a href="/about-us.html">About Us</a></li>
+      <li><a href="/contact.html">Contact Us</a></li>
+      <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
+    </ul>
+    <button class="nav-hamburger" onclick="document.getElementById('hiw-mobile-menu').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="hiw-mobile-menu">
+  <button class="nav-mobile-close" onclick="document.getElementById('hiw-mobile-menu').classList.remove('open')" aria-label="Close menu">✕</button>
+  <a href="/catalog.html">Catalog</a>
+  <a href="/workplace.html">Workplace</a>
+  <a href="/highered.html">Higher Ed</a>
+  <a href="/k12.html">K–12</a>
+  <a href="/about-us.html">About Us</a>
+  <a href="/contact.html">Contact Us</a>
+  <a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Book a Call</a>
+</div>
+
+<!-- ══ HERO ══ -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Flexible Deployment</div>
+    <h1>Two Ways to Deploy —<br><span>You Choose.</span></h1>
+    <p class="hero-sub">Whether you want us to handle everything or plug into your existing LMS — the same great training, deployed your way.</p>
+  </div>
+</div>
+
+<!-- ══ COLUMNS ══ -->
+<div class="columns-section">
+  <div class="columns-inner">
+    <div class="columns-grid">
+
+      <!-- ── WE HOST IT ── -->
+      <div class="col">
+        <!-- Image card -->
+        <div class="img-card">
+          <img src="/assets/images/ui/we_host.png" alt="We Host It"
+               onmouseenter="this.src='/assets/images/ui/we_host.gif'"
+               onmouseleave="this.src='/assets/images/ui/we_host.png'">
+          <div class="img-card-header">
+            <div class="img-card-badge">Fully Managed</div>
+            <h2>We Host It</h2>
+          </div>
+        </div>
+
+        <!-- Steps -->
+        <div class="steps-card">
+          <div class="steps-label">How it works</div>
+          <div class="steps-list">
+            <div class="step-row">
+              <div class="step-num">1</div>
+              <div class="step-text"><h3>Purchase your license</h3><p>Based on your organization size. No per-user setup.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">2</div>
+              <div class="step-text"><h3>We give you admin access to your training portal</h3><p>A dashboard to manage users and track progress.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">3</div>
+              <div class="step-text"><h3>You invite your team</h3><p>Upload a list or send email invites.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">4</div>
+              <div class="step-text"><h3>Your team completes the training</h3><p>Videos, quizzes, and progression all in one place.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">5</div>
+              <div class="step-text"><h3>Track completion anytime</h3><p>See who's started, who's finished, and overall progress.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">6</div>
+              <div class="step-text"><h3>Certificates are issued automatically</h3><p>Yay, certificates!</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- What you handle -->
+        <div class="resp-card you">
+          <div class="resp-label">What you handle</div>
+          <div class="resp-list">
+            <div class="resp-item">
+              <div class="star-bullet"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              Inviting your team
+            </div>
+            <div class="resp-item">
+              <div class="star-bullet"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              Checking your team's progress
+            </div>
+          </div>
+        </div>
+
+        <!-- What we handle -->
+        <div class="resp-card us">
+          <div class="resp-label">What we handle</div>
+          <div class="resp-list">
+            <div class="resp-item">
+              <div class="star-bullet"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              Platform setup and hosting
+            </div>
+            <div class="resp-item">
+              <div class="star-bullet"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              Certificates
+            </div>
+          </div>
+        </div>
+
+        <!-- Tagline -->
+        <div class="tagline-card">
+          <p>No setup. <span>No LMS required.</span> Fast to launch.</p>
+        </div>
+      </div>
+
+      <!-- ── OR DIVIDER ── -->
+      <div class="col-divider">
+        <div class="or-circle"><span>OR</span></div>
+      </div>
+
+      <!-- ── YOU HOST IT ── -->
+      <div class="col" id="you-host">
+        <!-- Image card -->
+        <div class="img-card">
+          <img src="/assets/images/ui/you_host.png" alt="You Host It"
+               onmouseenter="this.src='/assets/images/ui/you_host.gif'"
+               onmouseleave="this.src='/assets/images/ui/you_host.png'">
+          <div class="img-card-header">
+            <div class="img-card-badge">SCORM Compatible</div>
+            <h2>You Host It</h2>
+          </div>
+        </div>
+
+        <!-- Steps -->
+        <div class="steps-card">
+          <div class="steps-label">How it works</div>
+          <div class="steps-list">
+            <div class="step-row">
+              <div class="step-num">1</div>
+              <div class="step-text"><h3>Purchase your license</h3><p>Based on your organization size.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">2</div>
+              <div class="step-text"><h3>We provide your course files</h3><p>SCORM packages for LMS integration.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">3</div>
+              <div class="step-text"><h3>You upload to your LMS</h3><p>Just like any other training module.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">4</div>
+              <div class="step-text"><h3>You assign the training</h3><p>Use your existing workflows and systems.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">5</div>
+              <div class="step-text"><h3>Your team completes the training</h3><p>Inside your LMS environment.</p></div>
+            </div>
+            <div class="step-row">
+              <div class="step-num">6</div>
+              <div class="step-text"><h3>Track completion internally</h3><p>All reporting stays in your system.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- What you handle -->
+        <div class="resp-card you">
+          <div class="resp-label">What you handle</div>
+          <div class="resp-list">
+            <div class="resp-item">
+              <div class="star-bullet"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              Uploading and assigning the course
+            </div>
+            <div class="resp-item">
+              <div class="star-bullet"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              Tracking and reporting in your LMS
+            </div>
+          </div>
+        </div>
+
+        <!-- What we provide -->
+        <div class="resp-card us">
+          <div class="resp-label">What we provide</div>
+          <div class="resp-list">
+            <div class="resp-item">
+              <div class="star-bullet"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              SCORM packages
+            </div>
+            <div class="resp-item">
+              <div class="star-bullet"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+              Support during setup if needed
+            </div>
+          </div>
+        </div>
+
+        <!-- Tagline -->
+        <div class="tagline-card">
+          <p>Works with <span>major LMS platforms.</span> Ready for upload.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Centered vendor setup button -->
+    <div style="text-align:center; margin-top:2.5rem;">
+      <a href="/vendor_setup.html" class="btn-orange" style="font-size:1.05rem; padding:0.9rem 2.5rem;">Start Vendor Setup</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ CTA ══ -->
+<div class="cta-strip">
+  <div class="cta-strip-inner">
+    <h2>Ready to get started?</h2>
+    <p>Both options deploy the same day you purchase. We'll help you choose the right fit for your team.</p>
+    <div class="cta-buttons">
+      <a href="/request-a-quote.html" class="btn-orange">Get Pricing</a>
+      <a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="btn-ghost-light">Book a Call</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">
+    <img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" />
+  </div>
+  <ul class="footer-links">
+    <li><a href="/workplace.html">Workplace</a></li>
+    <li><a href="/highered.html">Higher Ed</a></li>
+    <li><a href="/k12.html">K–12</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <div>© 2025 Blue Seat Studios. All rights reserved.</div>
+</footer>
+
+</body>
+</html>

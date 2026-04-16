@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/favicon.png" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vendor Setup — Blue Seat Studios</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:      #096f9c;
+      --blue-dk:   #065578;
+      --blue-lt:   #d6edf7;
+      --blue-pale: #eef7fc;
+      --orange:    #f97c53;
+      --orange-dk: #e05e35;
+      --cream:     #faf8f5;
+      --white:     #ffffff;
+      --navy:      #0a2233;
+      --text:      #1c2b36;
+      --muted:     #5a7282;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Quicksand', sans-serif; background: var(--blue-pale); color: var(--text); overflow-x: hidden; min-height: 100vh; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0.9rem 3rem; height: 78px;
+      background: rgba(9,111,156,0.95);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+    .nav-logo img { height: 56px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; font-size: 0.92rem; font-weight: 600; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: #fff; }
+    .nav-cta { background: var(--orange) !important; color: #fff !important; padding: 0.5rem 1.4rem; border-radius: 50px; font-weight: 700 !important; transition: background 0.2s, transform 0.15s !important; display: inline-flex !important; align-items: center !important; }
+    .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
+
+    /* ── HAMBURGER ── */
+    .nav-right { display: flex; align-items: center; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 0.25rem; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+    .nav-mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(9,111,156,0.98); z-index: 999;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a { color: #fff; text-decoration: none; font-size: 1.4rem; font-weight: 700; }
+    .nav-mobile-menu a:hover { color: var(--orange); }
+    .nav-mobile-close { position: absolute; top: 1.2rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1; }
+
+    /* ── MAIN LAYOUT ── */
+    .page-wrap {
+      padding-top: 78px;
+      min-height: calc(100vh - 78px);
+      display: grid;
+      grid-template-columns: 380px 1fr;
+    }
+
+    /* ── LEFT: NAVY SIDEBAR ── */
+    .left-col {
+      background: var(--navy);
+      display: flex; flex-direction: column; justify-content: flex-start;
+      padding: 3.5rem 2.5rem; gap: 2.5rem;
+    }
+    .left-col .eyebrow { font-size: 0.92rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--orange); margin-bottom: 0.75rem; }
+    .left-col h1 {
+      font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+      font-weight: 700; color: #fff; line-height: 1.2;
+    }
+    .left-col p { font-size: 1.1rem; color: rgba(255,255,255,0.75); line-height: 1.7; font-weight: 500; }
+    .img-wrap {
+      border-radius: 16px; overflow: hidden;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      flex-shrink: 0;
+    }
+    .img-wrap img {
+      width: 100%; display: block;
+      object-fit: cover; object-position: center 15%;
+      aspect-ratio: 3/4;
+    }
+
+    /* ── RIGHT: FORM ── */
+    .right-col {
+      background: var(--blue-pale);
+      padding: 3.5rem 4rem;
+      display: flex; flex-direction: column; justify-content: flex-start;
+    }
+    .form-heading { font-size: clamp(1.2rem, 1.8vw, 1.5rem); font-weight: 700; color: var(--navy); margin-bottom: 1.75rem; line-height: 1.3; }
+    .form-heading span { color: var(--blue); }
+    .form-card {
+      background: var(--white);
+      border-radius: 20px;
+      border: 1.5px solid rgba(9,111,156,0.12);
+      padding: 2.5rem;
+      box-shadow: 0 8px 40px rgba(9,111,156,0.08);
+    }
+
+    /* ── FOOTER ── */
+    footer { background: #060f17; color: rgba(255,255,255,0.38); padding: 2rem 3rem; display: flex; align-items: center; justify-content: space-between; font-size: 0.82rem; font-weight: 500; flex-wrap: wrap; gap: 1rem; }
+    .footer-logo img { height: 30px; width: auto; opacity: 0.72; }
+    .footer-links { display: flex; gap: 1.8rem; list-style: none; }
+    .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: rgba(255,255,255,0.72); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0.9rem 1.5rem; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .page-wrap { grid-template-columns: 1fr; }
+      .left-col { padding: 2.5rem 1.5rem; gap: 1.5rem; }
+      .img-wrap img { aspect-ratio: 16/9; }
+      .right-col { padding: 2.5rem 1.5rem; }
+    }
+    @media (max-width: 600px) {
+      footer { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav>
+  <div class="nav-logo">
+    <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+  </div>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="/catalog.html">Catalog</a></li>
+      <li><a href="/workplace.html">Workplace</a></li>
+      <li><a href="/highered.html">Higher Ed</a></li>
+      <li><a href="/k12.html">K–12</a></li>
+      <li><a href="/about-us.html">About Us</a></li>
+      <li><a href="/contact.html">Contact Us</a></li>
+      <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
+    </ul>
+    <button class="nav-hamburger" onclick="document.getElementById('vendor-mobile-menu').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="vendor-mobile-menu">
+  <button class="nav-mobile-close" onclick="document.getElementById('vendor-mobile-menu').classList.remove('open')" aria-label="Close menu">✕</button>
+  <a href="/catalog.html">Catalog</a>
+  <a href="/workplace.html">Workplace</a>
+  <a href="/highered.html">Higher Ed</a>
+  <a href="/k12.html">K–12</a>
+  <a href="/about-us.html">About Us</a>
+  <a href="/contact.html">Contact Us</a>
+  <a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Book a Call</a>
+</div>
+
+<!-- ══ MAIN ══ -->
+<div class="page-wrap">
+
+  <!-- Left: navy sidebar -->
+  <div class="left-col">
+    <div>
+      <div class="eyebrow">Vendor Setup</div>
+      <h1>Working with Procurement?</h1>
+    </div>
+    <p>Let us know what your team needs and we'll send it over!</p>
+    <div class="img-wrap">
+      <img src="/assets/images/ui/we_host.png" alt="We Host It"
+           onmouseenter="this.src='/assets/images/ui/we_host.gif'"
+           onmouseleave="this.src='/assets/images/ui/we_host.png'">
+    </div>
+  </div>
+
+  <!-- Right: form -->
+  <div class="right-col">
+    <div class="form-card">
+      <script src="https://js.hsforms.net/forms/embed/44723819.js" defer></script>
+      <div class="hs-form-frame" data-region="na1" data-form-id="fbbcb701-d4aa-4b9e-b72b-59bfc920bf2f" data-portal-id="44723819"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-logo">
+    <img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" />
+  </div>
+  <ul class="footer-links">
+    <li><a href="/workplace.html">Workplace</a></li>
+    <li><a href="/highered.html">Higher Ed</a></li>
+    <li><a href="/k12.html">K–12</a></li>
+    <li><a href="/contact.html">Contact</a></li>
+  </ul>
+  <div>© 2025 Blue Seat Studios. All rights reserved.</div>
+</footer>
+
+</body>
+</html>
