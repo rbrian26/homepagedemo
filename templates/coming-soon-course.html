@@ -277,6 +277,26 @@
     .footer-links a:hover { color: rgba(255,255,255,0.85); }
     footer > div:last-child { font-size: 0.78rem; color: rgba(255,255,255,0.3); font-weight: 500; }
 
+    /* ── HAMBURGER ── */
+    .nav-right { display: flex; align-items: center; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 0.25rem;
+    }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+    .nav-mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(9,111,156,0.98); z-index: 999;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a { color: #fff; text-decoration: none; font-size: 1.4rem; font-weight: 700; }
+    .nav-mobile-menu a:hover { color: var(--orange); }
+    .nav-mobile-close {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
@@ -285,10 +305,14 @@
     @media (max-width: 768px) {
       nav { padding: 0 1.5rem; }
       .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
       .breadcrumb { padding: 0.65rem 1.5rem; }
       .hero-inner { padding: 2.5rem 1.5rem; }
       .meta-strip { padding: 1rem 1.5rem; gap: 1.5rem; }
       .page-content { padding: 0 1.5rem 4rem; }
+      .notify-strip { padding: 1.75rem 1.5rem; }
+      .notify-strip-actions { flex-direction: column; width: 100%; }
+      .notify-strip-actions a { width: 100%; justify-content: center; text-align: center; }
       footer { flex-direction: column; text-align: center; padding: 1.5rem; }
       .footer-links { justify-content: center; flex-wrap: wrap; gap: 1rem; }
     }
@@ -325,16 +349,33 @@
 <!-- NAV -->
 <nav id="main-nav">
   <div class="nav-logo"><a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a></div>
-  <ul class="nav-links">
-    <li><a href="/catalog.html">Catalog</a></li>
-    <li><a href="/workplace.html">Workplace</a></li>
-    <li><a href="/highered.html">Higher Ed</a></li>
-    <li><a href="/k12.html">K–12</a></li>
-    <li><a href="/about-us.html">About Us</a></li>
-    <li><a href="/contact.html">Contact Us</a></li>
-    <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="/catalog.html">Catalog</a></li>
+      <li><a href="/workplace.html">Workplace</a></li>
+      <li><a href="/highered.html">Higher Ed</a></li>
+      <li><a href="/k12.html">K–12</a></li>
+      <li><a href="/about-us.html">About Us</a></li>
+      <li><a href="/contact.html">Contact Us</a></li>
+      <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
+    </ul>
+    <button class="nav-hamburger" onclick="document.getElementById('cs-mobile-menu').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="cs-mobile-menu">
+  <button class="nav-mobile-close" onclick="document.getElementById('cs-mobile-menu').classList.remove('open')" aria-label="Close menu">✕</button>
+  <a href="/catalog.html">Catalog</a>
+  <a href="/workplace.html">Workplace</a>
+  <a href="/highered.html">Higher Ed</a>
+  <a href="/k12.html">K–12</a>
+  <a href="/about-us.html">About Us</a>
+  <a href="/contact.html">Contact Us</a>
+  <a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Book a Call</a>
+</div>
 
 <!-- COMING SOON BANNER -->
 <div class="cs-banner">
@@ -442,10 +483,10 @@
   <!-- Full Access Promo -->
   <div class="promo-bar">
     <div class="promo-bar-text">
-      Get Full Access — including all upcoming releases.
-      <span>A Full Access license covers every current course plus everything in development.</span>
+      Need multiple courses for your organization?
+      <span>Get access to the full Blue Seat Studios catalog — every course, every update, one license.</span>
     </div>
-    <a href="bundles.html" class="btn-white">Explore Full Access</a>
+    <a href="bundles.html" class="btn-white">Explore Bundles</a>
   </div>
 
 </div>
