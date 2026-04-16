@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="icon" type="image/png" href="/assets/images/ui/blue_seat_favicon.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>About Us — Blue Seat Studios</title>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -318,11 +319,9 @@
           </div>
         </div>
       </div>
-      <div class="award-card">
+      <div class="award-card" onclick="openBookModal('consent')" style="cursor:pointer;">
         <div class="award-card-img-wrap">
-          <a href="#" onclick="openBookModal('consent'); return false;">
-            <img src="/assets/images/ui/consent_book.jpg" alt="Consent (For Kids!)">
-          </a>
+          <img src="/assets/images/ui/consent_book.jpg" alt="Consent (For Kids!)">
         </div>
         <div class="award-card-body">
           <div class="star-icon">
@@ -334,11 +333,9 @@
           </div>
         </div>
       </div>
-      <div class="award-card">
+      <div class="award-card" onclick="openBookModal('worry')" style="cursor:pointer;">
         <div class="award-card-img-wrap">
-          <a href="#" onclick="openBookModal('worry'); return false;">
-            <img src="/assets/images/ui/worry_book.jpg" alt="The Worry (Less) Book">
-          </a>
+          <img src="/assets/images/ui/worry_book.jpg" alt="The Worry (Less) Book">
         </div>
         <div class="award-card-body">
           <div class="star-icon">
@@ -502,7 +499,7 @@
         <h3 id="book-modal-title" style="font-size:1.15rem; font-weight:700; color:#0a2233; line-height:1.25; margin:0;"></h3>
         <p id="book-modal-quote" style="font-size:0.95rem; color:#5a7282; font-style:italic; line-height:1.6; margin:0;"></p>
         <div style="display:flex; flex-direction:column; gap:0.5rem;">
-          <a id="book-modal-kirkus" href="#" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.4rem; background:#f97c53; color:#fff; padding:0.6rem 1.2rem; border-radius:50px; font-weight:700; font-size:0.88rem; text-decoration:none; transition:background 0.2s;" onmouseenter="this.style.background='#e05e35'" onmouseleave="this.style.background='#f97c53'">Read on Kirkus →</a>
+          <a id="book-modal-kirkus" href="#" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.4rem; background:#f97c53; color:#fff; padding:0.6rem 1.2rem; border-radius:50px; font-weight:700; font-size:0.88rem; text-decoration:none; transition:background 0.2s;" onmouseenter="this.style.background='#e05e35'" onmouseleave="this.style.background='#f97c53'">Read review on Kirkus →</a>
           <a id="book-modal-buy" href="#" target="_blank" rel="noopener noreferrer" style="display:inline-flex; align-items:center; gap:0.4rem; background:transparent; color:#096f9c; padding:0.6rem 1.2rem; border-radius:50px; font-weight:700; font-size:0.88rem; text-decoration:none; border:2px solid #096f9c; transition:background 0.2s, color 0.2s;" onmouseenter="this.style.background='#096f9c'; this.style.color='#fff'" onmouseleave="this.style.background='transparent'; this.style.color='#096f9c'">Buy Now →</a>
         </div>
       </div>
