@@ -103,7 +103,7 @@
       background: #f97c53; color: #fff;
       font-size: 0.72rem; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
       text-align: center; padding: 0.45rem 1rem;
-      pointer-events: none;
+      cursor: pointer;
     }
     .card-fan-wrap {
       display: flex; align-items: flex-end; justify-content: center;
@@ -503,7 +503,7 @@
             <div class="fan-card-status">Coming July 2026</div>
           </div>
         </div></div>
-      <div class="fan-bundle-ribbon">Safety Bundle</div>
+      <div class="fan-bundle-ribbon" onclick="openBundleModal()">Safety Bundle</div>
     </div>
   </div>
 </div>
@@ -681,8 +681,7 @@
     <button onclick="closeBundleModal()" style="position:absolute; top:14px; right:14px; z-index:20; background:rgba(255,255,255,0.2); border:none; color:#fff; border-radius:50%; width:36px; height:36px; font-size:1.1rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">&#x2715;</button>
     <div style="background:linear-gradient(135deg,#0a2233 0%,#096f9c 100%); padding:2rem 2.5rem 1.75rem; color:#fff; flex-shrink:0;">
       <div style="display:flex; align-items:center; gap:0.75rem; margin-bottom:0.75rem;">
-        <span style="background:#f97c53; color:#fff; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; padding:0.28rem 0.8rem; border-radius:50px;">&#x2605; Bundle Deal</span>
-        <span style="background:rgba(255,255,255,0.15); color:rgba(255,255,255,0.9); font-size:0.68rem; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; padding:0.28rem 0.8rem; border-radius:50px;">Save vs. individual pricing</span>
+        <span style="background:#f97c53; color:#fff; font-size:0.68rem; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; padding:0.28rem 1.1rem; border-radius:50px; white-space:nowrap;">&#x2605; Bundle Deal</span>
       </div>
       <h2 style="font-size:clamp(1.5rem,2.6vw,2.1rem); font-weight:800; color:#fff; margin-bottom:0.5rem; line-height:1.15;">Higher Ed Safety Bundle</h2>
       <p style="font-size:0.95rem; color:rgba(255,255,255,0.82); line-height:1.65; max-width:660px; margin:0;">The three courses every campus needs to address safety, compliance, and student wellbeing — bundled together and ready to deploy the day you purchase. One license, significant savings, and content students will actually engage with.</p>
