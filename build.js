@@ -137,6 +137,18 @@ Object.keys(groups).forEach(aud => {
   write(path.join(DIST, 'catalog.html'), output);
 }
 
+// ── AUDIENCE LABEL ─────────────────────────────────────────────────────────────
+function computeAudienceLabel(audienceStr) {
+  const order   = ['workplace', 'highered', 'k12'];
+  const nameMap = { workplace: 'Workplace', highered: 'Higher Education', k12: 'K–12' };
+  const audiences = (audienceStr || '').split('|').map(a => a.trim()).filter(Boolean);
+  audiences.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  if (audiences.length === 0) return '';
+  if (audiences.length >= 3) return 'All Audiences';
+  if (audiences.length === 1) return nameMap[audiences[0]] || audiences[0];
+  return audiences.map(a => nameMap[a] || a).join(' and ');
+}
+
 // ── COURSE PAGES ───────────────────────────────────────────────────────────────
 function buildCoursePage(detail, catalog, relatedMap, videosByCourse) {
   const bullets = (detail.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean)
@@ -163,6 +175,7 @@ function buildCoursePage(detail, catalog, relatedMap, videosByCourse) {
   // Related courses
   const catalogById = {};
   (catalog || []).forEach(c => { catalogById[c.id] = c; });
+  const audienceLabel = computeAudienceLabel((catalogById[detail.id] || {}).audience);
   const relatedRow = (relatedMap || {})[detail.id] || {};
   const relatedSlots = [
     { id: relatedRow.related1_id, eyebrow: relatedRow.related1_eyebrow },
@@ -206,7 +219,7 @@ function buildCoursePage(detail, catalog, relatedMap, videosByCourse) {
     .replace(/__VIMEO_ID__/g,       detail.vimeoHash ? `${detail.vimeoID}?h=${detail.vimeoHash}&` : `${detail.vimeoID}?`)
     .replace(/__DURATION__/g,       detail.duration || '')
     .replace(/__FORMAT__/g,         detail.format)
-    .replace(/__AUDIENCE_LABEL__/g, detail.audienceLabel)
+    .replace(/__AUDIENCE_LABEL__/g, audienceLabel)
     .replace(/__LMS__/g,            detail.lms)
     .replace(/__COMPLIANCE__/g,     detail.compliance)
     .replace(/__HERO_BADGE__/g,      detail.heroBadge || '')
@@ -228,10 +241,8 @@ function buildComingSoonPages(courses) {
 
   courses.filter(c => c.active !== 'false' && c.comingSoon === 'TRUE').forEach(c => {
 
-    // Audience label — pick first audience for display
-    const audienceMap = { workplace: 'Workplace', highered: 'Higher Education', k12: 'K–12' };
-    const audiences   = c.audience.split('|').map(a => a.trim());
-    const audienceLabel = audiences.map(a => audienceMap[a] || a).join(' · ');
+    // Audience label
+    const audienceLabel = computeAudienceLabel(c.audience);
 
     // Covers bullets — conditional, hidden if empty
     const bulletItems = (c.coversBullets || '').split('|').map(b => b.trim()).filter(Boolean);
