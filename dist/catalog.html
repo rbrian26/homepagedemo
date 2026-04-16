@@ -81,8 +81,6 @@
     .nav-links a:hover, .nav-links a.active { color: #fff; }
 
     .nav-cta {
-      display: inline-flex;
-      align-items: center;
       background: var(--orange);
       color: #fff !important;
       padding: 0.5rem 1.4rem;
@@ -93,55 +91,69 @@
 
     .nav-cta:hover { background: var(--orange-dk) !important; transform: translateY(-1px); }
 
-    .nav-hamburger {
-      display: none;
-      flex-direction: column; gap: 5px;
-      cursor: pointer; background: none; border: none; padding: 0.25rem;
-    }
-    .nav-hamburger span {
-      display: block; width: 24px; height: 2px;
-      background: #fff; border-radius: 2px;
-      transition: transform 0.2s, opacity 0.2s;
-    }
-    .nav-mobile-menu {
-      display: none;
-      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(9,111,156,0.98);
-      z-index: 999;
-      flex-direction: column;
-      align-items: center; justify-content: center;
-      gap: 2rem;
-    }
-    .nav-mobile-menu.open { display: flex; }
-    .nav-mobile-menu a {
-      color: #fff; text-decoration: none; font-size: 1.4rem;
-      font-weight: 700; transition: color 0.2s;
-    }
-    .nav-mobile-menu a:hover { color: var(--orange); }
-    .nav-mobile-close {
-      position: absolute; top: 1.2rem; right: 1.5rem;
-      background: none; border: none; color: #fff;
-      font-size: 2rem; cursor: pointer; line-height: 1;
-    }
-
     /* ── HERO ── */
     .hero {
-      background: linear-gradient(to bottom, #ffffff 0%, #096f9c 65%, #0a2233 100%);
-      min-height: 260px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 4rem 2.5rem;
+      position: relative;
+      height: 80vh;
+      min-height: 520px;
+      max-height: 760px;
+      overflow: hidden;
+      background: var(--navy);
+    }
+
+    .hero-video-wrap {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .vimeo-sizer {
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 100vw;
+      height: 56.25vw;
+      min-height: 100%;
+      min-width: 177.78vh;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .vimeo-sizer iframe {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: 0;
+    }
+
+    .hero-gradient { display: none; }
+
+    .hero-gradient-top { display: none; }
+
+    .hero-bottom-gradient {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 38%;
+      z-index: 1;
+      background: linear-gradient(
+        to top,
+        rgba(9,111,156,0.92) 0%,
+        rgba(9,111,156,0.55) 45%,
+        transparent 100%
+      );
+      pointer-events: none;
     }
 
     .hero-content {
+      position: absolute;
+      z-index: 2;
+      bottom: 2.2rem;
+      left: 4rem;
+      right: 4rem;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
       gap: 2rem;
-      max-width: 1200px;
-      margin: 0 auto;
-      width: 100%;
       animation: fadeUp 0.8s ease both;
     }
 
@@ -165,7 +177,7 @@
       margin-bottom: 1rem;
     }
 
-    .hero-left { flex: 1; min-width: 0; }
+    .hero-left { flex: 1; }
 
     .hero h1 {
       font-size: clamp(1.6rem, 3vw, 2.6rem);
@@ -206,7 +218,6 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      line-height: 1;
     }
 
     .btn-orange:hover { background: var(--orange-dk); transform: translateY(-2px); }
@@ -225,10 +236,52 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      line-height: 1;
     }
 
     .btn-ghost:hover { background: rgba(255,255,255,0.2); transform: translateY(-2px); }
+
+    .mute-btn {
+      position: absolute;
+      top: 80px;
+      right: 3rem;
+      z-index: 3;
+      background: var(--orange);
+      border: none;
+      color: #fff;
+      border-radius: 50%;
+      width: 38px; height: 38px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+      box-shadow: 0 2px 10px rgba(249,124,83,0.35);
+    }
+
+    .mute-btn:hover { background: var(--orange-dk); transform: scale(1.08); }
+    .mute-btn svg { width: 16px; height: 16px; }
+
+    .hero-preview-label {
+      position: absolute;
+      top: 5.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      background: rgba(9,111,156,0.75);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(255,255,255,0.2);
+      color: #fff;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.4rem 1rem;
+      border-radius: 50px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+
+    .hero-preview-label.visible { opacity: 1; }
 
     /* ── FILTER BAR ── */
     .filter-bar {
@@ -421,7 +474,7 @@
       font-weight: 700;
       color: #fff;
       line-height: 1.25;
-      text-shadow: 0 1px 8px rgba(10,34,51,0.9);
+      text-shadow: 0 1px 6px rgba(0,0,0,0.3);
     }
 
     /* ── COMING SOON CARD ── */
@@ -446,19 +499,20 @@
       white-space: nowrap;
     }
 
+    /* ── FOR STAFF BADGE ── */
     .staff-badge {
       position: absolute;
-      top: 1.9rem; right: 0.6rem;
+      bottom: 2.6rem; left: 0.75rem;
       z-index: 4;
-      background: var(--blue);
+      background: var(--blue-dk);
       color: #fff;
       font-size: 0.58rem;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
-      white-space: nowrap;
+      padding: 0.2rem 0.6rem;
+      border-radius: 50px;
+      border: 1px solid rgba(255,255,255,0.25);
     }
 
     /* ── LIGHTBOX ── */
@@ -549,9 +603,7 @@
     }
 
     .lb-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      display: block;
       width: 100%;
       padding: 0.75rem 1.2rem;
       border-radius: 8px;
@@ -582,268 +634,37 @@
 
     .lb-btn-secondary:hover { background: rgba(255,255,255,0.14); }
 
-    /* ── FEATURED COURSES SECTION ── */
+    /* ── FEATURED VIDEO SECTION ── */
     .featured-section {
       background: var(--navy);
       padding: 4rem 3rem;
       margin-top: 1rem;
     }
 
-    .featured-section-header {
-      max-width: 1100px;
-      margin: 0 auto 2rem;
-    }
-
-    .featured-section-header h2 {
-      font-size: clamp(1.4rem, 2.2vw, 1.9rem);
-      font-weight: 700;
-      color: #fff;
-      margin: 0;
-    }
-
-    .featured-section-eyebrow {
-      font-size: 0.7rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 0.5rem;
-    }
-
-    .featured-grid {
+    .featured-inner {
       max-width: 1100px;
       margin: 0 auto;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 1.5rem;
+      display: flex;
+      gap: 3.5rem;
+      align-items: center;
     }
 
-    .featured-card {
+    .featured-video-wrap {
+      flex: 0 0 58%;
       border-radius: 14px;
       overflow: hidden;
-      cursor: pointer;
-      background: #fff;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.18);
-      transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.3s;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .featured-card:hover {
-      transform: scale(1.03) translateY(-4px);
-      box-shadow: 0 16px 44px rgba(0,0,0,0.28), 0 0 0 2px rgba(249,124,83,0.6);
-    }
-
-    .featured-card-thumb {
-      position: relative;
       aspect-ratio: 16/9;
-      overflow: hidden;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4);
     }
 
-    .featured-card-thumb img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform 0.4s ease;
-    }
-
-    .featured-card:hover .featured-card-thumb img {
-      transform: scale(1.04);
-    }
-
-    .featured-card-play {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%) scale(0.8);
-      width: 52px; height: 52px;
-      background: var(--orange);
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0;
-      transition: opacity 0.2s, transform 0.2s;
-      box-shadow: 0 4px 16px rgba(249,124,83,0.5);
-    }
-
-    .featured-card:hover .featured-card-play {
-      opacity: 1;
-      transform: translate(-50%, -50%) scale(1);
-    }
-
-    .featured-card-play::after {
-      content: '';
-      border-left: 16px solid #fff;
-      border-top: 10px solid transparent;
-      border-bottom: 10px solid transparent;
-      margin-left: 4px;
-    }
-
-    .featured-card-info {
-      padding: 0.9rem 1.1rem 1rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.75rem;
-    }
-
-    .featured-card-text { flex: 1; }
-
-    .featured-card-eyebrow {
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--orange);
-      margin-bottom: 0.2rem;
-    }
-
-    .featured-card-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--navy);
-      line-height: 1.3;
-    }
-
-    .featured-card-btn {
-      flex-shrink: 0;
-      background: var(--navy);
-      color: #fff;
-      border: none;
-      border-radius: 6px;
-      padding: 0.45rem 0.9rem;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.2s;
-      white-space: nowrap;
-    }
-    .featured-card-btn:hover { background: var(--blue); }
-
-    /* ── TRAILER MODAL ── */
-    .trailer-modal-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.85);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-      padding: 2rem;
-    }
-
-    .trailer-modal-overlay.open {
-      display: flex;
-    }
-
-    .trailer-modal {
-      background: var(--navy);
-      border-radius: 16px;
-      overflow: hidden;
-      width: 100%;
-      max-width: 820px;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.6);
-    }
-
-    .trailer-video-area { position: relative; }
-
-    .trailer-video-wrap {
-      aspect-ratio: 16/9;
-      position: relative;
-    }
-
-    .trailer-video-wrap iframe {
+    .featured-video-wrap iframe {
       width: 100%; height: 100%;
       border: 0;
       display: block;
     }
 
-    /* ── TRAILER CONTROLS ── */
-    .trailer-close-btn {
-      position: absolute;
-      top: 0.75rem; right: 0.75rem;
-      z-index: 10;
-      width: 34px; height: 34px;
-      background: rgba(0,0,0,0.55);
-      backdrop-filter: blur(4px);
-      border: 1px solid rgba(255,255,255,0.15);
-      border-radius: 50%;
-      color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
-      display: flex; align-items: center; justify-content: center;
-      transition: background 0.2s;
-    }
-    .trailer-close-btn:hover { background: var(--orange); border-color: transparent; }
-
-    .trailer-center-play {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      z-index: 10;
-      width: 64px; height: 64px;
-      background: var(--orange);
-      border: none;
-      border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s, opacity 0.2s;
-      box-shadow: 0 4px 20px rgba(249,124,83,0.5);
-    }
-    .trailer-center-play:hover { background: var(--orange-dk); transform: translate(-50%, -50%) scale(1.08); }
-    .trailer-center-play svg { width: 24px; height: 24px; margin-left: 3px; }
-    .trailer-center-play.hidden { opacity: 0; pointer-events: none; }
-
-    .trailer-bottom-controls {
-      position: absolute;
-      bottom: 0.75rem; right: 0.75rem;
-      z-index: 10;
-      display: flex;
-      gap: 0.4rem;
-      align-items: center;
-    }
-
-    .tvc-btn {
-      background: rgba(10,34,51,0.75);
-      backdrop-filter: blur(6px);
-      border: 1px solid rgba(255,255,255,0.15);
-      color: #fff;
-      border-radius: 50%;
-      width: 36px; height: 36px;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.15s;
-    }
-    .tvc-btn:hover { background: var(--orange); border-color: transparent; transform: scale(1.08); }
-    .tvc-btn svg { width: 14px; height: 14px; }
-
-    .tvc-mute {
-      border-radius: 50px;
-      width: auto;
-      padding: 0 0.85rem;
-      gap: 0.4rem;
-      font-family: 'Quicksand', sans-serif;
-      font-size: 0.78rem;
-      font-weight: 700;
-    }
-
-    .trailer-modal-body {
-      padding: 1.4rem 1.8rem 1.8rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1.5rem;
-    }
-
-    .trailer-modal-title {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: #fff;
-    }
-
-    .trailer-modal-actions {
-      display: flex;
-      gap: 0.75rem;
-      flex-shrink: 0;
+    .featured-text {
+      flex: 1;
     }
 
     .featured-eyebrow {
@@ -1090,60 +911,19 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       nav { padding: 0 1.5rem; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-      .filter-bar { padding: 0; top: 72px; }
-      .catalog-body { padding: 2rem 0 6rem; }
-      .hero { padding: 0 1.5rem 2rem; min-height: 200px; }
-      .section-header { padding: 0 1.5rem; }
-      .card-track { padding: 0.5rem 1.5rem 1rem; }
-      .scroll-btn { display: none; }
-      .featured-section { padding: 3rem 1.5rem; }
-    }
-
-    @media (max-width: 768px) {
-      /* Hero — stack text above buttons, ensure content clears fixed nav */
-      .hero { padding-top: 88px; min-height: 0; }
-      .hero-content { flex-direction: column; align-items: flex-start; gap: 1rem; }
-      .hero-left { width: 100%; }
-      .hero-sub { max-width: 100%; }
-      .hero-actions { flex-direction: row; width: 100%; }
+      .filter-bar { padding: 0 1.5rem; top: 72px; }
+      .catalog-body { padding: 2rem 1.5rem 6rem; }
+      .hero-content { left: 2rem; bottom: 2rem; }
+      .mute-btn { right: 1.5rem; top: 80px; }
+      .nav-links li:not(:last-child) { display: none; }
     }
 
     @media (max-width: 600px) {
-      nav { padding: 0 1.25rem; }
-      /* Hero */
-      .hero { padding: 0 1.25rem 1.5rem; }
-      .hero h1 { font-size: 1.8rem; }
-      .hero-sub { font-size: 0.88rem; }
-      .hero-actions { flex-direction: column; width: 100%; }
-      .hero-actions .btn-orange,
-      .hero-actions .btn-ghost { width: 100%; justify-content: center; }
-      /* Cards — slightly smaller on mobile */
-      .course-card { flex: 0 0 200px; }
-      /* Featured grid — single column */
-      .featured-grid { grid-template-columns: 1fr; gap: 1rem; }
-      .featured-section { padding: 2.5rem 1.25rem; }
-      .section-header { padding: 0 1.25rem; }
-      /* Trailer modal — C1 bottom sheet */
-      .trailer-modal-overlay { align-items: flex-end !important; padding: 0 !important; }
-      .trailer-modal { width: 100% !important; max-width: 100% !important; border-radius: 16px 16px 0 0; margin: 0; }
-      .trailer-video-area { border-radius: 16px 16px 0 0; overflow: hidden; }
-      .trailer-bottom-controls { position: static !important; bottom: auto !important; right: auto !important; width: 100%; background: #060f17; padding: 0.5rem 1rem; justify-content: flex-end; }
-      .trailer-modal-body { flex-direction: column; align-items: flex-start; gap: 0.75rem; padding: 1rem 1.25rem; }
-      .trailer-modal-actions { width: 100%; }
-      .trailer-modal-actions .btn-orange,
-      .trailer-modal-actions .btn-ghost { flex: 1; justify-content: center; text-align: center; }
-      /* Footer */
-      footer { flex-direction: column; align-items: flex-start; padding: 1.5rem 1.25rem; gap: 1rem; }
-      .footer-links { flex-wrap: wrap; gap: 0.75rem; }
-      /* Demo modal — C1 bottom sheet */
-      #demoModal { align-items: flex-end !important; }
-      #demoModalInner { width: 100% !important; max-width: 100% !important; border-radius: 16px 16px 0 0 !important; }
-      #demoModalHeader { position: relative !important; top: auto !important; left: auto !important; background: #0d2d45 !important; border-radius: 16px 16px 0 0 !important; padding: 0.65rem 3.5rem 0.65rem 1rem !important; backdrop-filter: none !important; }
-      #demoModalTitle { color: rgba(255,255,255,0.9) !important; }
-      #demoModalControls { position: static !important; background: #060f17; padding: 0.5rem 1rem; justify-content: flex-end; gap: 0.5rem; }
-      #demoNavItems { overflow-x: auto !important; overflow-y: hidden; }
+      .card-track { grid-template-columns: repeat(2, 1fr); }
+      .modal { max-height: 95vh; }
+      .modal-body { padding: 1.2rem 1.2rem 1.5rem; }
+      .modal h2 { font-size: 1.3rem; }
+      footer { flex-direction: column; text-align: center; }
     }
   </style>
 </head>
@@ -1152,51 +932,65 @@
 <!-- NAV -->
 <nav id="main-nav">
   <div class="nav-logo">
-    <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+    <a href="/"><img src="assets/images/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
   </div>
   <div class="nav-right">
     <ul class="nav-links">
-      <li><a href="/catalog.html" class="active">Catalog</a></li>
-      <li><a href="/workplace.html">Workplace</a></li>
-      <li><a href="/highered.html">Higher Ed</a></li>
-      <li><a href="/k12.html">K–12</a></li>
-      <li><a href="/about-us.html">About Us</a></li>
-      <li><a href="/contact.html">Contact Us</a></li>
+      <li><a href="workplace.html">Workplace</a></li>
+      <li><a href="highered.html">Higher Ed</a></li>
+      <li><a href="k12.html">K–12</a></li>
+      <li><a href="catalog.html" class="active">Full Catalog</a></li>
+      <li><a href="about-us.html">About</a></li>
       <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
     </ul>
-    <button class="nav-hamburger" onclick="document.getElementById('cat-mobile-menu').classList.add('open')" aria-label="Open menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </nav>
 
-<!-- MOBILE MENU -->
-<div class="nav-mobile-menu" id="cat-mobile-menu">
-  <button class="nav-mobile-close" onclick="document.getElementById('cat-mobile-menu').classList.remove('open')" aria-label="Close menu">✕</button>
-  <a href="/catalog.html">Catalog</a>
-  <a href="/workplace.html">Workplace</a>
-  <a href="/highered.html">Higher Ed</a>
-  <a href="/k12.html">K–12</a>
-  <a href="/about-us.html">About Us</a>
-  <a href="/contact.html">Contact Us</a>
-  <a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Book a Call</a>
-</div>
-
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-video-wrap">
+    <div class="vimeo-sizer">
+      <iframe
+        id="hero-video"
+        src="https://player.vimeo.com/video/1152648266?badge=0&autopause=0&player_id=0&app_id=58479&autoplay=1&loop=1&muted=1&background=1"
+        frameborder="0"
+        allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+        title="Blue Seat Studios Demo Reel">
+      </iframe>
+    </div>
+  </div>
+  <div class="hero-gradient"></div>
+  <div class="hero-gradient-top"></div>
+  <div class="hero-bottom-gradient"></div>
+
   <div class="hero-content">
     <div class="hero-left">
       <h1>Explore the <span>Blue Seat</span> Catalog.</h1>
       <p class="hero-sub">Award-winning animated courses for workplace, higher ed, and K–12 — training that sticks.</p>
     </div>
     <div class="hero-actions">
-      <button onclick="openDemoModal()" class="btn-orange" style="cursor:pointer;border:none;font:inherit;line-height:inherit;letter-spacing:inherit;">
+      <a href="demo.html" class="btn-orange">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
         Watch a Demo
-      </button>
+      </a>
       <a href="request-a-quote.html" class="btn-ghost">Get Pricing</a>
     </div>
   </div>
+
+  <div class="hero-preview-label" id="hero-preview-label"></div>
+
+  <button class="mute-btn" id="mute-btn" onclick="toggleMute()" title="Toggle audio">
+    <svg id="icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <line x1="23" y1="9" x2="17" y2="15"></line>
+      <line x1="17" y1="9" x2="23" y2="15"></line>
+    </svg>
+    <svg id="icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+    </svg>
+  </button>
 </section>
 
 <!-- FILTER BAR -->
@@ -1214,149 +1008,26 @@
   <div id="shelves-container"></div>
 </div>
 
-<!-- FEATURED COURSES -->
+<!-- FEATURED VIDEO -->
 <section class="featured-section">
-  <div class="featured-section-header">
-    <div class="featured-section-eyebrow">★ Featured Courses</div>
-    <h2>Watch a Course Trailer</h2>
-  </div>
-  <div class="featured-grid">
-    <div class="featured-card" onclick="openTrailer('1181577191','eb9cbcb589','Sexual Harassment Prevention','/course-shp.html')">
-  <div class="featured-card-thumb">
-    <img src="/assets/images/courses/img_shp.png" alt="Sexual Harassment Prevention" onmouseenter="this.src='/assets/images/courses/img_shp.gif'" onmouseleave="this.src='/assets/images/courses/img_shp.png'">
-    <div class="featured-card-play"></div>
-  </div>
-  <div class="featured-card-info">
-    <div class="featured-card-text">
-      <div class="featured-card-eyebrow">★ Featured</div>
-      <div class="featured-card-title">Sexual Harassment Prevention</div>
+  <div class="featured-inner">
+    <div class="featured-video-wrap">
+      <iframe
+        src="https://player.vimeo.com/video/226487718?badge=0&autopause=0&color=f97c53"
+        allow="autoplay; fullscreen; picture-in-picture"
+        allowfullscreen>
+      </iframe>
     </div>
-    <button class="featured-card-btn">▶ Watch Trailer</button>
-  </div>
-</div>
-<div class="featured-card" onclick="openTrailer('1181575256','867ea97e11','Threat Assessment','/course-ta.html')">
-  <div class="featured-card-thumb">
-    <img src="/assets/images/courses/img_ta.png" alt="Threat Assessment" onmouseenter="this.src='/assets/images/courses/img_ta.gif'" onmouseleave="this.src='/assets/images/courses/img_ta.png'">
-    <div class="featured-card-play"></div>
-  </div>
-  <div class="featured-card-info">
-    <div class="featured-card-text">
-      <div class="featured-card-eyebrow">★ New Release</div>
-      <div class="featured-card-title">Threat Assessment</div>
+    <div class="featured-text">
+      <div class="featured-eyebrow">★ Featured · 150M+ Views</div>
+      <h2>Tea Consent</h2>
+      <p>The video that started it all. Our award-winning animated short uses a simple tea metaphor to make consent undeniably clear — and actually enjoyable to watch. Used in schools, workplaces, and universities worldwide.</p>
+      <a href="/tea-consent" class="btn-orange">Learn More</a>
     </div>
-    <button class="featured-card-btn">▶ Watch Trailer</button>
-  </div>
-</div>
-<div class="featured-card" onclick="openTrailer('1150093997','8ab0aa38ee','Cybersecurity','/coming-soon-cy.html')">
-  <div class="featured-card-thumb">
-    <img src="/assets/images/courses/img_cy.png" alt="Cybersecurity" onmouseenter="this.src='/assets/images/courses/img_cy.gif'" onmouseleave="this.src='/assets/images/courses/img_cy.png'">
-    <div class="featured-card-play"></div>
-  </div>
-  <div class="featured-card-info">
-    <div class="featured-card-text">
-      <div class="featured-card-eyebrow">Coming Soon</div>
-      <div class="featured-card-title">Cybersecurity</div>
-    </div>
-    <button class="featured-card-btn">▶ Watch Trailer</button>
-  </div>
-</div>
   </div>
 </section>
 
-<!-- TRAILER MODAL -->
-<div class="trailer-modal-overlay" id="trailer-modal-overlay" onclick="closeTrailer(event)">
-  <div class="trailer-modal" id="trailer-modal">
-    <div class="trailer-video-area">
-      <div class="trailer-video-wrap">
-        <iframe id="trailer-iframe" src="" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
-        <!-- Close -->
-        <button class="trailer-close-btn" onclick="closeTrailerDirect()" title="Close">✕</button>
-        <!-- Center play/pause -->
-        <button class="trailer-center-play hidden" id="trailer-center-play" onclick="toggleTrailerPlay()" title="Play / Pause">
-          <svg id="tcp-icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          <svg id="tcp-icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" style="display:none;margin-left:0"><line x1="6" y1="4" x2="6" y2="20"/><line x1="18" y1="4" x2="18" y2="20"/></svg>
-        </button>
-      </div>
-      <!-- Controls: absolute over video on desktop, static strip on mobile -->
-      <div class="trailer-bottom-controls">
-        <button class="tvc-btn" onclick="replayTrailer()" title="Restart">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
-        </button>
-        <button class="tvc-btn tvc-mute" onclick="toggleTrailerMute()" title="Mute / Unmute">
-          <svg id="tvc-icon-muted" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-          <svg id="tvc-icon-sound" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>
-          <span id="tvc-mute-label">Unmute</span>
-        </button>
-      </div>
-    </div>
-    <div class="trailer-modal-body">
-      <div class="trailer-modal-title" id="trailer-modal-title"></div>
-      <div class="trailer-modal-actions">
-        <a id="trailer-course-btn" href="#" class="btn-orange">Go to Course</a>
-        <a href="request-a-quote.html" class="btn-ghost">Get Pricing</a>
-      </div>
-    </div>
-  </div>
-</div>
-
 <!-- LIGHTBOX -->
-<!-- ══ DEMO MODAL (hero + course trailers) ══ -->
-<div id="demoModal" style="display:none; position:fixed; inset:0; z-index:9000; background:rgba(10,34,51,0.85); backdrop-filter:blur(4px); align-items:center; justify-content:center;">
-  <div id="demoModalInner" style="position:relative; width:90%; max-width:900px; background:#0a2233; border-radius:16px; overflow:hidden; box-shadow:0 24px 80px rgba(0,0,0,0.5);">
-
-    <button onclick="closeDemoModal()" style="position:absolute; top:12px; right:12px; z-index:20; background:rgba(255,255,255,0.12); border:none; color:#fff; border-radius:50%; width:36px; height:36px; font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center; line-height:1;">✕</button>
-
-    <!-- Title: absolute pill on desktop, static dark strip on mobile -->
-    <div id="demoModalHeader" style="position:absolute; top:12px; left:16px; z-index:20; display:flex; gap:0.5rem; align-items:center; background:rgba(255,255,255,0.88); backdrop-filter:blur(4px); border-radius:50px; padding:0.25rem 0.85rem 0.25rem 0.25rem;">
-      <span id="demoModalTag" style="font-size:0.7rem; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; background:#f97c53; color:#fff; padding:0.2rem 0.6rem; border-radius:50px;"></span>
-      <span id="demoModalTitle" style="font-size:0.82rem; font-weight:600; color:#2d3748;"></span>
-    </div>
-
-    <!-- Video area -->
-    <div id="demoModalVideoArea" style="position:relative;">
-
-      <div id="demoModalPoster" onclick="startDemoVideo()" style="aspect-ratio:16/9; width:100%; cursor:pointer; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#0a2233 0%,#096f9c 100%); background-size:cover; background-position:center; position:relative;">
-        <div style="position:absolute; inset:0; background:rgba(10,34,51,0.35); pointer-events:none;"></div>
-        <div id="demoPlayBtn" style="position:relative; z-index:2; width:80px; height:80px; background:#f97c53; border-radius:50%; display:flex; align-items:center; justify-content:center; box-shadow:0 8px 32px rgba(249,124,83,0.45); transition:transform 0.2s, box-shadow 0.2s;">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="white" stroke="none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        </div>
-      </div>
-
-      <div id="demoModalVideoWrap" style="display:none; position:relative; aspect-ratio:16/9; width:100%;">
-        <iframe id="demoModalFrame" src="" width="100%" height="100%" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen style="display:block;"></iframe>
-        <div id="demoModalCta" style="display:none; position:absolute; inset:0; background:rgba(10,34,51,0.9); align-items:center; justify-content:center; flex-direction:column; gap:1.2rem; text-align:center; padding:2rem; z-index:14;">
-          <p style="font-size:1.3rem; font-weight:700; color:#fff; margin:0;">Want to see more?</p>
-          <p style="font-size:0.95rem; color:rgba(255,255,255,0.8); margin:0;">License our courses for your organization.</p>
-          <div style="display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;">
-            <a href="request-a-quote.html" style="background:#f97c53; color:#fff; font-weight:700; padding:0.75rem 1.75rem; border-radius:50px; text-decoration:none; font-size:0.95rem;">Get Pricing</a>
-            <a href="#" onclick="closeDemoModal(); return false;" style="background:transparent; color:rgba(255,255,255,0.7); border:1.5px solid rgba(255,255,255,0.3); font-weight:600; padding:0.75rem 1.5rem; border-radius:50px; font-size:0.95rem; text-decoration:none; display:inline-flex; align-items:center;">Keep Browsing</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Controls: absolute over video on desktop, static strip on mobile -->
-      <div id="demoModalControls" style="position:absolute; bottom:54px; right:14px; z-index:15; display:none; gap:0.5rem; align-items:center;">
-        <button onclick="rewatchDemo()" title="Watch again" style="background:#f97c53; border:none; color:#fff; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; transition:background 0.2s, transform 0.15s; box-shadow:0 3px 12px rgba(249,124,83,0.45);">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-4.5"/></svg>
-        </button>
-        <button id="demoMuteBtn" onclick="toggleDemoMute()" style="background:#f97c53; border:none; color:#fff; border-radius:50px; height:36px; padding:0 1rem; display:flex; align-items:center; justify-content:center; gap:0.4rem; cursor:pointer; transition:background 0.2s; box-shadow:0 3px 12px rgba(249,124,83,0.45); font-family:'Quicksand',sans-serif; font-size:0.78rem; font-weight:700; letter-spacing:0.04em;">
-          <svg id="demoIconUnmuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
-          <svg id="demoIconMuted" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-          <span id="demoMuteLabel">Mute</span>
-        </button>
-      </div>
-
-    </div><!-- /demoModalVideoArea -->
-
-    <!-- Bottom nav -->
-    <div id="demoModalNav" style="background:#060f17; padding:0.75rem 1rem; display:flex; align-items:center; gap:0.75rem;">
-      <div id="demoNavItems" style="flex:1; display:flex; gap:0.5rem; min-width:0; overflow:hidden;"></div>
-      <a href="request-a-quote.html" style="flex-shrink:0; background:#f97c53; color:#fff; font-weight:700; font-size:0.78rem; padding:0.45rem 1rem; border-radius:50px; text-decoration:none; white-space:nowrap;">Get Pricing →</a>
-    </div>
-
-  </div>
-</div>
-
 <div class="lightbox-overlay" id="lightbox-overlay" onclick="closeLightbox(event)">
   <div class="lightbox" id="lightbox">
     <button class="lightbox-close" onclick="closeLightboxDirect()">✕</button>
@@ -1364,11 +1035,61 @@
     <div class="lightbox-body">
       <div class="lightbox-title" id="lightbox-title"></div>
       <div class="lightbox-desc" id="lightbox-desc"></div>
-      <div class="lightbox-actions">
-        <a id="lb-primary" href="#" class="lb-btn lb-btn-primary">Go to Course</a>
-        <a id="lb-secondary" href="demo.html" class="lb-btn lb-btn-secondary">See Demo</a>
-        <a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>
+      <div class="lightbox-actions" id="lightbox-actions">
+        <!-- populated by openLightbox() -->
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DEPLOYMENT ══ -->
+<div style="background: #eef7fc; padding: 5rem 3rem;">
+  <div style="max-width: 1100px; margin: 0 auto;">
+    <div style="font-size: 0.82rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: #f97c53; margin-bottom: 0.6rem; text-align:center;">Flexible Deployment</div>
+    <h2 style="font-size: clamp(1.65rem,2.6vw,2.3rem); font-weight: 700; color: #0a2233; margin-bottom: 3rem; line-height: 1.2; text-align:center;">Two Ways to Deploy — You Choose</h2>
+    <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 0; align-items: center;">
+
+      <!-- We Host It -->
+      <div onclick="window.location='/how-it-works.html'" style="background: #fff; border-radius: 20px; border: 1.5px solid rgba(9,111,156,0.12); display:flex; overflow:hidden; min-height:260px; cursor:pointer;">
+        <div style="flex:0 0 38%; overflow:hidden; min-height:100%;">
+          <img src="/assets/images/ui/we_host.png" alt="We Host It" style="width:100%; height:100%; object-fit:cover; display:block;" onmouseenter="this.src='/assets/images/ui/we_host.gif'" onmouseleave="this.src='/assets/images/ui/we_host.png'">
+        </div>
+        <div style="flex:1; padding:2rem 1.75rem; display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size: clamp(1.6rem,2.4vw,2.1rem); font-weight: 800; color: #0a2233; margin-bottom: 0.2rem; line-height:1.1;">We Host It</h3>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #f97c53; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem;">Fully Managed</div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Completion tracking and reporting</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Built-in quizzes</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Certificates of completion</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Deploy the same day you purchase</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- OR circle -->
+      <div style="display:flex; align-items:center; justify-content:center; padding: 0 2rem;">
+        <div style="width:72px; height:72px; border-radius:50%; background:#f97c53; display:flex; align-items:center; justify-content:center; box-shadow: 0 4px 18px rgba(249,124,83,0.35);">
+          <span style="font-size:1.25rem; font-weight:900; color:#fff; letter-spacing:-0.03em;">OR</span>
+        </div>
+      </div>
+
+      <!-- You Host It -->
+      <div onclick="window.location='/how-it-works.html'" style="background: #fff; border-radius: 20px; border: 1.5px solid rgba(9,111,156,0.12); display:flex; overflow:hidden; min-height:260px; cursor:pointer;">
+        <div style="flex:0 0 38%; overflow:hidden; min-height:100%;">
+          <img src="/assets/images/ui/you_host.png" alt="You Host It" style="width:100%; height:100%; object-fit:cover; display:block;" onmouseenter="this.src='/assets/images/ui/you_host.gif'" onmouseleave="this.src='/assets/images/ui/you_host.png'">
+        </div>
+        <div style="flex:1; padding:2rem 1.75rem; display:flex; flex-direction:column; justify-content:center;">
+          <h3 style="font-size: clamp(1.6rem,2.4vw,2.1rem); font-weight: 800; color: #0a2233; margin-bottom: 0.2rem; line-height:1.1;">You Host It</h3>
+          <div style="font-size: 0.78rem; font-weight: 700; color: #f97c53; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 1.2rem;">SCORM Compatible</div>
+          <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem;">
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>SCORM package for your LMS</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Compatible with all major platforms</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Your branding, your environment</li>
+            <li style="font-size: 0.92rem; color: #5a7282; font-weight: 500; display: flex; gap: 0.65rem; align-items: flex-start; line-height: 1.4;"><span style="color: #096f9c; font-weight: 700; flex-shrink: 0;">✓</span>Deploy the same day you purchase</li>
+          </ul>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
@@ -1376,12 +1097,12 @@
 <!-- FOOTER -->
 <footer>
   <div class="footer-logo">
-    <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
+    <img src="assets/images/blue_seat_logo_final.png" alt="Blue Seat Studios" />
   </div>
   <ul class="footer-links">
-    <li><a href="catalog.html?audience=workplace">Workplace</a></li>
-    <li><a href="catalog.html?audience=highered">Higher Ed</a></li>
-    <li><a href="catalog.html?audience=k12">K–12</a></li>
+    <li><a href="workplace.html">Workplace</a></li>
+    <li><a href="highered.html">Higher Ed</a></li>
+    <li><a href="k12.html">K–12</a></li>
     <li><a href="#">Privacy</a></li>
     <li><a href="contact.html">Contact</a></li>
   </ul>
@@ -1396,517 +1117,169 @@ const COURSES = {
     {
       "id": "shp",
       "title": "Sexual Harassment Prevention",
-      "thumb": "/assets/images/courses/img_shp.png",
-      "thumbGif": "/assets/images/courses/img_shp.gif",
+      "thumb": "img_shp.png",
       "href": "/course-shp.html",
+      "status": "available",
       "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",
+      "desc": "Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with.",
       "isStaff": false
     },
     {
-      "id": "ta",
+      "id": "threat",
       "title": "Threat Assessment",
-      "thumb": "/assets/images/courses/img_ta.png",
-      "thumbGif": "/assets/images/courses/img_ta.gif",
-      "href": "/course-ta.html",
+      "thumb": "img_megaphone.png",
+      "href": "/course-threat.html",
+      "status": "available",
       "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Helps your organization recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
+      "desc": "Equips your team to recognize early warning signs and act before situations escalate.",
       "isStaff": false
     },
     {
-      "id": "sg",
-      "title": "Safeguarding",
-      "thumb": "/assets/images/courses/img_sg.png",
-      "thumbGif": "/assets/images/courses/img_sg.gif",
-      "href": "/coming-soon-sg.html",
-      "comingSoonDate": "June 2026",
-      "comingSoon": true,
-      "desc": "Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.",
-      "isStaff": false
-    },
-    {
-      "id": "cy",
+      "id": "cs",
       "title": "Cybersecurity",
-      "thumb": "/assets/images/courses/img_cy.png",
-      "thumbGif": "/assets/images/courses/img_cy.gif",
-      "href": "/coming-soon-cy.html",
+      "thumb": "img_cybersecurity.gif",
+      "href": "/coming-soon-cs.html",
+      "status": "coming-soon",
       "comingSoonDate": "May 2026",
-      "comingSoon": true,
-      "desc": "Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",
+      "desc": "Practical security awareness training that actually changes behavior — not just checks a compliance box.",
       "isStaff": false
     },
     {
       "id": "hr",
       "title": "HR Fundamentals",
-      "thumb": "/assets/images/courses/img_hr.png",
-      "thumbGif": "/assets/images/courses/img_hr.gif",
+      "thumb": "img_fist_bump.png",
       "href": "/coming-soon-hr.html",
-      "comingSoonDate": "July 2026",
-      "comingSoon": true,
-      "desc": "Practical, no-nonsense guidance on core people management skills like setting expectations, giving feedback, and addressing issues early. Helps managers lead clearly, consistently, and fairly.",
+      "status": "coming-soon",
+      "comingSoonDate": "August 2026",
+      "desc": "Management essentials — goal-setting, direct feedback, and the tough conversations that put everyone on the same page.",
       "isStaff": false
     }
   ],
   "highered": [
     {
-      "id": "mh-he",
-      "title": "Mental Health Support",
-      "thumb": "/assets/images/courses/img_mh-he.png",
-      "thumbGif": "/assets/images/courses/img_mh-he.gif",
-      "href": "/coming-soon-mh-he.html",
-      "comingSoonDate": "June 2026",
-      "comingSoon": true,
-      "desc": "Helps students build self-awareness, understand their emotions, and make more intentional choices in challenging moments. Encourages recognition of signs of struggle and supports a campus culture where seeking help feels normal.",
-      "isStaff": false
-    },
-    {
-      "id": "cy",
-      "title": "Cybersecurity",
-      "thumb": "/assets/images/courses/img_cy.png",
-      "thumbGif": "/assets/images/courses/img_cy.gif",
-      "href": "/coming-soon-cy.html",
-      "comingSoonDate": "May 2026",
-      "comingSoon": true,
-      "desc": "Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",
-      "isStaff": false
-    },
-    {
-      "id": "al",
-      "title": "Alcohol Awareness",
-      "thumb": "/assets/images/courses/img_al.png",
-      "thumbGif": "/assets/images/courses/img_al.gif",
-      "href": "/coming-soon-al.html",
-      "comingSoonDate": "July 2026",
-      "comingSoon": true,
-      "desc": "Honest, non-preachy education that helps people understand their patterns and make more intentional choices. Grounded in self-reflection, awareness, and aligning decisions with what matters most.",
-      "isStaff": false
-    },
-    {
       "id": "shp",
       "title": "Sexual Harassment Prevention",
-      "thumb": "/assets/images/courses/img_shp.png",
-      "thumbGif": "/assets/images/courses/img_shp.gif",
+      "thumb": "img_shp.png",
       "href": "/course-shp.html",
+      "status": "available",
       "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",
+      "desc": "Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with.",
       "isStaff": true
     },
     {
-      "id": "ta-he",
+      "id": "threat",
       "title": "Threat Assessment",
-      "thumb": "/assets/images/courses/img_ta.png",
-      "thumbGif": "/assets/images/courses/img_ta.gif",
-      "href": "/course-ta-he.html",
+      "thumb": "img_megaphone.png",
+      "href": "/course-threat.html",
+      "status": "available",
       "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Helps your campus community recognize early warning signs, respond appropriately, and understand their role in keeping others safe. Focused on early support, clear pathways to action, and building trust in the process.",
+      "desc": "Equips your team to recognize early warning signs and act before situations escalate.",
+      "isStaff": false
+    },
+    {
+      "id": "cs",
+      "title": "Cybersecurity",
+      "thumb": "img_cybersecurity.gif",
+      "href": "/coming-soon-cs.html",
+      "status": "coming-soon",
+      "comingSoonDate": "May 2026",
+      "desc": "Practical security awareness training that actually changes behavior — not just checks a compliance box.",
+      "isStaff": false
+    },
+    {
+      "id": "by",
+      "title": "Bystander Intervention",
+      "thumb": "img_bystander.png",
+      "href": "/coming-soon-by.html",
+      "status": "coming-soon",
+      "comingSoonDate": "May 2026",
+      "desc": "Gives students and staff the skills and confidence to step in when something isn't right.",
+      "isStaff": false
+    },
+    {
+      "id": "aa",
+      "title": "Alcohol Awareness",
+      "thumb": "img_bystander.png",
+      "href": "/coming-soon-aa.html",
+      "status": "coming-soon",
+      "comingSoonDate": "June 2026",
+      "desc": "Honest non-preachy alcohol education that meets students where they are. Focuses on real decision-making and risk reduction.",
+      "isStaff": false
+    },
+    {
+      "id": "mh",
+      "title": "Mental Health Awareness",
+      "thumb": "img_fist_bump.png",
+      "href": "/coming-soon-mh.html",
+      "status": "coming-soon",
+      "comingSoonDate": "July 2026",
+      "desc": "Equips your campus community to recognize signs of struggle early and build environments where asking for help is normal.",
       "isStaff": false
     },
     {
       "id": "hr",
       "title": "HR Fundamentals",
-      "thumb": "/assets/images/courses/img_hr.png",
-      "thumbGif": "/assets/images/courses/img_hr.gif",
+      "thumb": "img_fist_bump.png",
       "href": "/coming-soon-hr.html",
-      "comingSoonDate": "July 2026",
-      "comingSoon": true,
-      "desc": "Practical, no-nonsense guidance on core people management skills like setting expectations, giving feedback, and addressing issues early. Helps managers lead clearly, consistently, and fairly.",
-      "isStaff": true
-    },
-    {
-      "id": "shp-he",
-      "title": "Sexual Harassment Prevention",
-      "thumb": "/assets/images/courses/img_shp-he.png",
-      "thumbGif": "/assets/images/courses/img_shp-he.gif",
-      "href": "/course-shp-he.html",
-      "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Clear, engaging training that meets legal requirements while helping students navigate real situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful campus culture.",
-      "isStaff": false
-    },
-    {
-      "id": "sg",
-      "title": "Safeguarding",
-      "thumb": "/assets/images/courses/img_sg.png",
-      "thumbGif": "/assets/images/courses/img_sg.gif",
-      "href": "/coming-soon-sg.html",
-      "comingSoonDate": "June 2026",
-      "comingSoon": true,
-      "desc": "Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.",
+      "status": "coming-soon",
+      "comingSoonDate": "August 2026",
+      "desc": "Management essentials — goal-setting, direct feedback, and the tough conversations that put everyone on the same page.",
       "isStaff": true
     }
   ],
   "k12": [
     {
-      "id": "co-k12",
-      "title": "Consent",
-      "thumb": "/assets/images/courses/img_co-k12.png",
-      "thumbGif": "/assets/images/courses/img_co-k12.gif",
-      "href": "/course-co-k12.html",
-      "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Age-appropriate, engaging lessons that help students understand bodily autonomy, boundaries, and consent. Builds skills for asking, listening, and respecting others from an early age.",
-      "isStaff": false
-    },
-    {
-      "id": "by-k12",
-      "title": "Be a Bystander",
-      "thumb": "/assets/images/courses/img_by-k12.png",
-      "thumbGif": "/assets/images/courses/img_by-k12.gif",
-      "href": "/course-by-k12.html",
-      "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Helps students recognize when something isn’t right and take simple, age-appropriate action. Builds confidence to speak up, support others, and be part of a safer, more respectful community.",
-      "isStaff": false
-    },
-    {
-      "id": "bf-k12",
-      "title": "Bias and Fairness",
-      "thumb": "/assets/images/courses/img_bf-k12.png",
-      "thumbGif": "/assets/images/courses/img_bf-k12.gif",
-      "href": "/course-bf-k12.html",
-      "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Ferdinand Ferret is on the case—joined by his practical, no-nonsense partner Dr. Bear. This three-part series helps students understand bias and fairness, question snap judgments, and think a little more carefully about they see others.",
-      "isStaff": false
-    },
-    {
-      "id": "mh-k12",
-      "title": "Mental Health Basics",
-      "thumb": "/assets/images/courses/img_mh-k12.png",
-      "thumbGif": "/assets/images/courses/img_mh-k12.gif",
-      "href": "/coming-soon-mh-k12.html",
-      "comingSoonDate": "June 2026",
-      "comingSoon": true,
-      "desc": "Helps students recognize and name their emotions, build self-awareness, and make more intentional choices in the moment. Reinforces that all emotions are part of being human—and that they will pass.",
-      "isStaff": false
-    },
-    {
       "id": "shp",
       "title": "Sexual Harassment Prevention",
-      "thumb": "/assets/images/courses/img_shp.png",
-      "thumbGif": "/assets/images/courses/img_shp.gif",
+      "thumb": "img_shp.png",
       "href": "/course-shp.html",
+      "status": "available",
       "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Clear, engaging training that meets legal requirements while helping people navigate real workplace situations with confidence. Uses humor to reduce defensiveness, build shared expectations, and support a respectful culture.",
+      "desc": "Meets CA SB 1343 and multi-state requirements with scenario-based training employees will actually engage with.",
       "isStaff": true
     },
     {
-      "id": "ta-k12",
+      "id": "threat",
       "title": "Threat Assessment",
-      "thumb": "/assets/images/courses/img_ta.png",
-      "thumbGif": "/assets/images/courses/img_ta.gif",
-      "href": "/course-ta-k12.html",
+      "thumb": "img_megaphone.png",
+      "href": "/course-threat.html",
+      "status": "available",
       "comingSoonDate": "",
-      "comingSoon": false,
-      "desc": "Helps students and staff recognize early warning signs, respond appropriately, and understand their role in keeping the school community safe. Focused on early support, clear pathways to action, and building trust in the process.",
+      "desc": "Equips your team to recognize early warning signs and act before situations escalate.",
+      "isStaff": false
+    },
+    {
+      "id": "by",
+      "title": "Bystander Intervention",
+      "thumb": "img_bystander.png",
+      "href": "/coming-soon-by.html",
+      "status": "coming-soon",
+      "comingSoonDate": "May 2026",
+      "desc": "Gives students and staff the skills and confidence to step in when something isn't right.",
+      "isStaff": false
+    },
+    {
+      "id": "mh",
+      "title": "Mental Health Awareness",
+      "thumb": "img_fist_bump.png",
+      "href": "/coming-soon-mh.html",
+      "status": "coming-soon",
+      "comingSoonDate": "July 2026",
+      "desc": "Equips your campus community to recognize signs of struggle early and build environments where asking for help is normal.",
       "isStaff": false
     },
     {
       "id": "hr",
       "title": "HR Fundamentals",
-      "thumb": "/assets/images/courses/img_hr.png",
-      "thumbGif": "/assets/images/courses/img_hr.gif",
+      "thumb": "img_fist_bump.png",
       "href": "/coming-soon-hr.html",
-      "comingSoonDate": "July 2026",
-      "comingSoon": true,
-      "desc": "Practical, no-nonsense guidance on core people management skills like setting expectations, giving feedback, and addressing issues early. Helps managers lead clearly, consistently, and fairly.",
+      "status": "coming-soon",
+      "comingSoonDate": "August 2026",
+      "desc": "Management essentials — goal-setting, direct feedback, and the tough conversations that put everyone on the same page.",
       "isStaff": true
-    },
-    {
-      "id": "sg",
-      "title": "Safeguarding",
-      "thumb": "/assets/images/courses/img_sg.png",
-      "thumbGif": "/assets/images/courses/img_sg.gif",
-      "href": "/coming-soon-sg.html",
-      "comingSoonDate": "June 2026",
-      "comingSoon": true,
-      "desc": "Help your organization safeguard vulnerable people.  This compelling course will help your community act with fairness and integrity when there is a report of sexual misconduct.",
-      "isStaff": true
-    },
-    {
-      "id": "cy",
-      "title": "Cybersecurity",
-      "thumb": "/assets/images/courses/img_cy.png",
-      "thumbGif": "/assets/images/courses/img_cy.gif",
-      "href": "/coming-soon-cy.html",
-      "comingSoonDate": "May 2026",
-      "comingSoon": true,
-      "desc": "Practical, engaging training that helps people recognize common scams, slow down in high-pressure moments, and make smarter decisions in a digital world. Turns abstract risks into clear, memorable actions.",
-      "isStaff": false
     }
   ]
 };
-
-// Homepage sample clips (for hero "Watch a Demo" button)
-var demoVideos = [
-    { vimeoId: '1177367700', hash: 'd32252af73', tag: "Threat Assessment", title: "" },
-  { vimeoId: '1117099851', hash: 'e8a752b2e2', tag: "Sexual Harassment", title: "" },
-  { vimeoId: '1155163734', hash: '7c29c1c3bc', tag: "Safety Culture", title: "" },
-  { vimeoId: '1117122564', hash: '4094bffc04', tag: "Compliance", title: "" }
-];
-
-// Per-course demo clips (for lightbox "Watch a Course Trailer" button)
-const COURSE_DEMOS = {
-  "shp": [
-    {
-      "vimeoId": "1117099851",
-      "hash": "e8a752b2e2",
-      "tag": "Intro",
-      "title": "Welcome: Your Right to a Respectful Workplace"
-    },
-    {
-      "vimeoId": "1111431000",
-      "hash": "aadb3a79ee",
-      "tag": "Concepts",
-      "title": "Person to Person Harassment"
-    },
-    {
-      "vimeoId": "1121597000",
-      "hash": "2466e595b5",
-      "tag": "Meet Stan",
-      "title": "Stan — Unwelcome Questions"
-    },
-    {
-      "vimeoId": "1117104000",
-      "hash": "92e053e17b",
-      "tag": "Reporting",
-      "title": "Reporting & Retaliation Protection"
-    },
-    {
-      "vimeoId": "1117123000",
-      "hash": "4094bffc04",
-      "tag": "Concepts",
-      "title": "Quid Pro Quo"
-    }
-  ],
-  "ta": [
-    {
-      "vimeoId": "1181596966",
-      "hash": "e4a12063ac",
-      "tag": "Intro",
-      "title": "Introduction to Safety Culture"
-    },
-    {
-      "vimeoId": "1181596979",
-      "hash": "43cc3cc06b",
-      "tag": "Key Concepts",
-      "title": "The Pathway to Violence"
-    },
-    {
-      "vimeoId": "1181597011",
-      "hash": "6dc4face20",
-      "tag": "Skills",
-      "title": "What To Do When There's An Immediate Threat"
-    }
-  ],
-  "ta-he": [
-    {
-      "vimeoId": "1181596966",
-      "hash": "e4a12063ac",
-      "tag": "Intro",
-      "title": "Introduction to Safety Culture"
-    },
-    {
-      "vimeoId": "1181596979",
-      "hash": "43cc3cc06b",
-      "tag": "Key Concepts",
-      "title": "The Pathway to Violence"
-    },
-    {
-      "vimeoId": "1181597011",
-      "hash": "6dc4face20",
-      "tag": "Skills",
-      "title": "What To Do When There's An Immediate Threat"
-    }
-  ],
-  "ta-k12": [
-    {
-      "vimeoId": "1181596966",
-      "hash": "e4a12063ac",
-      "tag": "Intro",
-      "title": "Introduction to Safety Culture"
-    },
-    {
-      "vimeoId": "1181596979",
-      "hash": "43cc3cc06b",
-      "tag": "Key Concepts",
-      "title": "The Pathway to Violence"
-    },
-    {
-      "vimeoId": "1181597011",
-      "hash": "6dc4face20",
-      "tag": "Skills",
-      "title": "What To Do When There's An Immediate Threat"
-    }
-  ]
-};
-
-// Prefetch Vimeo thumbnails
-demoVideos.forEach(function(clip) {
-  var url = 'https://vimeo.com/api/oembed.json?width=1280&url=' + encodeURIComponent('https://vimeo.com/' + clip.vimeoId + (clip.hash ? '/' + clip.hash : ''));
-  fetch(url).then(function(r) { return r.json(); }).then(function(d) {
-    clip.thumbnail = (d.thumbnail_url || '').replace(/_\d+x\d+(\.\w+)$/, '_1280x720$1');
-  }).catch(function() {});
-});
-Object.values(COURSE_DEMOS).forEach(function(clips) {
-  clips.forEach(function(clip) {
-    var url = 'https://vimeo.com/api/oembed.json?width=1280&url=' + encodeURIComponent('https://vimeo.com/' + clip.vimeoId + (clip.hash ? '/' + clip.hash : ''));
-    fetch(url).then(function(r) { return r.json(); }).then(function(d) {
-      clip.thumbnail = (d.thumbnail_url || '').replace(/_\d+x\d+(\.\w+)$/, '_1280x720$1');
-    }).catch(function() {});
-  });
-});
-
-var demoCtaTimer = null;
-var demoPlayer = null;
-var demoMuted = false;
-var demoClipSet = [];
-var demoClipIdx = 0;
-
-document.getElementById('demoPlayBtn').addEventListener('mouseenter', function() { this.style.transform='scale(1.1)'; this.style.boxShadow='0 12px 40px rgba(249,124,83,0.65)'; });
-document.getElementById('demoPlayBtn').addEventListener('mouseleave', function() { this.style.transform='scale(1)'; this.style.boxShadow='0 8px 32px rgba(249,124,83,0.45)'; });
-
-function openDemoModal() {
-  demoClipSet = demoVideos.slice();
-  demoClipIdx = 0;
-  _loadDemoClip(0);
-  document.getElementById('demoModal').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-
-function openCourseDemoModal(courseId) {
-  var clips = COURSE_DEMOS[courseId];
-  if (!clips || !clips.length) clips = demoVideos;
-  demoClipSet = clips.slice();
-  demoClipIdx = 0;
-  _loadDemoClip(0);
-  document.getElementById('demoModal').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-
-function _loadDemoClip(idx) {
-  demoClipIdx = idx;
-  var clip = demoClipSet[idx];
-  document.getElementById('demoModalTag').textContent = clip.tag;
-  document.getElementById('demoModalTitle').textContent = clip.title;
-  var poster = document.getElementById('demoModalPoster');
-  poster.style.backgroundImage = clip.thumbnail ? 'url(' + clip.thumbnail + ')' : 'linear-gradient(135deg,#0a2233 0%,#096f9c 100%)';
-  poster.style.display = 'flex';
-  clearTimeout(demoCtaTimer);
-  demoPlayer = null;
-  document.getElementById('demoModalFrame').src = '';
-  document.getElementById('demoModalVideoWrap').style.display = 'none';
-  document.getElementById('demoModalCta').style.display = 'none';
-  document.getElementById('demoModalControls').style.display = 'none';
-  renderDemoNav();
-}
-
-function renderDemoNav() {
-  var btnStyle = 'border:none; border-radius:50px; height:30px; padding:0 0.75rem; font-family:\'Quicksand\',sans-serif; font-size:0.72rem; font-weight:700; cursor:pointer; transition:background 0.15s; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:200px;';
-  document.getElementById('demoNavItems').innerHTML = demoClipSet.map(function(clip, i) {
-    var active = i === demoClipIdx;
-    var bg = active ? 'background:#f97c53; color:#fff;' : 'background:rgba(255,255,255,0.1); color:rgba(255,255,255,0.65);';
-    return '<button onclick="switchDemoClip(' + i + ')" style="' + btnStyle + bg + '" title="' + clip.title + '">' + clip.tag + '</button>';
-  }).join('');
-}
-
-function switchDemoClip(idx) { _loadDemoClip(idx); }
-
-function startDemoVideo() {
-  var clip = demoClipSet[demoClipIdx];
-  if (!clip) return;
-  document.getElementById('demoModalPoster').style.display = 'none';
-  document.getElementById('demoModalVideoWrap').style.display = 'block';
-  document.getElementById('demoModalCta').style.display = 'none';
-  document.getElementById('demoModalControls').style.display = 'flex';
-  var frame = document.getElementById('demoModalFrame');
-  frame.src = 'https://player.vimeo.com/video/' + clip.vimeoId + '?h=' + clip.hash + '&autoplay=1&title=0&byline=0&portrait=0';
-  if (typeof Vimeo !== 'undefined') {
-    demoPlayer = new Vimeo.Player(frame);
-    demoMuted = false;
-    updateDemoMuteIcon();
-    demoPlayer.on('ended', function() { clearTimeout(demoCtaTimer); fadeDemoVolume(0, 1800, null); });
-  }
-  clearTimeout(demoCtaTimer);
-  demoCtaTimer = setTimeout(function() {
-    fadeDemoVolume(0, 2000, function() {
-      demoMuted = true;
-      updateDemoMuteIcon();
-      document.getElementById('demoModalControls').style.display = 'none';
-      document.getElementById('demoModalCta').style.display = 'flex';
-    });
-  }, 30000);
-}
-
-function rewatchDemo() {
-  clearTimeout(demoCtaTimer);
-  document.getElementById('demoModalCta').style.display = 'none';
-  document.getElementById('demoModalControls').style.display = 'flex';
-  if (demoPlayer) {
-    demoMuted = false;
-    demoPlayer.setMuted(false).catch(function() {});
-    demoPlayer.setVolume(1).catch(function() {});
-    updateDemoMuteIcon();
-    demoPlayer.setCurrentTime(0).then(function() { demoPlayer.play().catch(function() {}); }).catch(function() { startDemoVideo(); });
-  } else { startDemoVideo(); }
-  demoCtaTimer = setTimeout(function() {
-    document.getElementById('demoModalControls').style.display = 'none';
-    document.getElementById('demoModalCta').style.display = 'flex';
-    if (demoPlayer) demoPlayer.setMuted(true).catch(function() {});
-    demoMuted = true;
-    updateDemoMuteIcon();
-  }, 30000);
-}
-
-function fadeDemoVolume(toVol, duration, onComplete) {
-  if (!demoPlayer) { if (onComplete) onComplete(); return; }
-  demoPlayer.getVolume().then(function(vol) {
-    var steps = 25, stepMs = duration / steps, delta = (toVol - vol) / steps, count = 0;
-    function tick() {
-      if (!demoPlayer || count >= steps) { if (onComplete) onComplete(); return; }
-      vol = Math.max(0, Math.min(1, vol + delta));
-      demoPlayer.setVolume(vol).catch(function() {});
-      count++;
-      setTimeout(tick, stepMs);
-    }
-    tick();
-  }).catch(function() { if (onComplete) onComplete(); });
-}
-
-function toggleDemoMute() {
-  if (!demoPlayer) return;
-  demoMuted = !demoMuted;
-  demoPlayer.setMuted(demoMuted).catch(function() {});
-  updateDemoMuteIcon();
-}
-
-function updateDemoMuteIcon() {
-  document.getElementById('demoIconUnmuted').style.display = demoMuted ? 'none' : 'block';
-  document.getElementById('demoIconMuted').style.display = demoMuted ? 'block' : 'none';
-  document.getElementById('demoMuteLabel').textContent = demoMuted ? 'Unmute' : 'Mute';
-}
-
-function closeDemoModal() {
-  clearTimeout(demoCtaTimer);
-  demoPlayer = null;
-  document.getElementById('demoModalFrame').src = '';
-  document.getElementById('demoModal').style.display = 'none';
-  document.getElementById('demoModalPoster').style.display = 'flex';
-  document.getElementById('demoModalVideoWrap').style.display = 'none';
-  document.getElementById('demoModalCta').style.display = 'none';
-  document.body.style.overflow = '';
-  demoMuted = false;
-  demoClipSet = [];
-}
-
-document.getElementById('demoModal').addEventListener('click', function(e) {
-  if (e.target === this) closeDemoModal();
-});
 
 const AUDIENCE_LABELS = {
   workplace: 'Workplace',
@@ -1919,10 +1292,12 @@ let currentAudience = 'all';
 
 // ── RENDER ────────────────────────────────────────────────────────────────────
 function cardHTML(course) {
-  const topBar = course.comingSoon
+  const isComingSoon = course.status === 'coming-soon';
+
+  const topBar = isComingSoon
     ? `<div class="coming-soon-bar">
         <span>Coming ${course.comingSoonDate}</span>
-        <span>Learn More →</span>
+        <span>Coming Soon →</span>
        </div>`
     : '';
 
@@ -1930,18 +1305,15 @@ function cardHTML(course) {
     ? `<div class="staff-badge">For Staff</div>`
     : '';
 
-  const dataAttrs = `data-id="${course.id}" data-title="${course.title}" data-thumb="${course.thumb}" data-thumb-gif="${course.thumbGif || ''}" data-href="${course.href}" data-coming-soon="${course.comingSoon}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
-  const gifSwap = course.thumbGif
-    ? `onmouseenter="this.src='${course.thumbGif}'" onmouseleave="this.src='${course.thumb}'"`
-    : '';
+  const dataAttrs = `data-title="${course.title}" data-thumb="${course.thumb}" data-href="${course.href}" data-status="${course.status}" data-desc="${course.desc.replace(/"/g, '&quot;')}"`;
 
   return `
-    <a class="course-card${course.comingSoon ? ' coming-soon' : ''}" href="#" onclick="openLightbox(this); return false;" ${dataAttrs}>
+    <a class="course-card${isComingSoon ? ' coming-soon' : ''}" href="#" onclick="openLightbox(this); return false;" ${dataAttrs}>
       <img class="card-thumb" src="${course.thumb}" alt="${course.title}"
-        ${gifSwap} onerror="this.style.opacity='0'" />
+        onerror="this.style.opacity='0'" />
       ${topBar}
-      ${staffBadge}
       <div class="card-gradient"></div>
+      ${staffBadge}
       <div class="card-info"><div class="card-title">${course.title}</div></div>
     </a>
   `;
@@ -2007,48 +1379,48 @@ window.addEventListener('scroll', () => {
   document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 20);
 });
 
+// ── MUTE ──────────────────────────────────────────────────────────────────────
+var heroPlayer;
+var isMuted = true;
+
+document.addEventListener('DOMContentLoaded', () => {
+  try {
+    heroPlayer = new Vimeo.Player(document.getElementById('hero-video'));
+  } catch(e) {}
+});
+
+function toggleMute() {
+  if (!heroPlayer) return;
+  isMuted = !isMuted;
+  heroPlayer.setMuted(isMuted);
+  if (!isMuted) heroPlayer.setVolume(1);
+  document.getElementById('icon-muted').style.display = isMuted ? 'block' : 'none';
+  document.getElementById('icon-sound').style.display = isMuted ? 'none' : 'block';
+}
+
 // ── LIGHTBOX ──────────────────────────────────────────────────────────────────
 function openLightbox(card) {
-  const title      = card.dataset.title;
-  const thumb      = card.dataset.thumb;
-  const href       = card.dataset.href;
-  const desc       = card.dataset.desc;
-  const courseId   = card.dataset.id || '';
-  const comingSoon = card.dataset.comingSoon === 'true';
+  const title     = card.dataset.title;
+  const thumb     = card.dataset.thumb;
+  const href      = card.dataset.href;
+  const desc      = card.dataset.desc;
+  const isComingSoon = card.dataset.status === 'coming-soon';
 
-  const thumbGif = card.dataset.thumbGif;
-  const lightboxImg = document.getElementById('lightbox-img');
-  lightboxImg.src = thumbGif || thumb;
-  lightboxImg.alt = title;
+  document.getElementById('lightbox-img').src = thumb;
+  document.getElementById('lightbox-img').alt = title;
   document.getElementById('lightbox-title').textContent = title;
   document.getElementById('lightbox-desc').textContent = desc;
 
-  const primaryBtn   = document.getElementById('lb-primary');
-  const secondaryBtn = document.getElementById('lb-secondary');
-  secondaryBtn.onclick = null;
-
-  if (comingSoon) {
-    primaryBtn.textContent = 'Sneak Peek';
-    primaryBtn.href = href;
-    secondaryBtn.style.display = '';
-    secondaryBtn.textContent = 'Notify Me';
-    secondaryBtn.href = 'preorder.html';
+  const actions = document.getElementById('lightbox-actions');
+  if (isComingSoon) {
+    actions.innerHTML = `
+      <a href="${href}" class="lb-btn lb-btn-primary">Preorder</a>
+      <a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>`;
   } else {
-    primaryBtn.textContent = 'Go to Course';
-    primaryBtn.href = href;
-    const clips = COURSE_DEMOS[courseId];
-    if (clips && clips.length) {
-      secondaryBtn.style.display = '';
-      secondaryBtn.textContent = 'See Samples';
-      secondaryBtn.href = '#';
-      secondaryBtn.onclick = function(e) {
-        e.preventDefault();
-        closeLightboxDirect();
-        openCourseDemoModal(courseId);
-      };
-    } else {
-      secondaryBtn.style.display = 'none';
-    }
+    actions.innerHTML = `
+      <a href="${href}" class="lb-btn lb-btn-primary">Go to Course</a>
+      <a href="demo.html" class="lb-btn lb-btn-secondary">See Demo</a>
+      <a href="request-a-quote.html" class="lb-btn lb-btn-secondary">Get Pricing</a>`;
   }
 
   document.getElementById('lightbox-overlay').classList.add('open');
@@ -2064,87 +1436,7 @@ function closeLightboxDirect() {
   document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeLightboxDirect(); closeTrailerDirect(); closeDemoModal(); } });
-
-// ── TRAILER MODAL ──────────────────────────────────────────────────────────────
-var trailerPlayer = null;
-var trailerPlaying = false;
-var trailerMuted = false;
-
-function openTrailer(vimeoId, vimeoHash, title, href) {
-  // Reset state
-  trailerPlaying = false;
-  trailerMuted = false;
-  trailerPlayer = null;
-  setTrailerMuteUI(false);
-  document.getElementById('tvc-mute-label').textContent = 'Mute';
-  setTrailerPlayUI(false);
-  document.getElementById('trailer-center-play').classList.remove('hidden');
-
-  document.getElementById('trailer-modal-title').textContent = title;
-  document.getElementById('trailer-course-btn').href = href;
-  document.getElementById('trailer-modal-overlay').classList.add('open');
-  document.body.style.overflow = 'hidden';
-
-  // Clear src first, then set — ensures a fresh load each time
-  const iframe = document.getElementById('trailer-iframe');
-  iframe.src = '';
-  setTimeout(() => {
-    iframe.src = 'https://player.vimeo.com/video/' + vimeoId
-      + '?color=f97c53&title=0&byline=0&portrait=0&muted=0'
-      + (vimeoHash ? '&h=' + vimeoHash : '');
-    setTimeout(() => {
-      try {
-        trailerPlayer = new Vimeo.Player(iframe);
-        trailerPlayer.on('play',  () => { trailerPlaying = true;  setTrailerPlayUI(true); });
-        trailerPlayer.on('pause', () => { trailerPlaying = false; setTrailerPlayUI(false); });
-        trailerPlayer.on('ended', () => { trailerPlaying = false; setTrailerPlayUI(false); });
-      } catch(e) {}
-    }, 400);
-  }, 50);
-}
-
-function setTrailerPlayUI(playing) {
-  document.getElementById('tcp-icon-play').style.display  = playing ? 'none'  : 'block';
-  document.getElementById('tcp-icon-pause').style.display = playing ? 'block' : 'none';
-  // Hide center button while playing, show when paused/stopped
-  document.getElementById('trailer-center-play').classList.toggle('hidden', playing);
-}
-
-function setTrailerMuteUI(muted) {
-  document.getElementById('tvc-icon-muted').style.display = muted ? 'block' : 'none';
-  document.getElementById('tvc-icon-sound').style.display = muted ? 'none'  : 'block';
-  document.getElementById('tvc-mute-label').textContent   = muted ? 'Unmute' : 'Mute';
-}
-
-function toggleTrailerPlay() {
-  if (!trailerPlayer) return;
-  trailerPlaying ? trailerPlayer.pause() : trailerPlayer.play();
-}
-
-function replayTrailer() {
-  if (!trailerPlayer) return;
-  trailerPlayer.setCurrentTime(0).then(() => trailerPlayer.play());
-}
-
-function toggleTrailerMute() {
-  if (!trailerPlayer) return;
-  trailerMuted = !trailerMuted;
-  trailerPlayer.setMuted(trailerMuted);
-  if (!trailerMuted) trailerPlayer.setVolume(1);
-  setTrailerMuteUI(trailerMuted);
-}
-
-function closeTrailer(e) {
-  if (e.target === document.getElementById('trailer-modal-overlay')) closeTrailerDirect();
-}
-
-function closeTrailerDirect() {
-  document.getElementById('trailer-iframe').src = '';
-  trailerPlayer = null;
-  document.getElementById('trailer-modal-overlay').classList.remove('open');
-  document.body.style.overflow = '';
-}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightboxDirect(); });
 
 // ── INIT ──────────────────────────────────────────────────────────────────────
 (function() {
