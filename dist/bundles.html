@@ -150,10 +150,31 @@
     .footer-links a { color: rgba(255,255,255,0.35); text-decoration: none; transition: color 0.2s; }
     .footer-links a:hover { color: rgba(255,255,255,0.72); }
 
+    /* ── HAMBURGER ── */
+    .nav-right { display: flex; align-items: center; }
+    .nav-hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      cursor: pointer; background: none; border: none; padding: 0.25rem;
+    }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+    .nav-mobile-menu {
+      display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(9,111,156,0.98); z-index: 999;
+      flex-direction: column; align-items: center; justify-content: center; gap: 2rem;
+    }
+    .nav-mobile-menu.open { display: flex; }
+    .nav-mobile-menu a { color: #fff; text-decoration: none; font-size: 1.4rem; font-weight: 700; }
+    .nav-mobile-menu a:hover { color: var(--orange); }
+    .nav-mobile-close {
+      position: absolute; top: 1.2rem; right: 1.5rem;
+      background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1;
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 960px) {
       nav { padding: 0.9rem 1.5rem; }
-      .nav-links li:not(:last-child) { display: none; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
       .package-inner { grid-template-columns: 1fr; gap: 2.5rem; }
       .deploy-grid { grid-template-columns: 1fr; }
       .bundle-cards-grid { grid-template-columns: 1fr !important; padding: 1.25rem !important; }
@@ -188,16 +209,33 @@
   <div class="nav-logo">
     <a href="/"><img src="/assets/images/logos/blue_seat_logo_final.png" alt="Blue Seat Studios" /></a>
   </div>
-  <ul class="nav-links">
-    <li><a href="/catalog.html">Catalog</a></li>
-    <li><a href="/workplace.html">Workplace</a></li>
-    <li><a href="/highered.html">Higher Ed</a></li>
-    <li><a href="/k12.html">K–12</a></li>
-    <li><a href="/about-us.html">About Us</a></li>
-    <li><a href="/contact.html">Contact Us</a></li>
-    <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="/catalog.html">Catalog</a></li>
+      <li><a href="/workplace.html">Workplace</a></li>
+      <li><a href="/highered.html">Higher Ed</a></li>
+      <li><a href="/k12.html">K–12</a></li>
+      <li><a href="/about-us.html">About Us</a></li>
+      <li><a href="/contact.html">Contact Us</a></li>
+      <li><a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" class="nav-cta">Book a Call</a></li>
+    </ul>
+    <button class="nav-hamburger" onclick="document.getElementById('bundles-mobile-menu').classList.add('open')" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
+
+<!-- MOBILE MENU -->
+<div class="nav-mobile-menu" id="bundles-mobile-menu">
+  <button class="nav-mobile-close" onclick="document.getElementById('bundles-mobile-menu').classList.remove('open')" aria-label="Close menu">✕</button>
+  <a href="/catalog.html">Catalog</a>
+  <a href="/workplace.html">Workplace</a>
+  <a href="/highered.html">Higher Ed</a>
+  <a href="/k12.html">K–12</a>
+  <a href="/about-us.html">About Us</a>
+  <a href="/contact.html">Contact Us</a>
+  <a href="https://calendly.com/rachelbrian" target="_blank" rel="noopener noreferrer" style="color: var(--orange);">Book a Call</a>
+</div>
 
 <!-- ══ HERO ══ -->
 <div class="page-hero">
