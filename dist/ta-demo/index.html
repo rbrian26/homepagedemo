@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Threat Assessment: Full Course | Blue Seat Studios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--blue:#096f9c;--blue-d:#064e6f;--panel:#e6f1f6;--line:#cfe3ec;--orange:#f97c53;--orange-t:#fff0ea;--ink:#1d2b33;--soft:#6b7d87}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:#f6f9fb;color:var(--ink);font-family:Quicksand,system-ui,sans-serif;font-weight:500;line-height:1.55;font-size:15px}
+a{color:var(--blue);font-weight:700}
+header.hd{background:#fff;border-bottom:4px solid var(--blue);padding:16px 40px;display:flex;align-items:center;gap:28px}
+header.hd img{height:64px;display:block}
+.hd .titles{border-left:2px solid var(--line);padding-left:28px}
+.hd .t1{font-size:26px;font-weight:700;color:var(--blue);line-height:1.15}
+.hd .t2{color:var(--soft);font-size:14px;font-weight:600;margin-top:2px}
+.hd .pill{margin-left:auto}
+.page{max-width:920px;margin:0 auto;padding:32px 28px 40px}
+.pill{background:var(--orange);color:#fff;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;border-radius:999px;text-align:center}
+h1{margin:0 0 6px;color:var(--blue-d);font-size:clamp(28px,5vw,40px);line-height:1.1;font-weight:700}
+.fine{font-size:12px;color:var(--soft);margin:0 0 14px}
+.intro{margin:0 0 20px;max-width:720px}
+.jump{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:26px;font-size:14px}.jump a{text-decoration:none;border-bottom:2px solid var(--panel)}.jump a:hover{border-color:var(--orange)}
+.panel{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px 26px 26px;margin-bottom:16px;scroll-margin-top:16px}
+.panel h2{margin:0 0 6px;font-size:19px;color:var(--blue-d);font-weight:700;display:flex;gap:10px;align-items:baseline}
+.panel h2 i{font-style:normal;color:#fff;background:var(--blue);font-size:12px;font-weight:700;border-radius:8px;padding:2px 8px;align-self:center}
+.panel>p{margin:0 0 16px;max-width:700px}
+.tile{background:var(--panel);border-radius:14px;padding:12px}
+.tiles{display:flex;gap:12px;flex-wrap:wrap;margin:14px 0 4px}
+.price{flex:1;min-width:150px;background:var(--panel);border-radius:14px;padding:14px 10px;text-align:center;border:2px solid transparent;font:inherit;color:inherit;cursor:default}
+.price b{display:block;font-size:26px;color:var(--blue);line-height:1.1}
+.price span{display:block;color:var(--orange);font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-top:4px}
+button.price{cursor:pointer}button.price.on{border-color:var(--blue)}
+.poster{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:linear-gradient(135deg,var(--blue),var(--blue-d));color:#fff;display:grid;place-items:center;cursor:pointer;border:0;width:100%;padding:0;font:inherit}
+.poster .num{position:absolute;left:20px;bottom:10px;font-size:clamp(50px,9vw,96px);font-weight:700;opacity:.2;line-height:1}
+.poster .ttl{position:absolute;left:20px;top:16px;right:20px;text-align:left;font-weight:700;font-size:clamp(15px,2vw,20px)}
+.poster .play{width:64px;height:64px;border-radius:50%;background:var(--orange);display:grid;place-items:center;box-shadow:0 6px 18px rgba(0,0,0,.25);transition:transform .15s}
+.poster:hover .play{transform:scale(1.08)}
+.poster .play::after{content:"";border-left:19px solid #fff;border-top:11px solid transparent;border-bottom:11px solid transparent;margin-left:5px}
+.poster .tag{position:absolute;right:14px;bottom:12px;font-size:11px;font-weight:700;background:rgba(255,255,255,.2);padding:3px 10px;border-radius:999px}
+.player iframe{width:100%;aspect-ratio:16/9;border:0;border-radius:14px;display:block}
+.now h3{margin:14px 0 2px;font-size:20px;color:var(--blue-d)}.now .meta{color:var(--orange);font-weight:700;font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:6px}
+.eps{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.ep{display:flex;gap:12px;align-items:center;text-align:left;font:inherit;background:var(--panel);border:2px solid transparent;border-radius:12px;padding:10px 14px;cursor:pointer;color:var(--ink)}
+.ep:hover{border-color:var(--line)}.ep.on{border-color:var(--blue)}
+.ep .n{flex:none;font-size:12px;font-weight:700;color:var(--blue)}
+.ep b{font-size:14px;line-height:1.25}
+.shorts{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x mandatory;margin-top:14px}
+.short{flex:none;width:160px;aspect-ratio:9/16;border-radius:18px;position:relative;overflow:hidden;color:#fff;scroll-snap-align:start;background-size:cover;background-position:center;border:0;padding:0;font:inherit;cursor:pointer;text-align:left}
+.short::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.6))}
+.short .t{position:absolute;left:12px;right:12px;bottom:14px;font-weight:700;font-size:16px;line-height:1.15;z-index:1}
+.short .pl{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:42px;height:42px;border-radius:50%;background:rgba(249,124,83,.95);z-index:1}
+.short .pl::after{content:"";position:absolute;left:16px;top:12px;border-left:13px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}
+.g0{background-image:linear-gradient(160deg,#096f9c,#064e6e)}.g1{background-image:linear-gradient(160deg,#f97c53,#c4502a)}.g2{background-image:linear-gradient(160deg,#2b9bcc,#096f9c 60%,#053b55)}.g3{background-image:linear-gradient(160deg,#ff9a78,#096f9c)}.g4{background-image:linear-gradient(160deg,#064e6e,#f97c53)}
+@media(min-width:700px){.split{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:center}}
+.split .tile{margin-bottom:0}.split .tiles{flex-direction:column}
+ul.t{list-style:none;margin:14px 0 0;padding:0}ul.t li{position:relative;padding-left:22px;margin:5px 0}ul.t li::before{content:"";position:absolute;left:0;top:4px;width:11px;height:11px;border:2px solid var(--blue);border-radius:3px}
+.cta{display:inline-block;margin-top:16px;background:var(--orange);color:#fff;font:inherit;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:13px 28px;border-radius:999px;border:0;text-decoration:none;cursor:pointer}
+.cta:hover{filter:brightness(.95)}
+.banner{background:var(--orange-t);border:1px solid #fcd2c2;border-left:6px solid var(--orange);border-radius:14px;padding:14px 22px;margin:4px 0 16px;font-weight:600}
+.banner b{letter-spacing:.06em;text-transform:uppercase;margin-right:8px;color:#b8431c}
+.dash{background:#fff;border:2px dashed #a9cbdd;border-radius:18px;padding:18px 24px 20px;margin-bottom:22px}
+.dash h2{margin:0 0 10px;font-size:16px;color:var(--blue-d)}
+.dash .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}.dash b{color:var(--blue);display:block}
+.foot{border-top:1px solid var(--line);padding-top:14px;font-size:12px;color:var(--soft);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+dialog{border:0;border-radius:22px;padding:28px;max-width:420px;width:92%;font-family:inherit;color:var(--ink)}
+dialog::backdrop{background:rgba(6,78,110,.5)}
+dialog label{display:block;font-weight:700;font-size:13px;margin-bottom:5px}
+dialog input{width:100%;font:inherit;padding:12px 14px;border:2px solid #d3e3ec;border-radius:12px;margin-bottom:12px}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;font-weight:700;z-index:50;display:none}
+@media(max-width:640px){header.hd{padding:12px 16px;gap:14px;flex-wrap:wrap}header.hd img{height:44px}.hd .titles{padding-left:14px}.hd .t1{font-size:17px}.hd .t2{display:none}.hd .pill{display:none}.eps,.dash .two{grid-template-columns:1fr}.page{padding:20px 16px}}
+  .poster.has-img{background-size:cover;background-position:center}.poster.has-img .num{display:none}.poster.has-img .ttl{text-shadow:0 1px 8px rgba(0,0,0,.55)}
+sup{font-size:.55em;line-height:0;vertical-align:super;font-weight:700}
+</style></head><body>
+<header class="hd">
+  <img id="logo" alt="Blue Seat Studios">
+  <div class="titles"><div class="t1">Threat Assessment: Full Course</div><div class="t2">For higher education behavioral threat management teams</div></div>
+  <span class="pill" id="welcome">Private preview</span>
+</header>
+<div class="page" id="top">
+  <p class="intro" style="font-size:18px">A private preview for campus behavioral threat management teams. Watch the full seven-video course, see the short vertical videos we make for campus social channels, and look at how licensing works.</p>
+  <p class="fine">Please don't forward the link. Ask us and we'll add your colleagues.</p>
+  <div class="jump"><a href="#series">Full course</a><a href="#culture">Culture Builder</a><a href="#license">License a video</a><a href="#share">Ready-to-Share</a></div>
+
+  <section class="panel" id="series">
+    <h2><i>01</i> The seven videos</h2>
+    <p>Seven videos, in order. Watch straight through or jump to any part.</p>
+    <div class="tile"><div class="now"><div id="stage"></div><div id="nowtxt"></div></div></div>
+    <div class="eps" id="eps"></div>
+  </section>
+
+  <section class="panel" id="culture">
+    <h2><i>02</i> <span id="cultTitle">Campus Culture Builder: Safety</span></h2>
+    <p>A semester of short animated videos for Instagram Stories, Reels, and your website, available all term (5 per pack).</p>
+    <div class="shorts" id="shorts"></div>
+    <div class="tiles">
+      <div class="price"><b>Fall pack</b><span>5 shorts</span></div>
+      <div class="price"><b>Spring pack</b><span>5 shorts</span></div>
+      <div class="price"><b>Fall + Spring</b><span>10 shorts</span></div>
+    </div>
+    <p class="fine" style="margin:10px 0 0">Preview placeholders. Final art and captions are produced for your campus.</p>
+  </section>
+
+  <section class="panel" id="license">
+    <h2><i>03</i> License one video: <span id="licTitle">The Pathway to Violence</span></h2>
+    <p>Public display on your website, at orientation, and on campus monitors. Use it as often as you like during the term. Open captions included; additional languages available.</p>
+    <div class="split"><div class="tile" id="licPoster"></div>
+    <div><div class="tiles" style="margin-top:0">
+      <button class="price on" data-t="12 months" type="button"><b>12 months</b><span>Term license</span></button>
+      <button class="price" data-t="6 months" type="button"><b>6 months</b><span>Term license</span></button>
+    </div>
+    <a class="cta" id="licCta">Request a quote</a></div></div>
+  </section>
+
+  <section class="panel" id="share">
+    <h2><i>04</i> Ready-to-Share</h2>
+    <p>One video, one use. Drop it into an email, a training, or a meeting. Quick to get, no contract.</p>
+    <div class="split"><div class="tile" id="rtsPoster"></div>
+    <div><div class="tiles" style="margin-top:0"><div class="price"><b>One video</b><span>One-time use</span></div></div>
+    <a class="cta" id="rtsCta" target="_blank" rel="noopener">Buy now</a></div></div>
+  </section>
+
+  <div class="banner"><b>Buy 2 years, get the 3rd free</b> on any license · pay up front · rate locked in</div>
+  <div class="dash"><h2>Customization: add to any package</h2><div class="two">
+    <div><b>Per-video end card</b>End card with any combination of contact info, call to action, QR code, mascot, and/or logo.</div>
+    <div><b>Priced by concept</b>Want more? We can create a custom animated intro for the videos you license.</div></div></div>
+
+  <div class="foot"><span>Need more info? <a id="mail"></a> · <a id="book" target="_blank" rel="noopener">Let's chat: calendly.com/rachelbrian</a></span><span><a href="#" id="ask">Share with a colleague</a> · <a href="/ta-demo/_logout">Sign out</a></span></div>
+</div>
+
+<dialog id="dlg"><form id="reqf">
+  <h3 style="margin:0 0 6px;color:var(--blue-d)">Share with a colleague</h3>
+  <p style="margin:0 0 16px">We'll email them their own password.</p>
+  <label>Name</label><input name="name" required maxlength="120">
+  <label>Email</label><input name="email" type="email" required maxlength="200">
+  <label>Organization</label><input name="org" required maxlength="160">
+  <input name="website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px" aria-hidden="true">
+  <div style="display:flex;gap:10px;align-items:center"><button class="cta" style="margin:0">Send</button><a href="#" id="cancel">Cancel</a></div>
+</form></dialog>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ===== EDIT HERE ===== */
+const CONFIG = {
+  logo: '/ta-demo/logo.png',
+  calendly: 'https://calendly.com/rachelbrian',
+  email: 'licensing@blueseatstudios.com',
+  quoteUrl: '',   // your site's Request a Quote page, e.g. 'https://blueseatstudios.com/quote'. Blank = email fallback.
+  // vimeo: numeric ID, or "ID?h=HASH" for unlisted videos. Leave '' for a placeholder.
+  series: [
+    { title: 'Intro to Safety Culture', blurb: 'One-line description.', length: '', vimeo: '1154453334?h=19e94ac85a' },
+    { title: 'The Pathway to Violence', blurb: 'One-line description.', length: '', vimeo: '1140879819?h=98f44ae779' },
+    { title: 'How to Support Someone in Crisis', blurb: 'One-line description.', length: '', vimeo: '1157290384?h=e016ea316b' },
+    { title: 'Listening^TM^', blurb: 'One-line description.', length: '', vimeo: '1155163734?h=7c29c1c3bc' },
+    { title: 'When to Share a Concern', blurb: 'One-line description.', length: '', vimeo: '1164792981?h=16af9a8f77' },
+    { title: 'What Happens After You Report?', blurb: 'One-line description.', length: '', vimeo: '1158884518?h=16a5f500f2' },
+    { title: 'What to Do When There\u2019s an Immediate Threat', blurb: 'One-line description.', length: '', vimeo: '1154750851?h=7f5ea8d647' },
+  ],
+  culture: {
+    title: 'Campus Culture Builder: Safety',   // from the U of A proposal
+    // img: path to a vertical image (9:16) for each short; vimeo optional
+    shorts: [
+      { title: 'Stalking', img: '/ta-demo/img/short-2.jpg', vimeo: '' },
+      { title: 'Reporting', img: '/ta-demo/img/short-1.jpg', vimeo: '' },
+      { title: 'Sextortion', img: '/ta-demo/img/short-3.jpg', vimeo: '' },
+      { title: 'Help a Friend', img: '/ta-demo/img/short-6.jpg', vimeo: '' },
+      { title: 'Red Flags', img: '/ta-demo/img/short-5.jpg', vimeo: '' },
+    ],
+  },
+  license: { title: 'The Pathway to Violence', vimeo: '1140879819?h=98f44ae779' },
+  readyToShare: { seriesIndex: 0, checkoutUrl: '' }, // checkoutUrl: a Stripe Payment Link. Blank = email request.
+};
+/* ===================== */
+const $ = (s) => document.querySelector(s);
+const fmt = (s) => esc(s).replace(/\^(.+?)\^/g, '<sup>$1</sup>'); // Title^TM^ -> superscript
+const plain = (s) => String(s).replace(/\^/g, '');
+const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const track = (type, detail) => fetch('/ta-demo/_event', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ type, detail }) }).catch(() => {});
+const toast = (m) => { const t = $('#toast'); t.textContent = m; t.style.display = 'block'; clearTimeout(toast.t); toast.t = setTimeout(() => (t.style.display = 'none'), 2600); };
+const embed = (v) => `https://player.vimeo.com/video/${v}${v.includes('?') ? '&' : '?'}autoplay=1&dnt=1`;
+
+/* header / footer wiring */
+const logo = $('#logo'); logo.src = CONFIG.logo; logo.onerror = () => logo.replaceWith(Object.assign(document.createElement('span'), { textContent: 'Blue Seat Studios' }));
+$('#book').href = CONFIG.calendly;
+$('#mail').href = 'mailto:' + CONFIG.email; $('#mail').textContent = CONFIG.email;
+$('#cultTitle').textContent = CONFIG.culture.title;
+fetch('/ta-demo/_me').then((r) => r.json()).then((m) => { if (m.name) { $('#welcome').textContent = `Welcome, ${m.name.split(' ')[0]}`; } }).catch(() => {});
+
+/* Vimeo thumbnails via oEmbed (set per video in Vimeo); item.img overrides */
+const thumbCache = new Map();
+function vimeoThumb(v) {
+  if (!thumbCache.has(v)) {
+    const id = v.split('?')[0], h = (v.match(/[?&]h=([\w]+)/) || [])[1];
+    const src = `https://vimeo.com/${id}${h ? '/' + h : ''}`;
+    thumbCache.set(v, fetch(`https://vimeo.com/api/oembed.json?width=1280&url=${encodeURIComponent(src)}`).then((r) => (r.ok ? r.json() : null)).then((j) => (j && j.thumbnail_url) || '').catch(() => ''));
+  }
+  return thumbCache.get(v);
+}
+function setThumb(el, url) {
+  if (!url) return;
+  const img = new Image();
+  img.onload = () => { el.style.backgroundImage = `linear-gradient(180deg,rgba(6,30,50,.45),rgba(6,30,50,.05) 45%,rgba(6,30,50,.35)),url("${url}")`; el.classList.add('has-img'); };
+  img.src = url;
+}
+
+/* player facade: poster first, iframe on click (so we log real plays) */
+function poster(item, n, label) {
+  const b = document.createElement('button');
+  b.className = 'poster'; b.type = 'button';
+  b.innerHTML = `<span class="ttl">${fmt(item.title)}</span>${n ? `<span class="num">${n}</span>` : ''}<span class="play"></span>${item.vimeo ? '' : '<span class="tag">Placeholder</span>'}`;
+  if (item.img) setThumb(b, item.img); else if (item.vimeo) vimeoThumb(item.vimeo).then((u) => setThumb(b, u));
+  b.onclick = () => {
+    if (!item.vimeo) return toast('Video not connected yet');
+    const d = document.createElement('div'); d.className = 'player';
+    d.innerHTML = `<iframe src="${embed(item.vimeo)}" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen title="${esc(plain(item.title))}"></iframe>`;
+    b.replaceWith(d); track('play', `${label}: ${plain(item.title)}`);
+  };
+  return b;
+}
+
+/* series */
+const eps = $('#eps');
+function showEp(i) {
+  const s = CONFIG.series[i];
+  $('#stage').replaceChildren(poster(s, i + 1, 'Series'));
+  $('#nowtxt').innerHTML = `<h3>${fmt(s.title)}</h3><div class="meta">Part ${i + 1} of ${CONFIG.series.length}${s.length ? ' · ' + esc(s.length) : ''}</div><p style="margin:0">${esc(s.blurb || '')}</p>`;
+  eps.querySelectorAll('.ep').forEach((e, k) => e.classList.toggle('on', k === i));
+}
+CONFIG.series.forEach((s, i) => {
+  const b = document.createElement('button'); b.className = 'ep';
+  b.innerHTML = `<span class="n">0${i + 1}</span><b>${fmt(s.title)}</b>`;
+  b.onclick = () => showEp(i); eps.appendChild(b);
+});
+showEp(0);
+
+/* vertical shorts */
+$('#shorts').innerHTML = '';
+CONFIG.culture.shorts.forEach((s, i) => {
+  const b = document.createElement('button'); b.type = 'button';
+  b.className = `short g${i % 5}`;
+  if (s.img) b.style.backgroundImage = `url("${s.img}")`;
+  b.innerHTML = `<span class="pl"></span><span class="t">${esc(s.title)}</span>`;
+  b.onclick = () => {
+    if (!s.vimeo) return toast('Preview coming soon');
+    b.innerHTML = `<iframe src="${embed(s.vimeo)}" allow="autoplay; fullscreen" style="position:absolute;inset:0;width:100%;height:100%;border:0" title="${esc(s.title)}"></iframe>`;
+    track('play', `Short: ${s.title}`);
+  };
+  $('#shorts').appendChild(b);
+});
+
+/* licensing */
+$('#licTitle').textContent = CONFIG.license.title;
+$('#licPoster').appendChild(poster({ title: CONFIG.license.title, vimeo: CONFIG.license.vimeo }, '', 'License'));
+let term = '12 months';
+const licMail = () => `mailto:${CONFIG.email}?subject=${encodeURIComponent(`License quote: ${CONFIG.license.title}, ${term}`)}&body=${encodeURIComponent(`Hi Blue Seat Studios,\n\nI'd like a quote to license "${CONFIG.license.title}" for ${term}.\n\nName:\nOrganization:\nHow we plan to use it:\n`)}`;
+const licHref = () => { if (!CONFIG.quoteUrl) return licMail(); const u = new URL(CONFIG.quoteUrl, location.href); u.searchParams.set('source', 'ta-demo'); u.searchParams.set('video', plain(CONFIG.license.title)); u.searchParams.set('term', term); return u.toString(); };
+const setTerm = (t) => { term = t; document.querySelectorAll('button.price').forEach((b) => b.classList.toggle('on', b.dataset.t === t)); $('#licCta').href = licHref(); };
+document.querySelectorAll('button.price').forEach((b) => (b.onclick = () => setTerm(b.dataset.t)));
+$('#licCta').onclick = () => track('click', `Quote request: ${term}`);
+setTerm(term);
+
+/* ready-to-share */
+const rts = CONFIG.readyToShare, rv = CONFIG.series[rts.seriesIndex] || CONFIG.series[0];
+$('#rtsPoster').appendChild(poster(rv, '', 'Ready-to-Share'));
+const buy = $('#rtsCta');
+if (rts.checkoutUrl) buy.href = rts.checkoutUrl; else { buy.textContent = 'Request this video'; buy.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Ready-to-Share: ' + plain(rv.title))}`; }
+buy.onclick = () => track('click', `Ready-to-Share: ${plain(rv.title)}`);
+
+/* colleague request */
+const dlg = $('#dlg');
+$('#ask').onclick = (e) => { e.preventDefault(); dlg.showModal(); };
+$('#cancel').onclick = (e) => { e.preventDefault(); dlg.close(); };
+$('#reqf').onsubmit = async (e) => {
+  e.preventDefault();
+  await fetch('/ta-demo/_request', { method: 'POST', body: new FormData(e.target) });
+  dlg.close(); e.target.reset(); toast('Thanks. We\'ll send them a password.');
+};
+</script>
+</body></html>
