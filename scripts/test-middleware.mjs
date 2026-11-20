@@ -33,7 +33,7 @@ const adm = (o) => run('/ta-demo/_admin', form({ key: 'adm', ...o }));
 r = await run('/ta-demo/_admin', form({ key: 'nope', action: 'add', name: 'X', org: 'Y' })); assert.equal(r.status, 401, 'admin POST needs key');
 r = await adm({ action: 'add', name: 'Dana Lee', org: 'State U', email: 'dana@state.edu' }); assert.equal(r.status, 303);
 const id = new URL(r.headers.get('Location'), 'https://x.test').searchParams.get('created');
-const rec = JSON.parse(store.get('user:' + id)); assert.ok(/^[a-z]+-[a-z]+-\d\d$/.test(rec.pw));
+const rec = JSON.parse(store.get('user:' + id)); assert.ok(/^[a-z]+-[a-z]+-[a-z]+-\d\d$/.test(rec.pw));
 r = await run(`/ta-demo/_admin?key=adm&created=${id}`); const t2 = await r.text(); assert.ok(t2.includes(rec.pw) && t2.includes('Dana Lee') && t2.includes('Active'), 'invite shown');
 r = await run('/ta-demo/_login', form({ pw: rec.pw.toUpperCase() })); assert.equal(r.status, 303, 'admin-made login works');
 const c2 = r.headers.get('Set-Cookie').split(';')[0];
@@ -47,4 +47,9 @@ await adm({ action: 'expires', id, expires: '2020-01-01' });
 r = await run('/ta-demo/_login', form({ pw: rec.pw })); assert.equal(r.status, 401, 'expired');
 await adm({ action: 'delete', id }); assert.ok(!store.has('user:' + id));
 r = await adm({ action: 'add', name: '', org: '' }); assert.ok(r.headers.get('Location').includes('err='));
+// --- rate limit
+const bad = () => run('/ta-demo/_login', { method: 'POST', headers: { 'CF-Connecting-IP': '9.9.9.9' }, body: new URLSearchParams({ pw: 'nope' }) });
+for (let i = 0; i < 10; i++) assert.equal((await bad()).status, 401);
+assert.equal((await bad()).status, 429, 'locked after 10 failures');
+r = await run('/ta-demo/_login', { method: 'POST', headers: { 'CF-Connecting-IP': '8.8.8.8' }, body: new URLSearchParams({ pw: 'maple-river-42' }) }); assert.equal(r.status, 303, 'other IPs unaffected');
 console.log('all middleware tests passed');

@@ -3,9 +3,9 @@
 // Prints the JSON entry to add to TA_DEMO_USERS, plus a ready-to-send invite email.
 const [name, org, expires] = process.argv.slice(2);
 if (!name || !org) { console.error('Usage: add-demo-user.js "Full Name" "Organization" [YYYY-MM-DD]'); process.exit(1); }
-const words = ['maple', 'river', 'harbor', 'cedar', 'lantern', 'summit', 'meadow', 'compass', 'willow', 'ember', 'tidewater', 'granite', 'orchard', 'beacon'];
+const words = ['maple','river','harbor','cedar','lantern','summit','meadow','compass','willow','ember','tidewater','granite','orchard','beacon','juniper','canyon','sparrow','amber','quartz','driftwood','falcon','pebble','thistle','marble','copper','violet','cobalt','saddle','prairie','lagoon','walnut','hazel','sailor','timber','velvet','anchor','cricket','mosaic','nectar','plume','rowan','sunset','tundra','umber','wicker','yonder','zephyr','bramble','cascade','dune','echo','fjord','glacier','heron','indigo','jasmine','kettle','lilac','mustard','nutmeg','otter','poppy','raven','spruce'];
 const pick = () => words[require('crypto').randomInt(words.length)];
-const pw = `${pick()}-${pick()}-${require('crypto').randomInt(10, 100)}`;
+const pw = `${pick()}-${pick()}-${pick()}-${require('crypto').randomInt(10, 100)}`;
 const entry = { pw, name, org, ...(expires ? { expires } : {}) };
 const first = name.split(' ')[0];
 console.log('\n1) Add this object to the TA_DEMO_USERS array in Cloudflare:\n');

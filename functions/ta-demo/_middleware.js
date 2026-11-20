@@ -76,9 +76,9 @@ async function record(ctx, type, who, extra = {}) {
 const html = (body, status = 200, headers = {}) => new Response(body, { status, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'X-Robots-Tag': 'noindex, nofollow', ...headers } });
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: { 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } });
 
-const WORDS = ['maple', 'river', 'harbor', 'cedar', 'lantern', 'summit', 'meadow', 'compass', 'willow', 'ember', 'tidewater', 'granite', 'orchard', 'beacon', 'juniper', 'canyon', 'sparrow', 'amber', 'quartz', 'driftwood'];
+const WORDS = ['maple','river','harbor','cedar','lantern','summit','meadow','compass','willow','ember','tidewater','granite','orchard','beacon','juniper','canyon','sparrow','amber','quartz','driftwood','falcon','pebble','thistle','marble','copper','violet','cobalt','saddle','prairie','lagoon','walnut','hazel','sailor','timber','velvet','anchor','cricket','mosaic','nectar','plume','rowan','sunset','tundra','umber','wicker','yonder','zephyr','bramble','cascade','dune','echo','fjord','glacier','heron','indigo','jasmine','kettle','lilac','mustard','nutmeg','otter','poppy','raven','spruce'];
 const rnd = (n) => crypto.getRandomValues(new Uint32Array(1))[0] % n;
-const makePw = () => `${WORDS[rnd(WORDS.length)]}-${WORDS[rnd(WORDS.length)]}-${10 + rnd(90)}`;
+const makePw = () => `${WORDS[rnd(WORDS.length)]}-${WORDS[rnd(WORDS.length)]}-${WORDS[rnd(WORDS.length)]}-${10 + rnd(90)}`;
 const inviteText = (u, origin) => `Subject: Threat assessment training preview for ${u.org}
 
 Hi ${String(u.name).split(' ')[0]},
@@ -199,8 +199,12 @@ export async function onRequest(ctx) {
 
   if (sub === '/_login' && request.method === 'POST') {
     const form = await request.formData();
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const tries = env.DEMO_LOG ? Number(await env.DEMO_LOG.get('rl:' + ip)) || 0 : 0;
+    if (tries >= 10) return html(loginPage('<div class="err">Too many attempts. Please wait 15 minutes and try again, or email licensing@blueseatstudios.com.</div>'), 429);
     const user = await findUser(env, String(form.get('pw') || ''));
     if (!user) {
+      if (env.DEMO_LOG) await env.DEMO_LOG.put('rl:' + ip, String(tries + 1), { expirationTtl: 900 });
       await new Promise((r) => setTimeout(r, 500));
       await record(ctx, 'badpw', null, { detail: 'failed attempt' });
       return html(loginPage('<div class="err">That password didn\'t match. Check the email we sent, or request access below.</div>'), 401);
