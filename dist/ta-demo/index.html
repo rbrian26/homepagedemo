@@ -49,7 +49,7 @@ button.price{cursor:pointer}button.price.on{border-color:var(--blue)}
 .shorts{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x mandatory;margin-top:14px}
 .short{flex:none;width:160px;aspect-ratio:9/16;border-radius:18px;position:relative;overflow:hidden;color:#fff;scroll-snap-align:start;background-size:cover;background-position:center;border:0;padding:0;font:inherit;cursor:pointer;text-align:left}
 .short .t{position:absolute;left:10px;right:10px;bottom:12px;background:#fff;color:var(--blue-d);border-radius:10px;padding:7px 10px;font-weight:700;font-size:14px;line-height:1.2;text-align:center}
-.short .soon{position:absolute;left:0;right:0;top:38%;background:var(--orange);color:#fff;text-align:center;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:9px 6px;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.short .soon{position:absolute;left:50%;transform:translateX(-50%);top:10px;white-space:nowrap;background:var(--orange);color:#fff;text-align:center;font-weight:700;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:5px 10px;border-radius:999px;box-shadow:0 2px 6px rgba(0,0,0,.18)}
 .short{cursor:default}
 .g0{background-image:linear-gradient(160deg,#096f9c,#064e6e)}.g1{background-image:linear-gradient(160deg,#f97c53,#c4502a)}.g2{background-image:linear-gradient(160deg,#2b9bcc,#096f9c 60%,#053b55)}.g3{background-image:linear-gradient(160deg,#ff9a78,#096f9c)}.g4{background-image:linear-gradient(160deg,#064e6e,#f97c53)}
 @media(min-width:700px){.split{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:center}}
@@ -108,8 +108,8 @@ sup{font-size:.55em;line-height:0;vertical-align:super;font-weight:700}
     <p>Public display on your website, at orientation, and on campus monitors. Use it as often as you like during the term. Open captions included; additional languages available.</p>
     <div class="split"><div class="tile" id="licPoster"></div>
     <div><div class="tiles" style="margin-top:0">
-      <button class="price on" data-t="12 months" type="button"><b>12 months</b><span>Term license</span></button>
       <button class="price" data-t="6 months" type="button"><b>6 months</b><span>Term license</span></button>
+      <button class="price on" data-t="12 months" type="button"><b>12 months</b><span>Term license</span></button>
     </div>
     <a class="cta" id="licCta">Request a quote</a></div></div>
   </section>
