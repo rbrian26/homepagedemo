@@ -2,7 +2,7 @@
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Threat Assessment: Full Course | Blue Seat Studios</title>
+<title>Threat Assessment Resources | Blue Seat Studios</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -10,11 +10,11 @@
 *{box-sizing:border-box}html{scroll-behavior:smooth}
 body{margin:0;background:#f6f9fb;color:var(--ink);font-family:Quicksand,system-ui,sans-serif;font-weight:500;line-height:1.55;font-size:15px}
 a{color:var(--blue);font-weight:700}
-header.hd{background:#fff;border-bottom:4px solid var(--blue);padding:16px 40px;display:flex;align-items:center;gap:28px}
-header.hd img{height:64px;display:block}
-.hd .titles{border-left:2px solid var(--line);padding-left:28px}
-.hd .t1{font-size:26px;font-weight:700;color:var(--blue);line-height:1.15}
-.hd .t2{color:var(--soft);font-size:14px;font-weight:600;margin-top:2px}
+header.hd{background:var(--blue);padding:18px 40px;display:flex;align-items:center;gap:28px}
+header.hd img{height:60px;display:block}
+.hd .titles{border-left:2px solid rgba(255,255,255,.35);padding-left:28px}
+.hd .t1{font-size:26px;font-weight:700;color:#fff;line-height:1.15}
+.hd .t2{color:rgba(255,255,255,.85);font-size:14px;font-weight:600;margin-top:2px}
 .hd .pill{margin-left:auto}
 .page{max-width:920px;margin:0 auto;padding:32px 28px 40px}
 .pill{background:var(--orange);color:#fff;font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;padding:11px 22px;border-radius:999px;text-align:center}
@@ -48,10 +48,9 @@ button.price{cursor:pointer}button.price.on{border-color:var(--blue)}
 .ep b{font-size:14px;line-height:1.25}
 .shorts{display:flex;gap:14px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x mandatory;margin-top:14px}
 .short{flex:none;width:160px;aspect-ratio:9/16;border-radius:18px;position:relative;overflow:hidden;color:#fff;scroll-snap-align:start;background-size:cover;background-position:center;border:0;padding:0;font:inherit;cursor:pointer;text-align:left}
-.short::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 50%,rgba(0,0,0,.6))}
-.short .t{position:absolute;left:12px;right:12px;bottom:14px;font-weight:700;font-size:16px;line-height:1.15;z-index:1}
-.short .pl{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:42px;height:42px;border-radius:50%;background:rgba(249,124,83,.95);z-index:1}
-.short .pl::after{content:"";position:absolute;left:16px;top:12px;border-left:13px solid #fff;border-top:9px solid transparent;border-bottom:9px solid transparent}
+.short .t{position:absolute;left:10px;right:10px;bottom:12px;background:#fff;color:var(--blue-d);border-radius:10px;padding:7px 10px;font-weight:700;font-size:14px;line-height:1.2;text-align:center}
+.short .soon{position:absolute;left:0;right:0;top:38%;background:var(--orange);color:#fff;text-align:center;font-weight:700;font-size:12px;letter-spacing:.12em;text-transform:uppercase;padding:9px 6px;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.short{cursor:default}
 .g0{background-image:linear-gradient(160deg,#096f9c,#064e6e)}.g1{background-image:linear-gradient(160deg,#f97c53,#c4502a)}.g2{background-image:linear-gradient(160deg,#2b9bcc,#096f9c 60%,#053b55)}.g3{background-image:linear-gradient(160deg,#ff9a78,#096f9c)}.g4{background-image:linear-gradient(160deg,#064e6e,#f97c53)}
 @media(min-width:700px){.split{display:grid;grid-template-columns:1.15fr 1fr;gap:22px;align-items:center}}
 .split .tile{margin-bottom:0}.split .tiles{flex-direction:column}
@@ -70,21 +69,23 @@ dialog label{display:block;font-weight:700;font-size:13px;margin-bottom:5px}
 dialog input{width:100%;font:inherit;padding:12px 14px;border:2px solid #d3e3ec;border-radius:12px;margin-bottom:12px}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:11px 20px;border-radius:999px;font-weight:700;z-index:50;display:none}
 @media(max-width:640px){header.hd{padding:12px 16px;gap:14px;flex-wrap:wrap}header.hd img{height:44px}.hd .titles{padding-left:14px}.hd .t1{font-size:17px}.hd .t2{display:none}.hd .pill{display:none}.eps,.dash .two{grid-template-columns:1fr}.page{padding:20px 16px}}
-  .poster.has-img{background-size:cover;background-position:center}.poster.has-img .num{display:none}.poster.has-img .ttl{text-shadow:0 1px 8px rgba(0,0,0,.55)}
+  .poster.has-img{background-size:cover;background-position:center}.poster.has-img .ttl{display:none}
+.poster.has-img .num{opacity:1;color:#fff;-webkit-text-stroke:4px var(--blue);paint-order:stroke fill;left:22px;bottom:8px}
+.cap{font-weight:700;color:var(--blue-d);margin:10px 4px 0}
 sup{font-size:.55em;line-height:0;vertical-align:super;font-weight:700}
 </style></head><body>
 <header class="hd">
   <img id="logo" alt="Blue Seat Studios">
-  <div class="titles"><div class="t1">Threat Assessment: Full Course</div><div class="t2">For higher education behavioral threat management teams</div></div>
+  <div class="titles"><div class="t1">Threat Assessment Resources</div><div class="t2">For higher education behavioral threat management teams</div></div>
   <span class="pill" id="welcome">Private preview</span>
 </header>
 <div class="page" id="top">
-  <p class="intro" style="font-size:18px">A private preview for campus behavioral threat management teams. Watch the full seven-video course, see the short vertical videos we make for campus social channels, and look at how licensing works.</p>
+  <p class="intro" style="font-size:18px">A private preview for campus behavioral threat management teams. Watch the full training, check out our upcoming culture building series made for campus monitors, website and social channels, license a single video and see more licensing options. If you need a quote, shoot us an email at <a href="mailto:licensing@blueseatstudios.com">licensing@blueseatstudios.com</a>.</p>
   <p class="fine">Please don't forward the link. Ask us and we'll add your colleagues.</p>
-  <div class="jump"><a href="#series">Full course</a><a href="#culture">Culture Builder</a><a href="#license">License a video</a><a href="#share">Ready-to-Share</a></div>
+  <div class="jump"><a href="#series">Full training</a><a href="#culture">Culture Builder</a><a href="#license">License a video</a><a href="#share">Ready-to-Share</a></div>
 
   <section class="panel" id="series">
-    <h2><i>01</i> The seven videos</h2>
+    <h2><i>01</i> The full training: seven videos</h2>
     <p>Seven videos, in order. Watch straight through or jump to any part.</p>
     <div class="tile"><div class="now"><div id="stage"></div><div id="nowtxt"></div></div></div>
     <div class="eps" id="eps"></div>
@@ -92,12 +93,12 @@ sup{font-size:.55em;line-height:0;vertical-align:super;font-weight:700}
 
   <section class="panel" id="culture">
     <h2><i>02</i> <span id="cultTitle">Campus Culture Builder: Safety</span></h2>
-    <p>A semester of short animated videos for Instagram Stories, Reels, and your website, available all term (5 per pack).</p>
+    <p>The Campus Culture Builder video series: short vertical videos made for Instagram Stories, Reels, campus monitors and your website, available all term (5 per pack).</p>
     <div class="shorts" id="shorts"></div>
     <div class="tiles">
-      <div class="price"><b>Fall pack</b><span>5 shorts</span></div>
-      <div class="price"><b>Spring pack</b><span>5 shorts</span></div>
-      <div class="price"><b>Fall + Spring</b><span>10 shorts</span></div>
+      <div class="price"><b>Fall pack</b><span>5 videos</span></div>
+      <div class="price"><b>Spring pack</b><span>5 videos</span></div>
+      <div class="price"><b>Fall + Spring</b><span>10 videos</span></div>
     </div>
     <p class="fine" style="margin:10px 0 0">Preview placeholders. Final art and captions are produced for your campus.</p>
   </section>
@@ -116,7 +117,7 @@ sup{font-size:.55em;line-height:0;vertical-align:super;font-weight:700}
   <section class="panel" id="share">
     <h2><i>04</i> Ready-to-Share</h2>
     <p>One video, one use. Drop it into an email, a training, or a meeting. Quick to get, no contract.</p>
-    <div class="split"><div class="tile" id="rtsPoster"></div>
+    <div class="split"><div class="tile"><div id="rtsPoster"></div><div class="cap" id="rtsCap"></div></div>
     <div><div class="tiles" style="margin-top:0"><div class="price"><b>One video</b><span>One-time use</span></div></div>
     <a class="cta" id="rtsCta" target="_blank" rel="noopener">Buy now</a></div></div>
   </section>
@@ -143,7 +144,7 @@ sup{font-size:.55em;line-height:0;vertical-align:super;font-weight:700}
 <script>
 /* ===== EDIT HERE ===== */
 const CONFIG = {
-  logo: '/ta-demo/logo.png',
+  logo: '/ta-demo/logo-white.png',
   calendly: 'https://calendly.com/rachelbrian',
   email: 'licensing@blueseatstudios.com',
   quoteUrl: '',   // your site's Request a Quote page, e.g. 'https://blueseatstudios.com/quote'. Blank = email fallback.
@@ -200,7 +201,7 @@ function vimeoThumb(v) {
 function setThumb(el, url) {
   if (!url) return;
   const img = new Image();
-  img.onload = () => { el.style.backgroundImage = `linear-gradient(180deg,rgba(6,30,50,.45),rgba(6,30,50,.05) 45%,rgba(6,30,50,.35)),url("${url}")`; el.classList.add('has-img'); };
+  img.onload = () => { el.style.backgroundImage = `url("${url}")`; el.classList.add('has-img'); };
   img.src = url;
 }
 
@@ -240,7 +241,7 @@ CONFIG.culture.shorts.forEach((s, i) => {
   const b = document.createElement('button'); b.type = 'button';
   b.className = `short g${i % 5}`;
   if (s.img) b.style.backgroundImage = `url("${s.img}")`;
-  b.innerHTML = `<span class="pl"></span><span class="t">${esc(s.title)}</span>`;
+  b.innerHTML = `<span class="soon">Coming Spring 2027</span><span class="t">${esc(s.title)}</span>`;
   b.onclick = () => {
     if (!s.vimeo) return toast('Preview coming soon');
     b.innerHTML = `<iframe src="${embed(s.vimeo)}" allow="autoplay; fullscreen" style="position:absolute;inset:0;width:100%;height:100%;border:0" title="${esc(s.title)}"></iframe>`;
@@ -263,6 +264,7 @@ setTerm(term);
 /* ready-to-share */
 const rts = CONFIG.readyToShare, rv = CONFIG.series[rts.seriesIndex] || CONFIG.series[0];
 $('#rtsPoster').appendChild(poster(rv, '', 'Ready-to-Share'));
+$('#rtsCap').innerHTML = fmt(rv.title);
 const buy = $('#rtsCta');
 if (rts.checkoutUrl) buy.href = rts.checkoutUrl; else { buy.textContent = 'Request this video'; buy.href = `mailto:${CONFIG.email}?subject=${encodeURIComponent('Ready-to-Share: ' + plain(rv.title))}`; }
 buy.onclick = () => track('click', `Ready-to-Share: ${plain(rv.title)}`);

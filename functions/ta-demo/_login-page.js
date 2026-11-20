@@ -3,7 +3,7 @@ export const loginPage = (msg = '') => `<!doctype html>
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Threat Assessment: Full Course | Blue Seat Studios</title>
+<title>Threat Assessment Resources | Blue Seat Studios</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -27,7 +27,7 @@ button:hover{filter:brightness(.95)}
 </style></head><body>
 <main class="card">
   <div class="logo"><img src="/ta-demo/logo.png" alt="Blue Seat Studios"></div>
-  <h1>Threat Assessment: Full Course</h1>
+  <h1>Threat Assessment Resources</h1>
   <p>A private preview for higher ed behavioral threat management teams. Enter the password we sent you.</p>
   ${msg}
   <form method="post" action="/ta-demo/_login">
