@@ -155,7 +155,7 @@ async function adminPage(ctx, url) {
   const reqs = rows.filter((r) => r.type === 'request' && r.email && !have.has(r.email.toLowerCase()) && !seenReq.has(r.email.toLowerCase()) && seenReq.add(r.email.toLowerCase())).slice(0, 20);
   const hid = (id) => `<input type="hidden" name="key" value="${esc(key)}"><input type="hidden" name="id" value="${esc(id)}">`;
   const pf = (n) => esc(url.searchParams.get(n) || '');
-  const origin = url.origin;
+  const origin = env.PUBLIC_URL || 'https://blueseatstudios.com';
   const secretUsers = users(env);
 
   return html(`<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TA demo admin</title>
