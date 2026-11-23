@@ -1,0 +1,249 @@
+<style>
+  /* ── var aliases used by at-a-glance styles ── */
+  :root {
+    --blue-tint:   #e6f1f6;
+    --blue-line:   #cfe3ec;
+    --orange-tint: #fff0ea;
+    --ink:         #1d2b33;
+    --gray:        #e9eef1;
+  }
+
+  /* widen portal-main for the table */
+  .portal-main { max-width: 1760px; }
+
+  /* ── NEXT MILESTONE BANNER ── */
+  .next {
+    display: none; align-items: center; gap: 20px;
+    background: var(--orange-tint);
+    border: 1px solid #fcd2c2; border-left: 6px solid var(--orange);
+    border-radius: 14px; padding: 16px 22px; margin-bottom: 14px;
+  }
+  .next.on { display: flex; }
+  .next .lab  { font-size: 11.5px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: #b8431c; }
+  .next .ttl  { font-size: 21px; font-weight: 700; color: var(--ink); line-height: 1.25; }
+  .next .det  { font-size: 13px; color: var(--muted); font-weight: 600; margin-top: 2px; }
+  .next .when { margin-left: auto; text-align: center; background: #fff; border: 2px solid var(--orange); border-radius: 12px; padding: 8px 16px; min-width: 92px; }
+  .next .when span { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; color: #b8431c; }
+  .next .when b    { font-size: 22px; color: var(--ink); white-space: nowrap; }
+
+  /* ── HOME STRETCH BAR ── */
+  .homebar { display: none; align-items: center; gap: 14px; flex-wrap: wrap; background: #d9552a; color: #fff; border-radius: 14px; padding: 13px 22px; margin-bottom: 14px; }
+  .homebar.on { display: flex; }
+  .homebar .lab { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; font-weight: 700; }
+  .homebar .lab::before { content: "→"; margin-right: 8px; }
+  .homebar .vid { background: #fff; color: #b8431c; border-radius: 99px; padding: 4px 14px; font-size: 14px; font-weight: 700; }
+
+  /* ── SHARE BAR ── */
+  .sharebar{display:none;align-items:center;gap:14px;flex-wrap:wrap;background:#d9f2e0;color:#14532d;border-radius:14px;padding:13px 22px;margin-bottom:14px;border-left:6px solid #2e9e57}
+  .sharebar.on{display:flex}
+  .sharebar .lab{font-size:15px;font-weight:700}
+  .sharebar a{margin-left:auto;display:block;text-align:center;background:#fff;border:2px solid #2e9e57;border-radius:12px;padding:8px 16px;min-width:92px;text-decoration:none;white-space:nowrap}
+  .sharebar a span{display:block;font-size:10.5px;text-transform:uppercase;letter-spacing:.08em;font-weight:700;color:#1f7a3d}
+  .sharebar a b{display:block;font-size:22px;color:var(--ink)}
+  .sharebar a:hover{background:#f1faf4}
+  .final-review{background:#d9f2e0;color:#1f7a3d}
+  ul.punch li.done{color:#7d8d96}
+  ul.punch li.done::before{background:var(--blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M2.5 6.2l2.4 2.4 4.6-5' fill='none' stroke='%23fff' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/100% no-repeat}
+
+  /* ── SUMMARY CARDS ── */
+  .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 22px; }
+  .stat { background: var(--card); border: 1px solid var(--blue-line); border-radius: 14px; padding: 16px 18px; }
+  .stat > b    { display: block; font-size: 30px; color: var(--blue); line-height: 1; }
+  .stat > span { font-size: 13px; color: var(--muted); font-weight: 600; }
+  .bar   { height: 8px; border-radius: 99px; background: var(--gray); margin-top: 10px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--blue); border-radius: 99px; }
+  .stat .two       { display: flex; gap: 28px; }
+  .stat .two > div { flex: 1; }
+  .stat .two div > b    { display: block; font-size: 26px; color: var(--blue); line-height: 1; }
+  .stat .two div > span { font-size: 13px; color: var(--muted); font-weight: 600; }
+
+  /* ── TABLE ── */
+  .wrap  { background: var(--card); border: 1px solid var(--blue-line); border-radius: 16px; overflow-x: auto; }
+  table  { width: 100%; border-collapse: collapse; }
+  thead th { font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--blue-dk); background: var(--blue-tint); padding: 10px 5px; text-align: center; font-weight: 700; white-space: nowrap; }
+  thead tr.grp th { background: var(--blue); color: #fff; padding: 7px 8px; font-size: 11px; }
+  thead th.l { text-align: left; }
+  tbody td { padding: 12px 5px; border-top: 1px solid var(--blue-line); text-align: center; vertical-align: middle; }
+  tbody tr:hover { background: #fbfdfe; }
+  td.num  { font-weight: 700; color: var(--blue); font-size: 20px; width: 44px; }
+  td.name { text-align: left; font-weight: 700; min-width: 115px; padding-left: 8px; }
+  td.notes { text-align: left; font-size: 13px; color: var(--ink); font-weight: 500; min-width: 200px; max-width: 240px; }
+  td.sep, th.sep { border-left: 2px solid var(--blue-line); }
+
+  /* ── PILLS ── */
+  .pill { display: inline-flex; align-items: center; gap: 5px; padding: 4px 9px; border-radius: 99px; font-size: 11.5px; font-weight: 700; white-space: nowrap; }
+  .pill::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
+  .not-started, .not-sent  { background: var(--gray); color: #7d8d96; }
+  .in-progress             { background: var(--orange-tint); color: #d9552a; }
+  .awaiting-review         { background: #bcdcec; color: #096f9c; }
+  .awaiting-review::before { width: 10px; height: 2px; border-radius: 2px; background: currentColor; }
+  .approved                { background: #fff; color: #096f9c; box-shadow: inset 0 0 0 2px #096f9c; }
+  .paid                    { background: #096f9c; color: #fff; }
+  .home-stretch            { background: #d9552a; color: #fff; }
+  .complete                { background: #096f9c; color: #fff; }
+  .sent                    { background: var(--blue-tint); color: var(--blue); }
+  .complete::before        { content: "★"; width: auto; height: auto; background: none; font-size: 11px; }
+  .home-stretch::before    { content: "→"; width: auto; height: auto; background: none; font-size: 11px; }
+  .approved::before, .paid::before { content: "✓"; width: auto; height: auto; background: none; font-size: 11px; }
+
+  /* ── WAITING ON CELL ── */
+  td.wcell        { width: 200px; min-width: 200px; }
+  td.wcell .wrapw { display: flex; gap: 6px; align-items: stretch; }
+  .wait   { display: block; flex: 1; min-width: 0; text-align: left; border-radius: 10px; padding: 5px 8px; font-size: 11.5px; font-weight: 600; line-height: 1.25; }
+  .wait b { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .06em; }
+  .wait-client    { background: var(--orange-tint); color: #b8431c; }
+  .wait-blue-seat { background: var(--blue-tint); color: var(--blue-dk); }
+  .wait-none      { background: var(--gray); color: #7d8d96; }
+
+  /* ── STAT WAIT LISTS ── */
+  ul.wl { list-style: none; margin: 10px 0 0; padding: 0; border-top: 1px solid var(--blue-line); }
+  ul.wl li { font-size: 13.5px; font-weight: 700; color: var(--ink); padding: 6px 0; border-bottom: 1px solid var(--blue-line); }
+  ul.wl li small { display: block; margin: 2px 0 0 14px; font-size: 12px; font-weight: 500; color: var(--muted); }
+  ul.wl li:last-child { border-bottom: 0; }
+
+  /* ── ESTIMATED COMPLETION / PUNCH LIST ── */
+  .target { display: inline-block; margin-top: 10px; background: repeating-linear-gradient(135deg, rgba(9,111,156,.75) 0 8px, rgba(42,134,176,.75) 8px 16px); color: #fff; text-shadow: -1px 1px 2px rgba(4,50,75,.55); border-radius: 10px; padding: 6px 14px; line-height: 1.2; }
+  .target span { display: block; font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; opacity: .92; }
+  .target b    { font-size: 15px; font-weight: 600; }
+  ul.punch    { list-style: none; margin: 0; padding: 0; }
+  ul.punch li { position: relative; padding-left: 20px; margin: 3px 0; line-height: 1.35; }
+  ul.punch li::before { content: ""; position: absolute; left: 0; top: 2px; width: 11px; height: 11px; border: 2px solid var(--blue); border-radius: 3px; }
+  .err { padding: 24px; color: #d9552a; font-weight: 700; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 980px) {
+    .next.on  { flex-wrap: wrap; }
+    .next .ttl { font-size: 18px; }
+    .summary { grid-template-columns: 1fr; }
+    table, thead, tbody, tr, td { display: block; }
+    thead { display: none; }
+    tbody tr { padding: 14px 16px; border-top: 1px solid var(--blue-line); }
+    tbody td { border: 0; padding: 5px 0; text-align: left; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+    tbody td::before { content: attr(data-label); font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); font-weight: 700; }
+    td.num, td.name { display: block; }
+    td.num::before, td.name::before { display: none; }
+    td.sep { border-left: 0; }
+    td.wcell { width: auto; min-width: 0; display: block; }
+    td.wcell::before { display: block; margin-bottom: 6px; }
+    td.notes { max-width: none; }
+  }
+</style>
+
+<div class="page-header">
+  <h1 class="page-title">Videos at a Glance</h1>
+  <p class="page-sub">{{PROJECT_TITLE}}</p>
+</div>
+
+<div class="sharebar" id="sharebar"></div>
+<div class="next" id="next"></div>
+<div class="homebar" id="homebar"></div>
+<div class="summary" id="summary"></div>
+
+<div class="wrap">
+  <table>
+    <thead>
+      <tr class="grp">
+        <th colspan="2"></th>
+        <th class="sep">Next Up</th>
+        <th colspan="5" class="sep">Production</th>
+        <th class="sep">Status</th>
+        <th colspan="3" class="sep">Invoices</th>
+        <th class="sep">Punch list</th>
+      </tr>
+      <tr>
+        <th>#</th><th class="l">Name</th>
+        <th class="sep">Waiting on</th>
+        <th class="sep">Script</th><th>Visuals</th><th>VO</th><th>End Cards</th><th>Sound Design</th>
+        <th class="sep">Status</th>
+        <th class="sep">First</th><th>Second</th><th>Final</th>
+        <th class="sep l">Notes</th>
+      </tr>
+    </thead>
+    <tbody id="rows"></tbody>
+  </table>
+</div>
+
+<script>
+/* Design key (glance.csv):
+   Punch list: start an item with [x] to check it off.
+   Share banner: green bar at the very top for any video with a share_link; clear the cell to hide it.
+   share_label sets the banner wording (e.g. "Near final version ready to share"); blank shows "Ready to share".
+   Status "Final review": light green pill. */
+var STAGE={"not started":"Not started","in progress":"In progress","awaiting review":"Awaiting review","approved":"Approved"};
+var INV={"not sent":"Not sent","sent":"Sent","paid":"Paid"};
+function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function slug(v){return String(v||"").trim().toLowerCase().replace(/\s+/g,"-")}
+function pill(v,map,fallback){var k=String(v||"").trim().toLowerCase();if(!map[k])k=fallback;return'<span class="pill '+slug(k)+'">'+map[k]+'</span>'}
+function parseCSV(t){var rows=[],r=[],f="",q=false;for(var i=0;i<t.length;i++){var c=t[i];
+  if(q){if(c=='"'){if(t[i+1]=='"'){f+='"';i++}else q=false}else f+=c}
+  else if(c=='"')q=true;else if(c==','){r.push(f);f=""}
+  else if(c=='\n'||c=='\r'){if(c=='\r'&&t[i+1]=='\n')i++;r.push(f);f="";if(r.join("")!=="")rows.push(r);r=[]}
+  else f+=c}
+  if(f!==""||r.length){r.push(f);rows.push(r)}
+  var h=rows.shift().map(function(x){return x.trim()});
+  return rows.map(function(a){var o={};h.forEach(function(k,i){o[k]=(a[i]||"").trim()});return o})}
+var STEPS=[["script","script"],["visuals","visuals"],["vo","VO"],["end_cards","end cards"],["sound_design","sound design"]];
+function manual(v){return String(v.waiting_on||"").split(/\||,|\+|&|\band\b/i).map(slug).filter(function(x){return x==="client"||x==="blue-seat"})}
+function waits(v){var o={"blue-seat":[],"client":[]},F=String(v.waiting_for||"").split("|"),m=manual(v);
+  m.forEach(function(w,i){var x=(F[i]||"").trim();if(x)o[w].push(x)});
+  STEPS.forEach(function(s){var st=slug(v[s[0]]),cap=s[1].charAt(0).toUpperCase()+s[1].slice(1);
+    if(st==="in-progress")o["blue-seat"].push(cap);
+    if(st==="awaiting-review")o["client"].push("Review "+s[1])});
+  ["blue-seat","client"].forEach(function(w){var seen={};o[w]=o[w].filter(function(x){var k=x.toLowerCase();if(seen[k])return false;seen[k]=1;return true})});
+  o.who=m.slice();["blue-seat","client"].forEach(function(w){if(o[w].length&&o.who.indexOf(w)<0)o.who.push(w)});
+  return o}
+function whoList(v){return waits(v).who}
+function waitChip(v){var o=waits(v);
+  if(!o.who.length)return'<span class="wait wait-none"><b>—</b></span>';
+  return'<div class="wrapw">'+o.who.map(function(w){return'<span class="wait wait-'+w+'"><b>'+(w==="client"?"Client":"Blue Seat")+'</b>'+o[w].map(esc).join("<br>")+'</span>'}).join("")+'</div>'}
+function wlist(V,who){var a=V.filter(function(v){return whoList(v).indexOf(who)>-1});
+  return a.length?'<ul class="wl">'+a.map(function(v){return'<li>'+esc(v.name)+waits(v)[who].map(function(x){return'<small>'+esc(x)+'</small>'}).join("")+'</li>'}).join("")+'</ul>':''}
+function target(d){d=(d||"").trim();return d?'<div class="target"><span>Estimated completion</span><b>'+esc(d)+'</b></div>':''}
+function punch(s){var a=String(s||"").split(/\||\n/).map(function(x){return x.trim()}).filter(Boolean);
+  return a.length?'<ul class="punch">'+a.map(function(x){var d=/^\[x\]\s*/i.test(x);return '<li'+(d?' class="done"':'')+'>'+esc(d?x.replace(/^\[x\]\s*/i,''):x)+'</li>'}).join("")+'</ul>':''}
+function isDone(v){return/^(complete|completed|done)$/i.test((v||"").trim())}
+function comp(v){v=(v||"").trim();if(!v)return'<span class="chk">—</span>';
+  var c=isDone(v)?"complete":({"home-stretch":"home-stretch","final-review":"final-review","in-progress":"in-progress","awaiting-review":"awaiting-review","not-started":"not-started"}[slug(v)]||"sent");return'<span class="pill '+c+'">'+esc(v)+'</span>'}
+function render(V){
+  var keys=["script","visuals","vo","end_cards","sound_design"];
+  document.getElementById("rows").innerHTML=V.map(function(v){
+    return'<tr><td class="num" data-label="#">'+esc(v.video)+'</td><td class="name" data-label="Name">'+esc(v.name)+'</td>'+
+    '<td class="sep wcell" data-label="Waiting on">'+waitChip(v)+'</td>'+
+    '<td class="sep" data-label="Script">'+pill(v.script,STAGE,"not started")+'</td>'+
+    '<td data-label="Visuals">'+pill(v.visuals,STAGE,"not started")+'</td>'+
+    '<td data-label="VO">'+pill(v.vo,STAGE,"not started")+'</td>'+
+    '<td data-label="End Cards">'+pill(v.end_cards,STAGE,"not started")+'</td>'+
+    '<td data-label="Sound Design">'+pill(v.sound_design,STAGE,"not started")+'</td>'+
+    '<td class="sep" data-label="Status">'+comp(v.status)+'</td>'+
+    '<td class="sep" data-label="First invoice">'+pill(v.first_invoice,INV,"not sent")+'</td>'+
+    '<td data-label="Second invoice">'+pill(v.second_invoice,INV,"not sent")+'</td>'+
+    '<td data-label="Final invoice">'+pill(v.final_invoice,INV,"not sent")+'</td>'+
+    '<td class="notes sep" data-label="Notes">'+punch(v.notes)+target(v.target_date)+'</td></tr>'}).join("");
+  var hs=V.filter(function(v){return slug(v.status)==="home-stretch"}),hb=document.getElementById("homebar");
+  if(hs.length){hb.innerHTML='<span class="lab">Home stretch</span>'+hs.map(function(v){return'<span class="vid">'+esc(v.name)+'</span>'}).join("");hb.className="homebar on"}else hb.className="homebar";
+  var sb=document.getElementById("sharebar"),sh=V.filter(function(v){return (v.share_link||"").trim()});
+  if(sh.length){sb.innerHTML=sh.map(function(v){return '<span class="lab">'+esc(v.name)+' – '+esc((v.share_label||"").trim()||"Ready to share")+'</span><a href="'+esc(v.share_link.trim())+'" target="_blank" rel="noopener"><span>Watch on</span><b>Vimeo</b></a>'}).join("");sb.className="sharebar on"}else sb.className="sharebar";
+  var ap=0,fin=0;
+  V.forEach(function(v){keys.forEach(function(k){if(slug(v[k])==="approved")ap++});if(isDone(v.status))fin++});
+  function card(a,b,l){return'<div class="stat"><b>'+a+' / '+b+'</b><span>'+l+'</span><div class="bar"><i style="width:'+Math.round(a/b*100)+'%"></i></div></div>'}
+  var wc=V.filter(function(v){return whoList(v).indexOf("client")>-1}).length,
+      wb=V.filter(function(v){return whoList(v).indexOf("blue-seat")>-1}).length;
+  document.getElementById("summary").innerHTML=
+    (fin>0?card(fin,V.length,"Videos completed"):"")+
+    '<div class="stat"><div class="two">'+
+      '<div><b>'+wc+'</b><span>Waiting on client</span>'+wlist(V,"client")+'</div>'+
+      '<div><b>'+wb+'</b><span>Waiting on Blue Seat</span>'+wlist(V,"blue-seat")+'</div>'+
+    '</div></div>';
+  fit();setTimeout(fit,300);if(document.fonts&&document.fonts.ready)document.fonts.ready.then(fit);
+}
+function fit(){var w=document.querySelector(".wrap"),tb=w.querySelector("table");tb.style.zoom="";
+  if(window.innerWidth<=980)return;var need=tb.scrollWidth,have=w.clientWidth;if(need>have)tb.style.zoom=Math.max(.7,have/need)}
+window.addEventListener("resize",fit);
+fetch("next.csv").then(function(r){return r.ok?r.text():""}).then(function(t){
+  var n=t?parseCSV(t)[0]:null;if(!n||!n.title)return;var el=document.getElementById("next");
+  el.innerHTML='<div><div class="lab">'+esc(n.label||"Next up")+'</div><div class="ttl">'+esc(n.title)+'</div>'+(n.detail?'<div class="det">'+esc(n.detail)+'</div>':'')+'</div>'+
+    (n.date?'<div class="when"><span>Due</span><b>'+esc(n.date)+'</b></div>':'');
+  el.className="next on"}).catch(function(){});
+fetch("glance.csv").then(function(r){return r.text()}).then(function(t){render(parseCSV(t))})
+  .catch(function(){document.getElementById("rows").innerHTML='<tr><td class="err" colspan="13">Could not load glance.csv</td></tr>'});
+</script>
